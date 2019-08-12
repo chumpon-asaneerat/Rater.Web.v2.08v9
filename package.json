@@ -1,7 +1,7 @@
 {
-  "name": "github-nlib-web-app-template",
+  "name": "rater.web.v2.0.8v9",
   "version": "1.0.0",
-  "description": "The git hub nlib web application template project.",
+  "description": "My Choice Rater Web v2.0.8 rev version 9.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chumpon-asaneerat/github-nlib-web-app-template.git"
+    "url": "git+https://github.com/chumpon-asaneerat/Rater.Web.v2.08v9.git"
   },
   "author": "Chumpon Asaneerat",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/chumpon-asaneerat/github-nlib-web-app-template/issues"
+    "url": "https://github.com/chumpon-asaneerat/Rater.Web.v2.08v9/issues"
   },
-  "homepage": "https://github.com/chumpon-asaneerat/github-nlib-web-app-template#readme",
+  "homepage": "https://github.com/chumpon-asaneerat/Rater.Web.v2.08v9#readme",
   "devDependencies": {
     "@types/dot": "^1.1.3",
     "@types/gulp": "^4.0.6",
