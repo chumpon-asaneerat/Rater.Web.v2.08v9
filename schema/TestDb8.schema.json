@@ -1,0 +1,16 @@
+{
+    "GetLanguages": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-14T01:26:27.350Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "null"
+                }
+            ],
+            "outputs": []
+        }
+    }
+}
