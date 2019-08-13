@@ -67,7 +67,7 @@ gulp.task('riot3', () => {
     let task = new GulpRiot3();
     task.opts = {
         merge: true,
-        src: path.join(__dirname, 'src/server/template/riot/**/*.tag'),
+        src: path.join(__dirname, 'templates/riot/**/*.tag'),
         dest: path.join(__dirname, 'dist/component/riot'),
         bundle: 'tags.js'
     };

@@ -1,3 +1,3 @@
 (() => {
-    console.log('app loaded');
+    riot.mount('app', { text: 'my text' })
 })();
