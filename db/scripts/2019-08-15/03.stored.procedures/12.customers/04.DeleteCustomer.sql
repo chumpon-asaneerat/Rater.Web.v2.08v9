@@ -21,6 +21,10 @@ CREATE PROCEDURE [dbo].[DeleteCustomer]
 )
 AS
 BEGIN
+	DELETE FROM DeviceML WHERE CustomerId = @customerId;
+	DELETE FROM Device WHERE CustomerId = @customerId;
+	DELETE FROM ClientAccess WHERE CustomerId = @customerId;
+
 	DELETE FROM Vote WHERE CustomerId = @customerId;
 	DELETE FROM QSlideItemML WHERE CustomerId = @customerId;
 	DELETE FROM QSlideItem WHERE CustomerId = @customerId;

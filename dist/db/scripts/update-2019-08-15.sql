@@ -8187,6 +8187,10 @@ CREATE PROCEDURE [dbo].[DeleteCustomer]
 )
 AS
 BEGIN
+	DELETE FROM DeviceML WHERE CustomerId = @customerId;
+	DELETE FROM Device WHERE CustomerId = @customerId;
+	DELETE FROM ClientAccess WHERE CustomerId = @customerId;
+
 	DELETE FROM Vote WHERE CustomerId = @customerId;
 	DELETE FROM QSlideItemML WHERE CustomerId = @customerId;
 	DELETE FROM QSlideItem WHERE CustomerId = @customerId;
@@ -8234,6 +8238,10 @@ CREATE PROCEDURE [dbo].[DeleteCustomers]
 )
 AS
 BEGIN
+	DELETE FROM DeviceML;
+	DELETE FROM Device;
+	DELETE FROM ClientAccess;
+
 	DELETE FROM Vote;
 	DELETE FROM QSlideItemML;
 	DELETE FROM QSlideItem;
