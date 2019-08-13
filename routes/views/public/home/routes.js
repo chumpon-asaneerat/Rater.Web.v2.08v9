@@ -28,14 +28,27 @@ const routes = class {
      * home
      * @param {Request} req The Request.
      * @param {Response} res The Response.
-     * @param {WebServer.RequestHandler} next The RequestHandler.
      */
-    static home(req, res, next) {
+    static home(req, res) {
         WebServer.sendFile(req, res, __dirname, 'index.html');
+    }
+    /**
+     * getfile
+     * @param {Request} req The Request.
+     * @param {Response} res The Response.
+     */
+    static getfile(req, res) {
+        let file = req.params.file.toLowerCase();
+        let files = ['app.js']
+        let idx = files.indexOf(file);
+        if (idx !== -1) {
+            WebServer.sendFile(req, res, __dirname, files[idx]);
+        }
     }
 }
 
 router.get('/', routes.home)
+router.get('/:file', routes.getfile)
 
 const init_routes = (svr) => {
     svr.route('/', router);
