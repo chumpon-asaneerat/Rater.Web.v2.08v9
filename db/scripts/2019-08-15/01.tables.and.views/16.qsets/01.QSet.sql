@@ -4,9 +4,6 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-DROP TABLE [dbo].[QSet]
-GO
-
 CREATE TABLE [dbo].[QSet](
 	[QSetId] [nvarchar](30) NOT NULL,
 	[CustomerId] [nvarchar](30) NOT NULL,

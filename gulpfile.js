@@ -98,7 +98,7 @@ gulp.task('merge-sql-scripts', () => {
             '!' + path.join(rootPath, '/*.sql')
         ],
         header: `/*********** Script Update Date: ` + sDate + `  ***********/\n`,
-        dest: path.join(__dirname, 'dist/server/db/scripts/'),
+        dest: path.join(__dirname, 'dist/db/scripts/'),
         target: 'update-' + sDate + '.sql'
     };
     return task.task();

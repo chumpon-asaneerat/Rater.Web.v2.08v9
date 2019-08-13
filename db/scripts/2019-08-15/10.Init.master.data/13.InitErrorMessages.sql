@@ -223,10 +223,10 @@ BEGIN
     EXEC SaveErrorMsg 1801, N'CustomerName cannot be null or empty string.'
     EXEC SaveErrorMsg 1802, N'UserName and Password cannot be null or empty string.'
     -- SIGNIN.
-    EXEC SaveErrorMsg 1901, N'Customer Id cannot be null or empty string.'
-    EXEC SaveErrorMsg 1902, N'User Name cannot be null or empty string.'
-    EXEC SaveErrorMsg 1903, N'Password cannot be null or empty string.'
-    EXEC SaveErrorMsg 1904, N'Cannot found User that match information.'
+    EXEC SaveErrorMsg 1901, N'User Name cannot be null or empty string.'
+    EXEC SaveErrorMsg 1902, N'Password cannot be null or empty string.'
+    EXEC SaveErrorMsg 1903, N'Cannot found User that match information.'
+    EXEC SaveErrorMsg 1904, N''
     -- GET VOTE SUMMARIES.
     EXEC SaveErrorMsg 2001, N'CustomerId cannot be null or empty string.'
     EXEC SaveErrorMsg 2002, N'QSetId cannot be null or empty string.'
@@ -244,12 +244,15 @@ BEGIN
     EXEC SaveErrorMsg 2202, N'Language Id cannot be null or empty string.'
     EXEC SaveErrorMsg 2203, N'Language Id not found.'
     EXEC SaveErrorMsg 2204, N'Error Message (ML) cannot be null or empty string.'
-
     -- CLIENTS
-    EXEC SaveErrorMsg 2301, N'Client Id cannot be null or empty string.'
-    EXEC SaveErrorMsg 2302, N'Client Init Date cannot be null.'
-    EXEC SaveErrorMsg 2303, N'Client is already registered.'
-
+    EXEC SaveErrorMsg 2301, N'Access Id cannot be null or empty string.'
+    EXEC SaveErrorMsg 2302, N'Access Id not found.'
+    EXEC SaveErrorMsg 2303, N'Lang Id cannot be null or empty string.'
+    EXEC SaveErrorMsg 2304, N'Lang Id not found.'
+    EXEC SaveErrorMsg 2305, N'Access Id cannot be null or empty string.'
+    EXEC SaveErrorMsg 2306, N'Access Id not found.'
+    EXEC SaveErrorMsg 2307, N'Access Id cannot be null or empty string.'
+    EXEC SaveErrorMsg 2308, N'Access Id not found.'
     -- DEVICES
     EXEC SaveErrorMsg 2401, N'Customer Id cannot be null or empty string.'
     EXEC SaveErrorMsg 2402, N'Device Type Id not found.'

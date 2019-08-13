@@ -18,6 +18,8 @@ GO
 -- <2018-05-24> :
 --	- Rename from SignIn to CheckUsers.
 --	- Remove customerId parameter.
+-- <2018-05-26> :
+--	- Fixed code when customerId is null.
 --
 -- [== Example ==]
 --
@@ -31,24 +33,51 @@ CREATE PROCEDURE [dbo].[CheckUsers] (
 , @errMsg as nvarchar(MAX) = N'' out)
 AS
 BEGIN
+
     -- Error Code:
     --   0 : Success
     -- OTHER : SQL Error Number & Error Message.
     BEGIN TRY
-		SELECT A.langId
-			 , A.customerId
-             , A.FullNameEN
-             , A.FullNameNative
-			 , B.CustomerNameEN
-			 , B.CustomerNameNative
-			 , A.ObjectStatus
-          FROM LogInView A, CustomerMLView B
-         WHERE LOWER(A.UserName) = LOWER(LTRIM(RTRIM(@userName)))
-           AND LOWER(A.[Password]) = LOWER(LTRIM(RTRIM(@passWord)))
-           AND LOWER(A.LangId) = LOWER(LTRIM(RTRIM(COALESCE(@langId, A.LangId))))
-		   AND B.CustomerId = A.CustomerId
-		   AND B.LangId = A.LangId
-         ORDER BY A.CustomerId, A.MemberId;
+		SELECT V.langId
+			 , V.customerId
+			 , V.FullNameEN
+			 , V.FullNameNative
+			 , V.CustomerNameEN
+			 , V.CustomerNameNative
+			 , V.ObjectStatus
+		  FROM 
+		  (
+			SELECT A.langId
+				 , A.customerId
+				 , A.memberId
+				 , A.FullNameEN
+				 , A.FullNameNative
+				 , B.CustomerNameEN
+				 , B.CustomerNameNative
+				 , A.ObjectStatus
+			  FROM LogInView A, CustomerMLView B
+			 WHERE LOWER(A.UserName) = LOWER(LTRIM(RTRIM(@userName)))
+			   AND LOWER(A.[Password]) = LOWER(LTRIM(RTRIM(@passWord)))
+			   AND LOWER(A.LangId) = LOWER(LTRIM(RTRIM(COALESCE(@langId, A.LangId))))
+			   AND B.CustomerId = A.CustomerId
+			   AND A.CustomerId IS NOT NULL
+			   AND B.LangId = A.LangId
+		  UNION ALL
+			SELECT A.langId
+				 , A.customerId
+				 , A.memberId
+				 , A.FullNameEN
+				 , A.FullNameNative
+				 , 'EDL Co., Ltd.' AS CustomerNameEN
+				 , 'บริษัท อีดีแอล จำกัด' CustomerNameNative
+				 , A.ObjectStatus
+			  FROM LogInView A
+			 WHERE LOWER(A.UserName) = LOWER(LTRIM(RTRIM(@userName)))
+			   AND LOWER(A.[Password]) = LOWER(LTRIM(RTRIM(@passWord)))
+			   AND LOWER(A.LangId) = LOWER(LTRIM(RTRIM(COALESCE(@langId, A.LangId))))
+			   AND A.CustomerId IS NULL
+		  ) AS V
+         ORDER BY V.CustomerId, V.MemberId
 
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
 	END TRY

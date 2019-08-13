@@ -6,7 +6,7 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: GetRandomCode.
+-- Name: GetRandomode.
 -- Description:	GetRandomCode is generate random code with specificed length max 50.
 -- [== History ==]
 -- <2016-11-02> :

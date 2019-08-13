@@ -19,6 +19,9 @@ GO
 CREATE PROCEDURE [dbo].[InitMemberTypes]
 AS
 BEGIN
+    DELETE FROM MemberTypeML;
+    DELETE FROM MemberType;
+
 	-- [EDL - ADMIN]
 	INSERT INTO MemberType VALUES (100, N'EDL - Admin')
 	-- [EDL - POWER USER]
