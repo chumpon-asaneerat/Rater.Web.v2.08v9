@@ -172,14 +172,8 @@
                     "enable": true
                 },
                 {
-                    "route": "/components",
-                    "path": "dist/component/riot",
-                    "maxAge": "5y",
-                    "enable": true
-                },
-                {
-                    "route": "/dist/js",
-                    "path": "public/lib/js",
+                    "route": "/dist",
+                    "path": "public/lib",
                     "maxAge": "15s",
                     "enable": true
                 }
