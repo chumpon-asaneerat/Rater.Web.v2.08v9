@@ -1,28 +1,80 @@
 <sidebar>
+    <h3>Tutorial 1</h3>
     <p>
     Context
     A new context is created for each item. These are tag instances.
     When loops are nested, all the children tags in the loop inherit any of their parent 
     loop’s properties and methods they themselves have undefined. In this way, Riot avoids 
     overriding things that should not be overridden by the parent tag.
-    The parent can be explicitly accessed through the parent variable. For example:
-    In the looped element everything but the each attribute belongs to the child context, 
-    so the title can be accessed directly and remove needs to be prefixed with parent. 
-    since the method is not a property of the looped item.
-    The looped items are tag instances. Riot does not touch the original items so no new 
-    properties are added to them.
-    After the event handler is executed the current tag instance is updated using 
-    this.update() (unless you set e.preventUpdate to true in your event handler) which 
-    causes all the looped items to execute as well. The parent notices that an item has 
-    been removed from the collection and removes the corresponding DOM node from the 
-    document.
+    A new context is created for each item. These are tag instances.
+    When loops are nested, all the children tags in the loop inherit any of their parent 
+    loop’s properties and methods they themselves have undefined. In this way, Riot avoids 
+    overriding things that should not be overridden by the parent tag.
+    A new context is created for each item. These are tag instances.
+    When loops are nested, all the children tags in the loop inherit any of their parent 
+    loop’s properties and methods they themselves have undefined. In this way, Riot avoids 
+    overriding things that should not be overridden by the parent tag.
     </p>
     <style>
         :scope {
             margin: 0 auto;
             background: silver;
+            position: fixed;
+            top: 40px;
+            width: 100vw;
+            height: calc(100vh - 40px - 20px);
+            background-color: rgba(90, 90, 90, .9);
+            display: block;
         }
     </style>
     <script>
+        //#region local variables
+
+        let self = this;
+        this.app = null;
+
+        //#endregion
+
+        //#region local element methods
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        //#endregion
+
+        //#region riot handlers
+
+        this.on('mount', () => { bindEvents(); });
+        this.on('unmount', () => { unbindEvents(); });
+
+        //#endregion
+
+        //#region private methods
+
+        //#endregion
+
+        //#region public methods
+        
+        this.hide = () => {
+            self.root.classList.remove('open');
+            self.update();
+        }
+        
+        this.show = () => {
+            self.root.classList.add('open');
+            self.update();
+        }
+
+        this.toggle = () => {
+            self.root.classList.toggle('open');
+            self.update();
+        }
+
+        this.setapp = (app) => {
+            if (!app) return self.app;
+            self.app = app;
+        }
+
+        //#endregion
     </script>
 </sidebar>

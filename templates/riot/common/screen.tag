@@ -26,8 +26,12 @@
 
         //#region riot handlers
 
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
+        this.on('mount', () => {
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+        });
 
         //#endregion
 
@@ -53,7 +57,7 @@
             self.update();
         }
 
-        this.app = (app) => {
+        this.setapp = (app) => {
             if (!app) return self.app;
             self.app = app;
         }

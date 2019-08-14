@@ -1,21 +1,31 @@
-riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <sidebar class="sidebar"></sidebar> <div class="scrarea"> <yield></yield> </div> <page-footer class="footer"></page-footer>', 'app,[data-is="app"]{ margin: 0 auto; height: 100vh; display: grid; grid-template-columns: 200px 1fr; grid-template-rows: 40px 1fr 20px; grid-template-areas: \'navibar navibar\' \'sidebar scrarea\' \'footer footer\'; overflow: hidden; } app .navibar,[data-is="app"] .navibar{ grid-area: navibar; } app .sidebar,[data-is="app"] .sidebar{ grid-area: sidebar; overflow: auto; } app .scrarea,[data-is="app"] .scrarea{ grid-area: scrarea; overflow: auto; } app .footer,[data-is="app"] .footer{ grid-area: footer; padding: 0 2px; }', '', function(opts) {
+riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <sidebar class="sidebar"></sidebar> <yield></yield> </div> <page-footer class="footer"></page-footer>', 'app,[data-is="app"]{ margin: 0 auto; height: 100vh; display: grid; grid-template-columns: 200px 1fr; grid-template-rows: 40px 1fr 20px; grid-template-areas: \'navibar navibar\' \'scrarea scrarea\' \'footer footer\'; overflow: hidden; } app .navibar,[data-is="app"] .navibar{ grid-area: navibar; } app .sidebar,[data-is="app"] .sidebar{ grid-area: sidebar; overflow: auto; display: none; } app .sidebar.open,[data-is="app"] .sidebar.open{ display: block; } app .scrarea,[data-is="app"] .scrarea{ grid-area: scrarea; overflow: auto; } app .footer,[data-is="app"] .footer{ grid-area: footer; padding: 0 2px; }', '', function(opts) {
 
 
         let self = this;
         this.screens = [];
+        this.sidebar = null;
+        this.navbar = null;
 
         let bindEvents = () => { }
         let unbindEvents = () => { }
 
         this.on('mount', () => {
-            bindEvents();
 
             scanScreens();
+
+            self.navbar = self.tags['nav-bar'];
+            self.navbar.setapp(self);
+            self.sidebar = self.tags['sidebar'];
+            self.sidebar.setapp(self);
+            bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
 
             resetScreens();
+
+            self.navbar = null;
+            self.sidebar = null;
         });
 
         let scanScreens = () => {
@@ -28,7 +38,7 @@ riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <sidebar class="sidebar"><
             setDefaultScreen();
         }
         let setAppToScreens = () => {
-            self.screens.forEach((screen) => { screen.app(self); })
+            self.screens.forEach((screen) => { screen.setapp(self); })
         }
         let setDefaultScreen = () => {
             if (self.screens && self.screens[0]) self.screens[0].show();
@@ -43,6 +53,18 @@ riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <sidebar class="sidebar"><
             return ret;
         }
 
+        this.showSideBar = () => {
+            if (self.sidebar) self.sidebar.show();
+        }
+
+        this.hideSideBar = () => {
+            if (self.sidebar) self.sidebar.hide();
+        }
+
+        this.toggleSideBar = () => {
+            if (self.sidebar) self.sidebar.toggle();
+        }
+
 });
 
 riot.tag2('language-navmenu-item', '<div> <a class="flag" href="#"> <span class="flag-css flag-icon flag-icon-{flagcode}" ref="css-icon"></span> &nbsp; <div class="flag-text">EN</div> &nbsp; <span class="drop-synbol fas fa-caret-down"></span> </a> </div>', 'language-navmenu-item,[data-is="language-navmenu-item"]{ margin: 0 auto; padding: 0, 2px; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'flag\'; align-items: center; justify-content: stretch; } language-navmenu-item a,[data-is="language-navmenu-item"] a{ margin: 0 auto; color: whitesmoke; } language-navmenu-item a:link,[data-is="language-navmenu-item"] a:link,language-navmenu-item a:visited,[data-is="language-navmenu-item"] a:visited{ text-decoration: none; } language-navmenu-item a:hover,[data-is="language-navmenu-item"] a:hover,language-navmenu-item a:active,[data-is="language-navmenu-item"] a:active{ color: yellow; text-decoration: none; } language-navmenu-item .flag,[data-is="language-navmenu-item"] .flag{ margin: 0 auto; display: flex; align-items: center; justify-content: stretch; } language-navmenu-item .flag-css,[data-is="language-navmenu-item"] .flag-css{ margin: 0px auto; padding-top: 1px; display: inline-block; } language-navmenu-item .flag-text,[data-is="language-navmenu-item"] .flag-text{ margin: 0 auto; display: inline-block; } language-navmenu-item .drop-symbol,[data-is="language-navmenu-item"] .drop-symbol{ margin: 0 auto; display: inline-block; }', '', function(opts) {
@@ -53,12 +75,31 @@ riot.tag2('nav-bar', '<screen-navmenu-item></screen-navmenu-item> <div class="ba
 
 
         let self = this;
+        this.app = null;
+        this.scrrenMenu = null;
 
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
 
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
+        this.on('mount', () => {
+            self.scrrenMenu = self.tags['screen-navmenu-item'];
+            bindEvents();
+
+            if (self.scrrenMenu) self.scrrenMenu.setapp(self.app);
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            self.scrrenMenu = null;
+        });
+
+        this.setapp = (app) => {
+            console.log('nav set app')
+
+            if (!app) return self.app;
+            self.app = app;
+
+            if (self.scrrenMenu) self.scrrenMenu.setapp(app);
+        }
 
 });
 
@@ -81,6 +122,36 @@ riot.tag2('page-footer', '<p class="caption">Status:</p> <p class="status" ref="
 
 });
 riot.tag2('screen-navmenu-item', '<div class="home-icon"> <a href="#"> <span class="fas fa-home"></span> </a> </div>', 'screen-navmenu-item,[data-is="screen-navmenu-item"]{ margin: 0 auto; padding: 0, 2px; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'home-icon\'; align-items: center; justify-content: stretch; } screen-navmenu-item .home-icon,[data-is="screen-navmenu-item"] .home-icon{ grid-area: home-icon; color: whitesmoke; } screen-navmenu-item a,[data-is="screen-navmenu-item"] a{ margin: 0 auto; color: whitesmoke; } screen-navmenu-item a:link,[data-is="screen-navmenu-item"] a:link,screen-navmenu-item a:visited,[data-is="screen-navmenu-item"] a:visited{ text-decoration: none; } screen-navmenu-item a:hover,[data-is="screen-navmenu-item"] a:hover,screen-navmenu-item a:active,[data-is="screen-navmenu-item"] a:active{ color: yellow; text-decoration: none; }', '', function(opts) {
+
+
+        let self = this;
+        this.app = null;
+
+        let bindEvents = () => {
+            self.root.addEventListener('click', toggleSideBar)
+        }
+        let unbindEvents = () => {
+            self.root.removeEventListener('click', toggleSideBar)
+        }
+
+        this.on('mount', () => { bindEvents(); });
+        this.on('unmount', () => { unbindEvents(); });
+
+        let showSideBar = () => {
+            self.app.showSideBar();
+        }
+        let hideSideBar = () => {
+            self.app.hideSideBar();
+        }
+        let toggleSideBar = () => {
+            self.app.toggleSideBar();
+        }
+
+        this.setapp = (app) => {
+            if (!app) return self.app;
+            self.app = app;
+        }
+
 });
 riot.tag2('screen', '<yield></yield>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; } screen[active=true],[data-is="screen"][active=true]{ display: block; }', 'active="{opts.active ? true : false}"', function(opts) {
 
@@ -92,8 +163,12 @@ riot.tag2('screen', '<yield></yield>', 'screen,[data-is="screen"]{ margin: 0 aut
         let bindEvents = () => { }
         let unbindEvents = () => { }
 
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
+        this.on('mount', () => {
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+        });
 
         let hideOtherScreens = () => {
             let screens = self.app.screens;
@@ -111,11 +186,42 @@ riot.tag2('screen', '<yield></yield>', 'screen,[data-is="screen"]{ margin: 0 aut
             self.update();
         }
 
-        this.app = (app) => {
+        this.setapp = (app) => {
             if (!app) return self.app;
             self.app = app;
         }
 
 });
-riot.tag2('sidebar', '<p> Context A new context is created for each item. These are tag instances. When loops are nested, all the children tags in the loop inherit any of their parent loop’s properties and methods they themselves have undefined. In this way, Riot avoids overriding things that should not be overridden by the parent tag. The parent can be explicitly accessed through the parent variable. For example: In the looped element everything but the each attribute belongs to the child context, so the title can be accessed directly and remove needs to be prefixed with parent. since the method is not a property of the looped item. The looped items are tag instances. Riot does not touch the original items so no new properties are added to them. After the event handler is executed the current tag instance is updated using this.update() (unless you set e.preventUpdate to true in your event handler) which causes all the looped items to execute as well. The parent notices that an item has been removed from the collection and removes the corresponding DOM node from the document. </p>', 'sidebar,[data-is="sidebar"]{ margin: 0 auto; background: silver; }', '', function(opts) {
+riot.tag2('sidebar', '<h3>Tutorial 1</h3> <p> Context A new context is created for each item. These are tag instances. When loops are nested, all the children tags in the loop inherit any of their parent loop’s properties and methods they themselves have undefined. In this way, Riot avoids overriding things that should not be overridden by the parent tag. A new context is created for each item. These are tag instances. When loops are nested, all the children tags in the loop inherit any of their parent loop’s properties and methods they themselves have undefined. In this way, Riot avoids overriding things that should not be overridden by the parent tag. A new context is created for each item. These are tag instances. When loops are nested, all the children tags in the loop inherit any of their parent loop’s properties and methods they themselves have undefined. In this way, Riot avoids overriding things that should not be overridden by the parent tag. </p>', 'sidebar,[data-is="sidebar"]{ margin: 0 auto; background: silver; position: fixed; top: 40px; width: 100vw; height: calc(100vh - 40px - 20px); background-color: rgba(90, 90, 90, .9); display: block; }', '', function(opts) {
+
+
+        let self = this;
+        this.app = null;
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        this.on('mount', () => { bindEvents(); });
+        this.on('unmount', () => { unbindEvents(); });
+
+        this.hide = () => {
+            self.root.classList.remove('open');
+            self.update();
+        }
+
+        this.show = () => {
+            self.root.classList.add('open');
+            self.update();
+        }
+
+        this.toggle = () => {
+            self.root.classList.toggle('open');
+            self.update();
+        }
+
+        this.setapp = (app) => {
+            if (!app) return self.app;
+            self.app = app;
+        }
+
 });

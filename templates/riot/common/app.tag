@@ -8,9 +8,9 @@
     <button onclick="{ show }" value="1">show2</button>
     <button onclick="{ show }" value="2">show3</button>
     -->
-    <nav-bar class="navibar"></nav-bar>
-    <sidebar class="sidebar"></sidebar>
+    <nav-bar class="navibar"></nav-bar>    
     <div class="scrarea">
+        <sidebar class="sidebar"></sidebar>
         <yield/>
     </div>
     <page-footer class="footer"></page-footer>
@@ -23,7 +23,7 @@
             grid-template-rows: 40px 1fr 20px;
             grid-template-areas: 
                 'navibar navibar'
-                'sidebar scrarea'
+                'scrarea scrarea'
                 'footer  footer';
             overflow: hidden;
         }
@@ -32,6 +32,10 @@
         .sidebar {
             grid-area: sidebar;
             overflow: auto;
+            display: none;
+        }
+        .sidebar.open {
+            display: block;
         }
         .scrarea {
             grid-area: scrarea;
@@ -47,6 +51,8 @@
 
         let self = this;
         this.screens = [];
+        this.sidebar = null;
+        this.navbar = null;
 
         //#endregion
 
@@ -60,14 +66,22 @@
         //#region riot handlers
 
         this.on('mount', () => {
-            bindEvents();
             // after mount.
             scanScreens();
+            // set navbar and sidebar.
+            self.navbar = self.tags['nav-bar'];
+            self.navbar.setapp(self);
+            self.sidebar = self.tags['sidebar'];
+            self.sidebar.setapp(self);
+            bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
             // after unmount.
             resetScreens();
+            // reset navbar and sidebar.
+            self.navbar = null;
+            self.sidebar = null;
         });
 
         //#endregion
@@ -84,7 +98,7 @@
             setDefaultScreen();
         }
         let setAppToScreens = () => {
-            self.screens.forEach((screen) => { screen.app(self); })
+            self.screens.forEach((screen) => { screen.setapp(self); })
         }
         let setDefaultScreen = () => {
             if (self.screens && self.screens[0]) self.screens[0].show();
@@ -109,6 +123,18 @@
                 ret = self.screens[id];
             }
             return ret;
+        }
+
+        this.showSideBar = () => {
+            if (self.sidebar) self.sidebar.show();
+        }
+
+        this.hideSideBar = () => {
+            if (self.sidebar) self.sidebar.hide();
+        }
+
+        this.toggleSideBar = () => {
+            if (self.sidebar) self.sidebar.toggle();
         }
 
         //#endregion

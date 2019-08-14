@@ -79,26 +79,47 @@
         //#region local variables
 
         let self = this;
+        this.app = null;
+        this.scrrenMenu = null;
 
         //#endregion
 
         //#region local element methods
 
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
 
         //#endregion
 
         //#region riot handlers
 
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
+        this.on('mount', () => {
+            self.scrrenMenu = self.tags['screen-navmenu-item'];
+            bindEvents();
+            // set app
+            if (self.scrrenMenu) self.scrrenMenu.setapp(self.app);
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            self.scrrenMenu = null;
+        });
+
+        //#endregion
+
+        //#region private methods
 
         //#endregion
 
         //#region public methods
 
-        //this.publicMethod = (message) => { }
+        this.setapp = (app) => {
+            console.log('nav set app')
+
+            if (!app) return self.app;
+            self.app = app;
+            // set app
+            if (self.scrrenMenu) self.scrrenMenu.setapp(app);
+        }
 
         //#endregion
     </script>

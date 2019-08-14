@@ -183,8 +183,10 @@ class LanguageService {
 
 ; (function () {
     //console.log('Init language service...');
+    /*
     window.lang = window.lang || new LanguageService();
     lang.getLanguages();
+    */
 })();
 
 //#endregion
