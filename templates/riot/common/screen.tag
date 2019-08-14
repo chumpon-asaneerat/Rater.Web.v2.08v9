@@ -3,6 +3,7 @@
     <style>
         :scope {
             margin: 0 auto;
+            padding: 0;
             display: none;
         }
         :scope[active=true] { display: block; }
