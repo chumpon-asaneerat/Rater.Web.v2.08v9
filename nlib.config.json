@@ -183,7 +183,7 @@
     "mssql": {
         "default": {
             "server": "localhost",
-            "database": "TestDb8",
+            "database": "RaterWebv2x08r9",
             "user": "sa",
             "password": "winnt123",
             "pool": {

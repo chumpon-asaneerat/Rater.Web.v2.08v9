@@ -1,8 +1,8 @@
 // required to manual set require path for nlib-mssql.
 const SqlServer = require('./nlib/nlib-mssql');
-const schema = require('./schema/TestDb8.schema.json');
+const schema = require('./schema/RaterWebv2x08r9.schema.json');
 
-const TestDb8 = class extends SqlServer {
+const RaterWebv2x08r9 = class extends SqlServer {
     constructor() {
         super();
         // should match with nlib.config.json
@@ -23,4 +23,4 @@ const TestDb8 = class extends SqlServer {
 
 }
 
-module.exports = exports = TestDb8;
+module.exports = exports = RaterWebv2x08r9;

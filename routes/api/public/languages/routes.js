@@ -18,7 +18,7 @@ const WebServer = require(nlibExprjs);
 
 //#retion database requires
 
-const sqldb = require('./../../../../TestDb8.db');
+const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
 const db = new sqldb();
 
 //#endretion

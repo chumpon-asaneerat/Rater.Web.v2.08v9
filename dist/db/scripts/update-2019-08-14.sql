@@ -1,4 +1,4 @@
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 /****** Object:  StoredProcedure [dbo].[SignOut]    Script Date: 29/5/2561 3:44:29 ******/
 DROP PROCEDURE [dbo].[SignOut]
 GO
@@ -257,7 +257,7 @@ GO
 
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 /****** Object:  View [dbo].[dboView]    Script Date: 29/5/2561 3:45:39 ******/
 DROP VIEW [dbo].[dboView]
 GO
@@ -368,7 +368,7 @@ DROP VIEW [dbo].[NewIDView]
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 /****** Object:  Table [dbo].[Vote]    Script Date: 29/5/2561 3:46:28 ******/
 DROP TABLE [dbo].[Vote]
 GO
@@ -482,7 +482,7 @@ DROP TABLE [dbo].[Branch]
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 /****** Object:  UserDefinedFunction [dbo].[IsSameYear]    Script Date: 29/5/2561 3:47:27 ******/
 DROP FUNCTION [dbo].[IsSameYear]
 GO
@@ -515,7 +515,7 @@ DROP FUNCTION [dbo].[NewSID]
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -692,7 +692,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -731,7 +731,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The log messag
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -803,7 +803,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Unique ind
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -839,7 +839,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -876,7 +876,7 @@ GO
 
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -906,7 +906,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Error Mess
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -928,7 +928,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -965,7 +965,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1035,7 +1035,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Checks seed re
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1068,7 +1068,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default De
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1104,7 +1104,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Descriptio
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1136,7 +1136,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1172,7 +1172,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1212,7 +1212,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The English li
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1258,7 +1258,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The limit unit
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1292,7 +1292,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1336,7 +1336,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1366,7 +1366,7 @@ CREATE TABLE [dbo].[MemberType](
 
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1398,7 +1398,7 @@ CREATE TABLE [dbo].[MemberTypeML](
 
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1420,7 +1420,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1446,7 +1446,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1504,7 +1504,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Cu
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1544,7 +1544,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Currency U
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1572,7 +1572,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1631,7 +1631,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1668,7 +1668,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of Limi
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1706,7 +1706,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1747,7 +1747,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1800,7 +1800,7 @@ GO
 
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1839,7 +1839,7 @@ GO
 
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1867,7 +1867,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1924,7 +1924,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -1967,7 +1967,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of digi
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2050,7 +2050,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer N
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2104,7 +2104,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The PostalCode
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2137,7 +2137,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2210,7 +2210,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2291,7 +2291,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Prevent Enter 
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2334,7 +2334,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native Las
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2366,7 +2366,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2430,7 +2430,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2470,7 +2470,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Branch Pri
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2505,7 +2505,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native Bra
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2529,7 +2529,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2560,7 +2560,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2605,7 +2605,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2640,7 +2640,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native Org
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2666,7 +2666,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2717,7 +2717,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2783,7 +2783,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2815,7 +2815,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question S
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2855,7 +2855,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2901,7 +2901,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2957,7 +2957,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -2997,7 +2997,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question T
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3035,7 +3035,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3080,7 +3080,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3141,7 +3141,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3186,7 +3186,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question I
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3225,7 +3225,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3272,7 +3272,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3297,7 +3297,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The device des
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3327,7 +3327,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The device des
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3348,7 +3348,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3374,7 +3374,7 @@ AS
 			 )
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3415,7 +3415,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3447,7 +3447,7 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Location (ML)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceML', @level2type=N'COLUMN',@level2name=N'Location'
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3474,7 +3474,7 @@ AS
 
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3513,7 +3513,7 @@ AS
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3576,7 +3576,7 @@ ALTER TABLE [dbo].[Vote] ADD  CONSTRAINT [DF_Vote_ObjectStatus]  DEFAULT ((1)) F
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3606,7 +3606,7 @@ SELECT MV.LangId
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3642,7 +3642,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Created Da
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3677,7 +3677,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3713,7 +3713,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3749,7 +3749,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3785,7 +3785,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -3820,7 +3820,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3859,7 +3859,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3900,7 +3900,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3942,7 +3942,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3986,7 +3986,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4042,7 +4042,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4120,7 +4120,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4193,7 +4193,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4278,7 +4278,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4329,7 +4329,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4409,7 +4409,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4459,7 +4459,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4516,7 +4516,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4627,7 +4627,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4668,7 +4668,7 @@ END
 
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -4936,7 +4936,7 @@ EXEC InitErrorMessages;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 /****** Object:  StoredProcedure [dbo].[SaveLanguage]    Script Date: 6/12/2017 9:21:06 AM ******/
 SET ANSI_NULLS ON
 GO
@@ -5095,7 +5095,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -5130,7 +5130,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -5165,7 +5165,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5209,7 +5209,7 @@ END
 
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5312,7 +5312,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5476,7 +5476,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5518,7 +5518,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5619,7 +5619,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5769,7 +5769,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5816,7 +5816,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -5929,7 +5929,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -6084,7 +6084,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6132,7 +6132,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6179,7 +6179,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -6391,7 +6391,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -6550,7 +6550,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6603,7 +6603,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -6792,7 +6792,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6847,7 +6847,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6910,7 +6910,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -7098,7 +7098,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -7251,7 +7251,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7312,7 +7312,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -7430,7 +7430,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -7615,7 +7615,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -7662,7 +7662,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -7908,7 +7908,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -8097,7 +8097,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8163,7 +8163,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -8214,7 +8214,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8270,7 +8270,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -8626,7 +8626,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -8802,7 +8802,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8870,7 +8870,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -9032,7 +9032,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -9183,7 +9183,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9240,7 +9240,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -9467,7 +9467,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -9630,7 +9630,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9699,7 +9699,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10036,7 +10036,7 @@ END
 
 GO
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10202,7 +10202,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -10259,7 +10259,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10442,7 +10442,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10638,7 +10638,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -10694,7 +10694,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10955,7 +10955,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11205,7 +11205,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -11264,7 +11264,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11443,7 +11443,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -11592,7 +11592,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11655,7 +11655,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11699,7 +11699,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -11950,7 +11950,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12042,7 +12042,7 @@ GO
 
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12099,7 +12099,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12196,7 +12196,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12530,7 +12530,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12709,7 +12709,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12864,7 +12864,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12957,7 +12957,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13092,7 +13092,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13185,7 +13185,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13321,7 +13321,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13387,7 +13387,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -13429,7 +13429,7 @@ EXEC InitLanguages;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -13534,7 +13534,7 @@ EXEC InitMemberTypes;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13597,7 +13597,7 @@ EXEC InitPeriodUnits;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -13646,7 +13646,7 @@ EXEC InitLimitUnits;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13733,7 +13733,7 @@ EXEC InitLicenseTypes;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -13797,7 +13797,7 @@ EXEC InitLicenseFeatures;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -13848,7 +13848,7 @@ EXEC InitMasterPKs;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -13932,7 +13932,7 @@ EXEC InitDeviceTypes;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
@@ -13970,7 +13970,7 @@ EXEC InitDefaultUser;
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14119,7 +14119,7 @@ END
 GO
 
 
-/*********** Script Update Date: 2019-08-15  ***********/
+/*********** Script Update Date: 2019-08-14  ***********/
 SET ANSI_NULLS ON
 GO
 
