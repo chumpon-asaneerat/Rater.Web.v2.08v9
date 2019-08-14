@@ -28,13 +28,7 @@
             overflow: hidden;
         }
 
-        .navibar {
-            grid-area: navibar;
-            /*
-            align-self: stretch;
-            justify-self: stretch;
-            */
-        }
+        .navibar { grid-area: navibar; }
         .sidebar {
             grid-area: sidebar;
             overflow: auto;
@@ -46,10 +40,6 @@
         .footer {
             grid-area: footer;
             padding: 0 2px;
-            /*
-            align-self: stretch;
-            justify-self: stretch;
-            */
         }
     </style>
     <script>
@@ -71,24 +61,35 @@
 
         this.on('mount', () => {
             bindEvents();
-            let sobjs = self.tags['screen'];            
-            if (sobjs) {
-                if (!Array.isArray(sobjs)) self.screens.push(sobjs)
-                else self.screens.push(...sobjs)
-            }
-            self.screens.forEach((screen) => { screen.app(self); })
-
-            if (self.screens && self.screens[0]) self.screens[0].show();
+            // after mount.
+            scanScreens();
         });
         this.on('unmount', () => {
             unbindEvents();
-            self.screens = []
+            // after unmount.
+            resetScreens();
         });
 
         //#endregion
 
         //#region local privete methods
 
+        let scanScreens = () => {
+            let sobjs = self.tags['screen'];
+            if (sobjs) {
+                if (!Array.isArray(sobjs)) self.screens.push(sobjs)
+                else self.screens.push(...sobjs)
+            }
+            setAppToScreens();
+            setDefaultScreen();
+        }
+        let setAppToScreens = () => {
+            self.screens.forEach((screen) => { screen.app(self); })
+        }
+        let setDefaultScreen = () => {
+            if (self.screens && self.screens[0]) self.screens[0].show();
+        }
+        let resetScreens = () => { self.screens = []; }
         /*
         this.show = (e) => {
             //console.log(e.target.value)

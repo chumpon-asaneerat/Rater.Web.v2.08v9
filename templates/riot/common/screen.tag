@@ -26,9 +26,7 @@
 
         //#region riot handlers
 
-        this.on('mount', () => { 
-            bindEvents();
-        });
+        this.on('mount', () => { bindEvents(); });
         this.on('unmount', () => { unbindEvents(); });
 
         //#endregion
@@ -37,9 +35,7 @@
 
         let hideOtherScreens = () => {
             let screens = self.app.screens;
-            screens.forEach(screen => {
-                if (screen !== self) screen.hide();
-            })
+            screens.forEach(screen => { if (screen !== self) screen.hide(); })
         }
 
         //#endregion
@@ -48,7 +44,6 @@
         
         this.hide = () => {
             self.opts.active = false;
-            //self.root.SetAttrubite('active', null)
             self.update();
         }
 

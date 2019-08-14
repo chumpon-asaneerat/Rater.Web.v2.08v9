@@ -9,19 +9,31 @@ riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <sidebar class="sidebar"><
 
         this.on('mount', () => {
             bindEvents();
+
+            scanScreens();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+
+            resetScreens();
+        });
+
+        let scanScreens = () => {
             let sobjs = self.tags['screen'];
             if (sobjs) {
                 if (!Array.isArray(sobjs)) self.screens.push(sobjs)
                 else self.screens.push(...sobjs)
             }
+            setAppToScreens();
+            setDefaultScreen();
+        }
+        let setAppToScreens = () => {
             self.screens.forEach((screen) => { screen.app(self); })
-
+        }
+        let setDefaultScreen = () => {
             if (self.screens && self.screens[0]) self.screens[0].show();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-            self.screens = []
-        });
+        }
+        let resetScreens = () => { self.screens = []; }
 
         this.screen = (id) => {
             let ret = null;
@@ -74,21 +86,16 @@ riot.tag2('screen', '<yield></yield>', 'screen,[data-is="screen"]{ margin: 0 aut
         let bindEvents = () => { }
         let unbindEvents = () => { }
 
-        this.on('mount', () => {
-            bindEvents();
-        });
+        this.on('mount', () => { bindEvents(); });
         this.on('unmount', () => { unbindEvents(); });
 
         let hideOtherScreens = () => {
             let screens = self.app.screens;
-            screens.forEach(screen => {
-                if (screen !== self) screen.hide();
-            })
+            screens.forEach(screen => { if (screen !== self) screen.hide(); })
         }
 
         this.hide = () => {
             self.opts.active = false;
-
             self.update();
         }
 
