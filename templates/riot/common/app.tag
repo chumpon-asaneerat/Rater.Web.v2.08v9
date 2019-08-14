@@ -10,63 +10,34 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
-        self.lang = { id: 'EN', text: 'English' };
 
-        console.log('opts:', this.opts)
-        console.log('refs:', this.refs)
-        console.log('tags:', this.tags)
+        //#endregion
 
-        let change = (e) => {
-            //console.log('change language.')
-            if (self.lang.id === 'EN') {
-                self.lang = { id: 'TH', text: 'ไทย' }
-            }
-            else {
-                self.lang = { id: 'EN', text: 'English' }
-            }
-            //console.log(self.lang)
-            self.update();
-        }
+        //#region local element methods
 
-        let cnt = 0;
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 
-        let callMe = (e) => {
-            let footer = self.tags['page-footer'];
-            footer.callme('test' + cnt++);
-        }
+        //#endregion
         
-        let changeButton = null;
-        let callButton = null;
-        
-        let bindEvents = () => {
-            changeButton = self.refs["change-button"];
-            callButton = self.refs["call-button"];
+        //#region riot handlers
 
-            //console.log(changeButton)
-            changeButton.addEventListener('click', change)
-            callButton.addEventListener('click', callMe)
-        }
-        let unbindEvents = () => {
-            changeButton = self.refs["change-button"];
-            callButton = self.refs["call-button"];
-
-            //console.log(changeButton)
-            changeButton.removeEventListener('click', change)
-            callButton.removeEventListener('click', callMe)
-
-            callButton = null;
-            changeButton = null;
-        }
-
-        // riot handlers.
         this.on('mount', () => {
             bindEvents();
-
-            console.log('Screens:', this.tags['screen'])
         });
         this.on('unmount', () => {
             unbindEvents();
         });
+
+        //#endregion
+
+        //#region public methods
+
+        this.publicMethod = (message) => { }
+
+        //#endregion
     </script>
 </app>
