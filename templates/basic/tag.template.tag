@@ -31,6 +31,7 @@
             //console.log('Screens:', this.tags['screen'])
         });
         this.on('unmount', () => { unbindEvents(); });
+        this.on('updated', () => { });
 
         //#endregion
 
