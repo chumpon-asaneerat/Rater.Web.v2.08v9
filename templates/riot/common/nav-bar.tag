@@ -1,9 +1,9 @@
 <nav-bar>
-    <div class="scrmenu">MAIN</div>
+    <screen-navmenu-item></screen-navmenu-item>
     <div class="banner">
         <div>app name</div>
     </div>
-    <div class="langmenu">EN</div>
+    <language-navmenu-item></language-navmenu-item>
     <div class="navmenu">
         <a href="#">
             <span ref="showlinks" class="burger fas fa-bars" active="true"></span>
@@ -19,7 +19,7 @@
             margin: 0 auto;
             padding: 0;
             display: grid;
-            grid-template-columns: 25px 1fr 50px 30px;
+            grid-template-columns: 50px 1fr 90px 50px;
             grid-template-rows: 1fr;
             grid-template-areas: 
                 'scrmenu banner langmenu navmenu';
@@ -34,7 +34,6 @@
         .scrmenu {
             grid-area: scrmenu;
             margin: 0 auto;
-            padding: 0 3px;
             display: flex;
             align-items: center;
             justify-content: stretch;
@@ -47,7 +46,7 @@
             align-items: center;
             justify-content: stretch;
         }
-        .langmenu {
+        language-menu-item {
             grid-area: langmenu;
             margin: 0 auto;
             padding: 0 3px;
