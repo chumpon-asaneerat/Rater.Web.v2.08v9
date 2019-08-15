@@ -45,6 +45,9 @@ const routes = class {
                 ret = await db.GetLanguages(params);
                 await db.disconnect();
             }
+            else {
+                ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
+            }
             return ret;
         };
         fn().then(data => {
