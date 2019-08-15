@@ -449,6 +449,7 @@ const prepare = (rq, pObj, inputs, outputs) => {
     prepareInputs(rq, pObj, inputs);
     prepareOutputs(rq, pObj, outputs);
 }
+// error codes constant.
 const errorCodes = {
     UNKNOWN: 100,
     CONNECT_ERROR: 101,
@@ -792,7 +793,23 @@ const SqlServer = class {
 
     //#region error related methods and properties
 
+    /**
+     * Gets error numbers constant for error code. The default value are 
+     * UNKNOWN: 100, 
+     * CONNECT_ERROR: 101, 
+     * EXECUTE_ERROR: 102, 
+     * QUERY_ERROR: 103, 
+     * NO_DATA_ERROR: 104
+     */
     get errorNumbers() { return errorCodes; }
+    /**
+     * Create new Result Object with specificed error number and error message.
+     * 
+     * @param {Number} errNum The error number or error code.
+     * @param {String} errMsg The error message.
+     * @return {Object} returns the object that contains error number and error message
+     * that has same structure of another error in execute method and query method.
+     */
     error(errNum, errMsg) {
         let ret = createResult();
         ret.errors.hasError = true;
