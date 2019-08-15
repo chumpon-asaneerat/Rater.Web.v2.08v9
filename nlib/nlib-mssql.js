@@ -449,6 +449,13 @@ const prepare = (rq, pObj, inputs, outputs) => {
     prepareInputs(rq, pObj, inputs);
     prepareOutputs(rq, pObj, outputs);
 }
+const errorCodes = {
+    UNKNOWN: 100,
+    CONNECT_ERROR: 101,
+    EXECUTE_ERROR: 102,
+    QUERY_ERROR: 103,
+    NO_DATA_ERROR: 104
+}
 // create result object.
 const createResult = () => {
     return {
@@ -457,7 +464,8 @@ const createResult = () => {
         datasets: null,
         errors: {
             hasError: false,
-            ErrMsg: ''
+            errNum: 0,
+            errMsg: ''
         } 
     };
 }
@@ -661,7 +669,8 @@ const SqlServer = class {
             }
             catch (err) {
                 ret.errors.hasError = true;
-                ret.errors.ErrMsg = err.message;
+                ret.errors,errNum = errorCodes.QUERY_ERROR;
+                ret.errors.errMsg = err.message;
             }
             finally {
                 await unprepareStatement(ps, isPrepared);
@@ -761,7 +770,8 @@ const SqlServer = class {
             }
             catch (err) {
                 ret.errors.hasError = true;
-                ret.errors.ErrMsg = err.message;
+                ret.errors,errNum = errorCodes.EXECUTE_ERROR;
+                ret.errors.errMsg = err.message;
             }
         }
 
@@ -776,6 +786,19 @@ const SqlServer = class {
             this.connection = null;
             //console.log('database is disconnected.');
         }
+    }
+
+    //#endregion
+
+    //#region error related methods and properties
+
+    get errorNumbers() { return errorCodes; }
+    error(errNum, errMsg) {
+        let ret = createResult();
+        ret.errors.hasError = true;
+        ret.errors.errNum = errNum;
+        ret.errors.errMsg = errMsg;
+        return ret
     }
 
     //#endregion

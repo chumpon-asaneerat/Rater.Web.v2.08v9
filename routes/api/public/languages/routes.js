@@ -47,12 +47,32 @@ const routes = class {
             }
             return ret;
         };
-        fn().then((data) => {
-            WebServer.sendJson(req, res, data);
+        fn().then(data => {
+            let result = data;
+            if (!result) {
+                result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
+            }
+            WebServer.sendJson(req, res, result);
         })
     }
 }
 
+const check1 = (req, res, next) => {
+    console.log('check 1 call and wait 2 seoncds :', new Date().toString());
+    setTimeout(() => {
+        console.log('check 1 passed :', new Date().toString());
+        next()
+    }, 2000);
+}
+
+const check2 = (req, res, next) => {
+    console.log('check 2 call but not call next');
+}
+
+//router.use(check1);
+//router.use(check2);
+
+//router.get('/search', check1, check2, routes.getLanguages)
 router.get('/search', routes.getLanguages)
 
 const init_routes = (svr) => {
