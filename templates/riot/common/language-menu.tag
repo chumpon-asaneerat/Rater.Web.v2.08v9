@@ -1,6 +1,6 @@
 <language-menu>
     <div class="menu">
-        <a ref="flags" class="flag" href="#">
+        <a ref="flags" class="flag-combo" href="#">
             <span class="flag-css flag-icon flag-icon-{ language.flagcode }" ref="css-icon"></span>
             &nbsp;
             <div class="flag-text">{ language.langId }</div>
@@ -54,29 +54,33 @@
             color: yellow;
             text-decoration: none;
         }
-        .flag {
+        .flag-combo {
             margin: 0 auto;
         }
-        .flag-css {
+        .flag-combo .flag-css {
             margin: 0px auto;
             padding-top: 1px;
+            width: 20px;
             display: inline-block;
         }
-        .flag-text {
+        .flag-combo .flag-text {
             margin: 0 auto;
+            display: inline-block;
+            width: 25px;
+        }
+        .flag-combo .drop-symbol {
+            margin: 0 auto;
+            width: 10px;
             display: inline-block;
         }
         .flag-item {
-            margin: 7px auto;
+            margin: 0px auto;
             padding: 2px;
             padding-left: 5px;
+            height: 50px;
             display: flex;
-            align-content: center;
-        }
-        .drop-symbol {
-            margin: 0 auto;
-            width: 20px;
-            display: inline-block;
+            align-items: center;
+            justify-content: center;
         }
         .flag-item.selected {
             background-color: darkorange;
@@ -89,7 +93,7 @@
         }
         .flag-item .flag-text {
             margin: 0 auto;
-            width: 100px;
+            width: 120px;
             display: inline-block;
         }
         .toggle {
