@@ -1,7 +1,7 @@
 <nav-bar>
     <screen-navmenu-item></screen-navmenu-item>
     <div class="banner">
-        <div>app name</div>
+        <p>app</p>
     </div>
     <language-navmenu-item></language-navmenu-item>
     <div class="navmenu">
@@ -12,18 +12,15 @@
             <span ref="hidelinks" class="burger fas fa-times"></span>
         </a>
     </div>
-    <yield />
     <style>
-        :scope {            
+        :scope {
             width: 100vw;
             margin: 0 auto;
             padding: 0;
-            display: grid;
             grid-template-columns: 50px 1fr 90px 50px;
             grid-template-rows: 1fr;
             grid-template-areas: 
                 'scrmenu banner langmenu navmenu';
-
             background: cornflowerblue;
             color: whitesmoke;
         }
@@ -61,18 +58,6 @@
             display: flex;
             align-items: center;
             justify-content: stretch;
-        }
-        .navmenu a {
-            color: whitesmoke;
-        }
-        .navmenu a:hover {
-            color: yellow;
-        };
-        .navmenu span.burger {
-            display: none;
-        }
-        .navmenu span[active='true'].burger {
-            display: inline-block;
         }
     </style>
     <script>

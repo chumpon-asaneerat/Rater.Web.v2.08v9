@@ -1,7 +1,9 @@
 <app>
-    <scrarea class="scrarea">
+    <nav-bar class="navibar"></nav-bar>
+    <div class="scrarea">
         <yield/>
-    </scrarea>
+    </div>
+    <page-footer class="footer"></page-footer>
     <style>
         :scope {
             margin: 0 auto;
@@ -9,14 +11,23 @@
             width: 100vh;
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr;
+            grid-template-rows: 40px 1fr 20px;
             grid-template-areas: 
-                'scrarea';
+                'navbar'
+                'scrarea'
+                'footer';
             overflow: hidden;
+        }
+        .navbar {
+            grid-area: navibar;
         }
         .scrarea {
             grid-area: scrarea;
             overflow: auto;
+        }
+        .footer {
+            grid-area: footer;
+            padding: 0 2px;
         }
     </style>
     <script>
