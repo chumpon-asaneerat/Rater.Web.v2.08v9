@@ -1,4 +1,4 @@
-riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <sidebar class="sidebar"></sidebar> <yield></yield> </div> <page-footer class="footer"></page-footer>', 'app,[data-is="app"]{ margin: 0 auto; height: 100vh; display: grid; grid-template-columns: 200px 1fr; grid-template-rows: 40px 1fr 20px; grid-template-areas: \'navibar navibar\' \'scrarea scrarea\' \'footer footer\'; overflow: hidden; } app .navibar,[data-is="app"] .navibar{ grid-area: navibar; } app .scrarea,[data-is="app"] .scrarea{ grid-area: scrarea; overflow: auto; } app .footer,[data-is="app"] .footer{ grid-area: footer; padding: 0 2px; }', '', function(opts) {
+riot.tag2('app', '<scrarea class="scrarea"> <yield></yield> </scrarea>', 'app,[data-is="app"]{ margin: 0 auto; height: 100vh; width: 100vh; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'scrarea\'; overflow: hidden; } app .scrarea,[data-is="app"] .scrarea{ grid-area: scrarea; overflow: auto; }', '', function(opts) {
 
 
         let self = this;
