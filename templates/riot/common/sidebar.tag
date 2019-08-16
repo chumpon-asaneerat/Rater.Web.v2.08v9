@@ -62,26 +62,6 @@
         //#endregion
 
         //#region public methods
-        
-        this.hide = () => {
-            self.root.classList.remove('open');
-            self.update();
-        }
-        
-        this.show = () => {
-            self.root.classList.add('open');
-            self.update();
-        }
-
-        this.toggle = () => {
-            self.root.classList.toggle('open');
-            self.update();
-        }
-
-        this.setapp = (app) => {
-            if (!app) return self.app;
-            self.app = app;
-        }
 
         //#endregion
     </script>

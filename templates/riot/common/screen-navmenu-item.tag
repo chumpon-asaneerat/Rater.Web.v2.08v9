@@ -34,18 +34,13 @@
         //#region local variables
 
         let self = this;
-        this.app = null;
 
         //#endregion
 
         //#region local element methods
 
-        let bindEvents = () => {
-            self.root.addEventListener('click', toggleSideBar)
-        }
-        let unbindEvents = () => {
-            self.root.removeEventListener('click', toggleSideBar)
-        }
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
 
         //#endregion
 
@@ -58,24 +53,9 @@
 
         //#region private methods
 
-        let showSideBar = () => {
-            self.app.showSideBar();
-        }        
-        let hideSideBar = () => {
-            self.app.hideSideBar();
-        }
-        let toggleSideBar = () => {
-            self.app.toggleSideBar();
-        }
-
         //#endregion
 
         //#region public methods
-
-        this.setapp = (app) => {
-            if (!app) return self.app;
-            self.app = app;
-        }
 
         //#endregion
     </script>

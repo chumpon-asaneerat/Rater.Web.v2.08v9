@@ -55,12 +55,6 @@
 
         //#region public methods
 
-        this.callme = (message) => {
-            let el = self.refs['l1'];
-            el.textContent = message;
-            console.log('page-footer callme is reveived messagfe :', '"' + message + '"')
-        }
-
         //#endregion
     </script>
 </page-footer>

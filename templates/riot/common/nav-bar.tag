@@ -96,12 +96,9 @@
         this.on('mount', () => {
             self.scrrenMenu = self.tags['screen-navmenu-item'];
             bindEvents();
-            // set app
-            if (self.scrrenMenu) self.scrrenMenu.setapp(self.app);
         });
         this.on('unmount', () => {
             unbindEvents();
-            self.scrrenMenu = null;
         });
 
         //#endregion
@@ -111,15 +108,6 @@
         //#endregion
 
         //#region public methods
-
-        this.setapp = (app) => {
-            console.log('nav set app')
-
-            if (!app) return self.app;
-            self.app = app;
-            // set app
-            if (self.scrrenMenu) self.scrrenMenu.setapp(app);
-        }
 
         //#endregion
     </script>

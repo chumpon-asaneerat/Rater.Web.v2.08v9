@@ -50,7 +50,36 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
-        this.flagcode = 'us'
+
+        //#endregion
+
+        //#region local element methods
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        //#endregion
+        
+        //#region riot handlers
+
+        this.on('mount', () => {
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+        });
+
+        //#endregion
+
+        //#region local privete methods
+
+        //#endregion
+
+        //#region public methods
+
+        //#endregion
     </script>
 </language-navmenu-item>

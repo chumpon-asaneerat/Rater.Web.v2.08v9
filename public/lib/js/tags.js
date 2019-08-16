@@ -3,8 +3,6 @@ riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <sid
 
         let self = this;
         this.screens = [];
-        this.sidebar = null;
-        this.navbar = null;
 
         let bindEvents = () => { }
         let unbindEvents = () => { }
@@ -12,20 +10,12 @@ riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <sid
         this.on('mount', () => {
 
             scanScreens();
-
-            self.navbar = self.tags['nav-bar'];
-            self.navbar.setapp(self);
-            self.sidebar = self.tags['sidebar'];
-            self.sidebar.setapp(self);
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
 
             resetScreens();
-
-            self.navbar = null;
-            self.sidebar = null;
         });
 
         let scanScreens = () => {
@@ -53,23 +43,23 @@ riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <sid
             return ret;
         }
 
-        this.showSideBar = () => {
-            if (self.sidebar) self.sidebar.show();
-        }
-
-        this.hideSideBar = () => {
-            if (self.sidebar) self.sidebar.hide();
-        }
-
-        this.toggleSideBar = () => {
-            if (self.sidebar) self.sidebar.toggle();
-        }
-
 });
 
 riot.tag2('language-navmenu-item', '<div> <a class="flag" href="#"> <span class="flag-css flag-icon flag-icon-{flagcode}" ref="css-icon"></span> &nbsp; <div class="flag-text">EN</div> &nbsp; <span class="drop-synbol fas fa-caret-down"></span> </a> </div>', 'language-navmenu-item,[data-is="language-navmenu-item"]{ margin: 0 auto; padding: 0, 2px; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'flag\'; align-items: center; justify-content: stretch; } language-navmenu-item a,[data-is="language-navmenu-item"] a{ margin: 0 auto; color: whitesmoke; } language-navmenu-item a:link,[data-is="language-navmenu-item"] a:link,language-navmenu-item a:visited,[data-is="language-navmenu-item"] a:visited{ text-decoration: none; } language-navmenu-item a:hover,[data-is="language-navmenu-item"] a:hover,language-navmenu-item a:active,[data-is="language-navmenu-item"] a:active{ color: yellow; text-decoration: none; } language-navmenu-item .flag,[data-is="language-navmenu-item"] .flag{ margin: 0 auto; display: flex; align-items: center; justify-content: stretch; } language-navmenu-item .flag-css,[data-is="language-navmenu-item"] .flag-css{ margin: 0px auto; padding-top: 1px; display: inline-block; } language-navmenu-item .flag-text,[data-is="language-navmenu-item"] .flag-text{ margin: 0 auto; display: inline-block; } language-navmenu-item .drop-symbol,[data-is="language-navmenu-item"] .drop-symbol{ margin: 0 auto; display: inline-block; }', '', function(opts) {
+
+
         let self = this;
-        this.flagcode = 'us'
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        this.on('mount', () => {
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+        });
+
 });
 riot.tag2('nav-bar', '<screen-navmenu-item></screen-navmenu-item> <div class="banner"> <div>app name</div> </div> <language-navmenu-item></language-navmenu-item> <div class="navmenu"> <a href="#"> <span ref="showlinks" class="burger fas fa-bars" active="true"></span> </a> <a href="#"> <span ref="hidelinks" class="burger fas fa-times"></span> </a> </div> <yield></yield>', 'nav-bar,[data-is="nav-bar"]{ width: 100vw; margin: 0 auto; padding: 0; display: grid; grid-template-columns: 50px 1fr 90px 50px; grid-template-rows: 1fr; grid-template-areas: \'scrmenu banner langmenu navmenu\'; background: cornflowerblue; color: whitesmoke; } nav-bar p,[data-is="nav-bar"] p{ display: inline; padding: 2px; } nav-bar .scrmenu,[data-is="nav-bar"] .scrmenu{ grid-area: scrmenu; margin: 0 auto; display: flex; align-items: center; justify-content: stretch; } nav-bar .banner,[data-is="nav-bar"] .banner{ grid-area: banner; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } nav-bar language-menu-item,[data-is="nav-bar"] language-menu-item{ grid-area: langmenu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } nav-bar .navmenu,[data-is="nav-bar"] .navmenu{ grid-area: navmenu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } nav-bar .navmenu a,[data-is="nav-bar"] .navmenu a{ color: whitesmoke; } nav-bar .navmenu a:hover,[data-is="nav-bar"] .navmenu a:hover{ color: yellow; } nav-bar .navmenu span.burger,[data-is="nav-bar"] .navmenu span.burger{ display: none; } nav-bar .navmenu span[active=\'true\'].burger,[data-is="nav-bar"] .navmenu span[active=\'true\'].burger{ display: inline-block; }', '', function(opts) {
 
@@ -84,22 +74,10 @@ riot.tag2('nav-bar', '<screen-navmenu-item></screen-navmenu-item> <div class="ba
         this.on('mount', () => {
             self.scrrenMenu = self.tags['screen-navmenu-item'];
             bindEvents();
-
-            if (self.scrrenMenu) self.scrrenMenu.setapp(self.app);
         });
         this.on('unmount', () => {
             unbindEvents();
-            self.scrrenMenu = null;
         });
-
-        this.setapp = (app) => {
-            console.log('nav set app')
-
-            if (!app) return self.app;
-            self.app = app;
-
-            if (self.scrrenMenu) self.scrrenMenu.setapp(app);
-        }
 
 });
 
@@ -114,43 +92,17 @@ riot.tag2('page-footer', '<p class="caption">Status:</p> <p class="status" ref="
         this.on('mount', () => { bindEvents(); });
         this.on('unmount', () => { unbindEvents(); });
 
-        this.callme = (message) => {
-            let el = self.refs['l1'];
-            el.textContent = message;
-            console.log('page-footer callme is reveived messagfe :', '"' + message + '"')
-        }
-
 });
 riot.tag2('screen-navmenu-item', '<div class="home-icon"> <a href="#"> <span class="fas fa-home"></span> </a> </div>', 'screen-navmenu-item,[data-is="screen-navmenu-item"]{ margin: 0 auto; padding: 0, 2px; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'home-icon\'; align-items: center; justify-content: stretch; } screen-navmenu-item .home-icon,[data-is="screen-navmenu-item"] .home-icon{ grid-area: home-icon; color: whitesmoke; } screen-navmenu-item a,[data-is="screen-navmenu-item"] a{ margin: 0 auto; color: whitesmoke; } screen-navmenu-item a:link,[data-is="screen-navmenu-item"] a:link,screen-navmenu-item a:visited,[data-is="screen-navmenu-item"] a:visited{ text-decoration: none; } screen-navmenu-item a:hover,[data-is="screen-navmenu-item"] a:hover,screen-navmenu-item a:active,[data-is="screen-navmenu-item"] a:active{ color: yellow; text-decoration: none; }', '', function(opts) {
 
 
         let self = this;
-        this.app = null;
 
-        let bindEvents = () => {
-            self.root.addEventListener('click', toggleSideBar)
-        }
-        let unbindEvents = () => {
-            self.root.removeEventListener('click', toggleSideBar)
-        }
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
 
         this.on('mount', () => { bindEvents(); });
         this.on('unmount', () => { unbindEvents(); });
-
-        let showSideBar = () => {
-            self.app.showSideBar();
-        }
-        let hideSideBar = () => {
-            self.app.hideSideBar();
-        }
-        let toggleSideBar = () => {
-            self.app.toggleSideBar();
-        }
-
-        this.setapp = (app) => {
-            if (!app) return self.app;
-            self.app = app;
-        }
 
 });
 riot.tag2('screen', '<yield></yield>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; } screen[active=true],[data-is="screen"][active=true]{ display: block; }', 'active="{opts.active ? true : false}"', function(opts) {
@@ -203,25 +155,5 @@ riot.tag2('sidebar', '<h3>Tutorial 1</h3> <p> Context A new context is created f
 
         this.on('mount', () => { bindEvents(); });
         this.on('unmount', () => { unbindEvents(); });
-
-        this.hide = () => {
-            self.root.classList.remove('open');
-            self.update();
-        }
-
-        this.show = () => {
-            self.root.classList.add('open');
-            self.update();
-        }
-
-        this.toggle = () => {
-            self.root.classList.toggle('open');
-            self.update();
-        }
-
-        this.setapp = (app) => {
-            if (!app) return self.app;
-            self.app = app;
-        }
 
 });

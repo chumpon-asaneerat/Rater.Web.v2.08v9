@@ -42,8 +42,6 @@
 
         let self = this;
         this.screens = [];
-        this.sidebar = null;
-        this.navbar = null;
 
         //#endregion
 
@@ -59,25 +57,17 @@
         this.on('mount', () => {
             // after mount.
             scanScreens();
-            // set navbar and sidebar.
-            self.navbar = self.tags['nav-bar'];
-            self.navbar.setapp(self);
-            self.sidebar = self.tags['sidebar'];
-            self.sidebar.setapp(self);
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
             // after unmount.
             resetScreens();
-            // reset navbar and sidebar.
-            self.navbar = null;
-            self.sidebar = null;
         });
 
         //#endregion
 
-        //#region local privete methods
+        //#region privete methods
 
         let scanScreens = () => {
             let sobjs = self.tags['screen'];
@@ -95,14 +85,6 @@
             if (self.screens && self.screens[0]) self.screens[0].show();
         }
         let resetScreens = () => { self.screens = []; }
-        /*
-        this.show = (e) => {
-            //console.log(e.target.value)
-            let id = e.target.value;
-            let screen = self.screen(id);
-            if (screen) screen.show();
-        }
-        */
 
         //#endregion
 
@@ -114,18 +96,6 @@
                 ret = self.screens[id];
             }
             return ret;
-        }
-
-        this.showSideBar = () => {
-            if (self.sidebar) self.sidebar.show();
-        }
-
-        this.hideSideBar = () => {
-            if (self.sidebar) self.sidebar.hide();
-        }
-
-        this.toggleSideBar = () => {
-            if (self.sidebar) self.sidebar.toggle();
         }
 
         //#endregion
