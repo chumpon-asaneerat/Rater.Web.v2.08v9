@@ -59,6 +59,18 @@
             align-items: center;
             justify-content: stretch;
         }
+        .navmenu a {
+            color: whitesmoke;
+        }
+        .navmenu a:hover {
+            color: yellow;
+        };
+        .navmenu span.burger {
+            display: none;
+        }
+        .navmenu span[active='true'].burger {
+            display: inline-block;
+        }
     </style>
     <script>
         //#region local variables
