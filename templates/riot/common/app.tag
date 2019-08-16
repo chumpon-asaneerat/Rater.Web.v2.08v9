@@ -8,7 +8,6 @@
         :scope {
             margin: 0 auto;
             height: 100vh;
-            width: 100vh;
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: 40px 1fr 20px;

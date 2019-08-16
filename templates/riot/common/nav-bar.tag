@@ -1,7 +1,7 @@
 <nav-bar>
     <screen-navmenu-item></screen-navmenu-item>
     <div class="banner">
-        <p>app</p>
+        <div>app</div>
     </div>
     <language-navmenu-item></language-navmenu-item>
     <div class="navmenu">
@@ -25,7 +25,7 @@
             color: whitesmoke;
         }
         p {
-            display: inline;
+            display: inline-block;
             padding: 2px;
         }
         .scrmenu {
