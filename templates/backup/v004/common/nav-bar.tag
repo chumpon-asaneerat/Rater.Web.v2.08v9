@@ -1,21 +1,39 @@
 <nav-bar>
+    <screen-navmenu-item></screen-navmenu-item>
     <div class="banner">
         <div>app</div>
     </div>
-    <language-menu></language-menu>
-    <links-menu></links-menu>
+    <language-navmenu-item></language-navmenu-item>
+    <div class="navmenu">
+        <a href="#">
+            <span ref="showlinks" class="burger fas fa-bars" active="true"></span>
+        </a>
+        <a href="#">
+            <span ref="hidelinks" class="burger fas fa-times"></span>
+        </a>
+    </div>
     <style>
         :scope {
             width: 100vw;
             margin: 0 auto;
             padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 90px 50px;
+            grid-template-columns: 50px 1fr 90px 50px;
             grid-template-rows: 1fr;
             grid-template-areas: 
-                'banner lang-menu links-menu';
+                'scrmenu banner langmenu navmenu';
             background: cornflowerblue;
             color: whitesmoke;
+        }
+        p {
+            display: inline-block;
+            padding: 2px;
+        }
+        .scrmenu {
+            grid-area: scrmenu;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: stretch;
         }
         .banner {
             grid-area: banner;
@@ -25,27 +43,41 @@
             align-items: center;
             justify-content: stretch;
         }
-        language-menu {
-            grid-area: lang-menu;
+        language-menu-item {
+            grid-area: langmenu;
             margin: 0 auto;
             padding: 0 3px;
             display: flex;
             align-items: center;
             justify-content: stretch;
         }
-        links-menu {
-            grid-area: links-menu;
+        .navmenu {
+            grid-area: navmenu;
             margin: 0 auto;
             padding: 0 3px;
             display: flex;
             align-items: center;
             justify-content: stretch;
+        }
+        .navmenu a {
+            color: whitesmoke;
+        }
+        .navmenu a:hover {
+            color: yellow;
+        };
+        .navmenu span.burger {
+            display: none;
+        }
+        .navmenu span[active='true'].burger {
+            display: inline-block;
         }
     </style>
     <script>
         //#region local variables
 
         let self = this;
+        this.app = null;
+        this.scrrenMenu = null;
 
         //#endregion
 
@@ -59,6 +91,7 @@
         //#region riot handlers
 
         this.on('mount', () => {
+            self.scrrenMenu = self.tags['screen-navmenu-item'];
             bindEvents();
         });
         this.on('unmount', () => {

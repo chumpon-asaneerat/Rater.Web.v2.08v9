@@ -10,39 +10,15 @@
             height: 100vh;
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr;
-            grid-template-areas: 
-                'scrarea';
-            overflow: hidden;
-        }
-        :scope[navbar][footer] {
-            grid-template-columns: 1fr;
             grid-template-rows: 40px 1fr 20px;
-            grid-template-areas:
-                'nav-bar'
+            grid-template-areas: 
+                'navbar'
                 'scrarea'
                 'footer';
             overflow: hidden;
         }
-        :scope[navbar] {
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr 20px;
-            grid-template-areas:
-                'nav-bar'
-                'fooscrareater';
-            overflow: hidden;
-        }
-        :scope[footer] {
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr 20px;
-            grid-template-areas:
-                'scrarea'
-                'footer';
-            overflow: hidden;
-        }
-        .nav-bar {
-            grid-area: nav-bar;
-            overflow: hidden;
+        .navbar {
+            grid-area: navibar;
         }
         .scrarea {
             grid-area: scrarea;
@@ -51,7 +27,6 @@
         .footer {
             grid-area: footer;
             padding: 0 2px;
-            overflow: hidden;
         }
     </style>
     <script>

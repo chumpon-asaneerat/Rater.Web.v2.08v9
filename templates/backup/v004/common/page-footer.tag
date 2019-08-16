@@ -30,6 +30,7 @@
             grid-area: copyright;
         }
     </style>
+
     <script>
         //#region local variables
 
@@ -56,4 +57,3 @@
         //#endregion
     </script>
 </page-footer>
-    

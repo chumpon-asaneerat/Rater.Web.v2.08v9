@@ -1,4 +1,4 @@
-<screen>
+<screen active="{ opts.active ? true : false }">
     <yield/>
     <style>
         :scope {
@@ -6,12 +6,13 @@
             padding: 0;
             display: none;
         }
-        :scope.show { display: block; }
+        :scope[active=true] { display: block; }
     </style>
     <script>
         //#region local variables
 
         let self = this;
+        this.opts.active = false;
         this.app = null;
 
         //#endregion
@@ -46,13 +47,13 @@
         //#region public methods
         
         this.hide = () => {
-            self.root.classList.remove('show')
+            self.opts.active = false;
             self.update();
         }
 
         this.show = () => {
             hideOtherScreens();
-            self.root.classList.add('show')      
+            self.opts.active = true;            
             self.update();
         }
 
@@ -62,6 +63,5 @@
         }
 
         //#endregion
-    </script>
     </script>
 </screen>
