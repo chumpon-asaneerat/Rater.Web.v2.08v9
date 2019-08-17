@@ -191,3 +191,33 @@ class LanguageService {
 
 //#endregion
 
+/*
+
+class QSet {
+    constructor() {
+        this.qSetId = '';
+        this.customerId = '';
+        // description        
+        this.hasRemark = false;
+        this.displayMode = 1;
+        this.isDefault = false;
+        this.beginDate = new Date();
+        this.endDate = new Date();
+        this.objectStatus = true;
+
+        this.mlitems = [
+            { langId: 'EN', qSetDescriptionNative: 'Question set #1'},
+            { langId: 'TH', qSetDescriptionNative: 'ชุดคำถามที่ #1'}
+        ];
+        
+    }
+    get description() {
+        let currentLangId;
+        let langs = this.mlitems.map(item => item.langId);
+        let idx = langs.indexOf(currentLangId)
+        let ret = (idx !== -1) ? this.mlitems[idx] : this.mlitems[0];
+        return ret.qSetDescriptionNative;
+    }
+}
+
+*/
