@@ -37,7 +37,8 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static getLanguages(req, res) {
-        let params = req.body;
+        let params = WebServer.parseReq(req).data;
+        console.log(params)
         let ret;
         let fn = async () => {
             let connected = await db.connect();
@@ -76,7 +77,7 @@ const check2 = (req, res, next) => {
 //router.use(check2);
 
 //router.get('/search', check1, check2, routes.getLanguages)
-router.get('/search', routes.getLanguages)
+router.all('/search', routes.getLanguages)
 
 const init_routes = (svr) => {
     svr.route('/api/languages', router);
