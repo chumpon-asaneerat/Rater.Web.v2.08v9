@@ -3,7 +3,11 @@ EDL Database Server:
         ✔ Verify and checks correction. @done(19-08-14 13:29)
         ✔ Generate script. @done(19-08-14 13:29)
         ✔ Update to production server. @done(19-08-14 13:29)
-    Script for 2018-08-15:
+    Script for 2018-08-19:
+        ✔ Verify and checks correction. @done(19-08-19 13:42)
+        ✔ Generate script. @done(19-08-19 13:42)
+        ☐ Update to production server.
+    Script for 2018-08-20:
         ☐ Verify and checks correction.
         ☐ Generate script.
         ☐ Update to production server.

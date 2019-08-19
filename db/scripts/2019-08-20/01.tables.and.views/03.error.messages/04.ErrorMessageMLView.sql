@@ -11,6 +11,9 @@ GO
 -- [== History ==]
 -- <2018-05-18> :
 --	- View Created.
+-- <2019-08-19> :
+--	- View changes.
+--    - Remove ErrMsgNative column.
 --
 -- [== Example ==]
 --
@@ -19,13 +22,12 @@ CREATE VIEW [dbo].[ErrorMessageMLView]
 AS
 	SELECT EMV.LangId
 		 , EMV.ErrCode
-		 , EMV.ErrMsg AS ErrMsgEN
 		 , CASE 
 			WHEN EMML.ErrMsg IS NULL THEN 
 				EMV.ErrMsg 
 			ELSE 
 				EMML.ErrMsg 
-		   END AS ErrMsgNative
+		   END AS ErrMsg
 		 , EMV.Enabled
 		 , EMV.SortOrder
 		FROM dbo.ErrorMessageML AS EMML RIGHT OUTER JOIN ErrorMessageView AS EMV

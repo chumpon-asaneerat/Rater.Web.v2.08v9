@@ -8,8 +8,7 @@ CREATE VIEW [dbo].[ErrorMessageView]
 AS
     SELECT LanguageView.LangId
 		 --, LanguageView.FlagId
-	     --, LanguageView.DescriptionEN
-		 --, LanguageView.DescriptionNative
+	     --, LanguageView.Description
 		 , LanguageView.Enabled
 		 , LanguageView.SortOrder
 		 , ErrorMessage.ErrCode
