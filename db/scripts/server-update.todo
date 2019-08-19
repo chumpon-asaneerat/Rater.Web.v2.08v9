@@ -8,6 +8,6 @@ EDL Database Server:
         ✔ Generate script. @done(19-08-19 13:42)
         ☐ Update to production server.
     Script for 2018-08-20:
-        ☐ Verify and checks correction.
-        ☐ Generate script.
+        ✔ Verify and checks correction. @done(19-08-19 17:15)
+        ✔ Generate script. @done(19-08-19 17:15)
         ☐ Update to production server.
