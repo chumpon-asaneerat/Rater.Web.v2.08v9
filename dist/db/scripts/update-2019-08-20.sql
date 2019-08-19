@@ -1135,6 +1135,326 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+CREATE TABLE [dbo].[LicenseFeature](
+	[LicenseTypeId] [int] NOT NULL,
+	[Seq] [int] NOT NULL,
+	[LimitUnitId] [int] NOT NULL,
+	[NoOfLimit] [int] NOT NULL,
+ CONSTRAINT [PK_LicenseFeature] PRIMARY KEY CLUSTERED 
+(
+	[LicenseTypeId] ASC,
+	[Seq] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[LicenseFeature] ADD  CONSTRAINT [DF_LicenseFeature_NoOfLimit]  DEFAULT ((0)) FOR [NoOfLimit]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The LicenseTypeId.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'LicenseFeature', @level2type=N'COLUMN',@level2name=N'LicenseTypeId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Feature Sequence.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'LicenseFeature', @level2type=N'COLUMN',@level2name=N'Seq'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Limit Unit Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'LicenseFeature', @level2type=N'COLUMN',@level2name=N'LimitUnitId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of Limit Unit (<= 0 = Unlimited).' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'LicenseFeature', @level2type=N'COLUMN',@level2name=N'NoOfLimit'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[LicenseFeatureMLView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+	     , LF.LicenseTypeId
+	     , LF.Seq
+		 , LF.LimitUnitId
+		 , LF.LimitUnitDescription
+		 , LF.NoOfLimit
+		 , LF.LimitUnitText
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+	  FROM LanguageView RIGHT OUTER JOIN 
+	  (
+	    SELECT dbo.LimitUnitMLView.LangId
+			 , dbo.LicenseFeature.*
+		     , dbo.LimitUnitMLView.LimitUnitDescription
+		     , dbo.LimitUnitMLView.LimitUnitText
+		  FROM dbo.LicenseFeature, dbo.LimitUnitMLView
+		 WHERE dbo.LicenseFeature.LimitUnitId = dbo.LimitUnitMLView.LimitUnitId
+	  ) AS LF ON (LanguageView.LangId = LF.LangId)
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[LicenseMLView]
+AS
+	SELECT LTMLV.LangId
+		  ,LTMLV.LicenseTypeId
+		  ,LFMLV.Seq
+		  ,LTMLV.LicenseTypeDescription
+		  ,LTMLV.AdText
+		  ,LTMLV.PeriodUnitId
+		  ,LTMLV.NumberOfUnit
+		  ,LTMLV.UseDefaultPrice
+		  ,LTMLV.Price
+		  ,LTMLV.CurrencySymbol
+		  ,LTMLV.CurrencyText
+		  ,LFMLV.LimitUnitId
+		  ,LFMLV.NoOfLimit
+		  ,LFMLV.LimitUnitText
+		  ,LFMLV.LimitUnitDescription
+		  ,LTMLV.Enabled
+		  ,LTMLV.SortOrder
+	  FROM LicenseTypeMLView LTMLV LEFT JOIN
+		(
+		 SELECT * 
+		   FROM LicenseFeatureMLView LFMLV
+		) AS LFMLV ON (
+		      LFMLV.LangId = LTMLV.LangId
+		  AND LFMLV.LicenseTypeId = LTMLV.LicenseTypeId
+		)
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserInfo](
+	[UserId] [nvarchar](30) NOT NULL,
+	[MemberType] [int] NOT NULL,
+	[Prefix] [nvarchar](10) NULL,
+	[FirstName] [nvarchar](40) NOT NULL,
+	[LastName] [nvarchar](50) NULL,
+	[UserName] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](20) NOT NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_UserInfo] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[UserInfo] ADD  CONSTRAINT [DF_UserInfo_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The User Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'UserId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'100 - EDL Admin, 110 - EDL PowerUser, 180 - EDL Staff' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'MemberType'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Prefix' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'Prefix'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default First Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'FirstName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Last Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'LastName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The LogIn User Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'UserName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The LogIn Password' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'Password'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 1 - Active' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfo', @level2type=N'COLUMN',@level2name=N'ObjectStatus'
+GO
+
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserInfoML](
+	[UserId] [nvarchar](30) NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[Prefix] [nvarchar](10) NULL,
+	[FirstName] [nvarchar](40) NOT NULL,
+	[LastName] [nvarchar](50) NULL,
+ CONSTRAINT [PK_UserInfoML] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The User Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfoML', @level2type=N'COLUMN',@level2name=N'UserId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The language id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfoML', @level2type=N'COLUMN',@level2name=N'LangId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native Prefix' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfoML', @level2type=N'COLUMN',@level2name=N'Prefix'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native First Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfoML', @level2type=N'COLUMN',@level2name=N'FirstName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native Last Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserInfoML', @level2type=N'COLUMN',@level2name=N'LastName'
+GO
+
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[UserInfoView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+	     , UserInfo.UserId
+		 , UserInfo.MemberType
+		 , UserInfo.UserName
+		 , UserInfo.Password
+		 , UserInfo.ObjectStatus
+		 , UserInfo.Prefix
+		 , UserInfo.FirstName
+		 , UserInfo.LastName
+	  FROM LanguageView CROSS JOIN dbo.UserInfo
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[UserInfoMLView]
+AS
+	SELECT UIV.LangId
+	     , UIV.UserId
+		 , UIV.MemberType
+		 , CASE 
+			WHEN UIML.FirstName IS NULL THEN /* Use FirstName to check for used Native data */
+				UIV.Prefix
+			ELSE 
+				UIML.Prefix 
+		   END AS Prefix
+		 , CASE 
+			WHEN UIML.FirstName IS NULL THEN 
+				UIV.FirstName
+			ELSE 
+				UIML.FirstName 
+		   END AS FirstName
+		 , CASE 
+			WHEN UIML.FirstName IS NULL THEN /* Use FirstName to check for used Native data */
+				UIV.LastName 
+			ELSE 
+				UIML.LastName
+		   END AS LastName
+		 , CASE 
+			WHEN UIML.FirstName IS NULL THEN /* Use FirstName to check for used Native data */
+				RTRIM(LTRIM(RTRIM(LTRIM(ISNULL(UIV.Prefix, N''))) + N' ' +
+				            RTRIM(LTRIM(UIV.FirstName)) + N' ' +
+				            RTRIM(LTRIM(ISNULL(UIV.LastName, N'')))))
+			ELSE 
+				RTRIM(LTRIM(RTRIM(LTRIM(ISNULL(UIML.Prefix, N''))) + N' ' +
+				            RTRIM(LTRIM(UIML.FirstName)) + N' ' +
+				            RTRIM(LTRIM(ISNULL(UIML.LastName, N'')))))
+		   END AS FullName
+	     , UIV.UserName
+	     , UIV.Password
+		 , UIV.ObjectStatus
+		 , UIV.Enabled
+		 , UIV.SortOrder
+		FROM dbo.UserInfoML AS UIML RIGHT OUTER JOIN UserInfoView AS UIV
+		  ON (UIML.LangId = UIV.LangId AND UIML.UserId = UIV.UserId)
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CustomerPK](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[TableName] [nvarchar](50) NOT NULL,
+	[SeedResetMode] [tinyint] NOT NULL,
+	[LastSeed] [int] NOT NULL,
+	[Prefix] [nvarchar](10) NULL,
+	[SeedDigits] [tinyint] NOT NULL,
+	[LastUpdated] [datetime] NOT NULL,
+ CONSTRAINT [PK_CustomerPK] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[TableName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[CustomerPK] ADD  CONSTRAINT [DF_CustomerPK_SeedResetMode]  DEFAULT ((1)) FOR [SeedResetMode]
+GO
+
+ALTER TABLE [dbo].[CustomerPK] ADD  CONSTRAINT [DF_CustomerPK_LastSeed]  DEFAULT ((1)) FOR [LastSeed]
+GO
+
+ALTER TABLE [dbo].[CustomerPK] ADD  CONSTRAINT [DF_CustomerPK_SeedDigits]  DEFAULT ((4)) FOR [SeedDigits]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reset Mode : 1: daily, 2 : monthly, 3: yearly, 4: IgnoreDate' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerPK', @level2type=N'COLUMN',@level2name=N'SeedResetMode'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Last Seed Number (integer) - value cannot be negative' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerPK', @level2type=N'COLUMN',@level2name=N'LastSeed'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of digit for seed (default is 4)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerPK', @level2type=N'COLUMN',@level2name=N'SeedDigits'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 -- =============================================
 -- Author: Chumpon Asaneerat
 -- Name: IsNullOrEmpty.
@@ -4274,6 +4594,1076 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
+-- Name: SaveLicenseFeature.
+-- Description:	Save License Feature.
+-- [== History ==]
+-- <2017-05-31> :
+--	- Stored Procedure Created.
+-- <2017-06-08> :
+--  - The @errMsg set as nvarchar(MAX).
+-- <2018-04-16> :
+--	- change error code(s).
+--
+-- [== Example ==]
+--declare seq int;
+--exec SaveLicenseFeature 5, 1, 2, @seq out -- Save Feature Limit device with 2 device(s).
+--select * from seq as Seq;
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveLicenseFeature] (
+  @licenseTypeId as int = null
+, @limitUnitId as int = null
+, @noOfLimit as int = null
+, @seq as int = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCnt int;
+DECLARE @iSeq int;
+	-- Error Code:
+	--   0 : Success
+	-- 701 : LicenseType Id cannot be null.
+	-- 702 : LicenseType Id not found.
+	-- 703 : LimitUnit Id cannot be null.
+	-- 704 : LimitUnit Id not found.
+	-- 705 : LimitUnit Id already exists.
+	-- 706 : No Of Limit cannot be null.
+	-- 707 : No Of Limit should be zero or more.
+	-- 708 : Invalid Seq Number.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (@licenseTypeId IS NULL)
+		BEGIN
+			-- LicenseType Id cannot be null.
+            EXEC GetErrorMsg 701, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM LicenseType
+		 WHERE LicenseTypeId = @licenseTypeId;
+		IF (@iCnt = 0)
+		BEGIN
+			--LicenseType Id not found.
+            EXEC GetErrorMsg 702, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@limitUnitId IS NULL)
+		BEGIN
+			-- LimitUnit Id cannot be null.
+            EXEC GetErrorMsg 703, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM LimitUnit
+		 WHERE LimitUnitId = @limitUnitId;
+		IF (@iCnt = 0)
+		BEGIN
+			-- LimitUnit Id not found.
+            EXEC GetErrorMsg 704, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@seq IS NULL)
+		BEGIN
+			SELECT @iCnt = COUNT(*)
+			  FROM LicenseFeature
+			 WHERE LicenseTypeId = @licenseTypeId
+			   AND LimitUnitId = @limitUnitId;
+		END
+		ELSE
+		BEGIN
+			SELECT @iCnt = COUNT(*)
+			  FROM LicenseFeature
+			 WHERE LicenseTypeId = @licenseTypeId
+			   AND LimitUnitId = @limitUnitId
+			   AND Seq <> @seq;
+		END
+
+		IF (@iCnt <> 0)
+		BEGIN
+			-- LimitUnit Id already exists.
+            EXEC GetErrorMsg 705, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@noOfLimit IS NULL)
+		BEGIN
+			-- No Of Limit cannot be null.
+            EXEC GetErrorMsg 706, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@noOfLimit < 0)
+		BEGIN
+			-- No Of Limit should be zero or more.
+            EXEC GetErrorMsg 707, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@seq IS NULL)
+		BEGIN
+			SELECT @iSeq = MAX(Seq)
+			  FROM LicenseFeature
+			 WHERE LicenseTypeId = @licenseTypeId;
+			IF (@iSeq IS NULL)
+			BEGIN
+				SET @iSeq = 1;
+			END
+			ELSE
+			BEGIN
+				SET @iSeq = @iSeq + 1;
+			END
+		END
+		ELSE
+		BEGIN
+			SELECT @iCnt = COUNT(*)
+			  FROM LicenseFeature
+			 WHERE LicenseTypeId = @licenseTypeId
+			   AND Seq = @seq;
+			
+			IF (@iCnt = 0)
+			BEGIN
+				-- Invalid Seq Number.
+                EXEC GetErrorMsg 708, @errNum out, @errMsg out
+				RETURN
+			END
+
+			SET @iSeq = @seq;
+		END
+
+		IF (@seq IS NULL)
+		BEGIN
+			INSERT INTO [dbo].[LicenseFeature]
+			(
+				 LicenseTypeId
+			   , Seq
+			   , LimitUnitId
+			   , NoOfLimit
+			)
+			VALUES
+			(
+			     @licenseTypeId
+			   , @iSeq
+			   , @limitUnitId
+			   , @noOfLimit
+			);
+
+			-- SET OUTPUT SEQ.
+			SET @seq = @iSeq;
+		END
+		ELSE
+		BEGIN
+			UPDATE [dbo].[LicenseFeature]
+			   SET LimitUnitId = COALESCE(@limitUnitId, LimitUnitId)
+				 , NoOfLimit = COALESCE(@noOfLimit, NoOfLimit)
+			 WHERE LicenseTypeId = @licenseTypeId
+			   AND Seq = @iSeq;
+		END
+
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetLicenseFeatures.
+-- Description:	Get License Features.
+-- [== History ==]
+-- <2017-05-31> :
+--	- Stored Procedure Created.
+-- <2018-04-16> :
+--	- change language id from nvarchar(10) to nvarchar(3).
+-- <2018-05-15> :
+--	- change column LangId to langId
+--	- change column LicenseTypeId to licenseTypeId
+--	- change column LimitUnitId to limitUnitId
+-- <2019-08-19> :
+--	- Remove column LimitUnitDescriptionNative.
+--	- Remove column LimitUnitTextNative.
+--	- Rename column LimitUnitDescriptionEN to LimitUnitDescription.
+--	- Rename column LimitUnitTextEN to LimitUnitText.
+--
+-- [== Example ==]
+--
+--exec GetLicenseFeatures N'EN';    -- for only EN language.
+--exec GetLicenseFeatures;          -- for get all.
+--exec GetLicenseFeatures N'EN', 1; -- for all features for LicenseTypeId = 1 in EN language.
+--exec GetLicenseFeatures N'TH', 0; -- for all features for LicenseTypeId = 0 in TH language.
+-- =============================================
+CREATE PROCEDURE [dbo].[GetLicenseFeatures] 
+(
+  @langId nvarchar(3) = null
+, @licenseTypeId int = null
+)
+AS
+BEGIN
+	SELECT langId
+		 , licenseTypeId
+		 , seq
+		 , limitUnitId
+		 , LimitUnitDescription
+		 , NoOfLimit
+		 , LimitUnitText
+		 , SortOrder
+		 , Enabled 
+	  FROM LicenseFeatureMLView
+	 WHERE langId = COALESCE(@langId, langId)
+	   AND Enabled = 1
+	   AND LicenseTypeId = COALESCE(@licenseTypeId, LicenseTypeId)
+	 Order By SortOrder, LangId, LicenseTypeId;
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetLicenses.
+-- Description:	Get Licenses.
+-- [== History ==]
+-- <2018-05-09> :
+--	- Stored Procedure Created.
+-- <2018-05-15> :
+--	- change column LangId to langId
+--	- change column LicenseTypeId to licenseTypeId
+--	- change column PeriodUnitId to periodUnitId
+--  - change column NumberOfUnit to NoOfUnit
+--	- change column LimitUnitId to limitUnitId
+-- <2019-08-19> :
+--	- Remove column LimitUnitDescriptionNative.
+--	- Remove column LimitUnitTextNative.
+--	- Remove column AdTextNative.
+--	- Rename column LimitUnitDescriptionEN to LimitUnitDescription.
+--	- Rename column LimitUnitTextEN to LimitUnitText.
+--	- Rename column AdTextEN to AdText.
+--
+-- [== Example ==]
+--
+--exec GetLicenses N'EN';    -- for only EN language.
+--exec GetLicenses;          -- for get all.
+-- =============================================
+CREATE PROCEDURE [dbo].[GetLicenses] 
+(
+  @langId nvarchar(3) = null
+, @licenseTypeId int = null  
+)
+AS
+BEGIN
+	SELECT langId
+		 , licenseTypeId
+		 , seq
+		 , LicenseTypeDescription
+		 , AdText
+		 , periodUnitId
+		 , NumberOfUnit as NoOfUnit
+		 , UseDefaultPrice
+		 , Price
+		 , CurrencySymbol
+		 , CurrencyText
+		 , limitUnitId
+		 , LimitUnitDescription
+		 , NoOfLimit
+		 , LimitUnitText
+		 , SortOrder
+		 , Enabled
+	  FROM LicenseMLView
+	 WHERE langId = COALESCE(@langId, langId)
+	   AND LicenseTypeId = COALESCE(@licenseTypeId, LicenseTypeId)
+	   AND Enabled = 1
+	 Order By SortOrder, LicenseTypeId, Seq
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveUserInfo.
+-- Description:	Save User Information.
+-- [== History ==]
+-- <2016-11-02> :
+--	- Stored Procedure Created.
+-- <2017-06-07> :
+--	- Fixed Logic to check duplicated Prefix - FirstName- LastName.
+--	- Fixed Logic to check duplicated UserName.
+-- <2017-06-08> :
+--  - The @errMsg set as nvarchar(MAX).
+-- <2018-04-16> :
+--	- change error code(s).
+--
+-- [== Example ==]
+--
+--exec SaveUserInfo N'The', N'EDL', N'Administrator', N'raterweb2-admin@edl.co.th', N'1234', 100
+--exec SaveUserInfo N'Mr.', N'Chumpon', N'Asaneerat', N'chumpon@edl.co.th', N'1234', 100
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveUserInfo] (
+  @prefix as nvarchar(10)
+, @firstName as nvarchar(40)
+, @lastName as nvarchar(50)
+, @userName as nvarchar(50)
+, @passWord as nvarchar(20)
+, @memberType as int = 100
+, @userId as nvarchar(30) = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iUsrCnt int = 0;
+	-- Error Code:
+	--   0 : Success
+	-- 501 : FirstName (default) cannot be null or empty string.
+	-- 502 : UserName cannot be null or empty string.
+	-- 503 : Password cannot be null or empty string.
+	-- 504 : User Full Name (default) already exists.
+	-- 505 : UserName already exists.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@firstName) = 1)
+		BEGIN
+            -- FirstName (default) cannot be null or empty string.
+            EXEC GetErrorMsg 501, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@userName) = 1)
+		BEGIN
+			-- UserName cannot be null or empty string.
+            EXEC GetErrorMsg 502, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@passWord) = 1)
+		BEGIN
+			-- Password cannot be null or empty string.
+            EXEC GetErrorMsg 503, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Prefix, FirstName, LastName exists */
+		IF (@userId IS NOT NULL)
+		BEGIN
+			SELECT @iUsrCnt = COUNT(*)
+				FROM UserInfo
+				WHERE LOWER(UserId) <> LOWER(RTRIM(LTRIM(@userId)))
+				  AND LOWER(RTRIM(LTRIM(Prefix))) = LOWER(RTRIM(LTRIM(@prefix)))
+				  AND LOWER(RTRIM(LTRIM(FirstName))) = LOWER(RTRIM(LTRIM(@firstName)))
+				  AND LOWER(RTRIM(LTRIM(LastName))) = LOWER(RTRIM(LTRIM(@lastName)))
+		END
+		ELSE
+		BEGIN
+			SELECT @iUsrCnt = COUNT(*)
+				FROM UserInfo
+				WHERE LOWER(RTRIM(LTRIM(Prefix))) = LOWER(RTRIM(LTRIM(@prefix)))
+				  AND LOWER(RTRIM(LTRIM(FirstName))) = LOWER(RTRIM(LTRIM(@firstName)))
+				  AND LOWER(RTRIM(LTRIM(LastName))) = LOWER(RTRIM(LTRIM(@lastName)))
+		END
+
+		IF @iUsrCnt <> 0
+		BEGIN
+            -- User Full Name (default) already exists.
+			EXEC GetErrorMsg 504, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SET @iUsrCnt = 0; -- Reset Counter.
+
+		/* Check UserName exists */
+		IF (@userId IS NOT NULL)
+		BEGIN
+			SELECT @iUsrCnt = COUNT(*)
+				FROM UserInfo
+				WHERE LOWER(UserId) <> LOWER(RTRIM(LTRIM(@userId)))
+				  AND LOWER(RTRIM(LTRIM(UserName))) = LOWER(RTRIM(LTRIM(@userName)))
+		END
+		ELSE
+		BEGIN
+			SELECT @iUsrCnt = COUNT(*)
+				FROM UserInfo
+				WHERE LOWER(RTRIM(LTRIM(UserName))) = LOWER(RTRIM(LTRIM(@userName)))
+		END
+
+		IF @iUsrCnt <> 0
+		BEGIN
+			-- UserName already exists.
+            EXEC GetErrorMsg 505, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SET @iUsrCnt = 0; -- Reset Counter.
+
+		IF dbo.IsNullOrEmpty(@userId) = 1
+		BEGIN
+			EXEC NextMasterPK N'UserInfo'
+							, @userId out
+							, @errNum out
+							, @errMsg out;
+			IF @errNum <> 0
+			BEGIN
+				RETURN;
+			END	
+		END
+		ELSE
+		BEGIN
+			SELECT @iUsrCnt = COUNT(*)
+			  FROM UserInfo
+			 WHERE LOWER(UserId) = LOWER(RTRIM(LTRIM(@userId)))
+		END
+
+		IF @iUsrCnt = 0
+		BEGIN
+			INSERT INTO USERINFO
+			(
+				  UserId
+				, MemberType
+				, Prefix
+				, FirstName
+				, LastName
+				, UserName
+				, [Password]
+				, ObjectStatus
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@userId))
+				, @memberType
+				, RTRIM(LTRIM(@prefix))
+				, RTRIM(LTRIM(@firstName))
+				, RTRIM(LTRIM(@lastName))
+				, RTRIM(LTRIM(@userName))
+				, RTRIM(LTRIM(@passWord))
+				, 1
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE UserInfo
+			   SET Prefix = RTRIM(LTRIM(@prefix))
+			     , FirstName = RTRIM(LTRIM(@firstName))
+				 , LastName = RTRIM(LTRIM(@lastName))
+				 , UserName = RTRIM(LTRIM(@userName))
+				 , [Password] = RTRIM(LTRIM(@passWord))
+				 , MemberType = @memberType
+			 WHERE LOWER(UserId) = LOWER(RTRIM(LTRIM(@userId)))
+		END
+
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	SaveUserInfo.
+-- [== History ==]
+-- <2016-11-02> :
+--	- Stored Procedure Created.
+-- <2017-06-08> :
+--  - The @errMsg set as nvarchar(MAX).
+-- <2018-04-16> :
+--	- change error code(s).
+--	- change language id from nvarchar(10) to nvarchar(3).
+--
+-- [== Example ==]
+--
+--exec SaveUserInfoML N'EDL-U20170607001', N'TH', N'The', N'EDL', N'Administrator'
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveUserInfoML] (
+  @userId as nvarchar(30)
+, @langId as nvarchar(3)
+, @prefix as nvarchar(10)
+, @firstName as nvarchar(40)
+, @lastName as nvarchar(50)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iLangCnt int = 0;
+DECLARE @iUsrCnt int = 0;
+	-- Error Code:
+	--   0 : Success
+	-- 506 : Language Id cannot be null or empty string.
+	-- 507 : The Language Id not exist.
+	-- 508 : User Id cannot be null or empty string.
+	-- 509 : FirstName (ML) cannot be null or empty string.
+	-- 510 : No User match UserId.
+	-- 511 : User Full Name (ML) already exists.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		/* Check if lang id is not null. */
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- Language Id cannot be null or empty string.
+            EXEC GetErrorMsg 506, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check if language exists. */
+		SELECT @iLangCnt = COUNT(LangId)
+		  FROM Language
+		 WHERE UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		IF (@iLangCnt IS NULL OR @iLangCnt = 0) 
+		BEGIN
+			-- The Language Id not exist.
+            EXEC GetErrorMsg 507, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if user id is not null. */
+		IF (dbo.IsNullOrEmpty(@userId) = 1)
+		BEGIN
+			-- User Id cannot be null or empty string.
+            EXEC GetErrorMsg 508, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check has first name (required by table constrain). */
+		IF (dbo.IsNullOrEmpty(@firstName) = 1)
+		BEGIN
+			-- FirstName (ML) cannot be null or empty string.
+            EXEC GetErrorMsg 509, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check UserId is in UserInfo table */ 
+		SELECT @iUsrCnt = COUNT(*)
+			FROM UserInfo
+		   WHERE UPPER(RTRIM(LTRIM(UserId))) = UPPER(RTRIM(LTRIM(@userId)))
+		IF @iUsrCnt = 0
+		BEGIN
+			-- No User match UserId.
+            EXEC GetErrorMsg 510, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Prefix, FirstName, LastName exists */
+		SELECT @iUsrCnt = COUNT(*)
+			FROM UserInfoML
+			WHERE UPPER(LangId) = UPPER(RTRIM(LTRIM(@langId)))
+			  AND LOWER(UserId) <> LOWER(RTRIM(LTRIM(@userId)))
+			  AND LOWER(RTRIM(LTRIM(Prefix))) = LOWER(RTRIM(LTRIM(@prefix)))
+			  AND LOWER(RTRIM(LTRIM(FirstName))) = LOWER(RTRIM(LTRIM(@firstName)))
+			  AND LOWER(RTRIM(LTRIM(LastName))) = LOWER(RTRIM(LTRIM(@lastName)))
+
+		IF @iUsrCnt <> 0
+		BEGIN
+			-- User Full Name (ML) already exists.
+            EXEC GetErrorMsg 511, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SET @iUsrCnt = 0; -- Reset Counter.
+
+		/* check is need to insert or update? */
+		SELECT @iUsrCnt = COUNT(*)
+			FROM UserInfoML
+		   WHERE UPPER(RTRIM(LTRIM(UserId))) = UPPER(RTRIM(LTRIM(@userId)))
+			 AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+
+		IF @iUsrCnt = 0
+		BEGIN
+			INSERT INTO UserInfoML
+			(
+				  UserId
+				, LangId
+				, Prefix
+				, FirstName
+				, LastName
+			)
+			VALUES
+			(
+				  UPPER(RTRIM(LTRIM(@userId)))
+				, UPPER(RTRIM(LTRIM(@langId)))
+				, RTRIM(LTRIM(@prefix))
+				, RTRIM(LTRIM(@firstName))
+				, RTRIM(LTRIM(@lastName))
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE UserInfoML
+			   SET Prefix = RTRIM(LTRIM(@prefix))
+			     , FirstName = RTRIM(LTRIM(@firstName))
+				 , LastName = RTRIM(LTRIM(@lastName))
+		     WHERE UPPER(RTRIM(LTRIM(UserId))) = UPPER(RTRIM(LTRIM(@userId)))
+			   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		END
+
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	GetUserInfos
+-- [== History ==]
+-- <2017-05-31> :
+--	- Stored Procedure Created.
+-- <2018-04-16> :
+--	- change language id from nvarchar(10) to nvarchar(3).
+-- <2018-05-15> :
+--	- change column LangId to langId
+--	- change column UserId to userId
+-- <2019-08-19> :
+--	- Remove column PrefixNative.
+--	- Remove column FirstNameNative.
+--	- Remove column LastNameNative.
+--	- Remove column FullNameNative.
+--	- Rename column PrefixEN to FullName.
+--	- Rename column FirstNameEN to FullName.
+--	- Rename column LastNameEN to FullName.
+--	- Rename column FullNameEN to FullName.
+--
+-- [== Example ==]
+--
+--exec GetUserInfos NULL, NULL, 1;  -- for only enabled languages.
+--exec GetUserInfos;                -- for get all.
+--exec GetUserInfos N'EN', NULL;    -- for get UserInfo for EN language all member type.
+--exec GetUserInfos N'TH', NULL;    -- for get UserInfo for TH language all member type.
+--exec GetUserInfos N'EN', 100;     -- for get UserInfo for EN language member type = 100.
+--exec GetUserInfos N'TH', 180;     -- for get UserInfo for TH language member type = 180.
+-- =============================================
+CREATE PROCEDURE [dbo].[GetUserInfos] 
+(
+  @langId nvarchar(3) = NULL
+, @memberType int = NULL
+, @enabled bit = NULL
+)
+AS
+BEGIN
+	SELECT langId
+		 , userId
+		 , MemberType
+		 , Prefix
+		 , FirstName
+		 , LastName
+		 , FullName
+		 , UserName
+		 , Password
+		 , ObjectStatus
+		 , SortOrder
+		 , Enabled 
+	  FROM UserInfoMLView
+	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
+	   AND [MemberType] = COALESCE(@memberType, [MemberType])
+	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId,LangId))))
+	 ORDER BY SortOrder, UserId
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SetCustomerPK.
+-- Description:	Set Customer Primary Key.
+-- [== History ==]
+-- <2017-01-09> :
+--	- Stored Procedure Created.
+-- <2018-04-16> :
+--	- change error code(s).
+--
+-- [== Example ==]
+--
+--exec SetCustomerPK N'EDL-C2017010001', N'Branch', 4, 'B', 4
+-- =============================================
+CREATE PROCEDURE [dbo].[SetCustomerPK] (
+  @customerId nvarchar(30)
+, @tableName nvarchar(50)
+, @seedResetMode int = 1
+, @prefix nvarchar(10)
+, @seedDigits tinyint
+, @errNum int = 0 out
+, @errMsg nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @iTblCnt tinyint;
+	-- Error Code:
+	--   0 : Success
+	-- 801 : CustomerId is null or empty string.
+	-- 802 : Table Name is null or empty string.
+	-- 803 : Seed Reset Mode should be number 1-4.
+	-- 804 : Seed Digits should be number 1-9.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF @customerId is null OR RTRIM(LTRIM(@customerId)) = N''
+		BEGIN
+			-- CustomerId is null or empty string.
+            EXEC GetErrorMsg 801, @errNum out, @errMsg out
+			RETURN;
+		END
+		
+		IF @tableName is null OR RTRIM(LTRIM(@tableName)) = N''
+		BEGIN
+			-- Table Name is null or empty string.
+            EXEC GetErrorMsg 802, @errNum out, @errMsg out
+			RETURN;
+		END
+		
+		IF @seedResetMode is null OR @seedResetMode <= 0 OR @seedResetMode > 4
+		BEGIN
+			-- Seed Reset Mode should be number 1-4.
+            EXEC GetErrorMsg 803, @errNum out, @errMsg out
+			RETURN;
+		END
+		
+		IF @seedDigits is null OR @seedDigits <= 0 OR @seedDigits > 9
+		BEGIN
+			-- Seed Digits should be number 1-9
+            EXEC GetErrorMsg 804, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SELECT @iTblCnt = COUNT(*)
+		  FROM CustomerPK
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER([TableName]) = LOWER(RTRIM(LTRIM(@tableName)))
+		IF @iTblCnt IS NULL OR @iTblCnt = 0
+		BEGIN
+			INSERT INTO CustomerPK(
+					CustomerId
+			      , [TableName]
+				  , SeedResetMode
+				  , LastSeed
+				  , [Prefix]
+				  , SeedDigits
+				  , LastUpdated
+				 )
+			     VALUES (
+				    RTRIM(LTRIM(@customerId))
+				  , RTRIM(LTRIM(@tableName))
+				  , @seedResetMode
+				  , 0
+				  , COALESCE(@prefix, N'')
+				  , @seedDigits
+				  , GETDATE()
+				 );
+		END
+		ELSE
+		BEGIN
+			UPDATE CustomerPK
+			   SET [TableName] = RTRIM(LTRIM(@tableName))
+			     , SeedResetMode = @seedResetMode
+				 , LastSeed = 0
+				 , [Prefix] = COALESCE(@prefix, N'')
+				 , SeedDigits = @seedDigits
+				 , LastUpdated = GETDATE()
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER([TableName]) = LOWER(RTRIM(LTRIM(@tableName)));
+		END
+
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: NextCustomerPK.
+-- Description:	Gets Next Customer Primary Key.
+-- [== History ==]
+-- <2017-01-09> :
+--	- Stored Procedure Created.
+-- <2018-04-16> :
+--	- change error code(s).
+--   
+-- [== Example ==]
+--
+-- <Simple>
+--exec NextCustomerPK N'EDL-C2017010001', N'Branch';
+--
+-- <Complex>
+--declare @seedNo as nvarchar(30);
+--declare @errNum as int;
+--declare @errMsg as nvarchar(max);
+--exec NextCustomerPK N'EDL-C2017010001', N'Branch'
+--				, @seedNo out
+--				, @errNum out
+--				, @errMsg out;
+--select @seedNo as seedcode
+--     , @errNum as ErrNumber
+--     , @errMsg as ErrMessage;
+--select * from CustomerPK;
+-- =============================================
+CREATE PROCEDURE [dbo].[NextCustomerPK] 
+(
+  @customerId as nvarchar(30)
+, @tableName as nvarchar(50)
+, @seedcode nvarchar(max) = N'' out  -- prefix(max:10) + date(max:10) + seedi(max:10) = 30
+, @errNum int = 0 out
+, @errMsg nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @lastSeedId int;
+DECLARE @resetMode tinyint;
+DECLARE @prefix nvarchar(10);
+DECLARE @seedDigits tinyint;
+DECLARE @lastDate datetime;
+DECLARE @now datetime;
+DECLARE @isSameDate bit;
+DECLARE @iTblCnt tinyint;
+	-- Error Code:
+	--   0 : Success
+	-- 801 : CustomerId is null or empty string.
+	-- 802 : Table Name is null or empty string.
+	-- 805 : Table name is not exists in CustomerPK table.
+	-- 806 : Not supports reset mode.
+	-- 807 : Cannot generate seed code for table:
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF @customerId is null OR RTRIM(LTRIM(@customerId)) = N''
+		BEGIN
+			-- CustomerID cannot be null or empty string.
+            EXEC GetErrorMsg 801, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		IF @tableName is null OR RTRIM(LTRIM(@tableName)) = N''
+		BEGIN
+			-- Table name cannot be null or empty string.
+            EXEC GetErrorMsg 802, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SELECT @iTblCnt = COUNT(*)
+		  FROM CustomerPK
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER([TableName]) = LOWER(RTRIM(LTRIM(@tableName)))
+		IF @iTblCnt IS NULL OR @iTblCnt = 0
+		BEGIN
+			-- Table Name not exists in CustomerPK table.
+            EXEC GetErrorMsg 805, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SET @now = GETDATE();
+		-- for testing
+		--SET @now = CONVERT(datetime, '2017-12-03 23:55:11:123', 121);
+		SELECT @lastSeedId = LastSeed
+			 , @resetMode = SeedResetMode
+			 , @prefix = [prefix]
+			 , @seedDigits = SeedDigits
+			 , @lastDate = LastUpdated
+			FROM CustomerPK
+			WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			  AND LOWER([TableName]) = LOWER(@tableName)
+		-- for testing
+		--SELECT @lastDate = CONVERT(datetime, '2016-11-03 23:55:11:123', 121);
+
+		IF @lastSeedId IS NOT NULL OR @lastSeedId >= 0
+		BEGIN
+			-- format code
+			SET @seedcode = @prefix;
+
+			IF @resetMode = 1
+			BEGIN
+				SELECT @isSameDate = dbo.IsSameDate(@now, @lastDate)
+				IF (@isSameDate = 0)
+					SET @lastSeedId = 1;
+				ELSE SET @lastSeedId = @lastSeedId + 1;
+				-- daily
+				SET @seedcode = @seedcode + 
+					CONVERT(nvarchar(4), DATEPART(yyyy, @now)) +
+					RIGHT('00' + CONVERT(nvarchar(2), DATEPART(mm, @now)), 2) +
+					RIGHT('00' + CONVERT(nvarchar(2), DATEPART(dd, @now)), 2) +
+					RIGHT(REPLICATE('0', @seedDigits) + RTRIM(CONVERT(nvarchar, @lastSeedId)), @seedDigits);
+			END
+			ELSE IF @resetMode = 2
+			BEGIN
+				SELECT @isSameDate = dbo.IsSameMonth(@now, @lastDate)
+				IF (@isSameDate = 0)
+					SET @lastSeedId = 1;
+				ELSE SET @lastSeedId = @lastSeedId + 1;
+				-- monthly
+				SET @seedcode = @seedcode + 
+					CONVERT(nvarchar(4), DATEPART(yyyy, @now)) +
+					RIGHT('00' + CONVERT(nvarchar(2), DATEPART(mm, @now)), 2) +
+					RIGHT(REPLICATE('0', @seedDigits) + RTRIM(CONVERT(nvarchar, @lastSeedId)), @seedDigits);
+			END
+			ELSE IF @resetMode = 3
+			BEGIN
+				SELECT @isSameDate = dbo.IsSameYear(@now, @lastDate)
+				IF (@isSameDate = 0)
+					SET @lastSeedId = 1;
+				ELSE SET @lastSeedId = @lastSeedId + 1;
+				-- yearly
+				SET @seedcode = @seedcode + 
+					CONVERT(nvarchar(4), DATEPART(yyyy, @now)) +
+					RIGHT(REPLICATE('0', @seedDigits) + RTRIM(CONVERT(nvarchar, @lastSeedId)), @seedDigits);
+			END
+			ELSE IF @resetMode = 4
+			BEGIN
+				SET @lastSeedId = @lastSeedId + 1;
+				-- ignore date
+				SET @seedcode = @seedcode + 
+					RIGHT(REPLICATE('0', @seedDigits) + RTRIM(CONVERT(nvarchar, @lastSeedId)), @seedDigits);
+			END
+			ELSE
+			BEGIN
+				-- not supports
+				-- Not supports reset mode.
+                EXEC GetErrorMsg 806, @errNum out, @errMsg out
+				RETURN;
+			END
+
+			IF @seedcode IS NOT NULL OR @seedcode <> N''
+			BEGIN
+				-- update nexvalue and stamp last updated date.
+				UPDATE CustomerPK
+					SET LastSeed = @lastSeedId
+					  , LastUpdated = @now
+					WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+					  AND LOWER([TableName]) = LOWER(@tableName)
+
+                EXEC GetErrorMsg 0, @errNum out, @errMsg out
+			END
+			ELSE
+			BEGIN
+				-- Cannot generate seed code for table: 
+                EXEC GetErrorMsg 807, @errNum out, @errMsg out
+                SET @errMsg = @errMsg + ' ' + @tableName + '.'
+			END
+		END
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetCustomerPK.
+-- Description:	Gets Customer Primary Key.
+-- [== History ==]
+-- <2017-01-09> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec GetCustomerPK N'EDL-C2017010001', N'Branch'; -- for get match by name
+--exec GetCustomerPK N'EDL-C2017010001'; -- for get all
+-- =============================================
+CREATE PROCEDURE [dbo].[GetCustomerPK] 
+(
+  @customerId nvarchar(30)
+, @tableName nvarchar(50) = null
+)
+AS
+BEGIN
+	SELECT CustomerId
+		 , LastSeed
+		 , SeedResetMode
+		 , CASE SeedResetMode
+			 WHEN 1 THEN N'Daily'
+			 WHEN 2 THEN N'Monthly'
+			 WHEN 3 THEN N'Yearly'
+			 WHEN 4 THEN N'Sequence'
+		   END AS ResetMode
+		 , [prefix]
+		 , SeedDigits
+		 , LastUpdated
+		FROM CustomerPK
+		WHERE LOWER(CustomerId) = LOWER(@customerId)
+		  AND LOWER([TableName]) = LOWER(COALESCE(@tableName, [TableName]));
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
 -- Description:	Init supports languages
 -- [== History ==]
 -- <2017-08-06> :
@@ -4620,6 +6010,70 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
+-- Name: InitLicenseFeatures.
+-- Description:	Init InitLicense Features.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitLicenseFeatures
+-- =============================================
+CREATE PROCEDURE [dbo].[InitLicenseFeatures]
+AS
+BEGIN
+    -- DELETE FIRST.
+    DELETE FROM LicenseFeature
+
+	/* Trial */
+	INSERT INTO LicenseFeature
+		VALUES (0, 1, 1, 1);
+	INSERT INTO LicenseFeature
+		VALUES (0, 2, 2, 1);
+	INSERT INTO LicenseFeature
+		VALUES (0, 3, 3, 1);
+	/* Monthly */
+	INSERT INTO LicenseFeature
+		VALUES (1, 1, 1, 5);
+	INSERT INTO LicenseFeature
+		VALUES (1, 2, 2, 10);
+	INSERT INTO LicenseFeature
+		VALUES (1, 3, 3, 10);
+
+	/* 6 Months */
+	INSERT INTO LicenseFeature
+		VALUES (2, 1, 1, 5);
+	INSERT INTO LicenseFeature
+		VALUES (2, 2, 2, 10);
+	INSERT INTO LicenseFeature
+		VALUES (2, 3, 3, 10);
+
+	/* Yearly */
+	INSERT INTO LicenseFeature
+		VALUES (3, 1, 1, 10);
+	INSERT INTO LicenseFeature
+		VALUES (3, 2, 2, 20);
+	INSERT INTO LicenseFeature
+		VALUES (3, 3, 3, 20);
+END
+
+GO
+
+EXEC InitLicenseFeatures;
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
 -- Description:	Init Default user for EDL and add related reset all generate id for PK.
 -- [== History ==]
 -- <2016-10-30> :
@@ -4658,6 +6112,44 @@ END
 GO
 
 EXEC InitMasterPKs;
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: InitDefaultUser.
+-- Description:	Init Init Default User.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitDefaultUser
+-- =============================================
+CREATE PROCEDURE [dbo].[InitDefaultUser]
+AS
+BEGIN
+	DECLARE @errNum int = null;
+	DECLARE @errMsg nvarchar(MAX) = null;
+	DECLARE @userId nvarchar(30);
+	EXEC SaveUserInfo N'The', N'EDL', N'Administrator', N'raterweb2-admin@edl.co.th', N'1234', 100--, @userId out, @errNum out, @errMsg out;
+	--SELECT @userId AS userId, @errNum AS ErrNum, @errMsg AS ErrMsg;
+	EXEC SaveUserInfoML @userId, N'TH', N'[', N'แอดมิน', N']'--, @errNum out, @errMsg out;
+	--SELECT @userId AS userId, @errNum AS ErrNum, @errMsg AS ErrMsg;
+END
+
+GO
+
+EXEC InitDefaultUser;
 
 GO
 
