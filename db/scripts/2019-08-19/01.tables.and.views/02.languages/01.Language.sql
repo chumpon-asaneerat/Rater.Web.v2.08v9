@@ -13,6 +13,10 @@ GO
 --	- Table Created.
 --	  - LangId is used ISO 639-1 alpha 2 code.
 --	  - FlagId is used ISO 3166-1 alpha 2 code.
+-- <2019-08-19> :
+--	- Table Changes.
+--	  - Remove DescriptionNative column.
+--	  - Change DescriptionEN column to Description.
 --
 -- [== Example ==]
 --
@@ -21,8 +25,7 @@ CREATE TABLE [dbo].[Language]
 (
     [LangId] [nvarchar](3) NOT NULL,
     [FlagId] [nvarchar](3) NOT NULL,
-    [DescriptionEN] [nvarchar](50) NOT NULL,
-    [DescriptionNative] [nvarchar](50) NULL,
+    [Description] [nvarchar](50) NOT NULL,
     [SortOrder] [int] NOT NULL,
     [Enabled] [bit] NOT NULL,
     CONSTRAINT [PK_Language] PRIMARY KEY CLUSTERED 
@@ -56,10 +59,7 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The ISO 3166-1-alpha-2 code.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Language', @level2type=N'COLUMN',@level2name=N'FlagId'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The English Description.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Language', @level2type=N'COLUMN',@level2name=N'DescriptionEN'
-GO
-
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native description.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Language', @level2type=N'COLUMN',@level2name=N'DescriptionNative'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Language Description.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Language', @level2type=N'COLUMN',@level2name=N'Description'
 GO
 
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Enable Lanugage to used.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Language', @level2type=N'COLUMN',@level2name=N'Enabled'
