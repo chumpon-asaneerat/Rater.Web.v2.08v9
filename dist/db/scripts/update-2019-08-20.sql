@@ -2993,6 +2993,69 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+CREATE TABLE [dbo].[Vote](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[OrgId] [nvarchar](30) NOT NULL,
+	[BranchId] [nvarchar](30) NOT NULL,
+	[DeviceId] [nvarchar](30) NOT NULL,
+	[QSetId] [nvarchar](30) NOT NULL,
+	[QSeq] [int] NOT NULL,
+	[VoteSeq] [int] NOT NULL,
+	[UserId] [nvarchar](30) NULL,
+	[VoteDate] [datetime] NOT NULL,
+	[VoteValue] [int] NOT NULL,
+	[Remark] [nvarchar](100) NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_Vote] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[OrgId] ASC,
+	[BranchId] ASC,
+	[DeviceId] ASC,
+	[QSetId] ASC,
+	[QSeq] ASC,
+	[VoteSeq] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING ON
+
+GO
+
+/****** Object:  Index [IX_UserId]    Script Date: 4/23/2018 04:32:54 ******/
+CREATE NONCLUSTERED INDEX [IX_UserId] ON [dbo].[Vote]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+/****** Object:  Index [IX_VoteDate]    Script Date: 4/23/2018 04:32:54 ******/
+CREATE NONCLUSTERED INDEX [IX_VoteDate] ON [dbo].[Vote]
+(
+	[VoteDate] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+/****** Object:  Index [IX_VoteValue]    Script Date: 4/23/2018 04:32:54 ******/
+CREATE NONCLUSTERED INDEX [IX_VoteValue] ON [dbo].[Vote]
+(
+	[VoteValue] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Vote] ADD  CONSTRAINT [DF_Vote_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 -- =============================================
 -- Author: Chumpon Asaneerat
 -- Name: IsNullOrEmpty.
@@ -11229,6 +11292,1005 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
+-- Name: SaveVote.
+-- Description:	Save Vote.
+-- [== History ==]
+-- <2018-01-30> :
+--	- Stored Procedure Created.
+-- <2018-05-10> :
+--	- remove branchId from parameter.
+-- <2018-05-22> :
+--	- deviceId parameter change size from nvarchar(50) to nvarchar(30).
+--
+-- [== Example ==]
+--
+-- [== Complex Example ==]
+/*
+DECLARE @errNum int;
+DECLARE @errMsg nvarchar(MAX);
+DECLARE @customerId nvarchar(30);
+DECLARE @orgId nvarchar(30);
+DECLARE @deviceId nvarchar(30);
+DECLARE @qSetId nvarchar(30);
+DECLARE @qSeq int;
+DECLARE @userId nvarchar(30);
+DECLARE @voteSeq int = null
+DECLARE @voteDate datetime;
+DECLARE @voteValue int;
+DECLARE @remark nvarchar(100)
+
+SET @customerId = N'EDL-C2017060005';
+SET @orgId = N'O0001';
+SET @deviceId = N'4dff3f4640374939a856d892bc57bf1c';
+SET @qSetId = 'QS2018010001';
+SET @userId = NULL;
+SET @voteDate = GETDATE();
+SET @remark = NULL;
+
+SET @qSeq = 1;
+SET @voteValue = 1;
+exec SaveVote @customerId, @orgId
+            , @deviceId
+			, @qSetId, @qSeq
+			, @userId
+			, @voteDate, @voteValue, @remark
+            , @voteSeq out, @errNum out, @errMsg out
+SELECT @voteSeq as VoteSeq, @errNum AS ErrNum, @errMsg AS ErrMsg
+
+SET @qSeq = 1;
+SET @voteValue = 2;
+exec SaveVote @customerId, @orgId
+            , @deviceId
+			, @qSetId, @qSeq
+			, @userId
+			, @voteDate, @voteValue, @remark
+            , @voteSeq out, @errNum out, @errMsg out 
+SELECT @voteSeq as VoteSeq, @errNum AS ErrNum, @errMsg AS ErrMsg
+
+SET @qSeq = 1;
+SET @voteValue = 2;
+exec SaveVote @customerId, @orgId
+            , @deviceId
+			, @qSetId, @qSeq
+			, @userId
+			, @voteDate, @voteValue, @remark
+            , @voteSeq out, @errNum out, @errMsg out 
+SELECT @voteSeq as VoteSeq, @errNum AS ErrNum, @errMsg AS ErrMsg
+*/
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveVote] (
+  @customerId as nvarchar(30)
+, @orgId as nvarchar(30) = null
+, @deviceId as nvarchar(30) = null
+, @qSetId as nvarchar(30) = null
+, @qSeq as int = 0
+, @userId as nvarchar(30) = null
+, @voteDate as datetime = null
+, @voteValue as int = 0
+, @remark as nvarchar(100) = null
+, @voteSeq as int = 0 out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @branchId nvarchar(30);
+DECLARE @iCnt int = 0;
+DECLARE @iVoteSeq int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1701 : Customer Id cannot be null or empty string.
+	-- 1702 : Customer Id not found.
+	-- 1703 : Branch Id cannot be null or empty string.
+	-- 1704 : Branch Id not found.
+	-- 1705 : Org Id cannot be null or empty string.
+	-- 1706 : Org Id not found.
+	-- 1707 : QSet Id cannot be null or empty string.
+	-- 1708 : QSet Id not found.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1701, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Customer
+		 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Customer Id not found.
+            EXEC GetErrorMsg 1702, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			-- Org Id cannot be null or empty string.
+            EXEC GetErrorMsg 1705, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Org
+		 WHERE LOWER(OrgID) = LOWER(RTRIM(LTRIM(@orgId)))
+           --AND LOWER(BranchID) = LOWER(RTRIM(LTRIM(@branchId)))
+		   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Org Id not found.
+            EXEC GetErrorMsg 1706, @errNum out, @errMsg out
+			RETURN
+		END
+
+		-- Find Branch Id from customerid and orgid.
+		SELECT @branchId = BranchId
+		  FROM Org
+		 WHERE OrgID = @orgId
+		   AND CustomerId = @customerId;
+
+		-- NOTE: No Need to Check Branch Id.
+		/*
+		IF (dbo.IsNullOrEmpty(@branchId) = 1)
+		BEGIN
+			-- Branch Id cannot be null or empty string.
+            EXEC GetErrorMsg 1703, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Branch
+		 WHERE LOWER(BranchID) = LOWER(RTRIM(LTRIM(@branchId)))
+		   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Branch Id not found.
+            EXEC GetErrorMsg 1704, @errNum out, @errMsg out
+			RETURN
+		END
+		*/
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- QSet Id cannot be null or empty string.
+            EXEC GetErrorMsg 1707, @errNum out, @errMsg out
+			RETURN
+		END
+
+		-- NOTE: Temporary disable check QSet code.
+		/*
+		SELECT @iCnt = COUNT(*)
+		  FROM QSet
+		 WHERE LOWER(QSetID) = LOWER(RTRIM(LTRIM(@qSetId)))
+		   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- QSet Id not found.
+            EXEC GetErrorMsg 1708, @errNum out, @errMsg out
+			RETURN
+		END
+		*/
+
+		/* RESET COUNTER*/
+		SET @iVoteSeq = 0;
+		SELECT @iVoteSeq = MAX(VoteSeq)
+		  FROM Vote
+		 WHERE CustomerId = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND OrgId = LOWER(RTRIM(LTRIM(@orgId)))
+		   AND BranchId = LOWER(RTRIM(LTRIM(@branchId)))
+		   AND DeviceId = LOWER(RTRIM(LTRIM(@deviceId)))
+		   AND QSetId = LOWER(RTRIM(LTRIM(@qSetId)))
+		   AND QSeq = LOWER(RTRIM(LTRIM(@qSeq)))
+
+		IF (@iVoteSeq IS NULL OR @iVoteSeq <= 0)
+		BEGIN
+			SET @voteSeq = 1;
+		END
+		ELSE
+		BEGIN
+			SET @voteSeq = @iVoteSeq + 1;
+		END
+
+		INSERT INTO Vote
+		(
+			  CustomerId
+			, OrgId
+			, BranchId
+			, DeviceId
+			, QSetId
+			, QSeq
+			, VoteSeq
+			, UserId
+			, VoteDate
+			, VoteValue
+			, Remark
+			, ObjectStatus
+		)
+		VALUES
+		(
+			  RTRIM(LTRIM(@customerId))
+			, RTRIM(LTRIM(@orgId))
+			, RTRIM(LTRIM(@branchId))
+			, RTRIM(LTRIM(@deviceId))
+			, RTRIM(LTRIM(@qSetId))
+			, @qSeq
+			, @voteSeq
+			, RTRIM(LTRIM(@userId))
+			, @voteDate
+			, @voteValue
+			, RTRIM(LTRIM(@remark))
+			, 1
+		);
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: __GenerateSubOrgInClause
+-- Description:	Internal Get Sub Org In Clause (use internally).
+-- [== History ==]
+-- <2018-05-09> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC __GenerateSubOrgInClause N'EDL-C2017030001', N'O0001'
+-- =============================================
+CREATE PROCEDURE __GenerateSubOrgInClause
+(
+  @customerId nvarchar(30)
+, @orgID nvarchar(30)
+, @includeSubOrg bit = 1
+, @retVal As nvarchar(MAX) = N'' output
+)
+AS
+BEGIN
+DECLARE @subOrgID As nvarchar(30)
+DECLARE @itemCnt As int
+DECLARE @maxCnt As int
+DECLARE @retSubVal As nvarchar(MAX)
+
+	SET @itemCnt = 0;
+	SET @maxCnt = 0;
+	SET @retVal = N'';
+
+	SELECT @maxCnt = COUNT(*) 
+	  FROM ORG
+ 	 WHERE ObjectStatus = 1 AND 
+		   ParentId = @orgID AND
+		   CustomerId = @customerId;
+	DECLARE ORG_CURSOR CURSOR 
+			LOCAL
+			FORWARD_ONLY 
+			READ_ONLY 
+			FAST_FORWARD 
+		FOR  
+		SELECT OrgID
+		  FROM ORG 
+		 WHERE ObjectStatus = 1 
+           AND ParentId = @orgID 
+           AND CustomerId = @customerId
+
+	OPEN ORG_CURSOR  
+	FETCH NEXT FROM ORG_CURSOR INTO @subOrgID
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN
+		--PRINT @subOrgID;				
+		IF @itemCnt = 0
+		BEGIN
+			SET @retVal = N'''' + @subOrgID + N'''';
+		END
+		ELSE
+		BEGIN
+			SET @retVal = @retVal + N', ''' + @subOrgID + N'''';
+		END
+		
+		IF @IncludeSubOrg =  1 AND @maxCnt > 0
+		BEGIN
+			SET @retSubVal = N'';
+			EXEC __GenerateSubOrgInClause @customerId, @subOrgID, @includeSubOrg, @retSubVal output;
+			
+			IF @retSubVal <> ''
+			BEGIN
+				--PRINT @retSubVal;
+				SET @retVal = @retVal + N', ' + @retSubVal;
+			END
+		END
+		
+		SET @itemCnt = @itemCnt + 1;
+		
+		FETCH NEXT FROM ORG_CURSOR INTO @subOrgID
+	END  
+
+	CLOSE ORG_CURSOR  
+	DEALLOCATE ORG_CURSOR 	
+END
+
+GO
+
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Generate Sub Org In Clause.
+-- [== History ==]
+-- <2018-05-09> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+-- EXEC GenerateSubOrgInClause N'EDL-C2017030001', N'O0001' -- Get in clause for root note
+-- EXEC GenerateSubOrgInClause N'EDL-C2017030001', N'O0001', 0 -- Get in clause for root note not include sub org
+-- =============================================
+CREATE PROCEDURE GenerateSubOrgInClause
+(
+  @customerId nvarchar(30)
+, @orgID nvarchar(30)
+, @includeSubOrg bit = 1
+, @ShowOutput bit = 0
+, @retVal As nvarchar(MAX) = N'' output
+)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET @retVal = N'';
+	
+	IF @IncludeSubOrg <> 0
+	BEGIN
+		EXEC __GenerateSubOrgInClause @customerId, @orgID, @includeSubOrg, @retVal output;
+	END
+	
+	--PRINT @retVal;
+	
+	IF @retVal <> N''
+	BEGIN
+		--PRINT N'HAS SUB ORG';
+		SET @retVal = N'''' + @orgID + N''', ' + @retVal;
+	END
+	ELSE
+	BEGIN
+		--PRINT N'NO SUB ORG';
+		SET @retVal = N'''' + @orgID + N'''';
+	END
+	IF @ShowOutput <> 0
+	BEGIN
+		SELECT @retVal AS InClause;
+	END
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: __BuildTotalVoteCountQuery.
+-- Description:	Build Query for select votevalue and total vote count for that votevalue.
+-- [== History ==]
+-- <2018-05-09> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--DECLARE @customerId nvarchar(30) = N'EDL-C2018040002'
+--DECLARE @orgId nvarchar(30) = N'O0001';
+--DECLARE @deviceId nvarchar(50) = N'233356614';
+--DECLARE @qsetId nvarchar(30) = N'QS2018040001';
+--DECLARE @qSeq int = 1; -- has single question.
+--DECLARE @userId nvarchar(30) = NULL;
+--DECLARE @beginDate datetime = N'2018-01-01';
+--DECLARE @endDate datetime = N'2018-12-31';
+--DECLARE @sql nvarchar(MAx);
+--SET @orgId = NULL;
+--SET @deviceId = NULL;
+--
+--EXEC __BuildTotalVoteCountQuery @customerId
+--							    , @qsetId, @qSeq
+--							    , @beginDate, @endDate
+--							    , @orgId, @deviceId, @userId
+--							    , @sql output;
+-- =============================================
+CREATE PROCEDURE [dbo].[__BuildTotalVoteCountQuery]
+(
+  @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qSeq as int
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @orgId as nvarchar(30) = null
+, @deviceId as nvarchar(30) = null
+, @userId as nvarchar(30) = null
+, @sql as nvarchar(MAX) output
+)
+AS
+BEGIN
+DECLARE @showOutput as int = 0;
+DECLARE @objectStatus as int = 1;
+DECLARE @includeSubOrg bit = 1;
+DECLARE @inClause as nvarchar(MAX);
+
+	IF (dbo.IsNullOrEmpty(@orgId) = 0) -- OrgId Exist.
+	BEGIN
+		EXEC GenerateSubOrgInClause @customerId, @orgId, @includeSubOrg, @showOutput, @inClause output
+	END
+
+	SET @sql = N'';
+	SET @sql = @sql + 'SELECT VoteValue' + CHAR(13);
+	SET @sql = @sql + '     , Count(VoteValue) AS TotalVote' + CHAR(13);
+	SET @sql = @sql + '     , VoteValue * Count(VoteValue) AS TotalXCount' + CHAR(13);
+	SET @sql = @sql + '     , Count(Remark) AS TotalRemark' + CHAR(13);
+	SET @sql = @sql + '  FROM VOTE ' + CHAR(13);
+	SET @sql = @sql + ' WHERE ' + CHAR(13);
+	SET @sql = @sql + '		ObjectStatus = ' + convert(nvarchar, @objectStatus) + ' AND ' + CHAR(13);
+	SET @sql = @sql + '		CustomerID = N''' + @customerId + ''' AND ' + CHAR(13);
+
+	IF (dbo.IsNullOrEmpty(@userId) = 0)
+	BEGIN
+		SET @sql = @sql + '		UserID = N''' + @userId + ''' AND ' + CHAR(13);
+	END
+
+	IF (dbo.IsNullOrEmpty(@deviceId) = 0)
+	BEGIN
+		SET @sql = @sql + '		DeviceID = N''' + @deviceId + ''' AND ' + CHAR(13);
+	END
+
+	IF (dbo.IsNullOrEmpty(@orgId) = 0)
+	BEGIN
+		SET @sql = @sql + '		OrgID in (' + @inClause + ') AND ' + CHAR(13);
+	END
+
+	SET @sql = @sql + '		QSetID = N''' + @qSetId + ''' AND ' + CHAR(13);
+	SET @sql = @sql + '		QSeq = ' + convert(nvarchar, @qSeq) + ' AND ' + CHAR(13);
+
+	SET @sql = @sql + '		(VoteDate >= ''' + replace(convert(nvarchar, @beginDate, 120),'/','-') + ''' AND ' + CHAR(13);
+	SET @sql = @sql + '		 VoteDate <= ''' + replace(convert(nvarchar, @endDate, 120),'/','-') + ''') ' + CHAR(13);
+
+	SET @sql = @sql + ' GROUP BY VoteValue ' + CHAR(13);
+	SET @sql = @sql + ' ORDER BY VoteValue ' + CHAR(13);
+
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Get Vote Summaries.
+-- [== History ==]
+-- <2017-04-12> :
+--	- Stored Procedure Created.
+-- <2018-05-10> :
+--	- Changes code supports unlimited choices.
+--	- Add Remark count.
+--	- Add langId parameter.
+-- <2018-05-13> :
+--  - Add QSetId, QSeq in result query.
+--
+-- [== Example ==]
+--
+--EXEC GetVoteSummaries NULL, N'EDL-C2017050001', N'QS00001', 1, '2017-01-01', '2017-12-31', null, null, null
+--EXEC GetVoteSummaries  N'TH', N'EDL-C2017050001', N'QS00001', 1, '2017-01-01', '2017-12-31', N'O0001', null, null
+-- =============================================
+CREATE PROCEDURE [dbo].[GetVoteSummaries] (
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qSeq as int
+, @BeginDate As DateTime = null
+, @EndDate As DateTime = null
+, @orgId as nvarchar(30) = null
+, @deviceId as nvarchar(50) = null
+, @userId as nvarchar(30) = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out)
+AS
+BEGIN
+DECLARE @ShowOutput bit = 0;
+DECLARE @branchId nvarchar(30);
+	-- Error Code:
+	--    0 : Success
+	-- 2001 : CustomerId cannot be null or empty string.
+	-- 2002 : QSetId cannot be null or empty string.
+	-- 2003 : QSeq cannot be null.
+	-- 2004 : The default OrgId not found.
+	-- 2005 : The BranchId not found.
+	-- 2006 : 
+	-- OTHER : SQL Error Number & Error Message.
+
+	CREATE TABLE #VOTEDATA
+	(
+		VoteValue tinyint,
+		TotalVote Int,
+		TotalXCount int,
+		TotalRemark Int
+	) 
+
+	CREATE TABLE #VOTESUM
+	(
+		Choice int,				-- choice value.
+		Cnt int,				-- count = current choice count.
+		Pct decimal(18, 2),		-- percent = (current choice count * 100 / overall choices count).
+		RemarkCnt int,			-- Remark count.
+		MaxChoice tinyint,		-- max choice value.
+		TotCnt int,				-- Total count -> overall choices count.
+		TotCntXChoice int,		-- Total count * choice value. (for internal calc).
+		AvgPct decimal(18, 2),	-- Choice Average Percent
+		AvgTot decimal(18, 2),	-- Choice Average Total = (TotCntXChoice / TotCnt).
+		CustomerId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		BranchId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		OrgId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		UserId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		DeviceId nvarchar(50) COLLATE DATABASE_DEFAULT,
+		QSetId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		QSeq int
+	)
+
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2001, @errNum out, @errMsg out
+			RETURN
+		END
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2002, @errNum out, @errMsg out
+			RETURN
+		END
+		IF (@qSeq IS NULL)
+		BEGIN
+			EXEC GetErrorMsg 2003, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			-- OrgID not exist so find root org id and branch id.
+			SELECT @orgId = OrgId
+				 , @branchId = BranchId
+			  FROM Org
+			 WHERE LOWER(LTRIM(RTRIM(CustomerId))) = LOWER(LTRIM(RTRIM(@customerId)))
+			   AND ParentId IS NULL
+		END
+		ELSE
+		BEGIN
+			-- OrgID exist so find branch id.
+			SELECT @branchId = BranchId
+			  FROM Org
+			 WHERE LOWER(LTRIM(RTRIM(CustomerId))) = LOWER(LTRIM(RTRIM(@customerId)))
+			   AND LOWER(LTRIM(RTRIM(OrgId))) = LOWER(LTRIM(RTRIM(@orgId)))
+		END
+		
+		IF (dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2004, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@branchId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2005, @errNum out, @errMsg out
+			RETURN
+		END
+
+		DECLARE @sqlCommand as nvarchar(MAX);
+
+		EXEC __BuildTotalVoteCountQuery @customerId
+									  , @qsetId, @qSeq
+									  , @beginDate, @endDate
+									  , @orgId, @deviceId, @userId
+									  , @sqlCommand output
+
+		--SELECT @sqlCommand;
+		INSERT INTO #VOTEDATA EXECUTE sp_executesql @sqlCommand -- Insert into temp table
+
+		DECLARE @iChoice tinyint;
+		DECLARE @iCnt int;
+		DECLARE @maxChoice as tinyint;
+		DECLARE @decimalPlaces as int = 2;
+
+		DECLARE @totalCount int;
+		DECLARE @totalXCount int;
+
+		--SELECT @maxChoice = COUNT(*)
+		--  FROM QSlideItem
+		-- WHERE QSetId = @qSetId
+		--   AND QSeq = @qSeq
+		--   AND CustomerId = @customerId
+		--   AND ObjectStatus = 1
+		
+		SET @maxChoice = 4; -- Fake max choice.
+
+		SET @iChoice = 1;
+		WHILE (@iChoice <= @maxChoice)
+		BEGIN
+			SELECT @iCnt = COUNT(*) 
+			  FROM #VOTEDATA 
+			 WHERE VoteValue = @iChoice;
+			IF (@iCnt IS NULL OR @iCnt = 0)
+			BEGIN
+				INSERT INTO #VOTEDATA(
+					  VoteValue
+					, TotalVote
+					, TotalRemark)
+				VALUES(
+					  @iChoice
+					, 0
+					, 0);
+			END
+			SET @iChoice = @iChoice + 1; -- increase.
+		END
+
+
+		SELECT @totalCount = SUM(TotalVote)
+		     , @totalXCount = SUM(TotalXCount)
+		  FROM #VOTEDATA;
+
+		-- Insert Non calc values.
+		INSERT INTO #VOTESUM
+		(
+			 CustomerID
+			,BranchID
+			,OrgID
+			,UserId
+			,DeviceId
+			,QSetId
+			,QSeq
+			,MaxChoice
+			,TotCnt
+			,TotCntXChoice
+			,Choice
+			,Cnt
+			,RemarkCnt
+		)
+		SELECT @customerId AS CustomerId
+			 , @branchId AS BranchId
+			 , @orgId AS OrgId
+			 , @userId AS UserId
+			 , @deviceId AS DeviceId
+			 , @qSetId AS QSetId
+			 , @qSeq AS QSeq
+			 , @maxChoice AS MaxChoice
+			 , @totalCount AS TotCnt
+			 , @totalXCount AS TotCntXChoice
+			 , VoteValue AS Choice
+			 , TotalVote AS Cnt
+			 , TotalRemark AS RemarkCnt
+		  FROM #VOTEDATA;
+
+		-- Update Calc Percent value, Total avarage.
+		UPDATE #VOTESUM
+		   SET Pct = vd.Pct
+		     , AvgTot = vd.AvgTot
+			 , AvgPct = vd.AvgPct
+		  FROM (
+			SELECT t1.Choice
+			     , t2.Pct
+				 , t2.AvgTot
+				 , ROUND((100 / Convert(decimal(18,2), MaxChoice)) * t2.AvgTot, @decimalPlaces) AS AvgPct
+				FROM #VOTESUM t1 INNER JOIN 
+				(
+					SELECT Choice
+						 , ROUND(Convert(decimal(18,2), (Cnt * 100)) / Convert(decimal(18,2), TotCnt), @decimalPlaces) AS Pct
+						 , ROUND(Convert(decimal(18,2), TotCntXChoice) / Convert(decimal(18,2), TotCnt), @decimalPlaces) AS AvgTot
+					  FROM #VOTESUM
+				) AS t2 ON t2.Choice = t1.Choice
+		  ) AS vd
+		 WHERE vd.Choice = #VOTESUM.Choice
+
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+
+	IF (dbo.IsNullOrEmpty(@userId) = 1)
+	BEGIN
+		SELECT vs.Choice
+			 , vs.Cnt
+			 , vs.Pct
+			 , vs.RemarkCnt
+			 , vs.MaxChoice
+			 , vs.TotCnt
+			 , vs.AvgPct
+			 , vs.AvgTot
+			 , lgv.LangId
+			 , vs.CustomerId
+			 , cmlv.CustomerName
+			 , vs.BranchId
+			 , omlv.BranchName
+			 , vs.OrgId
+			 , omlv.ParentId
+			 , omlv.OrgName
+			 , vs.QSetId
+			 , vs.QSeq
+			 , vs.UserId
+			 , NULL AS FullName
+			 , vs.DeviceId
+		  FROM #VOTESUM as vs
+			 , LanguageView lgv
+			 , CustomerMLView cmlv
+			 , OrgMLView omlv
+			 --, LogInView lmlv
+		 WHERE lgv.LangId = COALESCE(@langId, lgv.LangId)
+		   AND lgv.Enabled = 1
+		   AND cmlv.CustomerId = vs.CustomerId
+		   AND cmlv.LangId = lgv.LangId
+		   AND omlv.CustomerId = vs.CustomerId
+		   AND omlv.OrgId = vs.OrgId 
+		   AND omlv.LangId = lgv.LangId
+		   --AND lmlv.CustomerId = COALESCE(@customerId, omlv.CustomerId) 
+		   --AND lmlv.MemberId = COALESCE(@userId, lmlv.MemberId)
+		   --AND lmlv.LangId = lgv.LangId
+		 ORDER BY lgv.SortOrder, vs.QSetId, vs.QSeq, vs.Choice
+	END
+	ELSE
+	BEGIN
+		SELECT vs.Choice
+			 , vs.Cnt
+			 , vs.Pct
+			 , vs.RemarkCnt
+			 , vs.MaxChoice
+			 , vs.TotCnt
+			 , vs.AvgPct
+			 , vs.AvgTot
+			 , lgv.LangId
+			 , vs.CustomerId
+			 , cmlv.CustomerName
+			 , vs.BranchId
+			 , omlv.BranchName
+			 , vs.OrgId
+			 , omlv.ParentId
+			 , omlv.OrgName
+			 , vs.QSetId
+			 , vs.QSeq
+			 , vs.UserId
+			 , lmlv.FullName
+			 , vs.DeviceId
+		  FROM #VOTESUM as vs
+			 , LanguageView lgv
+			 , CustomerMLView cmlv
+			 , OrgMLView omlv
+			 , LogInView lmlv
+		 WHERE lgv.LangId = COALESCE(@langId, lgv.LangId)
+		   AND lgv.Enabled = 1
+		   AND cmlv.CustomerId = vs.CustomerId
+		   AND cmlv.LangId = lgv.LangId
+		   AND omlv.CustomerId = vs.CustomerId
+		   AND omlv.OrgId = vs.OrgId 
+		   AND omlv.LangId = lgv.LangId
+		   AND lmlv.CustomerId = COALESCE(@customerId, omlv.CustomerId) 
+		   AND lmlv.MemberId = COALESCE(@userId, lmlv.MemberId)
+		   AND lmlv.LangId = lgv.LangId
+		 ORDER BY lgv.SortOrder, vs.QSetId, vs.QSeq, vs.Choice
+	END
+
+	DROP TABLE #VOTESUM
+	DROP TABLE #VOTEDATA
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Get Raw Votes.
+-- [== History ==]
+-- <2016-10-30> :
+--	- Stored Procedure Created.
+-- <2016-12-14> :
+--	- Add supports pagination.
+-- <2018-05-14> :
+--	- Add lang Id.
+--
+-- [== Example ==]
+--
+--EXEC GetRawVotes N'TH'
+--				 , N'EDL-C2018040002'
+--				 , N'QS2018040001', 1
+--				 , N'2018-05-09 00:00:00', N'2018-05-11 23:59:59';
+-- =============================================
+CREATE PROCEDURE [dbo].[GetRawVotes] 
+(
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qsetId as nvarchar(30)
+, @qseq as int
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @pageNum as int = 1 out
+, @rowsPerPage as int = 10 out
+, @totalRecords as int = 0 out
+, @maxPage as int = 0 out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out
+)
+AS
+BEGIN
+	-- Error Code:
+	--   0 : Success
+	-- 2101 : CustomerId cannot be null or empty string.
+	-- 2102 : QSetId cannot be null or empty string.
+	-- 2103 : QSeq cannot be null or less than 1.
+	-- 2104 : Begin Date and End Date cannot be null.
+	-- 2105 : LangId Is Null Or Empty String.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		SET @pageNum = isnull(@pageNum, 1);
+		SET @rowsPerPage = isnull(@rowsPerPage, 10);
+
+		IF (@rowsPerPage <= 0) SET @rowsPerPage = 10;
+		IF (@pageNum <= 0) SET @pageNum = 1;
+
+		SET @totalRecords = 0;
+
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- CustomerId cannot be null or empty string.
+			EXEC GetErrorMsg 2101, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qsetId) = 1)
+		BEGIN
+			-- QSetId cannot be null or empty string.
+			EXEC GetErrorMsg 2102, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@qseq IS NULL OR @qseq < 1)
+		BEGIN
+			-- QSeq cannot be null or less than 1.
+			EXEC GetErrorMsg 2103, @errNum out, @errMsg out
+			RETURN
+		END
+		
+		IF (@beginDate IS NULL OR @endDate IS NULL)
+		BEGIN
+			-- Begin Date and End Date cannot be null.
+			EXEC GetErrorMsg 2104, @errNum out, @errMsg out
+			RETURN
+		END
+		
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- LangId Is Null Or Empty String.
+			EXEC GetErrorMsg 2105, @errNum out, @errMsg out
+			RETURN
+		END
+
+		-- calculate total record and maxpages
+		SELECT @totalRecords = COUNT(*) 
+		  FROM Vote
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qsetId)))
+		   AND QSeq = @qseq
+		   AND VoteDate >= @beginDate
+		   AND VoteDate <= @endDate
+		   AND ObjectStatus = 1;
+
+		SELECT @maxPage = 
+			CASE WHEN (@totalRecords % @rowsPerPage > 0) THEN 
+				(@totalRecords / @rowsPerPage) + 1
+			ELSE 
+				(@totalRecords / @rowsPerPage)
+			END;
+
+		WITH SQLPaging AS
+		( 
+			SELECT TOP(@rowsPerPage * @pageNum) ROW_NUMBER() OVER (ORDER BY A.VoteDate) AS RowNo
+				, @pageNum PageNo
+				, L.LangId
+				, A.VoteDate
+				, A.VoteSeq
+				, A.CustomerId
+				, A.QSetId
+				, A.QSeq
+				, A.VoteValue
+				, A.Remark
+				, A.OrgId
+				, O.OrgName
+				, A.BranchId
+				, B.BranchName
+				, A.DeviceId
+				--, D.[Description]
+				, A.UserId
+				, M.FullName
+			FROM Vote A 
+					INNER JOIN LanguageView L ON (
+							L.LangId = @langId
+					)
+					INNER JOIN OrgMLView O ON (
+							O.OrgId = A.OrgId 
+						AND O.CustomerId = A.CustomerId
+						AND O.LangId = L.LangId
+					)
+					INNER JOIN BranchMLView B ON (
+							B.BranchId = A.BranchId 
+						AND B.CustomerId = A.CustomerId
+						AND B.LangId = L.LangId
+					)
+					--INNER JOIN Device D ON (
+					--		D.DeviceId = A.DeviceId 
+					--	AND D.CustomerId = A.CustomerId
+					--)
+					LEFT OUTER JOIN MemberInfoMLView M ON (
+							M.MemberId = A.UserId 
+						AND M.CustomerId = A.CustomerId
+						AND M.LangId = L.LangId
+					)
+			WHERE LOWER(A.CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				AND LOWER(A.QSetId) = LOWER(RTRIM(LTRIM(@qsetId)))
+				AND A.QSeq = @qseq
+				AND A.ObjectStatus = 1
+				AND A.VoteDate >= @beginDate
+				AND A.VoteDate <= @endDate
+			ORDER BY A.VoteDate, A.VoteSeq
+		)
+		SELECT * FROM SQLPaging WITH (NOLOCK) 
+			WHERE RowNo > ((@pageNum - 1) * @rowsPerPage);
+
+		-- success
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
 -- Description:	Init supports languages
 -- [== History ==]
 -- <2017-08-06> :
@@ -11677,6 +12739,90 @@ END
 GO
 
 EXEC InitMasterPKs;
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Device Types.
+-- [== History ==]
+-- <2018-05-22> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitDeviceTypes
+-- =============================================
+CREATE PROCEDURE [dbo].[InitDeviceTypes]
+AS
+BEGIN
+	--DELETE FROM DeviceTypeML;
+	--DELETE FROM DeviceType;
+
+	-- Unknown
+	INSERT INTO DeviceType VALUES (0, N'Unknown')
+	-- Browser desktop - Chrome
+	INSERT INTO DeviceType VALUES (101, N'Chrome desktop browser')
+	-- Browser desktop - IE-Edge
+	INSERT INTO DeviceType VALUES (102, N'IE-Edge desktop browser')
+	-- Browser desktop - FireFox
+	INSERT INTO DeviceType VALUES (103, N'FireFox desktop browser')
+	-- Browser desktop - Opera
+	INSERT INTO DeviceType VALUES (104, N'Opera desktop browser')
+	-- Browser desktop - Safari
+	INSERT INTO DeviceType VALUES (105, N'Safari desktop browser')
+	-- Browser Mobile - Chrome
+	INSERT INTO DeviceType VALUES (201, N'Chrome mobile browser')
+	-- Browser Mobile - Andriod
+	INSERT INTO DeviceType VALUES (202, N'Andriod mobile browser')
+	-- Browser Mobile - FireFox
+	INSERT INTO DeviceType VALUES (203, N'FireFox mobile browser')
+	-- Browser Mobile - Opera
+	INSERT INTO DeviceType VALUES (204, N'Opera mobile browser')
+	-- Browser Mobile - Safari
+	INSERT INTO DeviceType VALUES (205, N'Safari mobile browser')
+	-- Browser Mobile - Safari
+	INSERT INTO DeviceType VALUES (206, N'Edge mobile browser')
+
+	-- [ENGLISH]
+	INSERT INTO DeviceTypeML VALUES(  0, N'EN', N'Unknown');
+	INSERT INTO DeviceTypeML VALUES(101, N'EN', N'Chrome desktop browser');
+	INSERT INTO DeviceTypeML VALUES(102, N'EN', N'IE-Edge desktop browser');
+	INSERT INTO DeviceTypeML VALUES(103, N'EN', N'FireFox desktop browser');
+	INSERT INTO DeviceTypeML VALUES(104, N'EN', N'Opera desktop browser');
+	INSERT INTO DeviceTypeML VALUES(105, N'EN', N'Safari desktop browser');
+	INSERT INTO DeviceTypeML VALUES(201, N'EN', N'Chrome mobile browser');
+	INSERT INTO DeviceTypeML VALUES(202, N'EN', N'Andriod mobile browser');
+	INSERT INTO DeviceTypeML VALUES(203, N'EN', N'FireFox mobile browser');
+	INSERT INTO DeviceTypeML VALUES(204, N'EN', N'Opera mobile browser');
+	INSERT INTO DeviceTypeML VALUES(205, N'EN', N'Safari mobile browser');
+	INSERT INTO DeviceTypeML VALUES(206, N'EN', N'Edge mobile browser');
+	-- [THAI]
+	INSERT INTO DeviceTypeML VALUES(  0, N'TH', N'ไม่ระบุ');
+	INSERT INTO DeviceTypeML VALUES(101, N'TH', N'โคลม เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(102, N'TH', N'ไออี-เอจ เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(103, N'TH', N'ไฟร์ฟอกซ์ เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(104, N'TH', N'โอเปร่า เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(105, N'TH', N'ซาฟารี เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(201, N'TH', N'โคลม โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(202, N'TH', N'แอนดรอยด์ โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(203, N'TH', N'ไฟร์ฟอกซ์ โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(204, N'TH', N'โอเปร่า โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(205, N'TH', N'ซาฟารี โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(206, N'TH', N'เอจ โมบาย เบราว์เซอร์');
+END
+
+GO
+
+EXEC InitDeviceTypes;
 
 GO
 
