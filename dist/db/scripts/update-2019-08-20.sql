@@ -2757,6 +2757,242 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+CREATE TABLE [dbo].[DeviceType](
+	[DeviceTypeId] [int] NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_DeviceType] PRIMARY KEY CLUSTERED 
+(
+	[DeviceTypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Device Type Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceType', @level2type=N'COLUMN',@level2name=N'DeviceTypeId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The device description (default).' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceType', @level2type=N'COLUMN',@level2name=N'Description'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[DeviceTypeML](
+	[DeviceTypeId] [int] NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_DeviceTypeML] PRIMARY KEY CLUSTERED 
+(
+	[DeviceTypeId] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Device Type Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceTypeML', @level2type=N'COLUMN',@level2name=N'DeviceTypeId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Language Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceTypeML', @level2type=N'COLUMN',@level2name=N'LangId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The device description (ML).' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceTypeML', @level2type=N'COLUMN',@level2name=N'Description'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[DeviceTypeView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+		 , DeviceType.DeviceTypeId
+	     , DeviceType.Description
+	  FROM LanguageView CROSS JOIN dbo.DeviceType
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[DeviceTypeMLView]
+AS
+	SELECT DTV.LangId
+	     , DTV.DeviceTypeId
+		 , CASE 
+			WHEN DTML.Description IS NULL THEN 
+				DTV.Description
+			ELSE 
+				DTML.Description 
+		   END AS Description
+	     , DTV.Enabled
+	     , DTV.SortOrder
+		FROM dbo.DeviceTypeML AS DTML RIGHT OUTER JOIN DeviceTypeView AS DTV
+		  ON (    DTML.LangId = DTV.LangId 
+		      AND DTML.DeviceTypeId = DTV.DeviceTypeId
+			 )
+GO
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Device](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[DeviceId] [nvarchar](30) NOT NULL,
+	[DeviceTypeId] [int] NOT NULL,
+	[DeviceName] [nvarchar](80) NOT NULL,
+	[Location] [nvarchar](150) NULL,
+	[OrgId] [nvarchar](30) NULL,
+	[MemberId] [nvarchar](30) NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_Devices] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[DeviceId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Device] ADD  CONSTRAINT [DF_Devices_DeviceType]  DEFAULT ((0)) FOR [DeviceTypeId]
+GO
+
+ALTER TABLE [dbo].[Device] ADD  CONSTRAINT [DF_Device_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'See device types.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Device', @level2type=N'COLUMN',@level2name=N'DeviceTypeId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Org Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Device', @level2type=N'COLUMN',@level2name=N'OrgId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 1 - Active' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Device', @level2type=N'COLUMN',@level2name=N'ObjectStatus'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[DeviceML](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[DeviceId] [nvarchar](30) NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[DeviceName] [nvarchar](80) NOT NULL,
+	[Location] [nvarchar](150) NULL,
+ CONSTRAINT [PK_DeviceML_1] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[DeviceId] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Language Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceML', @level2type=N'COLUMN',@level2name=N'LangId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Device Name (ML)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceML', @level2type=N'COLUMN',@level2name=N'DeviceName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Location (ML)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'DeviceML', @level2type=N'COLUMN',@level2name=N'Location'
+GO
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[DeviceView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+		 , Device.CustomerId
+		 , Device.DeviceId
+		 , Device.DeviceTypeId
+	     , Device.DeviceName
+		 , Device.Location
+		 , Device.OrgId
+		 , Device.MemberId
+		 , Device.ObjectStatus
+	  FROM LanguageView CROSS JOIN dbo.Device
+
+GO
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[DeviceMLView]
+AS
+	SELECT DV.LangId
+	     , DV.DeviceId
+	     , DV.CustomerId
+	     , DV.DeviceTypeId
+		 , CASE 
+			WHEN DML.DeviceName IS NULL THEN 
+				DV.DeviceName
+			ELSE 
+				DML.DeviceName 
+		   END AS DeviceName
+		 , CASE 
+			WHEN DML.Location IS NULL THEN 
+				DV.Location
+			ELSE 
+				DML.Location 
+		   END AS Location
+	     , DV.OrgId
+	     , DV.MemberId
+	     , DV.Enabled
+	     , DV.SortOrder
+		FROM dbo.DeviceML AS DML RIGHT OUTER JOIN DeviceView AS DV
+		  ON (    DML.LangId = DV.LangId 
+		      AND DML.DeviceId = DV.DeviceId
+		      AND DML.CustomerId = DV.CustomerId
+			 )
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 -- =============================================
 -- Author: Chumpon Asaneerat
 -- Name: IsNullOrEmpty.
@@ -10549,6 +10785,436 @@ BEGIN
 	   AND QSeq = COALESCE(@qSeq, QSeq)
 	   AND QSSeq = COALESCE(@qSSeq, QSSeq)
 	 ORDER BY SortOrder, CustomerId, QSetId, QSeq
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveDevice.
+-- Description:	Save Device.
+-- [== History ==]
+-- <2018-05-21> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC SaveDevice N'EDL-C2017010001', 0, N'Device 1', N'Floor 1'
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveDevice] (
+  @customerId as nvarchar(30)
+, @deviceTypeId as int
+, @deviceName as nvarchar(80)
+, @location as nvarchar(150)
+, @deviceId as nvarchar(30) = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iTypeCnt int = 0;
+DECLARE @iCustCnt int = 0;
+DECLARE @iDevCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 2401 : Customer Id cannot be null or empty string.
+	-- 2402 : Device Type Id not found.
+	-- 2403 : Device Name (default) cannot be null or empty string.
+	-- 2404 : Customer Id is not found.
+	-- 2405 : Device Id is not found.
+	-- 2406 : Device Name (default) already exists.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 2401, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@deviceTypeId IS NULL)
+		BEGIN
+			SET @deviceTypeId = 0;
+		END 
+
+		SELECT @iTypeCnt = COUNT(*) 
+		  FROM DeviceType
+		 WHERE DeviceTypeId = @deviceTypeId;
+		IF (@iTypeCnt = 0) 
+		BEGIN
+			-- Device Type Id not found.
+            EXEC GetErrorMsg 2402, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@deviceName) = 1)
+		BEGIN
+			-- Device Name (default) cannot be null or empty string.
+            EXEC GetErrorMsg 2403, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCustCnt = COUNT(*)
+		  FROM Customer
+		 WHERE RTRIM(LTRIM(CustomerId)) = RTRIM(LTRIM(@customerId));
+		IF (@iCustCnt = 0)
+		BEGIN
+			-- Customer Id is not found.
+            EXEC GetErrorMsg 2404, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Name exists */
+		IF (@deviceId IS NOT NULL AND LTRIM(RTRIM(@deviceId)) <> N'')
+		BEGIN
+			SELECT @iDevCnt = COUNT(*)
+			  FROM Device
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(DeviceId) = LOWER(RTRIM(LTRIM(@deviceId)));
+			IF (@iDevCnt = 0)
+			BEGIN
+				-- Device Id is not found.
+                EXEC GetErrorMsg 2405, @errNum out, @errMsg out
+				RETURN
+			END
+
+			SELECT @iDevCnt = COUNT(*)
+				FROM Device
+				WHERE LOWER(DeviceName) = LOWER(RTRIM(LTRIM(@deviceName)))
+				  AND LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			      AND LOWER(DeviceId) <> LOWER(RTRIM(LTRIM(@deviceId)));
+		END
+		ELSE
+		BEGIN
+			SELECT @iDevCnt = COUNT(*)
+				FROM Device
+				WHERE LOWER(DeviceName) = LOWER(RTRIM(LTRIM(@deviceName)))
+				  AND LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		END
+
+		IF @iDevCnt <> 0
+		BEGIN
+			-- Device Name (default) already exists.
+            EXEC GetErrorMsg 2406, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SET @iDevCnt = 0; -- Reset Counter.
+
+		IF dbo.IsNullOrEmpty(@deviceId) = 1
+		BEGIN
+			EXEC NextCustomerPK @customerId
+			                  , N'Device'
+							  , @deviceId out
+							  , @errNum out
+							  , @errMsg out;
+			IF @errNum <> 0
+			BEGIN
+				RETURN;
+			END	
+		END
+		ELSE
+		BEGIN
+			SELECT @iDevCnt = COUNT(*)
+			  FROM Device
+			 WHERE LOWER(DeviceId) = LOWER(RTRIM(LTRIM(@deviceId)))
+			   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		END
+
+		IF @iDevCnt = 0
+		BEGIN
+			INSERT INTO Device
+			(
+				  CustomerId
+				, DeviceTypeId
+				, DeviceId
+				, DeviceName
+				, Location
+				, ObjectStatus
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@customerId))
+				, @deviceTypeId
+				, RTRIM(LTRIM(@deviceId))
+				, RTRIM(LTRIM(@deviceName))
+				, RTRIM(LTRIM(@location))
+				, 1
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE Device
+			   SET DeviceName = RTRIM(LTRIM(@deviceName))
+			     , Location = RTRIM(LTRIM(@location))
+				 , DeviceTypeId = @deviceTypeId
+			 WHERE LOWER(DeviceId) = LOWER(RTRIM(LTRIM(@deviceId))) 
+			   AND LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)));
+		END
+		
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveDeviceML.
+-- Description:	Save Device (ML).
+-- [== History ==]
+-- <2018-05-22> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC SaveDeviceML N'EDL-C2017060005', N'D0001', N'TH', N'อุปกรณ์ 1', N'ชั้น 1'
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveDeviceML] (
+  @customerId as nvarchar(30)
+, @deviceId as nvarchar(30)
+, @langId as nvarchar(3)
+, @deviceName as nvarchar(80)
+, @location as nvarchar(150)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iLangCnt int = 0;
+DECLARE @iDevCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+    -- 2407 : Customer Id cannot be null or empty string.
+	-- 2408 : Lang Id cannot be null or empty string.
+	-- 2409 : Language Id not exist.
+	-- 2410 : Device Id cannot be null or empty string.
+	-- 2411 : Device Id is not found.
+	-- 2412 : Device Name (ML) is already exists.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		/* Check if customer id is not null. */
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+            -- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 2407, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if lang id is not null. */
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- Lang Id cannot be null or empty string.
+            EXEC GetErrorMsg 2408, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check if language exists. */
+		SELECT @iLangCnt = COUNT(LangId)
+		  FROM Language
+		 WHERE UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		IF (@iLangCnt IS NULL OR @iLangCnt = 0) 
+		BEGIN
+			-- Lang Id not exist.
+            EXEC GetErrorMsg 2409, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if device id is not null. */
+		IF (dbo.IsNullOrEmpty(@deviceId) = 1)
+		BEGIN
+			-- Device Id cannot be null or empty string.
+            EXEC GetErrorMsg 2410, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Id is in table */ 
+		SELECT @iDevCnt = COUNT(*)
+			FROM Device
+		   WHERE UPPER(RTRIM(LTRIM(DeviceId))) = UPPER(RTRIM(LTRIM(@deviceId)))
+		     AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF @iDevCnt = 0
+		BEGIN
+			-- Device Id is not found.
+            EXEC GetErrorMsg 2411, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Device Name is already exists. */
+		SELECT @iDevCnt = COUNT(*)
+			FROM DeviceML
+		   WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		     AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)))
+		     AND UPPER(RTRIM(LTRIM(DeviceName))) = UPPER(RTRIM(LTRIM(@deviceName)))
+		     AND UPPER(RTRIM(LTRIM(DeviceId))) <> UPPER(RTRIM(LTRIM(@deviceId)))
+		IF @iDevCnt <> 0
+		BEGIN
+			-- Branch Name (ML) is already exists.
+            EXEC GetErrorMsg 2412, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* check is need to insert or update? */
+		SELECT @iDevCnt = COUNT(*)
+			FROM DeviceML
+		   WHERE UPPER(RTRIM(LTRIM(DeviceId))) = UPPER(RTRIM(LTRIM(@deviceId)))
+		     AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+			 AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+
+		IF @iDevCnt = 0
+		BEGIN
+			INSERT INTO DeviceML
+			(
+				  CustomerId
+				, DeviceId
+				, LangId
+				, DeviceName
+				, Location
+			)
+			VALUES
+			(
+				  UPPER(RTRIM(LTRIM(@customerId)))
+				, UPPER(RTRIM(LTRIM(@deviceId)))
+				, UPPER(RTRIM(LTRIM(@langId)))
+				, RTRIM(LTRIM(@deviceName))
+				, RTRIM(LTRIM(@location))
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE DeviceML
+			   SET DeviceName = RTRIM(LTRIM(@deviceName))
+			     , Location = RTRIM(LTRIM(@location))
+		     WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+			   AND UPPER(RTRIM(LTRIM(DeviceId))) = UPPER(RTRIM(LTRIM(@deviceId)))
+			   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		END
+		
+		-- SUCCESS
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetDevices.
+-- Description:	Get Devices.
+-- [== History ==]
+-- <2018-05-22> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec GetDevices N'EN';                               -- for get devices for EN language.
+--exec GetDevices N'TH';                               -- for get devices for TH language.
+--exec GetDevices N'TH', N'EDL-C2017060011';           -- for get devices by CustomerID.
+--exec GetDevices N'TH', N'EDL-C2017060011', N'D0001'; -- for get devices by CustomerID and DeviceId.
+-- =============================================
+CREATE PROCEDURE [dbo].[GetDevices] 
+(
+  @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
+, @deviceId nvarchar(30) = NULL
+, @enabled bit = NULL
+)
+AS
+BEGIN
+	SELECT DMLV.langId
+		 , DMLV.customerId
+		 , DMLV.deviceId
+		 , DMLV.deviceTypeId
+		 , DTMV.Description as Type
+		 , DMLV.DeviceName
+		 , DMLV.Location
+		 , DMLV.orgId
+		 , DMLV.memberId
+		 , DMLV.SortOrder
+		 , DMLV.Enabled 
+	  FROM DeviceMLView DMLV
+	     , DeviceTypeMLV DTMV
+		 , OrgMLView OMLV
+		 , MemberInfoMLView MIMLV
+	 WHERE DMLV.[ENABLED] = COALESCE(@enabled, DMLV.[ENABLED])
+	   AND UPPER(LTRIM(RTRIM(DMLV.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, DMLV.LangId))))
+	   AND UPPER(LTRIM(RTRIM(DMLV.CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, DMLV.CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(DMLV.DeviceId))) = UPPER(LTRIM(RTRIM(COALESCE(@deviceId, DMLV.DeviceId))))
+	   AND DMLV.DeviceTypeId = DTMV.DeviceTypeId
+	   AND OMLV.CustomerId = DMLV.CustomerId
+	   AND OMLV.OrgID = DMLV.OrgId
+	   AND MIMLV.CustomerId = DMLV.CustomerId
+	   AND MIMLV.MemberID = DMLV.MemberID
+	 ORDER BY DMLV.SortOrder, DMLV.LangId, DMLV.CustomerId, DMLV.DeviceId;
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetDeviceTypes.
+-- Description:	Get Devices.
+-- [== History ==]
+-- <2018-05-22> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec GetDeviceTypes N'EN';
+--exec GetDeviceTypes N'TH';
+--exec GetDeviceTypes N'TH', 0;
+--exec GetDeviceTypes N'TH', 101
+-- =============================================
+CREATE PROCEDURE [dbo].[GetDeviceTypes]
+(
+  @langId nvarchar(3) = NULL
+, @deviceTypeId int = NULL
+)
+AS
+BEGIN
+    SELECT langId
+		 , deviceTypeId
+		 , Description as Type
+		 , SortOrder
+		 , Enabled
+    FROM DeviceTypeMLView
+    WHERE UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
+        AND UPPER(LTRIM(RTRIM(DeviceTypeId))) = UPPER(LTRIM(RTRIM(COALESCE(@deviceTypeId, DeviceTypeId))))
+    ORDER BY SortOrder, LangId, deviceTypeId;
 END
 
 GO
