@@ -1455,6 +1455,454 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+CREATE TABLE [dbo].[Customer](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[CustomerName] [nvarchar](50) NOT NULL,
+	[TaxCode] [nvarchar](30) NULL,
+	[Address1] [nvarchar](80) NULL,
+	[Address2] [nvarchar](80) NULL,
+	[City] [nvarchar](50) NULL,
+	[Province] [nvarchar](50) NULL,
+	[PostalCode] [nvarchar](8) NULL,
+	[Phone] [nvarchar](80) NULL,
+	[Mobile] [nvarchar](80) NULL,
+	[Fax] [nvarchar](80) NULL,
+	[Email] [nvarchar](80) NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING ON
+
+GO
+
+/****** Object:  Index [IX_CustomerName]    Script Date: 4/23/2018 02:02:36 ******/
+CREATE NONCLUSTERED INDEX [IX_CustomerName] ON [dbo].[Customer]
+(
+	[CustomerName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Customer] ADD  CONSTRAINT [DF_Customer_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Customer Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'CustomerName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default TaxCode' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'TaxCode'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Address1' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'Address1'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Address2' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'Address2'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default City' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'City'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Province' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'Province'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default PostalCode' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'PostalCode'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Phone Number(s)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'Phone'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Mobile Number(s)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'Mobile'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Fax Number(s)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'Fax'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Email Address (For Company)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'Email'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 1 - Active' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'COLUMN',@level2name=N'ObjectStatus'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Name Index' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Customer', @level2type=N'INDEX',@level2name=N'IX_CustomerName'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CustomerML](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[CustomerName] [nvarchar](50) NULL,
+	[TaxCode] [nvarchar](30) NULL,
+	[Address1] [nvarchar](80) NULL,
+	[Address2] [nvarchar](80) NULL,
+	[City] [nvarchar](50) NULL,
+	[Province] [nvarchar](50) NULL,
+	[PostalCode] [nvarchar](8) NULL,
+ CONSTRAINT [PK_CustomerML] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Language Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'LangId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Name by specificed language' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'CustomerName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The TaxCode by specificed language' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'TaxCode'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Address1 by specificed language' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'Address1'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Address2 by specificed language' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'Address2'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The City by specificed language' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'City'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Province by specificed language' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'Province'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The PostalCode by specificed language' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CustomerML', @level2type=N'COLUMN',@level2name=N'PostalCode'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[CustomerView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+		 --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+	     , Customer.CustomerId
+		 , Customer.CustomerName
+		 , Customer.TaxCode
+		 , Customer.Address1
+		 , Customer.Address2
+		 , Customer.City
+		 , Customer.Province
+		 , Customer.PostalCode
+		 , Customer.Phone
+		 , Customer.Mobile
+		 , Customer.Fax
+		 , Customer.Email
+		 , Customer.ObjectStatus
+	  FROM LanguageView CROSS JOIN dbo.Customer
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[CustomerMLView]
+AS
+	SELECT CUV.LangId
+	     , CUV.CustomerId
+		 , CASE 
+			WHEN CUML.CustomerName IS NULL THEN 
+				CUV.CustomerName
+			ELSE 
+				CUML.CustomerName 
+		   END AS CustomerName
+		 , CASE 
+			WHEN CUML.CustomerName IS NULL THEN 
+				CUV.TaxCode
+			ELSE 
+				CUML.TaxCode 
+		   END AS TaxCode
+		 , CASE 
+			WHEN CUML.CustomerName IS NULL THEN 
+				CUV.Address1
+			ELSE 
+				CUML.Address1 
+		   END AS Address1
+		 , CASE 
+			WHEN CUML.CustomerName IS NULL THEN 
+				CUV.Address2
+			ELSE 
+				CUML.Address2 
+		   END AS Address2
+		 , CASE 
+			WHEN CUML.CustomerName IS NULL THEN 
+				CUV.City
+			ELSE 
+				CUML.City 
+		   END AS City
+		 , CASE 
+			WHEN CUML.CustomerName IS NULL THEN 
+				CUV.Province
+			ELSE 
+				CUML.Province 
+		   END AS Province
+		 , CASE 
+			WHEN CUML.CustomerName IS NULL THEN 
+				CUV.PostalCode
+			ELSE 
+				CUML.PostalCode 
+		   END AS PostalCode
+		 , CUV.Phone
+		 , CUV.Mobile
+		 , CUV.Fax
+		 , CUV.Email
+		 , CUV.ObjectStatus
+		 , CUV.Enabled
+		 , CUV.SortOrder
+		FROM dbo.CustomerML AS CUML RIGHT OUTER JOIN CustomerView AS CUV
+		  ON (CUML.LangId = CUV.LangId AND CUML.CustomerId = CUV.CustomerId)
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MemberInfo](
+	[MemberId] [nvarchar](30) NOT NULL,
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[TagId] [nvarchar](30) NULL,
+	[IDCard] [nvarchar](30) NULL,
+	[EmployeeCode] [nvarchar](30) NULL,
+	[Prefix] [nvarchar](10) NULL,
+	[FirstName] [nvarchar](40) NOT NULL,
+	[LastName] [nvarchar](50) NULL,
+	[UserName] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](20) NOT NULL,
+	[MemberType] [int] NOT NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_MemberInfo] PRIMARY KEY CLUSTERED 
+(
+	[MemberId] ASC,
+	[CustomerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[MemberInfo] ADD  CONSTRAINT [DF_MemberInfo_MemberType]  DEFAULT ((280)) FOR [MemberType]
+GO
+
+ALTER TABLE [dbo].[MemberInfo] ADD  CONSTRAINT [DF_MemberInfo_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+ALTER TABLE [dbo].[MemberInfo]  WITH CHECK ADD  CONSTRAINT [CK_MemberInfo_MemberType] CHECK  (([MemberType]=(290) OR [MemberType]=(280) OR [MemberType]=(210) OR [MemberType]=(200)))
+GO
+
+ALTER TABLE [dbo].[MemberInfo] CHECK CONSTRAINT [CK_MemberInfo_MemberType]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Member Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'MemberId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Employee Smartcard TagId' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'TagId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Employee IDCard' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'IDCard'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Employee Code (assigned by customer company)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'EmployeeCode'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Prefix' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'Prefix'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default First Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'FirstName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Default Last Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'LastName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The LogIn Member UserName' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'UserName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The LogIn Member Password' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'Password'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'200 admin, 210 exclusive, 280 staff, 290 Device' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'MemberType'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - InActive, 1 - Active' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'COLUMN',@level2name=N'ObjectStatus'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Prevent Enter Invalid Member Type' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfo', @level2type=N'CONSTRAINT',@level2name=N'CK_MemberInfo_MemberType'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MemberInfoML](
+	[MemberId] [nvarchar](30) NOT NULL,
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[Prefix] [nvarchar](10) NULL,
+	[FirstName] [nvarchar](40) NOT NULL,
+	[LastName] [nvarchar](50) NULL,
+ CONSTRAINT [PK_MemberInfoML] PRIMARY KEY CLUSTERED 
+(
+	[MemberId] ASC,
+	[CustomerId] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Member Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfoML', @level2type=N'COLUMN',@level2name=N'MemberId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfoML', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Language Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfoML', @level2type=N'COLUMN',@level2name=N'LangId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native Prefix' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfoML', @level2type=N'COLUMN',@level2name=N'Prefix'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native First Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfoML', @level2type=N'COLUMN',@level2name=N'FirstName'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Native Last Name' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'MemberInfoML', @level2type=N'COLUMN',@level2name=N'LastName'
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[MemberInfoView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+		 , MemberInfo.CustomerId
+		 , MemberInfo.MemberId
+		 , MemberInfo.TagId
+		 , MemberInfo.IDCard
+		 , MemberInfo.EmployeeCode
+	     , MemberInfo.Prefix
+	     , MemberInfo.FirstName
+	     , MemberInfo.LastName
+		 , MemberInfo.UserName
+		 , MemberInfo.Password
+		 , MemberInfo.MemberType
+		 , MemberInfo.ObjectStatus
+	  FROM LanguageView CROSS JOIN dbo.MemberInfo
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[MemberInfoMLView]
+AS
+	SELECT MIV.LangId
+	     , MIV.CustomerId
+	     , MIV.MemberId
+	     , MIV.MemberType
+		 , CASE 
+			WHEN MIML.FirstName IS NULL THEN 
+				MIV.Prefix
+			ELSE 
+				MIML.Prefix 
+		   END AS Prefix
+		 , CASE 
+			WHEN MIML.FirstName IS NULL THEN 
+				MIV.FirstName
+			ELSE 
+				MIML.FirstName 
+		   END AS FirstName
+		 , CASE 
+			WHEN MIML.FirstName IS NULL THEN 
+				MIV.LastName
+			ELSE 
+				MIML.LastName 
+		   END AS LastName
+		 , CASE 
+			WHEN MIML.FirstName IS NULL THEN /* Use FirstName to check for used Native data */
+				RTRIM(LTRIM(RTRIM(LTRIM(ISNULL(MIV.Prefix, N''))) + N' ' +
+				            RTRIM(LTRIM(MIV.FirstName)) + N' ' +
+				            RTRIM(LTRIM(ISNULL(MIV.LastName, N'')))))
+			ELSE 
+				RTRIM(LTRIM(RTRIM(LTRIM(ISNULL(MIML.Prefix, N''))) + N' ' +
+				            RTRIM(LTRIM(MIML.FirstName)) + N' ' +
+				            RTRIM(LTRIM(ISNULL(MIML.LastName, N'')))))
+		   END AS FullName
+	     , MIV.IDCard
+	     , MIV.TagId
+	     , MIV.EmployeeCode
+	     , MIV.UserName
+	     , MIV.Password
+	     , MIV.ObjectStatus
+	     , MIV.Enabled
+	     , MIV.SortOrder
+		FROM dbo.MemberInfoML AS MIML RIGHT OUTER JOIN MemberInfoView AS MIV
+		  ON (    MIML.LangId = MIV.LangId 
+		      AND MIML.CustomerId = MIV.CustomerId
+		      AND MIML.MemberId = MIV.MemberId
+			 )
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 -- =============================================
 -- Author: Chumpon Asaneerat
 -- Name: IsNullOrEmpty.
@@ -5650,6 +6098,1203 @@ BEGIN
 		FROM CustomerPK
 		WHERE LOWER(CustomerId) = LOWER(@customerId)
 		  AND LOWER([TableName]) = LOWER(COALESCE(@tableName, [TableName]));
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveCustomer.
+-- Description:	Save Customer Information.
+-- [== History ==]
+-- <2016-11-02> :
+--	- Stored Procedure Created.
+-- <2017-06-07> :
+--	- Fixed logic to check duplicate Customer Name.
+-- <2017-06-08> :
+--	- Add code to used exists data if null is set (TaxCode, Address1, Address2, etc.).
+-- <2018-04-16> :
+--	- change error code(s).
+--
+-- [== Example ==]
+--
+/*
+-- Complex Example.
+DECLARE @errNum int;
+DECLARE @errMsg nvarchar(MAX);
+DECLARE @customerId nvarchar(30)
+-- [AddNew]
+exec SaveCustomer --Company Name
+                  N'Softbase Co., Ltd.'
+				  --Tax Code
+                , N'123-908-098-098'
+				  --Address 1
+				, N'222 first road my address 1'
+				  --Address 2
+				, N'address 2'
+				  --City
+				, N'banglumpoolang'
+				  --Province
+				, N'bangkok'
+				  --PostalCode
+				, N'10600'
+				  --Phone
+				, N'02-888-8822, 02-888-8888'
+				  --Mobile
+				, N'081-666-6666'
+				  --Fax
+				, N'02-899-9888'
+				  --Email
+				, N'chumponsenate@yahoo.com'
+				  --CustomerId
+				, @customerId out
+				  -- Err Number
+				, @errNum out
+				  -- Err Message
+				, @errMsg out
+SELECT * FROM Customer
+SELECT @customerId AS CustomerId, @errNum AS ErrNum, @errMsg AS ErrMsg
+-- [Update]
+exec SaveCustomer 
+                  --Company Name
+                  N'Softbase2 Co., Ltd.'
+				  --Tax Code
+                , N'123-908-098-098'
+				  --Address 1
+				, N'222 first road'
+				  --Address 2
+				, N'address 2'
+				  --City
+				, N'banglumpoolang'
+				  --Province
+				, N'bangkok'
+				  --PostalCode
+				, N'10600'
+				  --Phone
+				, N'02-888-8822'
+				  --Mobile
+				, N''
+				  --Fax
+				, N''
+				  --Email
+				, N''
+				  --CustomerId
+				, @customerId
+				  -- Err Number
+				, @errNum out
+				  -- Err Message
+				, @errMsg out
+SELECT * FROM Customer
+SELECT @customerId AS CustomerId, @errNum AS ErrNum, @errMsg AS ErrMsg
+*/
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveCustomer] (
+  @customerName as nvarchar(50)
+, @taxCode as nvarchar(30) = null
+, @address1 as nvarchar(80) = null
+, @address2 as nvarchar(80) = null
+, @city as nvarchar(50) = null
+, @province as nvarchar(50) = null
+, @postalcode as nvarchar(8) = null
+, @phone as nvarchar(80) = null
+, @mobile as nvarchar(80) = null
+, @fax as nvarchar(80) = null
+, @email as nvarchar(80) = null
+, @customerId as nvarchar(30) = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCustCnt int = 0;
+	-- Error Code:
+	--   0 : Success
+	-- 901 : Customer Name (default) cannot be null or empty string.
+	-- 902 : The Customer Id is not exists.
+	-- 903 : Customer Name (default) already exists.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerName) = 1)
+		BEGIN
+			-- Customer Name (default) cannot be null or empty string.
+            EXEC GetErrorMsg 901, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check Name exists */
+		IF (@customerId IS NOT NULL)
+		BEGIN
+			/* Check is Customer Id is exists. */
+			SELECT @iCustCnt = COUNT(*)
+			  FROM Customer
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)));
+			IF (@iCustCnt = 0)
+			BEGIN
+                -- The Customer Id is not exists.
+                EXEC GetErrorMsg 902, @errNum out, @errMsg out
+				RETURN;
+			END
+
+			SELECT @iCustCnt = COUNT(*)
+				FROM Customer
+				WHERE LOWER(CustomerName) = LOWER(RTRIM(LTRIM(@customerName)))
+				  AND LOWER(CustomerId) <> LOWER(RTRIM(LTRIM(@customerId)))
+		END
+		ELSE
+		BEGIN
+			SELECT @iCustCnt = COUNT(*)
+				FROM Customer
+				WHERE LOWER(CustomerName) = LOWER(RTRIM(LTRIM(@customerName)))
+		END
+
+		IF @iCustCnt <> 0
+		BEGIN
+			-- Customer Name (default) already exists.
+            EXEC GetErrorMsg 903, @errNum out, @errMsg out
+			RETURN;
+		END
+		/* Reset Counter */
+		SET @iCustCnt = 0;
+
+		IF dbo.IsNullOrEmpty(@customerId) = 1
+		BEGIN
+			EXEC NextMasterPK N'Customer'
+							, @customerId out
+							, @errNum out
+							, @errMsg out;
+			IF @errNum <> 0
+			BEGIN
+				RETURN;
+			END	
+		END
+		ELSE
+		BEGIN
+			SELECT @iCustCnt = COUNT(*)
+			  FROM Customer
+			 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		END
+
+		IF @iCustCnt = 0
+		BEGIN
+			INSERT INTO Customer
+			(
+				  CustomerID
+				, CustomerName
+				, TaxCode
+				, Address1
+				, Address2
+				, City
+				, Province
+				, PostalCode
+				, Phone
+				, Mobile
+				, Fax
+				, Email
+				, ObjectStatus
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@customerId))
+				, RTRIM(LTRIM(@customerName))
+				, RTRIM(LTRIM(@taxCode))
+				, RTRIM(LTRIM(@address1))
+				, RTRIM(LTRIM(@address2))
+				, RTRIM(LTRIM(@city))
+				, RTRIM(LTRIM(@province))
+				, RTRIM(LTRIM(@postalcode))
+				, RTRIM(LTRIM(@phone))
+				, RTRIM(LTRIM(@mobile))
+				, RTRIM(LTRIM(@fax))
+				, RTRIM(LTRIM(@email))
+				, 1
+			);
+			/* Init Related PK */
+			exec SetCustomerPK @customerId, N'Branch', 4, 'B', 4;
+			exec SetCustomerPK @customerId, N'MemberInfo', 4, 'M', 5;
+			exec SetCustomerPK @customerId, N'Org', 4, 'O', 4;
+			exec SetCustomerPK @customerId, N'QSet', 4, 'QS', 5;
+			exec SetCustomerPK @customerId, N'Device', 4, 'D', 4;
+		END
+		ELSE
+		BEGIN
+			UPDATE Customer
+			   SET CustomerName = RTRIM(LTRIM(@customerName)) /* Cannot be null. */
+				 , TaxCode = RTRIM(LTRIM(COALESCE(@taxCode, TaxCode)))
+				 , Address1 = RTRIM(LTRIM(COALESCE(@address1, Address1)))
+				 , Address2 = RTRIM(LTRIM(COALESCE(@address2, Address2)))
+				 , City = RTRIM(LTRIM(COALESCE(@city, City)))
+				 , Province = RTRIM(LTRIM(COALESCE(@province, Province)))
+				 , Postalcode = RTRIM(LTRIM(COALESCE(@postalcode, Postalcode)))
+				 , Phone = RTRIM(LTRIM(COALESCE(@phone, Phone)))
+				 , Mobile = RTRIM(LTRIM(COALESCE(@mobile, Mobile)))
+				 , Fax = RTRIM(LTRIM(COALESCE(@fax, Fax)))
+				 , Email = RTRIM(LTRIM(COALESCE(@email, Email)))
+			 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		END
+
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveCustomerML.
+-- Description:	Save Customer ML.
+-- [== History ==]
+-- <2016-11-02> :
+--	- Stored Procedure Created.
+-- <2017-06-08> :
+--	- Fixed Logic to checks duplicated name.
+--	- Fixed Logic to checks mismatch langId.
+--	- Add code to used exists data if null is set (TaxCode, Address1, Address2, etc.).
+-- <2018-04-16> :
+--	- change language id from nvarchar(10) to nvarchar(3).
+--	- change error code(s).
+--
+-- [== Example ==]
+--
+/*
+-- Complex Example.
+DECLARE @errNum int;
+DECLARE @errMsg nvarchar(MAX);
+DECLARE @customerId nvarchar(30)
+-- [AddNew]
+exec SaveCustomerML --CustomerId
+				    @customerId
+				    --LangId
+                  , N'TH'
+				    --Company Name
+                  , N'บริษัท ซอฟต์เบส จำกัด'
+				    --Tax Code
+                  , N'123-908-098-098'
+				    --Address 1
+				  , N'30 ซอยเจริญนคร 51 ถ.เจริญนคร'
+				    --Address 2
+				  , N'แขวงบางลำภูล่าง'
+				    --City
+				  , N'เขตคลองสาน'
+				    --Province
+				  , N'ก.ท.ม.'
+				    --PostalCode
+				  , N'10600'
+				    -- Err Number
+				  , @errNum out
+				    -- Err Message
+				  , @errMsg out
+
+SELECT * FROM CustomerML
+SELECT @errNum AS ErrNum, @errMsg AS ErrMsg
+*/
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveCustomerML] (
+  @customerId as nvarchar(30) = null
+, @langId as nvarchar(3)
+, @customerName as nvarchar(50)
+, @taxCode as nvarchar(30) = null
+, @address1 as nvarchar(80) = null
+, @address2 as nvarchar(80) = null
+, @city as nvarchar(50) = null
+, @province as nvarchar(50) = null
+, @postalcode as nvarchar(8) = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iLangCnt int = 0;
+DECLARE @iCustCnt int = 0;
+	-- Error Code:
+	--   0 : Success
+	-- 904 : Customer Id cannot be null or empty string.
+	-- 905 : Lang Id cannot be null or empty string.
+	-- 906 : Lang Id not found.
+	-- 907 : Customer Name (ML) cannot be null or empty string.
+	-- 908 : Customer Name (ML) is already exist.
+
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 904, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- Lang Id cannot be null or empty string.
+            EXEC GetErrorMsg 905, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iLangCnt = COUNT(*)
+		  FROM Language
+		 WHERE UPPER(RTRIM(LTRIM(LangID))) = UPPER(RTRIM(LTRIM(@langId)));
+
+		IF (@iLangCnt IS NULL OR @iLangCnt = 0)
+		BEGIN
+			-- Lang Id not found.
+            EXEC GetErrorMsg 906, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@customerName) = 1)
+		BEGIN
+			-- Customer Name (ML) cannot be null or empty string.
+            EXEC GetErrorMsg 907, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Duplicate Name in same language. */ 
+		SELECT @iCustCnt = COUNT(*)
+		  FROM CustomerML
+		 WHERE UPPER(RTRIM(LTRIM(LangID))) = UPPER(RTRIM(LTRIM(@langId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerName))) = UPPER(RTRIM(LTRIM(@customerName)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) <> UPPER(RTRIM(LTRIM(@customerId)))
+
+		IF @iCustCnt > 0
+		BEGIN
+			-- The Customer Name (ML) is already exist.
+            EXEC GetErrorMsg 908, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iCustCnt = 0; -- Reset
+
+		/* check is need to insert or update? */
+		SELECT @iCustCnt = COUNT(*)
+		  FROM CustomerML
+		 WHERE UPPER(RTRIM(LTRIM(LangID))) = UPPER(RTRIM(LTRIM(@langId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)));
+
+		IF @iCustCnt = 0
+		BEGIN
+			INSERT INTO CustomerML
+			(
+				  CustomerID
+				, LangId
+				, CustomerName
+				, TaxCode
+				, Address1
+				, Address2
+				, City
+				, Province
+				, PostalCode
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@customerId))
+				, RTRIM(LTRIM(@langId))
+				, RTRIM(LTRIM(@customerName))
+				, RTRIM(LTRIM(@taxCode))
+				, RTRIM(LTRIM(@address1))
+				, RTRIM(LTRIM(@address2))
+				, RTRIM(LTRIM(@city))
+				, RTRIM(LTRIM(@province))
+				, RTRIM(LTRIM(@postalcode))
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE CustomerML
+			   SET CustomerName = RTRIM(LTRIM(@customerName))
+				 , TaxCode = RTRIM(LTRIM(COALESCE(@taxCode, TaxCode)))
+				 , Address1 = RTRIM(LTRIM(COALESCE(@address1, Address1)))
+				 , Address2 = RTRIM(LTRIM(COALESCE(@address2, Address2)))
+				 , City = RTRIM(LTRIM(COALESCE(@city, City)))
+				 , Province = RTRIM(LTRIM(COALESCE(@province, Province)))
+				 , Postalcode = RTRIM(LTRIM(COALESCE(@postalcode, Postalcode)))
+			 WHERE UPPER(RTRIM(LTRIM(LangID))) = UPPER(RTRIM(LTRIM(@langId)))
+			   AND UPPER(RTRIM(LTRIM(CustomerID))) = UPPER(RTRIM(LTRIM(@customerId)))
+		END
+
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	GetCustomers
+-- [== History ==]
+-- <2017-05-31> :
+--	- Stored Procedure Created.
+-- <2018-04-> :
+--	- change language id from nvarchar(10) to nvarchar(3).
+-- <2018-05-15> :
+--	- change column LangId to langId
+--
+-- [== Example ==]
+--
+--exec GetCustomers NULL, NULL, 1;             -- for only enabled languages.
+--exec GetCustomers;                           -- for get all.
+--exec GetCustomers N'EN';                     -- for get customers for EN language.
+--exec GetCustomers N'TH';                     -- for get customers for TH language.
+--exec GetCustomers N'TH', N'EDL-C2017060011'; -- for get customer for TH language by Customer Id.
+-- =============================================
+CREATE PROCEDURE [dbo].[GetCustomers] 
+(
+  @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
+, @enabled bit = NULL
+)
+AS
+BEGIN
+	SELECT langId
+		 , customerId
+		 , CustomerName
+		 , TaxCode
+		 , Address1
+		 , Address2
+		 , City
+		 , Province
+		 , PostalCode
+		 , Phone
+		 , Mobile
+		 , Fax
+		 , Email
+		 , ObjectStatus
+		 , SortOrder
+		 , Enabled 
+	  FROM CustomerMLView
+	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
+	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
+	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+	 ORDER BY SortOrder, CustomerId
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Sample
+-- [== History ==]
+-- <2018-05-24> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC DeleteCustomer N'EDL-C2018050002'
+-- =============================================
+CREATE PROCEDURE [dbo].[DeleteCustomer]
+(
+  @customerId nvarchar(30)
+)
+AS
+BEGIN
+	DELETE FROM DeviceML WHERE CustomerId = @customerId;
+	DELETE FROM Device WHERE CustomerId = @customerId;
+	DELETE FROM ClientAccess WHERE CustomerId = @customerId;
+
+	DELETE FROM Vote WHERE CustomerId = @customerId;
+	DELETE FROM QSlideItemML WHERE CustomerId = @customerId;
+	DELETE FROM QSlideItem WHERE CustomerId = @customerId;
+	DELETE FROM QSlideML WHERE CustomerId = @customerId;
+	DELETE FROM QSlide WHERE CustomerId = @customerId;
+	DELETE FROM QSetML WHERE CustomerId = @customerId;
+	DELETE FROM QSet WHERE CustomerId = @customerId;
+	DELETE FROM DeviceML WHERE CustomerId = @customerId;
+	DELETE FROM Device WHERE CustomerId = @customerId;
+	DELETE FROM OrgML WHERE CustomerId = @customerId;
+	DELETE FROM Org WHERE CustomerId = @customerId;
+	DELETE FROM BranchML WHERE CustomerId = @customerId;
+	DELETE FROM Branch WHERE CustomerId = @customerId;
+	DELETE FROM MemberInfoML WHERE CustomerId = @customerId;
+	DELETE FROM MemberInfo WHERE CustomerId = @customerId;
+	DELETE FROM CustomerML WHERE CustomerId = @customerId;
+	DELETE FROM Customer WHERE CustomerId = @customerId;
+	DELETE FROM CustomerPK WHERE CustomerId = @customerId;
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Sample
+-- [== History ==]
+-- <2018-05-24> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC DeleteCustomers    -- Delete Customer without reset master pk.
+--EXEC DeleteCustomers 1  -- Delete Customer with reset master pk.
+-- =============================================
+CREATE PROCEDURE [dbo].[DeleteCustomers]
+(
+  @reset bit = 0
+)
+AS
+BEGIN
+	DELETE FROM DeviceML;
+	DELETE FROM Device;
+	DELETE FROM ClientAccess;
+
+	DELETE FROM Vote;
+	DELETE FROM QSlideItemML;
+	DELETE FROM QSlideItem;
+	DELETE FROM QSlideML;
+	DELETE FROM QSlide;
+	DELETE FROM QSetML;
+	DELETE FROM QSet;
+	DELETE FROM DeviceML;
+	DELETE FROM Device;
+	DELETE FROM OrgML;
+	DELETE FROM Org;
+	DELETE FROM BranchML;
+	DELETE FROM Branch;
+	DELETE FROM MemberInfoML;
+	DELETE FROM MemberInfo;
+	DELETE FROM CustomerML;
+	DELETE FROM Customer;
+	DELETE FROM CustomerPK;
+	IF (@reset = 1)
+	BEGIN
+		DELETE FROM MasterPK;
+		EXEC InitMasterPKs;
+	END
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveMemberInfo.
+-- Description:	Save Member Information.
+-- [== History ==]
+-- <2016-12-14> :
+--	- Stored Procedure Created.
+-- <2017-01-09> :
+--	- Add Field TagId, IDCard, EmployeeCode.
+-- <2017-06-07> :
+--	- Fixed Logic to check duplicated all Prefix - FirstName - LastName.
+--	- Fixed Logic to check duplicated UserName.
+-- <2017-06-08> :
+--  - The @errMsg set as nvarchar(MAX).
+-- <2017-06-12> :
+--  - Add logic to checks IDCard, EmployeeCode and TagID.
+-- <2018-04-16> :
+--	- change error code(s).
+--
+-- [== Example ==]
+--
+--exec SaveMemberInfo N'EDL-C2017060005', N'', N'Administrator', N'', N'admin@softbase2.co.th', N'1234', 200
+--exec SaveMemberInfo N'EDL-C2017060005', N'Mr.', N'Chumpon', N'Asaneerat', N'chumpon@softbase2.co.th', N'1234', 210
+--exec SaveMemberInfo N'EDL-C2017060005', N'Mr.', N'Thana', N'Phorchan', N'thana@softbase2.co.th', N'1234', 280
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveMemberInfo] (
+  @customerId as nvarchar(30)
+, @prefix as nvarchar(10) = null
+, @firstName as nvarchar(40)
+, @lastName as nvarchar(50) = null
+, @userName as nvarchar(50)
+, @passWord as nvarchar(20)
+, @memberType as int = 280 /* Staff */
+, @tagId as nvarchar(30) = null
+, @idCard as nvarchar(30) = null
+, @employeeCode as nvarchar(30) = null
+, @memberId as nvarchar(30) = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iMemCnt int = 0;
+DECLARE @iCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1101 : Customer Id cannot be null or empty string.
+	-- 1102 : Customer Id not found.
+	-- 1103 : First Name (default) cannot be null or empty string.
+	-- 1104 : User Name cannot be null or empty string.
+	-- 1105 : Password cannot be null or empty string.
+	-- 1106 : MemberType cannot be null.
+	-- 1107 : MemberType allow only value 200 admin, 210 exclusive, 280 staff, 290 Device.
+	-- 1108 : Member Full Name (default) already exists.
+	-- 1109 : User Name already exists.
+	-- 1110 : Member Id is not found.
+	-- 1111 : IDCard is already exists.
+	-- 1111 : Employee Code is already exists.
+	-- 1113 : TagId is already exists.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1101, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Customer
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)));
+		IF (@iCnt = 0)
+		BEGIN
+			-- Customer Id not found.
+            EXEC GetErrorMsg 1102, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@firstName) = 1)
+		BEGIN
+			-- First Name (default) cannot be null or empty string.
+            EXEC GetErrorMsg 1103, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@userName) = 1)
+		BEGIN
+			-- User Name cannot be null or empty string.
+            EXEC GetErrorMsg 1104, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@passWord) = 1)
+		BEGIN
+			-- Password cannot be null or empty string.
+            EXEC GetErrorMsg 1105, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@memberType IS NULL)
+		BEGIN
+			-- MemberType cannot be null.
+            EXEC GetErrorMsg 1106, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@memberType <> 200 AND @memberType <> 210 AND @memberType <> 280 AND @memberType <> 290)
+		BEGIN
+			-- MemberType allow only value 200 admin, 210 exclusive, 280 staff, 290 Device.
+            EXEC GetErrorMsg 1107, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Prefix, FirstName, LastName exists */
+		IF (@memberId IS NOT NULL)
+		BEGIN
+			SELECT @iMemCnt = COUNT(*)
+			  FROM MemberInfo
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(MemberId) <> LOWER(RTRIM(LTRIM(@memberId)))
+			   AND LOWER(RTRIM(LTRIM(Prefix))) = LOWER(RTRIM(LTRIM(@prefix)))
+			   AND LOWER(RTRIM(LTRIM(FirstName))) = LOWER(RTRIM(LTRIM(@firstName)))
+			   AND LOWER(RTRIM(LTRIM(LastName))) = LOWER(RTRIM(LTRIM(@lastName)))
+		END
+		ELSE
+		BEGIN
+			SELECT @iMemCnt = COUNT(*)
+			  FROM MemberInfo
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(RTRIM(LTRIM(Prefix))) = LOWER(RTRIM(LTRIM(@prefix)))
+			   AND LOWER(RTRIM(LTRIM(FirstName))) = LOWER(RTRIM(LTRIM(@firstName)))
+			   AND LOWER(RTRIM(LTRIM(LastName))) = LOWER(RTRIM(LTRIM(@lastName)))
+		END
+
+		IF @iMemCnt <> 0
+		BEGIN
+			-- Member Full Name (default) already exists.
+            EXEC GetErrorMsg 1108, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SET @iMemCnt = 0; -- Reset Counter.
+
+		/* Check UserName exists */
+		IF (@memberId IS NOT NULL)
+		BEGIN
+			SELECT @iMemCnt = COUNT(*)
+			  FROM MemberInfo
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(MemberId) <> LOWER(RTRIM(LTRIM(@memberId)))
+			   AND LOWER(RTRIM(LTRIM(UserName))) = LOWER(RTRIM(LTRIM(@userName)))
+		END
+		ELSE
+		BEGIN
+			SELECT @iMemCnt = COUNT(*)
+			  FROM MemberInfo
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(RTRIM(LTRIM(UserName))) = LOWER(RTRIM(LTRIM(@userName)))
+		END
+
+		IF @iMemCnt <> 0
+		BEGIN
+			-- User Name already exists.
+            EXEC GetErrorMsg 1109, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		IF (@memberId IS NOT NULL)
+		BEGIN
+			-- Checks is MemberId is valid.
+			SELECT @iMemCnt = COUNT(*)
+			  FROM MemberInfo
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(RTRIM(LTRIM(MemberId))) = LOWER(RTRIM(LTRIM(@memberId)))
+			IF (@iMemCnt = 0)
+			BEGIN
+				--- Member Id is not found.
+                EXEC GetErrorMsg 1110, @errNum out, @errMsg out
+				RETURN;
+			END
+			-- Check IDCard, EmployeeCode, TagId
+			IF (@idCard IS NOT NULL)
+			BEGIN
+				SELECT @iMemCnt = COUNT(*)
+					FROM MemberInfo
+					WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+					  AND LOWER(RTRIM(LTRIM(IDCard))) = LOWER(RTRIM(LTRIM(@idCard)))
+					  AND LOWER(RTRIM(LTRIM(MemberId))) <> LOWER(RTRIM(LTRIM(@memberId)));
+				IF (@iMemCnt <> 0)
+				BEGIN
+					-- IDCard is already exists.
+                    EXEC GetErrorMsg 1111, @errNum out, @errMsg out
+					RETURN;
+				END
+			END
+			IF (@employeeCode IS NOT NULL)
+			BEGIN
+				SELECT @iMemCnt = COUNT(*)
+					FROM MemberInfo
+					WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+					  AND LOWER(RTRIM(LTRIM(EmployeeCode))) = LOWER(RTRIM(LTRIM(@employeeCode)))
+					  AND LOWER(RTRIM(LTRIM(MemberId))) <> LOWER(RTRIM(LTRIM(@memberId)));
+				IF (@iMemCnt <> 0)
+				BEGIN
+					-- Employee Code is already exists.
+                    EXEC GetErrorMsg 1112, @errNum out, @errMsg out
+					RETURN;
+				END
+			END
+			IF (@tagId IS NOT NULL)
+			BEGIN
+				SELECT @iMemCnt = COUNT(*)
+					FROM MemberInfo
+					WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+					  AND LOWER(RTRIM(LTRIM(TagId))) = LOWER(RTRIM(LTRIM(@tagId)))
+					  AND LOWER(RTRIM(LTRIM(MemberId))) <> LOWER(RTRIM(LTRIM(@memberId)));
+				IF (@iMemCnt <> 0)
+				BEGIN
+					-- TagId is already exists.
+                    EXEC GetErrorMsg 1113, @errNum out, @errMsg out
+					RETURN;
+				END
+			END
+		END
+		ELSE
+		BEGIN
+			-- Check IDCard, EmployeeCode, TagId
+			IF (@idCard IS NOT NULL)
+			BEGIN
+				SELECT @iMemCnt = COUNT(*)
+				  FROM MemberInfo
+				 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				   AND LOWER(RTRIM(LTRIM(IDCard))) = LOWER(RTRIM(LTRIM(@idCard)));
+				IF (@iMemCnt <> 0)
+				BEGIN
+					-- IDCard is already exists.
+                    EXEC GetErrorMsg 1111, @errNum out, @errMsg out
+					RETURN;
+				END
+			END
+			IF (@employeeCode IS NOT NULL)
+			BEGIN
+				SELECT @iMemCnt = COUNT(*)
+				  FROM MemberInfo
+				 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				   AND LOWER(RTRIM(LTRIM(EmployeeCode))) = LOWER(RTRIM(LTRIM(@employeeCode)));
+				IF (@iMemCnt <> 0)
+				BEGIN
+					-- Employee Code is already exists.
+                    EXEC GetErrorMsg 1112, @errNum out, @errMsg out
+					RETURN;
+				END
+			END
+			IF (@tagId IS NOT NULL)
+			BEGIN
+				SELECT @iMemCnt = COUNT(*)
+				  FROM MemberInfo
+				 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				   AND LOWER(RTRIM(LTRIM(TagId))) = LOWER(RTRIM(LTRIM(@tagId)));
+				IF (@iMemCnt <> 0)
+				BEGIN
+					-- TagId is already exists.
+                    EXEC GetErrorMsg 1113, @errNum out, @errMsg out
+					RETURN;
+				END
+			END
+		END
+
+		SET @iMemCnt = 0; -- Reset Counter.
+
+		IF dbo.IsNullOrEmpty(@memberId) = 1
+		BEGIN
+			EXEC NextCustomerPK @customerId
+							, N'MemberInfo'
+							, @memberId out
+							, @errNum out
+							, @errMsg out;
+			IF @errNum <> 0
+			BEGIN
+				RETURN;
+			END	
+		END
+		ELSE
+		BEGIN
+			SELECT @iMemCnt = COUNT(*)
+			  FROM MemberInfo
+			 WHERE LOWER(MemberId) = LOWER(RTRIM(LTRIM(@memberId)))
+			   AND LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		END
+
+		IF @iMemCnt = 0
+		BEGIN
+			INSERT INTO MemberInfo
+			(
+				  MemberId
+				, CustomerId
+				, TagId
+				, IDCard
+				, EmployeeCode
+				, Prefix
+				, FirstName
+				, LastName
+				, UserName
+				, [Password]
+				, MemberType
+				, ObjectStatus
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@memberId))
+				, RTRIM(LTRIM(@customerId))
+				, RTRIM(LTRIM(@tagId))
+				, RTRIM(LTRIM(@idCard))
+				, RTRIM(LTRIM(@employeeCode))
+				, RTRIM(LTRIM(@prefix))
+				, RTRIM(LTRIM(@firstName))
+				, RTRIM(LTRIM(@lastName))
+				, RTRIM(LTRIM(@userName))
+				, RTRIM(LTRIM(@passWord))
+				, @memberType
+				, 1
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE MemberInfo
+			   SET TagId = RTRIM(LTRIM(@tagId))
+			     , IDCard = RTRIM(LTRIM(@idCard))
+			     , EmployeeCode = RTRIM(LTRIM(@employeeCode))
+			     , Prefix = RTRIM(LTRIM(@prefix))
+			     , FirstName = RTRIM(LTRIM(@firstName))
+				 , LastName = RTRIM(LTRIM(@lastName))
+				 , UserName = RTRIM(LTRIM(@userName))
+				 , [Password] = RTRIM(LTRIM(@passWord))
+				 , MemberType = @memberType
+			 WHERE LOWER(MemberId) = LOWER(RTRIM(LTRIM(@memberId))) 
+			   AND LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId))) 
+		END
+		SET @errNum = 0;
+		SET @errMsg = N'success';
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveMemberInfoML.
+-- Description:	Save Member Information (ML).
+-- [== History ==]
+-- <2017-06-07> :
+--	- Stored Procedure Created.
+-- <2017-06-08> :
+--  - The @errMsg set as nvarchar(MAX).
+-- <2018-04-16> :
+--	- change language id from nvarchar(10) to nvarchar(3).
+--	- change error code(s).
+--
+-- [== Example ==]
+--
+--exec SaveMemberInfoML N'EDL-C2017060005', N'M00002', N'TH', N'นาย', N'ชุมพล', N'อัศนีย์รัตน์'
+--exec SaveMemberInfoML N'EDL-C2017060005', N'M00002', N'JA', N'氏', N'チュンポン', N'アサニーラット'
+--exec SaveMemberInfoML N'EDL-C2017060005', N'M00003', N'TH', N'นาย', N'ธนา', N'โพธิ์จันทร์'
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveMemberInfoML] (
+  @customerId as nvarchar(30)
+, @memberId as nvarchar(30)
+, @langId as nvarchar(3)
+, @prefix as nvarchar(10)
+, @firstName as nvarchar(40)
+, @lastName as nvarchar(50)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iLangCnt int = 0;
+DECLARE @iMemCnt int = 0;
+DECLARE @iCnt int = 0;
+	-- Error Code:
+	--   0 : Success
+	-- 1101 : CustomerId cannot be null or empty string.
+	-- 1102 : Customer Id not found.
+	-- 1114 : Lang Id cannot be null or empty string.
+	-- 1115 : Lang Id not exist.
+	-- 1116 : Member Id cannot be null or empty string.
+	-- 1117 : No Member match MemberId in specificed Customer Id.
+	-- 1118 : Member Full Name (ML) already exists.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		/* Check if lang id is not null. */
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- Lang Id cannot be null or empty string.
+            EXEC GetErrorMsg 1114, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check if language exists. */
+		SELECT @iLangCnt = COUNT(LangId)
+		  FROM Language
+		 WHERE UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		IF (@iLangCnt IS NULL OR @iLangCnt = 0) 
+		BEGIN
+			-- Lang Id not exist.
+            EXEC GetErrorMsg 1115, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if customer id is not null. */
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1101, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Customer
+		 WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)));
+		IF (@iCnt = 0)
+		BEGIN
+			-- Customer Id not found.
+            EXEC GetErrorMsg 1102, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if branch id is not null. */
+		IF (dbo.IsNullOrEmpty(@memberId) = 1)
+		BEGIN
+			-- Member Id cannot be null or empty string.
+            EXEC GetErrorMsg 1116, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check MemberId is in MemberInfo table */ 
+		SELECT @iMemCnt = COUNT(*)
+			FROM MemberInfo
+		   WHERE UPPER(RTRIM(LTRIM(MemberId))) = UPPER(RTRIM(LTRIM(@memberId)))
+		     AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF @iMemCnt = 0
+		BEGIN
+			-- No Member match MemberId in specificed Customer Id.
+            EXEC GetErrorMsg 1117, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check Prefix, FirstName, LastName exists */
+		SELECT @iMemCnt = COUNT(*)
+			FROM MemberInfoML
+			WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				AND UPPER(LangId) = UPPER(RTRIM(LTRIM(@langId)))
+				AND LOWER(MemberId) <> LOWER(RTRIM(LTRIM(@memberId)))
+				AND LOWER(RTRIM(LTRIM(Prefix))) = LOWER(RTRIM(LTRIM(@prefix)))
+				AND LOWER(RTRIM(LTRIM(FirstName))) = LOWER(RTRIM(LTRIM(@firstName)))
+				AND LOWER(RTRIM(LTRIM(LastName))) = LOWER(RTRIM(LTRIM(@lastName)))
+
+		IF @iMemCnt <> 0
+		BEGIN
+			-- Member Full Name (ML) already exists.
+            EXEC GetErrorMsg 1118, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		SET @iMemCnt = 0; -- Reset Counter.
+
+		/* check is need to insert or update? */
+		SELECT @iMemCnt = COUNT(*)
+			FROM MemberInfoML
+		   WHERE UPPER(RTRIM(LTRIM(MemberId))) = UPPER(RTRIM(LTRIM(@memberId)))
+		     AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+			 AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+
+		IF @iMemCnt = 0
+		BEGIN
+			INSERT INTO MemberInfoML
+			(
+				  CustomerId
+				, MemberId
+				, LangId
+				, Prefix
+				, FirstName
+				, LastName
+			)
+			VALUES
+			(
+				  UPPER(RTRIM(LTRIM(@customerId)))
+				, UPPER(RTRIM(LTRIM(@memberId)))
+				, UPPER(RTRIM(LTRIM(@langId)))
+				, RTRIM(LTRIM(@prefix))
+				, RTRIM(LTRIM(@firstName))
+				, RTRIM(LTRIM(@lastName))
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE MemberInfoML
+			   SET Prefix = RTRIM(LTRIM(@prefix))
+			     , FirstName = RTRIM(LTRIM(@firstName))
+				 , LastName = RTRIM(LTRIM(@lastName))
+		     WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+			   AND UPPER(RTRIM(LTRIM(MemberId))) = UPPER(RTRIM(LTRIM(@memberId)))
+			   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		END
+		
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2019-08-20  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	GetMemberInfos
+-- [== History ==]
+-- <2017-05-31> :
+--	- Stored Procedure Created.
+-- <2018-04-16> :
+--	- change language id from nvarchar(10) to nvarchar(3).
+-- <2018-05-15> :
+--	- change column LangId to langId
+--	- change column CustomerId to customerId
+--	- change column MemberId to memberId
+--
+-- [== Example ==]
+--
+--exec GetMemberInfos NULL, NULL, NULL, 1;                  -- for only enabled languages.
+--exec GetMemberInfos;                                      -- for get all.
+--exec GetMemberInfos N'EN';                                -- for get MemberInfos for EN language.
+--exec GetMemberInfos N'TH';                                -- for get MemberInfos for TH language.
+--exec GetMemberInfos N'TH', N'EDL-C2017060011';            -- for get MemberInfos by CustomerID.
+--exec GetMemberInfos N'TH', N'EDL-C2017060011', N'M00001'; -- for get MemberInfo by CustomerID and MemberId.
+-- =============================================
+CREATE PROCEDURE [dbo].[GetMemberInfos] 
+(
+  @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
+, @memberId nvarchar(30) = NULL
+, @enabled bit = NULL
+)
+AS
+BEGIN
+	SELECT langId
+		 , customerId
+		 , memberId
+		 , MemberType
+		 , Prefix
+		 , FirstName
+		 , LastName
+		 , FullName
+		 , IDCard
+		 , TagId
+		 , EmployeeCode
+		 , UserName
+		 , Password
+		 , ObjectStatus
+		 , SortOrder
+		 , Enabled 
+	  FROM MemberInfoMLView
+	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
+	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
+	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(MemberId))) = UPPER(LTRIM(RTRIM(COALESCE(@memberId, MemberId))))
+	 ORDER BY SortOrder, LangId, CustomerId, MemberId;
 END
 
 GO
