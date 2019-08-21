@@ -104,7 +104,7 @@ const api = DbApi; // create shortcur variable.
 //#endregion
 
 //#region LanguageService class
-
+/*
 class LanguageService {
     constructor() {
         this._pref = new UserPerference();
@@ -180,13 +180,30 @@ class LanguageService {
     get languageListChanged() { return this._languageListChanged; }
     get currentChanged() { return this._currentChanged; }
 };
-
+*/
+class LanguageService {
+    constructor() {
+        this.pref = new UserPerference();
+        this.pref.load(); // load once.
+        this.languages = null;
+        this.current = null;
+        this.langId = LanguageService.defaultId;
+    }
+    getLanguages() {}
+    change(langId) {
+        let newId = (langId) ? langId.toUpperCase() : LanguageService.defaultId;
+        if (this.langId != newId) {
+            this.langId = newId;
+            // Raise event.
+            let evt = new CustomEvent('languagechanged');
+        }        
+    }
+    static get defaultId() { return 'EN' }
+}
 ; (function () {
     //console.log('Init language service...');
-    /*
     window.lang = window.lang || new LanguageService();
-    lang.getLanguages();
-    */
+    //lang.getLanguages();
 })();
 
 //#endregion
