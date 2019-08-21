@@ -1,5 +1,3 @@
-import { networkInterfaces } from "os";
-
 //#region nlib (core)
 
 class NLib {
