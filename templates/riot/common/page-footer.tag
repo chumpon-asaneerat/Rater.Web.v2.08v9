@@ -1,7 +1,7 @@
 <page-footer>
-    <p class="caption">Status:</p>
+    <p class="caption">{ (content && content.current) ? content.current.footer.label.status : 'Status' }:</p>
     <p class="status" ref="l1"></p>
-    <p class="copyright">&copy; EDL Co., Ltd. 2019</p>
+    <p class="copyright">&copy; { (content && content.current) ? content.current.footer.label.copyright : 'EDL Co., Ltd.' }</p>
     <style>
         :scope {
             width: 100vw;
@@ -40,10 +40,12 @@
         //#region local element methods
 
         let bindEvents = () => {
-            self.root.addEventListener('languagechanged', onLanguageChanged);
+            self.root.addEventListener('languagechanged', onChanged);
+            self.root.addEventListener('contentchanged', onChanged);
         }
         let unbindEvents = () => {
-            self.root.removeEventListener('languagechanged', onLanguageChanged);
+            self.root.removeEventListener('contentchanged', onChanged);
+            self.root.removeEventListener('languagechanged', onChanged);
         }
 
         //#endregion
@@ -57,7 +59,7 @@
 
         //#region private methods
 
-        let onLanguageChanged = (e) => { self.update(); }
+        let onChanged = (e) => { self.update(); }
 
         //#endregion
     </script>

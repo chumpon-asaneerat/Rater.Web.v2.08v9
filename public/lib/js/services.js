@@ -153,6 +153,49 @@ class LanguageService {
 
 //#endregion
 
+//#region ContentService class
+
+class ContentService {
+    constructor() {
+        this.content = null;
+        this.current = null;
+        let self = this;
+        let contentChanged = (e) => {
+            self.current = self.getCurrent();
+            console.log('current:', self.current)
+            // Raise event.
+            let evt = new CustomEvent('contentchanged');
+            document.dispatchEvent(evt);
+        }
+        document.addEventListener('languagechanged', contentChanged)
+    }
+    load(url, paramObj) {
+        let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            self.current = self.getCurrent();
+            console.log('current:', self.current)
+            // Raise event.
+            let evt = new CustomEvent('contentchanged');
+            document.dispatchEvent(evt);
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        return (match) ? this.content[this.langId] : this.content['EN'];
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+; (function () {
+    //console.log('Init language service...');
+    window.content = window.content || new ContentService();
+})();
+
+//#endregion
 /*
 
 class QSet {

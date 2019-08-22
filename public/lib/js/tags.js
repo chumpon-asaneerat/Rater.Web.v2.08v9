@@ -52,12 +52,12 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
         let flags, dropItems;
 
         let bindEvents = () => {
-            self.root.addEventListener('languagechanged', onLanguageChanged);
+            self.root.addEventListener('languagechanged', onChanged);
             flags.addEventListener('click', toggle);
         }
         let unbindEvents = () => {
             flags.removeEventListener('click', toggle);
-            self.root.removeEventListener('languagechanged', onLanguageChanged);
+            self.root.removeEventListener('languagechanged', onChanged);
         }
 
         this.on('mount', () => {
@@ -71,7 +71,7 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
             flags = null;
         });
 
-        let onLanguageChanged = (e) => { self.update(); }
+        let onChanged = (e) => { self.update(); }
         let toggle = () => {
             dropItems.classList.toggle('show');
             self.update();
@@ -122,22 +122,24 @@ riot.tag2('nav-bar', '<div class="banner"> <div>app</div> </div> <language-menu>
         });
 
 });
-riot.tag2('page-footer', '<p class="caption">Status:</p> <p class="status" ref="l1"></p> <p class="copyright">&copy; EDL Co., Ltd. 2019</p>', 'page-footer,[data-is="page-footer"]{ width: 100vw; display: grid; grid-template-columns: 30px 1fr 120px; grid-template-rows: 1fr; grid-template-areas: \'caption status copyright\'; justify-items: stretch; align-items: stretch; font-size: 0.75em; font-weight: bold; background: darkorange; color: whitesmoke; } page-footer .caption,[data-is="page-footer"] .caption{ grid-area: caption; padding-left: 3px; } page-footer .status,[data-is="page-footer"] .status{ grid-area: status; } page-footer .copyright,[data-is="page-footer"] .copyright{ grid-area: copyright; }', '', function(opts) {
+riot.tag2('page-footer', '<p class="caption">{(content && content.current) ? content.current.footer.label.status : \'Status\'}:</p> <p class="status" ref="l1"></p> <p class="copyright">&copy; {(content && content.current) ? content.current.footer.label.copyright : \'EDL Co., Ltd.\'}</p>', 'page-footer,[data-is="page-footer"]{ width: 100vw; display: grid; grid-template-columns: 30px 1fr 120px; grid-template-rows: 1fr; grid-template-areas: \'caption status copyright\'; justify-items: stretch; align-items: stretch; font-size: 0.75em; font-weight: bold; background: darkorange; color: whitesmoke; } page-footer .caption,[data-is="page-footer"] .caption{ grid-area: caption; padding-left: 3px; } page-footer .status,[data-is="page-footer"] .status{ grid-area: status; } page-footer .copyright,[data-is="page-footer"] .copyright{ grid-area: copyright; }', '', function(opts) {
 
 
         let self = this;
 
         let bindEvents = () => {
-            self.root.addEventListener('languagechanged', onLanguageChanged);
+            self.root.addEventListener('languagechanged', onChanged);
+            self.root.addEventListener('contentchanged', onChanged);
         }
         let unbindEvents = () => {
-            self.root.removeEventListener('languagechanged', onLanguageChanged);
+            self.root.removeEventListener('contentchanged', onChanged);
+            self.root.removeEventListener('languagechanged', onChanged);
         }
 
         this.on('mount', () => { bindEvents(); });
         this.on('unmount', () => { unbindEvents(); });
 
-        let onLanguageChanged = (e) => { self.update(); }
+        let onChanged = (e) => { self.update(); }
 
 });
     

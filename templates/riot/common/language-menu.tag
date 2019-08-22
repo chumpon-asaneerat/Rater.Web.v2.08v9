@@ -125,12 +125,12 @@
         //#region local element methods
 
         let bindEvents = () => {
-            self.root.addEventListener('languagechanged', onLanguageChanged);
+            self.root.addEventListener('languagechanged', onChanged);
             flags.addEventListener('click', toggle);
         }
         let unbindEvents = () => {
             flags.removeEventListener('click', toggle);
-            self.root.removeEventListener('languagechanged', onLanguageChanged);
+            self.root.removeEventListener('languagechanged', onChanged);
         }
 
         //#endregion
@@ -152,7 +152,7 @@
 
         //#region private methods
 
-        let onLanguageChanged = (e) => { self.update(); }
+        let onChanged = (e) => { self.update(); }
         let toggle = () => {
             dropItems.classList.toggle('show');
             self.update();

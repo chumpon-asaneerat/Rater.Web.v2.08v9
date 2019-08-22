@@ -67,7 +67,7 @@ const routes = class {
                 let langId = dir.replace(contentPath + '\\', '')
                 json[langId] = JSON.parse(fs.readFileSync(path.join(dir, 'content.json'), 'utf8'))
             })
-            WebServer.sendJson(req, res, json);
+            WebServer.sendJson(req, res, nlib.NResult.data(json));
         }
     }
 }
