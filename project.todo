@@ -14,9 +14,10 @@ My Choice Rater Web v2.0.8x9:
         ☐ Redesign device user sign out process.
         ☐ Redesign device nofification process.
     Server:
-        ☐ Create customer admin routes.
-        ☐ Create customer exclusive routes.
-        ☐ Create customer staff routes.
+        ✔ Create customer admin routes. @done(19-08-22 21:25)
+        ✔ Create customer exclusive routes. @done(19-08-22 21:25)
+        ✔ Create customer staff routes. @done(19-08-22 21:25)
+        ✔ Create customer device routes. @done(19-08-22 21:26)
         ☐ Create EDL admin routes.
         ☐ Create EDL supervisor routes.
         ☐ Create EDL staff routes.
