@@ -125,12 +125,12 @@
         //#region local element methods
 
         let bindEvents = () => {
-            self.root.addEventListener('languagechanged', onLanguageChanged)
+            self.root.addEventListener('languagechanged', onLanguageChanged);
             flags.addEventListener('click', toggle);
         }
         let unbindEvents = () => {
             flags.removeEventListener('click', toggle);
-            self.root.removeEventListener('languagechanged', onLanguageChanged)
+            self.root.removeEventListener('languagechanged', onLanguageChanged);
         }
 
         //#endregion
@@ -168,10 +168,6 @@
             e.preventDefault();
             e.stopPropagation();
         }
-
-        //#endregion
-
-        //#region public methods
 
         //#endregion
     </script>

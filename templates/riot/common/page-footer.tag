@@ -39,8 +39,12 @@
 
         //#region local element methods
 
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {
+            self.root.addEventListener('languagechanged', onLanguageChanged);
+        }
+        let unbindEvents = () => {
+            self.root.removeEventListener('languagechanged', onLanguageChanged);
+        }
 
         //#endregion
 
@@ -51,7 +55,9 @@
 
         //#endregion
 
-        //#region public methods
+        //#region private methods
+
+        let onLanguageChanged = (e) => { self.update(); }
 
         //#endregion
     </script>

@@ -52,12 +52,12 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
         let flags, dropItems;
 
         let bindEvents = () => {
-            self.root.addEventListener('languagechanged', onLanguageChanged)
+            self.root.addEventListener('languagechanged', onLanguageChanged);
             flags.addEventListener('click', toggle);
         }
         let unbindEvents = () => {
             flags.removeEventListener('click', toggle);
-            self.root.removeEventListener('languagechanged', onLanguageChanged)
+            self.root.removeEventListener('languagechanged', onLanguageChanged);
         }
 
         this.on('mount', () => {
@@ -127,11 +127,17 @@ riot.tag2('page-footer', '<p class="caption">Status:</p> <p class="status" ref="
 
         let self = this;
 
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {
+            self.root.addEventListener('languagechanged', onLanguageChanged);
+        }
+        let unbindEvents = () => {
+            self.root.removeEventListener('languagechanged', onLanguageChanged);
+        }
 
         this.on('mount', () => { bindEvents(); });
         this.on('unmount', () => { unbindEvents(); });
+
+        let onLanguageChanged = (e) => { self.update(); }
 
 });
     

@@ -117,7 +117,6 @@ class LanguageService {
         let self = this;
         let fn = (r) => {
             let data = api.parse(r);
-            console.log(data);
             self.languages = data.records;
             self.change(self.pref.langId); // set langId from preference.
         }
