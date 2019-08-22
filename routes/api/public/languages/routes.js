@@ -16,12 +16,12 @@ const WebServer = require(nlibExprjs);
 
 //#endregion
 
-//#retion database requires
+//#region database requires
 
 const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
 const db = new sqldb();
 
-//#endretion
+//#endregion
 
 //#region router type and variables
 
@@ -44,7 +44,6 @@ const exec = async (callback) => {
     }
     return ret;
 }
-
 const validate = (data) => {
     let result = data;
     if (!result) {
@@ -67,15 +66,13 @@ const languageAPI = class {
 
 const routes = class {
     /**
-     * Gets Languages list.
+     * Gets language list.
      * 
      * @param {Request} req The Request.
      * @param {Response} res The Response.
      */
     static getLanguages(req, res) {
         let params = WebServer.parseReq(req).data;
-        //console.log(params)
-        //console.log(req.cookies)
         let fn = async () => {
             return languageAPI.GetLanguages(params);
         }
