@@ -13,7 +13,3 @@ let app;
     //console.log(tags[0]);
     app = new App(tags[0]);
 })();
-
-let url = window.location.href.replace('#', '') + 'contents';
-console.log('url:', url)
-content.load(url); // load contents.

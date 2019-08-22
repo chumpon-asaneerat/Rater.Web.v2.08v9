@@ -1,12 +1,18 @@
 <page-footer>
-    <p class="caption">{ (content && content.current) ? content.current.footer.label.status : 'Status' }:</p>
+    <p class="caption">
+        { (appcontent.current) ? appcontent.current.footer.label.status + ' : ' : 'Status : ' }
+    </p>
     <p class="status" ref="l1"></p>
-    <p class="copyright">&copy; { (content && content.current) ? content.current.footer.label.copyright : 'EDL Co., Ltd.' }</p>
+    <p class="copyright">
+        &nbsp;&copy; 
+        { (appcontent.current) ? appcontent.current.footer.label.copyright : 'EDL Co., Ltd.' }
+        &nbsp;&nbsp;
+    </p>
     <style>
         :scope {
             width: 100vw;
             display: grid;
-            grid-template-columns: 30px 1fr 120px;
+            grid-template-columns: fit-content(50px) 1fr fit-content(150px);
             grid-template-rows: 1fr;
             grid-template-areas: 
                 'caption status copyright';
@@ -40,12 +46,10 @@
         //#region local element methods
 
         let bindEvents = () => {
-            self.root.addEventListener('languagechanged', onChanged);
-            self.root.addEventListener('contentchanged', onChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
         }
         let unbindEvents = () => {
-            self.root.removeEventListener('contentchanged', onChanged);
-            self.root.removeEventListener('languagechanged', onChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
         }
 
         //#endregion
@@ -59,7 +63,7 @@
 
         //#region private methods
 
-        let onChanged = (e) => { self.update(); }
+        let onLanguageChanged = (e) => { self.update(); }
 
         //#endregion
     </script>

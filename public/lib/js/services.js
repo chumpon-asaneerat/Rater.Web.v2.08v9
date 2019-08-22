@@ -162,10 +162,6 @@ class ContentService {
         let self = this;
         let contentChanged = (e) => {
             self.current = self.getCurrent();
-            console.log('current:', self.current)
-            // Raise event.
-            let evt = new CustomEvent('contentchanged');
-            document.dispatchEvent(evt);
         }
         document.addEventListener('languagechanged', contentChanged)
     }
@@ -175,10 +171,6 @@ class ContentService {
             let data = api.parse(r);
             self.content = data.records;
             self.current = self.getCurrent();
-            console.log('current:', self.current)
-            // Raise event.
-            let evt = new CustomEvent('contentchanged');
-            document.dispatchEvent(evt);
         }
         XHR.get(url, paramObj, fn);
     }
@@ -191,8 +183,10 @@ class ContentService {
     }
 }
 ; (function () {
-    //console.log('Init language service...');
-    window.content = window.content || new ContentService();
+    //console.log('Init content service...');
+    window.appcontent = window.appcontent || new ContentService();
+    let url = window.location.href.replace('#', '') + 'contents';
+    appcontent.load(url); // load contents.
 })();
 
 //#endregion
