@@ -30,9 +30,45 @@ const router = new WebRouter();
 
 //#endregion
 
+//#region exec/validate wrapper method
+
+const exec = async (callback) => {
+    let ret;
+    let connected = await db.connect();
+    if (connected) {
+        ret = await callback();
+        await db.disconnect();
+    }
+    else {
+        ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
+    }
+    return ret;
+}
+
+const validate = (data) => {
+    let result = data;
+    if (!result) {
+        result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
+    }
+    return result;
+}
+
+//#endregion
+
+//#region Language api class
+
+const languageAPI = class {
+    static async GetLanguages(params) {
+        return await db.GetLanguages(params);
+    }
+}
+
+//#endregion
+
 const routes = class {
     /**
-     * getJson
+     * Gets Languages list.
+     * 
      * @param {Request} req The Request.
      * @param {Response} res The Response.
      */
@@ -41,22 +77,10 @@ const routes = class {
         //console.log(params)
         //console.log(req.cookies)
         let fn = async () => {
-            let ret;
-            let connected = await db.connect();
-            if (connected) {
-                ret = await db.GetLanguages(params);
-                await db.disconnect();
-            }
-            else {
-                ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
-            }
-            return ret;
-        };
-        fn().then(data => {
-            let result = data;
-            if (!result) {
-                result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
-            }
+            return languageAPI.GetLanguages(params);
+        }
+        exec(fn).then(data => {
+            let result = validate(data);
             WebServer.sendJson(req, res, result);
         })
     }
