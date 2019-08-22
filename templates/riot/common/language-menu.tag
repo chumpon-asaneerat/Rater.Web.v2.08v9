@@ -1,20 +1,20 @@
 <language-menu>
     <div class="menu">
         <a ref="flags" class="flag-combo" href="#">
-            <span class="flag-css flag-icon flag-icon-{ language.flagcode }" ref="css-icon"></span>
+            <span class="flag-css flag-icon flag-icon-{ lang.current.flagId.toLowerCase() }" ref="css-icon"></span>
             &nbsp;
-            <div class="flag-text">{ language.langId }</div>
+            <div class="flag-text">{ lang.langId }</div>
             &nbsp;
             <span class="drop-synbol fas fa-caret-down"></span>
         </a>
     </div>
     <div ref="dropItems" class="toggle">
-        <div each={ lang in languages }>
-            <a class="flag-item { (language.langId === lang.langId) ? 'selected' : '' }" href="javascript:;" onclick="{ selectItem }">
+        <div each={ item in lang.languages }>
+            <a class="flag-item { (lang.langId === item.langId) ? 'selected' : '' }" href="javascript:;" onclick="{ selectItem }">
                 &nbsp;
-                <span class="flag-css flag-icon flag-icon-{ lang.flagcode }" ref="css-icon"></span>
+                <span class="flag-css flag-icon flag-icon-{ item.flagId.toLowerCase() }" ref="css-icon"></span>
                 &nbsp;
-                <div class="flag-text">{ lang.text }</div>
+                <div class="flag-text">{ item.Description }</div>
                 &nbsp;&nbsp;&nbsp;
             </a>                
         </div>
@@ -119,30 +119,18 @@
 
         let self = this;
         let flags, dropItems;
-        this.language = { langId: 'EN', flagcode: 'us', text: 'English' };
-        this.languages = [
-            { langId: 'EN', flagcode: 'us', text: 'English' },
-            { langId: 'TH', flagcode: 'th', text: 'ไทย' },
-            { langId: 'JP', flagcode: 'jp', text: 'Japan' },
-            { langId: 'CN', flagcode: 'cn', text: 'Chaina' },
-            { langId: 'KH', flagcode: 'kh', text: 'Cambodia' },
-            { langId: 'IN', flagcode: 'in', text: 'India' },
-            { langId: 'IL', flagcode: 'il', text: 'Israel' },
-            { langId: 'MY', flagcode: 'my', text: 'Malaysia' },
-            { langId: 'TR', flagcode: 'tr', text: 'Turkey' },
-            { langId: 'YE', flagcode: 'ye', text: 'Yemen' },
-            { langId: 'KR', flagcode: 'kr', text: 'South Korea' }
-        ]
 
         //#endregion
 
         //#region local element methods
 
         let bindEvents = () => {
+            self.root.addEventListener('languagechanged', onLanguageChanged)
             flags.addEventListener('click', toggle);
         }
         let unbindEvents = () => {
-            flags.addEventListener('click', toggle);
+            flags.removeEventListener('click', toggle);
+            self.root.removeEventListener('languagechanged', onLanguageChanged)
         }
 
         //#endregion
@@ -164,22 +152,19 @@
 
         //#region private methods
 
+        let onLanguageChanged = (e) => { self.update(); }
         let toggle = () => {
             dropItems.classList.toggle('show');
-        }
-
-        let changeLanguage = (langId) => {
-            let ids = self.languages.map(lang => lang.langId)
-            let idx = ids.indexOf(langId);
-            self.language = (idx !== -1) ? self.languages[idx] : self.languages[0];
             self.update();
         }
 
+        let changeLanguage = (langId) => { }
+
         this.selectItem = (e) => {
             toggle(); // toggle off
-            let lang = e.item.lang;
-            changeLanguage(lang.langId);
-            
+            let selLang = e.item.item;
+            lang.change(selLang.langId);
+
             e.preventDefault();
             e.stopPropagation();
         }

@@ -104,106 +104,52 @@ const api = DbApi; // create shortcur variable.
 //#endregion
 
 //#region LanguageService class
-/*
-class LanguageService {
-    constructor() {
-        this._pref = new UserPerference();
-        this._pref.load(); // load once.
-        this._current = null;
-        this._languages = [];
-        this._languageListChanged = new EventHandler();
-        this._currentChanged = new EventHandler();
-    }
-    change(langId) {
-        let ret = null;
-        if (langId && langId.length >= 2) {
-            let langs = this._languages.map((item) => item.langId.toUpperCase());
-            let index = langs.indexOf(langId.toUpperCase());
-            if (index !== -1) {
-                let newVal = this._languages[index];
-                if (newVal) {
-                    if (this._current) {
-                        if (this._current.langId.toUpperCase() !== newVal.langId.toUpperCase()) {
-                            // LangId changed.
-                            this._current = newVal;
-                            // keep to perf.
-                            this._pref.langId = this._current.langId.toUpperCase();
-                            this._pref.save();
 
-                            // get current user.
-                            //secure.getCurrentUser(this._current.langId.toUpperCase());
-
-                            // raise event.
-                            this._currentChanged.invoke(this, EventArgs.Empty);
-                        }
-                    }
-                    else {
-                        // no current so set new one.
-                        this._current = newVal;
-                        // keep to perf.
-                        this._pref.langId = this._current.langId.toUpperCase();
-                        this._pref.save();
-
-                        // get current user.
-                        //secure.getCurrentUser(this._current.langId.toUpperCase());
-
-                        // raise event.
-                        this._currentChanged.invoke(this, EventArgs.Empty);
-                    }
-                }
-            }
-        }
-    }
-    getLanguages() {
-        let self = this;
-        let fn = (r) => {
-            let data = api.parse(r);
-            //console.log(data);
-            self._languages = data.records;
-            self._languageListChanged.invoke(self, EventArgs.Empty);
-            self.change(self._pref.langId); // set langId from preference.
-        }
-        XHR.get('/api/languages/search', { enable: true }, fn);
-    }
-    get languages() { return this._languages; }
-    get current() { return this._current; }
-    get langId() {
-        let ret;
-        if (!this._current || !this._current.langId) {
-            ret = null;
-        }
-        else {
-            ret = this._current.langId.toUpperCase();
-        }
-        return ret;
-    }
-    get languageListChanged() { return this._languageListChanged; }
-    get currentChanged() { return this._currentChanged; }
-};
-*/
 class LanguageService {
     constructor() {
         this.pref = new UserPerference();
         this.pref.load(); // load once.
         this.languages = null;
-        this.current = null;
         this.langId = LanguageService.defaultId;
+        this.current = LanguageService.defaultLang;
     }
-    getLanguages() {}
+    getLanguages() {
+        let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            console.log(data);
+            self.languages = data.records;
+            self.change(self.pref.langId); // set langId from preference.
+        }
+        XHR.get('/api/languages/search', { enable: true }, fn);
+    }
     change(langId) {
         let newId = (langId) ? langId.toUpperCase() : LanguageService.defaultId;
         if (this.langId != newId) {
             this.langId = newId;
+            let ids = this.languages.map(lang => lang.langId);
+            let idx = ids.indexOf(newId);
+            this.current = (idx === -1) ? LanguageService.defaultLang : this.languages[idx];
             // Raise event.
             let evt = new CustomEvent('languagechanged');
-        }        
+            document.dispatchEvent(evt);
+        }
     }
     static get defaultId() { return 'EN' }
+    static get defaultLang() { 
+        return {
+            Description: "English",
+            Enabled: true,
+            SortOrder: 1,
+            flagId: "US",
+            langId: "EN"
+        } 
+    }
 }
 ; (function () {
     //console.log('Init language service...');
     window.lang = window.lang || new LanguageService();
-    //lang.getLanguages();
+    lang.getLanguages();
 })();
 
 //#endregion
