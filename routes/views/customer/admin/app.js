@@ -8,8 +8,7 @@ class App {
 let app;
 
 (() => {
-    //let tags = riot.mount('app', { text: 'my text' })
-    let tags = riot.mount('app');
+    let tags = riot.mount('app')
     //console.log(tags[0]);
     app = new App(tags[0]);
 })();
