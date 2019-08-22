@@ -1,4 +1,20 @@
 My Choice Rater Web v2.0.8x9:
+    Database:
+        ☐ Redesign customer register process.
+        ☐ Redesign user sign in process.
+        ☐ Redesign user sign out process.
+        ☐ Redesign device check up process.
+        ☐ Redesign device register process.
+        ☐ Redesign device user sign in process.
+        ☐ Redesign device user sign out process.
+        ☐ Redesign device nofification process.
+    Server:
+        ☐ Create customer admin routes.
+        ☐ Create customer exclusive routes.
+        ☐ Create customer staff routes.
+        ☐ Create EDL admin routes.
+        ☐ Create EDL supervisor routes.
+        ☐ Create EDL staff routes.
     riot.js controls:
         ☐ Supports multi languages.
         ☐ Supports Breadcrumb screens.
