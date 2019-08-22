@@ -38,7 +38,8 @@ const routes = class {
      */
     static getLanguages(req, res) {
         let params = WebServer.parseReq(req).data;
-        console.log(params)
+        //console.log(params)
+        console.log(req.cookies)
         let ret;
         let fn = async () => {
             let connected = await db.connect();
