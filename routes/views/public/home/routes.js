@@ -3,6 +3,15 @@
 const path = require('path');
 const rootPath = process.env['ROOT_PATHS'];
 
+const fs = require('fs');
+
+const isDirectory = (source) => {
+    return fs.lstatSync(source).isDirectory()
+}
+const getDirectories = (source) => { 
+    return fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory)
+}
+
 // for production
 const nlibPath = path.join(rootPath, 'nlib');
 // for nlib-server dev project
@@ -43,6 +52,22 @@ const routes = class {
         let idx = files.indexOf(file);
         if (idx !== -1) {
             WebServer.sendFile(req, res, __dirname, files[idx]);
+        }
+        else {
+            routes.getContent(req, res)
+        }
+    }
+    static getContent(req, res) {
+        let file = req.params.file.toLowerCase();
+        if (file === 'contents') {
+            let contentPath = path.join(__dirname, 'contents');
+            let folders = getDirectories(contentPath);
+            let json = {}
+            folders.forEach(dir => {
+                let langId = dir.replace(contentPath + '\\', '')
+                json[langId] = JSON.parse(fs.readFileSync(path.join(dir, 'content.json'), 'utf8'))
+            })
+            WebServer.sendJson(req, res, json);
         }
     }
 }
