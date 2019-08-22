@@ -1,4 +1,9 @@
 My Choice Rater Web v2.0.8x9:
+    APIs:
+        REST API - Languages:
+            ✔ GetLanguages. @done(19-08-22 20:09)
+            ☐ Register.
+            ☐ SignIn.
     Database:
         ☐ Redesign customer register process.
         ☐ Redesign user sign in process.
