@@ -18,9 +18,9 @@ My Choice Rater Web v2.0.8x9:
         ✔ Create customer exclusive routes. @done(19-08-22 21:25)
         ✔ Create customer staff routes. @done(19-08-22 21:25)
         ✔ Create customer device routes. @done(19-08-22 21:26)
-        ☐ Create EDL admin routes.
-        ☐ Create EDL supervisor routes.
-        ☐ Create EDL staff routes.
+        ✔ Create EDL admin routes. @done(19-08-22 21:43)
+        ✔ Create EDL supervisor routes. @done(19-08-22 21:43)
+        ✔ Create EDL staff routes. @done(19-08-22 21:43)
     riot.js controls:
         ☐ Supports multi languages.
         ☐ Supports Breadcrumb screens.
