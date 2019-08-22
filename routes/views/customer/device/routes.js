@@ -51,7 +51,7 @@ router.get('/', routes.home)
 router.get('/:file', routes.getfile)
 
 const init_routes = (svr) => {
-    svr.route('/device', router);
+    svr.route('/customer/device', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

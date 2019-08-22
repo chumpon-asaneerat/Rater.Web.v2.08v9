@@ -51,7 +51,7 @@ router.get('/', routes.home)
 router.get('/:file', routes.getfile)
 
 const init_routes = (svr) => {
-    svr.route('/admin', router);
+    svr.route('/customer/admin', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
