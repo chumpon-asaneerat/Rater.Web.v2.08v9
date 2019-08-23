@@ -129,6 +129,9 @@ class LanguageService {
             let ids = this.languages.map(lang => lang.langId);
             let idx = ids.indexOf(newId);
             this.current = (idx === -1) ? LanguageService.defaultLang : this.languages[idx];
+            // keep langid to storage.
+            this.pref.langId = this.current.langId;
+            this.pref.save();
             // Raise event.
             let evt = new CustomEvent('languagechanged');
             document.dispatchEvent(evt);
