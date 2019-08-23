@@ -54,6 +54,9 @@ const routes = class {
         if (idx !== -1) {
             WebServer.sendFile(req, res, __dirname, files[idx]);
         }
+        else {
+            routes.getContent(req, res)
+        }
     }
     static getContent(req, res) {
         let file = req.params.file.toLowerCase();
