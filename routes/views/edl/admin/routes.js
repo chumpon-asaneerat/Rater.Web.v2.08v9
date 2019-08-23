@@ -55,6 +55,19 @@ const routes = class {
             WebServer.sendFile(req, res, __dirname, files[idx]);
         }
     }
+    static getContent(req, res) {
+        let file = req.params.file.toLowerCase();
+        if (file === 'contents') {
+            let contentPath = path.join(__dirname, 'contents');
+            let folders = getDirectories(contentPath);
+            let json = {}
+            folders.forEach(dir => {
+                let langId = dir.replace(contentPath + '\\', '')
+                json[langId] = JSON.parse(fs.readFileSync(path.join(dir, 'content.json'), 'utf8'))
+            })
+            WebServer.sendJson(req, res, nlib.NResult.data(json));
+        }
+    }
 }
 
 router.get('/', routes.home)
