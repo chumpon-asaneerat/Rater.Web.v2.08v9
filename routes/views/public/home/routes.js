@@ -3,6 +3,7 @@
 const path = require('path');
 const rootPath = process.env['ROOT_PATHS'];
 
+// fs helper methods.
 const fs = require('fs');
 
 const isDirectory = (source) => {

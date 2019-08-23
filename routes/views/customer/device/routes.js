@@ -3,6 +3,16 @@
 const path = require('path');
 const rootPath = process.env['ROOT_PATHS'];
 
+// fs helper methods.
+const fs = require('fs');
+
+const isDirectory = (source) => {
+    return fs.lstatSync(source).isDirectory()
+}
+const getDirectories = (source) => { 
+    return fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory)
+}
+
 // for production
 const nlibPath = path.join(rootPath, 'nlib');
 // for nlib-server dev project
