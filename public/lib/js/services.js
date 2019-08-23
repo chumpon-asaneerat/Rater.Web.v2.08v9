@@ -185,7 +185,10 @@ class ContentService {
 ; (function () {
     //console.log('Init content service...');
     window.appcontent = window.appcontent || new ContentService();
-    let url = window.location.href.replace('#', '') + 'contents';
+    let href = window.location.href;
+    if (href.endsWith('#')) href = window.location.href.replace('#', '');
+    if (!href.endsWith('/')) href = href + '/';
+    let url = href.replace('#', '') + 'contents';
     appcontent.load(url); // load contents.
 })();
 

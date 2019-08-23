@@ -1,6 +1,6 @@
 <language-menu>
     <div class="menu">
-        <a ref="flags" class="flag-combo" href="#">
+        <a ref="flags" class="flag-combo" href="javascript:;">
             <span class="flag-css flag-icon flag-icon-{ lang.current.flagId.toLowerCase() }" ref="css-icon"></span>
             &nbsp;
             <div class="flag-text">{ lang.langId }</div>
