@@ -178,3 +178,7 @@ riot.tag2('screen', '<yield></yield> </script>', 'screen,[data-is="screen"]{ mar
         }
 
 });
+riot.tag2('password-input', '', '', '', function(opts) {
+});
+riot.tag2('text-input', '', '', '', function(opts) {
+});
