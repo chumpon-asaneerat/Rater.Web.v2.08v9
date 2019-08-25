@@ -178,7 +178,7 @@ riot.tag2('screen', '<yield></yield> </script>', 'screen,[data-is="screen"]{ mar
         }
 
 });
-riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="password" riot-value="{opts.value}">', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: calc(100vw - 4px); } password-input input,[data-is="password-input"] input{ margin: 0; display: block; width: calc(100vw - 4px); }', '', function(opts) {
+riot.tag2('register-screen', '<text-input label="User Name:" value="user"></text-input> <password-input label="Password:" value="1234"></password-input>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; display: block; width: 150px; }', '', function(opts) {
 
 
         let self = this;
@@ -196,7 +196,25 @@ riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="p
         });
 
 });
-riot.tag2('text-input', '<span>{opts.label}</span> <input ref="ctrl" type="text" riot-value="{opts.value}">', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: calc(100vw - 4px); } text-input input,[data-is="text-input"] input{ margin: 0; display: block; width: calc(100vw - 4px); }', '', function(opts) {
+riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="password" riot-value="{opts.value}">', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: calc(100% - 4px); } password-input input,[data-is="password-input"] input{ margin: 0; display: block; width: calc(100% - 4px); }', '', function(opts) {
+
+
+        let self = this;
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        this.on('mount', () => {
+
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+
+        });
+
+});
+riot.tag2('text-input', '<span>{opts.label}</span> <input ref="ctrl" type="text" riot-value="{opts.value}">', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: calc(100% - 4px); } text-input input,[data-is="text-input"] input{ margin: 0; display: block; width: calc(100% - 4px); }', '', function(opts) {
 
 
         let self = this;

@@ -12,12 +12,12 @@
             display: block;
             font-size: 0.7rem;
             font-weight: bold;
-            width: calc(100vw - 4px);
+            width: calc(100% - 4px);
         }
         input {
             margin: 0;
             display: block;
-            width: calc(100vw - 4px);
+            width: calc(100% - 4px);
         }
     </style>
     <script>

@@ -1,23 +1,11 @@
-<password-input>
-    <span>{ opts.label }</span>
-    <input ref="ctrl" type="password" value="{ opts.value }">
+<register-screen>
+    <text-input label="User Name:" value="user"></text-input>
+    <password-input label="Password:" value="1234"></password-input>
     <style>
         :scope {
             margin: 0 auto;
-            padding: 2px;
             display: block;
-        }
-        span {
-            margin: 0;
-            display: block;
-            font-size: 0.7rem;
-            font-weight: bold;
-            width: calc(100% - 4px);
-        }
-        input {
-            margin: 0;
-            display: block;
-            width: calc(100% - 4px);
+            width: 150px;
         }
     </style>
     <script>
@@ -47,4 +35,4 @@
 
         //#endregion
     </script>
-</password-input>
+</register-screen>
