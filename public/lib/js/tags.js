@@ -178,7 +178,7 @@ riot.tag2('screen', '<yield></yield> </script>', 'screen,[data-is="screen"]{ mar
         }
 
 });
-riot.tag2('register-screen', '<text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input> <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input label="Password:" value="" hint="Please enter password."></password-input>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; display: block; width: 250px; }', '', function(opts) {
+riot.tag2('register-screen', '<text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input> <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input label="Password:" value="" hint="Please enter password."></password-input>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 10%; display: block; width: 250px; }', '', function(opts) {
 
 
         let self = this;

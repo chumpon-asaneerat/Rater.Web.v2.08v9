@@ -5,6 +5,7 @@
     <style>
         :scope {
             margin: 0 auto;
+            margin-top: 10%;
             display: block;
             width: 250px;
         }
