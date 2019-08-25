@@ -1,39 +1,31 @@
 <password-input>
     <span>{ opts.label }</span>
-    <div class="border">
-        <input ref="ctrl" type="password" value="{ opts.value }" placeholder="{ opts.hint }">
-    </div>
+    <input ref="ctrl" type="password" value="{ opts.value }" placeholder="{ opts.hint }">
     <style>
         :scope {
             margin: 0 auto;
             padding: 2px;
             display: block;
         }
-        .border {
-            margin: 0 auto;
-            padding: 1px;
-            display: block;            
-            border: 1px solid silver;
-            border-radius: 4px;
-        }
         span {
             margin: 0;
             display: block;
-            font-size: 0.7rem;
             font-weight: bold;
+            font-size: 0.7rem;
             width: 100%;
         }
         input {
             margin: 0;
+            padding: 0 2px;
             display: block;
-            font-size: 0.9rem;
             width: 100%;
-            border: 1px solid transparent;
+            border: 1px solid silver;
+            border-radius: 4px;
+            outline: none;
+            box-shadow: none;
         }
         input:focus {
-            padding: 0;
             border: 1px solid green !important;
-            box-shadow: 0 0 1px green !important;
         }
     </style>
     <script>

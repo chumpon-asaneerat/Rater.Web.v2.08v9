@@ -196,7 +196,7 @@ riot.tag2('register-screen', '<text-input label="Customer Name:" value="" hint="
         });
 
 });
-riot.tag2('email-input', '<span>{opts.label}</span> <div class="border"> <input ref="ctrl" riot-value="{opts.value}" placeholder="{opts.hint}" type="{\'email\'}"> </div>', 'email-input,[data-is="email-input"]{ margin: 0 auto; padding: 2px; display: block; } email-input .border,[data-is="email-input"] .border{ margin: 0 auto; padding: 1px; display: block; border: 1px solid silver; border-radius: 4px; } email-input span,[data-is="email-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: 100%; } email-input input,[data-is="email-input"] input{ margin: 0; display: block; font-size: 0.9rem; width: 100%; border: 1px solid transparent; } email-input input:focus,[data-is="email-input"] input:focus{ padding: 0; border: 1px solid green !important; box-shadow: 0 0 1px green !important; }', '', function(opts) {
+riot.tag2('email-input', '<span>{opts.label}</span> <input ref="ctrl" riot-value="{opts.value}" placeholder="{opts.hint}" type="{\'email\'}">', 'email-input,[data-is="email-input"]{ margin: 0 auto; padding: 2px; display: block; } email-input span,[data-is="email-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } email-input input,[data-is="email-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } email-input input:focus,[data-is="email-input"] input:focus{ border: 1px solid green !important; }', '', function(opts) {
 
 
         let self = this;
@@ -214,7 +214,7 @@ riot.tag2('email-input', '<span>{opts.label}</span> <div class="border"> <input 
         });
 
 });
-riot.tag2('password-input', '<span>{opts.label}</span> <div class="border"> <input ref="ctrl" type="password" riot-value="{opts.value}" placeholder="{opts.hint}"> </div>', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input .border,[data-is="password-input"] .border{ margin: 0 auto; padding: 1px; display: block; border: 1px solid silver; border-radius: 4px; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: 100%; } password-input input,[data-is="password-input"] input{ margin: 0; display: block; font-size: 0.9rem; width: 100%; border: 1px solid transparent; } password-input input:focus,[data-is="password-input"] input:focus{ padding: 0; border: 1px solid green !important; box-shadow: 0 0 1px green !important; }', '', function(opts) {
+riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="password" riot-value="{opts.value}" placeholder="{opts.hint}">', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } password-input input,[data-is="password-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } password-input input:focus,[data-is="password-input"] input:focus{ border: 1px solid green !important; }', '', function(opts) {
 
 
         let self = this;
@@ -232,7 +232,7 @@ riot.tag2('password-input', '<span>{opts.label}</span> <div class="border"> <inp
         });
 
 });
-riot.tag2('text-input', '<span>{opts.label}</span> <div class="border"> <input ref="ctrl" type="text" riot-value="{opts.value}" placeholder="{opts.hint}"> </div>', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input .border,[data-is="text-input"] .border{ margin: 0 auto; padding: 1px; display: block; border: 1px solid silver; border-radius: 4px; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } text-input input,[data-is="text-input"] input{ margin: 0; display: block; font-size: 0.9rem; width: 100%; border: 1px solid transparent; } text-input input:focus,[data-is="text-input"] input:focus{ padding: 0; border: 1px solid green !important; box-shadow: 0 0 1px green !important; }', '', function(opts) {
+riot.tag2('text-input', '<span>{opts.label}</span> <input ref="ctrl" type="text" riot-value="{opts.value}" placeholder="{opts.hint}">', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } text-input input,[data-is="text-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } text-input input:focus,[data-is="text-input"] input:focus{ border: 1px solid green !important; }', '', function(opts) {
 
 
         let self = this;
