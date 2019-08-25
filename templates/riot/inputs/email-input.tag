@@ -1,7 +1,7 @@
-<text-input>
+<email-input>
     <span>{ opts.label }</span>
     <div class="border">
-        <input ref="ctrl" type="text" value="{ opts.value }" placeholder="{ opts.hint }">
+        <input ref="ctrl" type="email" value="{ opts.value }" placeholder="{ opts.hint }">
     </div>    
     <style>
         :scope {
@@ -19,8 +19,8 @@
         span {
             margin: 0;
             display: block;
-            font-weight: bold;
             font-size: 0.7rem;
+            font-weight: bold;
             width: 100%;
         }
         input {
@@ -63,4 +63,4 @@
 
         //#endregion
     </script>
-</text-input>
+</email-input>

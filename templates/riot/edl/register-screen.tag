@@ -1,11 +1,12 @@
 <register-screen>
-    <text-input label="User Name:" value="user"></text-input>
-    <password-input label="Password:" value="1234"></password-input>
+    <text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input>
+    <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input>
+    <password-input label="Password:" value="" hint="Please enter password."></password-input>
     <style>
         :scope {
             margin: 0 auto;
             display: block;
-            width: 150px;
+            width: 250px;
         }
     </style>
     <script>

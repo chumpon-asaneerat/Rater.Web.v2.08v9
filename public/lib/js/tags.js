@@ -178,7 +178,7 @@ riot.tag2('screen', '<yield></yield> </script>', 'screen,[data-is="screen"]{ mar
         }
 
 });
-riot.tag2('register-screen', '<text-input label="User Name:" value="user"></text-input> <password-input label="Password:" value="1234"></password-input>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; display: block; width: 150px; }', '', function(opts) {
+riot.tag2('register-screen', '<text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input> <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input label="Password:" value="" hint="Please enter password."></password-input>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; display: block; width: 250px; }', '', function(opts) {
 
 
         let self = this;
@@ -196,7 +196,7 @@ riot.tag2('register-screen', '<text-input label="User Name:" value="user"></text
         });
 
 });
-riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="password" riot-value="{opts.value}">', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: calc(100% - 4px); } password-input input,[data-is="password-input"] input{ margin: 0; display: block; width: calc(100% - 4px); }', '', function(opts) {
+riot.tag2('email-input', '<span>{opts.label}</span> <div class="border"> <input ref="ctrl" riot-value="{opts.value}" placeholder="{opts.hint}" type="{\'email\'}"> </div>', 'email-input,[data-is="email-input"]{ margin: 0 auto; padding: 2px; display: block; } email-input .border,[data-is="email-input"] .border{ margin: 0 auto; padding: 1px; display: block; border: 1px solid silver; border-radius: 4px; } email-input span,[data-is="email-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: 100%; } email-input input,[data-is="email-input"] input{ margin: 0; display: block; font-size: 0.9rem; width: 100%; border: 1px solid transparent; } email-input input:focus,[data-is="email-input"] input:focus{ padding: 0; border: 1px solid green !important; box-shadow: 0 0 1px green !important; }', '', function(opts) {
 
 
         let self = this;
@@ -214,7 +214,25 @@ riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="p
         });
 
 });
-riot.tag2('text-input', '<span>{opts.label}</span> <input ref="ctrl" type="text" riot-value="{opts.value}">', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: calc(100% - 4px); } text-input input,[data-is="text-input"] input{ margin: 0; display: block; width: calc(100% - 4px); }', '', function(opts) {
+riot.tag2('password-input', '<span>{opts.label}</span> <div class="border"> <input ref="ctrl" type="password" riot-value="{opts.value}" placeholder="{opts.hint}"> </div>', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input .border,[data-is="password-input"] .border{ margin: 0 auto; padding: 1px; display: block; border: 1px solid silver; border-radius: 4px; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-size: 0.7rem; font-weight: bold; width: 100%; } password-input input,[data-is="password-input"] input{ margin: 0; display: block; font-size: 0.9rem; width: 100%; border: 1px solid transparent; } password-input input:focus,[data-is="password-input"] input:focus{ padding: 0; border: 1px solid green !important; box-shadow: 0 0 1px green !important; }', '', function(opts) {
+
+
+        let self = this;
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        this.on('mount', () => {
+
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+
+        });
+
+});
+riot.tag2('text-input', '<span>{opts.label}</span> <div class="border"> <input ref="ctrl" type="text" riot-value="{opts.value}" placeholder="{opts.hint}"> </div>', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input .border,[data-is="text-input"] .border{ margin: 0 auto; padding: 1px; display: block; border: 1px solid silver; border-radius: 4px; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } text-input input,[data-is="text-input"] input{ margin: 0; display: block; font-size: 0.9rem; width: 100%; border: 1px solid transparent; } text-input input:focus,[data-is="text-input"] input:focus{ padding: 0; border: 1px solid green !important; box-shadow: 0 0 1px green !important; }', '', function(opts) {
 
 
         let self = this;
