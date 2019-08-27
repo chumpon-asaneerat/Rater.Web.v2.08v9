@@ -1,4 +1,8 @@
 <register-screen>
+    <text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input>
+    <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input>
+    <password-input label="Password:" value="" hint="Please enter password."></password-input>
+    <icon-button class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>
     <style>
         :scope {
             margin: 0 auto;
@@ -14,10 +18,6 @@
             width: 100%;
         }
     </style>
-    <text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input>
-    <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input>
-    <password-input label="Password:" value="" hint="Please enter password."></password-input>
-    <icon-button class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>
     <script>
         //#region local variables
 
