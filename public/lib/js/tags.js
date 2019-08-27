@@ -1,3 +1,6 @@
+riot.tag2('icon-button', '<div class="wrap"> <a href="{opts.href}"> <span class="{opts.awesome}">&nbsp;</span>{opts.text} </a> </div>', 'icon-button,[data-is="icon-button"]{ display: inline-block; margin: 0 auto; padding: 5px; text-align: center; border-radius: 3px; } icon-button .wrap,[data-is="icon-button"] .wrap{ display: block; margin: 0 auto; color: white; } icon-button .wrap:hover,[data-is="icon-button"] .wrap:hover{ color: red; cursor: pointer; } icon-button .wrap a,[data-is="icon-button"] .wrap a{ color: inherit; text-decoration: none; } icon-button .wrap a:hover,[data-is="icon-button"] .wrap a:hover{ color: red; text-decoration: none; cursor: pointer; }', '', function(opts) {
+        let self = this;
+});
 riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <yield></yield> </div> <page-footer class="footer"></page-footer>', 'app,[data-is="app"]{ margin: 0 auto; height: 100vh; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'scrarea\'; overflow: hidden; } app[navbar][footer],[data-is="app"][navbar][footer]{ grid-template-columns: 1fr; grid-template-rows: 40px 1fr 20px; grid-template-areas: \'nav-bar\' \'scrarea\' \'footer\'; overflow: hidden; } app[navbar],[data-is="app"][navbar]{ grid-template-columns: 1fr; grid-template-rows: 1fr 20px; grid-template-areas: \'nav-bar\' \'fooscrareater\'; overflow: hidden; } app[footer],[data-is="app"][footer]{ grid-template-columns: 1fr; grid-template-rows: 1fr 20px; grid-template-areas: \'scrarea\' \'footer\'; overflow: hidden; } app .nav-bar,[data-is="app"] .nav-bar{ grid-area: nav-bar; overflow: hidden; } app .scrarea,[data-is="app"] .scrarea{ grid-area: scrarea; overflow: auto; } app .footer,[data-is="app"] .footer{ grid-area: footer; padding: 0 2px; overflow: hidden; }', '', function(opts) {
 
 
@@ -178,7 +181,7 @@ riot.tag2('screen', '<yield></yield> </script>', 'screen,[data-is="screen"]{ mar
         }
 
 });
-riot.tag2('register-screen', '<text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input> <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input label="Password:" value="" hint="Please enter password."></password-input>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 10%; display: block; width: 250px; }', '', function(opts) {
+riot.tag2('register-screen', '<text-input label="Customer Name:" value="" hint="Please enter customer name."></text-input> <email-input label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input label="Password:" value="" hint="Please enter password."></password-input> <icon-button class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 10%; display: block; width: 250px; } register-screen .button,[data-is="register-screen"] .button{ margin: 0 auto; margin-top: 5px; background: #69b9f3; font-size: 1rem; width: 100%; }', '', function(opts) {
 
 
         let self = this;
