@@ -181,7 +181,7 @@ riot.tag2('screen', '<yield></yield> </script>', 'screen,[data-is="screen"]{ mar
 riot.tag2('icon-button', '<a href="{opts.href}"> <span class="{opts.awesome}">&nbsp;</span>{opts.text} </a>', 'icon-button,[data-is="icon-button"]{ display: inline-block; margin: 0 auto; padding: 5px; text-align: center; border-radius: 3px; color: white; } icon-button:hover,[data-is="icon-button"]:hover{ color: red; cursor: pointer; } icon-button a,[data-is="icon-button"] a{ color: inherit; text-decoration: none; } icon-button a:hover,[data-is="icon-button"] a:hover{ color: red; text-decoration: none; cursor: pointer; }', '', function(opts) {
         let self = this;
 });
-riot.tag2('email-input', '<span>{opts.label}</span> <input ref="ctrl" riot-value="{opts.value}" placeholder="{opts.hint}" type="{\'email\'}">', 'email-input,[data-is="email-input"]{ margin: 0 auto; padding: 2px; display: block; } email-input span,[data-is="email-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } email-input input,[data-is="email-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } email-input input:focus,[data-is="email-input"] input:focus{ border: 1px solid green !important; }', '', function(opts) {
+riot.tag2('email-input', '<span>&nbsp;{opts.label}</span> <div class="h-seperator"></div> <input ref="ctrl" riot-value="{opts.value}" placeholder="{opts.hint}" type="{\'email\'}">', 'email-input,[data-is="email-input"]{ margin: 0 auto; padding: 2px; display: block; } email-input span,[data-is="email-input"] span{ margin: 0; display: block; font-size: 14px; width: 100%; } email-input input,[data-is="email-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } email-input input:focus,[data-is="email-input"] input:focus{ border: 1px solid royalblue !important; } email-input .h-seperator,[data-is="email-input"] .h-seperator{ display:block; height: 3px; }', '', function(opts) {
 
 
         let self = this;
@@ -193,6 +193,7 @@ riot.tag2('email-input', '<span>{opts.label}</span> <input ref="ctrl" riot-value
         this.on('mount', () => {
 
             ctrl = self.refs['ctrl'];
+            if (self.opts.autofocus === "true") ctrl.focus();
             bindEvents();
         });
         this.on('unmount', () => {
@@ -205,7 +206,7 @@ riot.tag2('email-input', '<span>{opts.label}</span> <input ref="ctrl" riot-value
         this.value = () => { return ctrl.value; }
 
 });
-riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="password" riot-value="{opts.value}" placeholder="{opts.hint}">', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } password-input input,[data-is="password-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } password-input input:focus,[data-is="password-input"] input:focus{ border: 1px solid green !important; }', '', function(opts) {
+riot.tag2('password-input', '<span>&nbsp;{opts.label}</span> <div class="h-seperator"></div> <input ref="ctrl" type="password" riot-value="{opts.value}" placeholder="{opts.hint}">', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-size: 14px; width: 100%; } password-input input,[data-is="password-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } password-input input:focus,[data-is="password-input"] input:focus{ border: 1px solid royalblue !important; } password-input .h-seperator,[data-is="password-input"] .h-seperator{ display:block; height: 3px; }', '', function(opts) {
 
 
         let self = this;
@@ -217,6 +218,7 @@ riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="p
         this.on('mount', () => {
 
             ctrl = self.refs['ctrl'];
+            if (self.opts.autofocus === "true") ctrl.focus();
             bindEvents();
         });
         this.on('unmount', () => {
@@ -229,7 +231,7 @@ riot.tag2('password-input', '<span>{opts.label}</span> <input ref="ctrl" type="p
         this.value = () => { return ctrl.value; }
 
 });
-riot.tag2('text-input', '<span>{opts.label}</span> <input ref="ctrl" type="text" riot-value="{opts.value}" placeholder="{opts.hint} autofocus">', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-weight: bold; font-size: 0.7rem; width: 100%; } text-input input,[data-is="text-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } text-input input:focus,[data-is="text-input"] input:focus{ border: 1px solid green !important; }', '', function(opts) {
+riot.tag2('text-input', '<span>&nbsp;{opts.label}</span> <div class="h-seperator"></div> <input ref="ctrl" type="text" riot-value="{opts.value}" placeholder="{opts.hint}">', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-size: 14px; width: 100%; } text-input input,[data-is="text-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } text-input input:focus,[data-is="text-input"] input:focus{ border: 1px solid royalblue !important; } text-input .h-seperator,[data-is="text-input"] .h-seperator{ display:block; height: 3px; }', '', function(opts) {
 
 
         let self = this;
@@ -241,6 +243,7 @@ riot.tag2('text-input', '<span>{opts.label}</span> <input ref="ctrl" type="text"
         this.on('mount', () => {
 
             ctrl = self.refs['ctrl'];
+            if (self.opts.autofocus === "true") ctrl.focus();
             bindEvents();
         });
         this.on('unmount', () => {
@@ -253,11 +256,12 @@ riot.tag2('text-input', '<span>{opts.label}</span> <input ref="ctrl" type="text"
         this.value = () => { return ctrl.value; }
 
 });
-riot.tag2('register-screen', '<text-input ref="customerName" label="Customer Name:" value="" hint="Please enter customer name."></text-input> <email-input ref="userName" label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input ref="passWord" label="Password:" value="" hint="Please enter password."></password-input> <icon-button ref="register" class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 10%; display: block; width: 250px; } register-screen .button,[data-is="register-screen"] .button{ margin: 0 auto; margin-top: 5px; background: #69b9f3; font-size: 1rem; width: 100%; }', '', function(opts) {
+riot.tag2('register-screen', '<div class="header-space"></div> <text-input ref="customerName" label="Customer Name:" value="" hint="Please enter customer name." autofocus="true"></text-input> <email-input ref="userName" label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input ref="passWord" label="Password:" value="" hint="Please enter password."></password-input> <icon-button ref="register" class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 5vh; padding: 5px; display: block; width: 90vw; height: 230px; max-width: 400px; color: white; border: 1px solid darkorange; border-radius: 5px; background: rgba(255, 140, 0, .8); } register-screen .button,[data-is="register-screen"] .button{ margin: 0 auto; margin-top: 10px; padding: 5px; background: #69b9f3; font-size: 1rem; width: 96%; transform: translateX(2%); } register-screen .header-space,[data-is="register-screen"] .header-space{ display: block; height: 5px; }', '', function(opts) {
 
 
         let self = this;
         let customerName, userName, passWord, register;
+        let api = DbApi;
 
         let bindEvents = () => {
             register.addEventListener('click', onRegister);
@@ -283,9 +287,28 @@ riot.tag2('register-screen', '<text-input ref="customerName" label="Customer Nam
             register = null;
         });
 
+        let sendToServer = (data) => {
+            let fn = (r) => {
+                let ret = api.parse(r);
+                if (ret.errors.hasError) {
+                    console.log('has error:', ret.errors);
+                }
+                else {
+
+                    nlib.nav.gotoUrl('/');
+                }
+            }
+            XHR.postJson('/api/customer/register', data, fn);
+        }
+
         let onRegister = (e) => {
             if (checkCustomerName() && checkUserName() && checkPassword()) {
-                console.log('all data ok.');
+                let data = {
+                    "customerName": customerName.value(),
+                    "userName": userName.value(),
+                    "passWord": passWord.value()
+                }
+                sendToServer(data);
             }
         }
 

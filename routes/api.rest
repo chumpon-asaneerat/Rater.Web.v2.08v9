@@ -14,3 +14,13 @@ content-type: application/json
     "enabled": "false"
 }
 
+#### Gets register customer.
+POST http://localhost:3000/api/customer/register
+content-type: application/json
+
+{
+    "customerName": "",
+    "userName": "",
+    "passWord": ""
+}
+

@@ -12,5 +12,51 @@
             ],
             "outputs": []
         }
+    },
+    "Register": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.197Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "userName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "passWord",
+                    "type": "nvarchar(20)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "memberId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "branchId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "orgId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(100)"
+                }
+            ]
+        }
     }
 }

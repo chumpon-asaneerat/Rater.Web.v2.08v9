@@ -1,21 +1,35 @@
 <register-screen>
-    <text-input ref="customerName" label="Customer Name:" value="" hint="Please enter customer name."></text-input>
+    <div class="header-space"></div>
+    <text-input ref="customerName" label="Customer Name:" value="" hint="Please enter customer name." autofocus="true"></text-input>
     <email-input ref="userName" label="User Name:" value="" hint="Please enter user name (email)."></email-input>
     <password-input ref="passWord" label="Password:" value="" hint="Please enter password."></password-input>
     <icon-button ref="register" class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>
     <style>
         :scope {
             margin: 0 auto;
-            margin-top: 10%;
+            margin-top: 5vh;
+            padding: 5px;
             display: block;
-            width: 250px;
+            width: 90vw;
+            height: 230px;
+            max-width: 400px;
+            color: white;
+            border: 1px solid darkorange;
+            border-radius: 5px;
+            background: rgba(255, 140, 0, .8);
         }
         .button {
             margin: 0 auto;
-            margin-top: 5px;
+            margin-top: 10px;
+            padding: 5px;
             background: #69b9f3;
             font-size: 1rem;
-            width: 100%;
+            width: 96%;
+            transform: translateX(2%);
+        }
+        .header-space {
+            display: block;
+            height: 5px;
         }
     </style>
     <script>
@@ -23,6 +37,7 @@
 
         let self = this;
         let customerName, userName, passWord, register;
+        let api = DbApi; // set reference to helper class.
 
         //#endregion
 
@@ -60,9 +75,28 @@
 
         //#region private methods
 
+        let sendToServer = (data) => {
+            let fn = (r) => {
+                let ret = api.parse(r);
+                if (ret.errors.hasError) {
+                    console.log('has error:', ret.errors);
+                }
+                else {
+                    // redirect to home
+                    nlib.nav.gotoUrl('/');
+                }
+            }
+            XHR.postJson('/api/customer/register', data, fn);
+        }
+
         let onRegister = (e) => {
             if (checkCustomerName() && checkUserName() && checkPassword()) {
-                console.log('all data ok.');
+                let data = {
+                    "customerName": customerName.value(),
+                    "userName": userName.value(),
+                    "passWord": passWord.value()
+                }
+                sendToServer(data);
             }
         }
 

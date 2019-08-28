@@ -66,11 +66,11 @@ const checkForError = (data) => {
 
 //#endregion
 
-//#region Language api class
+//#region api class
 
 const api = class {
-    static async GetLanguages(params) {
-        return await db.GetLanguages(params);
+    static async Register(params) {
+        return await db.Register(params);
     }
 }
 
@@ -78,15 +78,15 @@ const api = class {
 
 const routes = class {
     /**
-     * Gets language list.
+     * Register customer.
      * 
      * @param {Request} req The Request.
      * @param {Response} res The Response.
      */
-    static getLanguages(req, res) {
+    static register(req, res) {
         let params = WebServer.parseReq(req).data;
         let fn = async () => {
-            return api.GetLanguages(params);
+            return api.Register(params);
         }
         exec(fn).then(data => {
             let result = validate(data);
@@ -95,26 +95,10 @@ const routes = class {
     }
 }
 
-const check1 = (req, res, next) => {
-    console.log('check 1 call and wait 2 seoncds :', new Date().toString());
-    setTimeout(() => {
-        console.log('check 1 passed :', new Date().toString());
-        next()
-    }, 2000);
-}
-
-const check2 = (req, res, next) => {
-    console.log('check 2 call but not call next');
-}
-
-//router.use(check1);
-//router.use(check2);
-
-//router.get('/search', check1, check2, routes.getLanguages)
-router.all('/search', routes.getLanguages)
+router.all('/register', routes.register)
 
 const init_routes = (svr) => {
-    svr.route('/api/languages', router);
+    svr.route('/api/customer', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

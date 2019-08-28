@@ -21,6 +21,12 @@ const RaterWebv2x08r9 = class extends SqlServer {
         return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
     }
 
+    async Register(pObj) {
+        let name = 'Register';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
 }
 
 module.exports = exports = RaterWebv2x08r9;

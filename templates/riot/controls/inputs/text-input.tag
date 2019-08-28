@@ -1,6 +1,7 @@
 <text-input>
-    <span>{ opts.label }</span>
-    <input ref="ctrl" type="text" value="{ opts.value }" placeholder="{ opts.hint } autofocus">
+    <span>&nbsp;{ opts.label }</span>
+    <div class="h-seperator"></div>
+    <input ref="ctrl" type="text" value="{ opts.value }" placeholder="{ opts.hint }">
     <style>
         :scope {
             margin: 0 auto;
@@ -10,8 +11,7 @@
         span {
             margin: 0;
             display: block;
-            font-weight: bold;
-            font-size: 0.7rem;
+            font-size: 14px;
             width: 100%;
         }
         input {
@@ -25,8 +25,9 @@
             box-shadow: none;
         }
         input:focus {
-            border: 1px solid green !important;
+            border: 1px solid royalblue !important;
         }
+        .h-seperator { display:block; height: 3px; }
     </style>
     <script>
         //#region local variables
@@ -48,6 +49,7 @@
         this.on('mount', () => {
             // after mount.
             ctrl = self.refs['ctrl'];
+            if (self.opts.autofocus === "true") ctrl.focus();
             bindEvents();
         });
         this.on('unmount', () => {

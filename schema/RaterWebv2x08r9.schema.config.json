@@ -78,7 +78,7 @@
     "__BuildTotalVoteCountQuery": false,
     "GetVoteSummaries": false,
     "GetRawVotes": false,
-    "Register": false,
+    "Register": true,
     "CheckUsers": false,
     "SignIn": false,
     "CheckAccess": false,
