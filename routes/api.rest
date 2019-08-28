@@ -14,7 +14,7 @@ content-type: application/json
     "enabled": "false"
 }
 
-#### Gets register customer.
+#### Register customer.
 POST http://localhost:3000/api/customer/register
 content-type: application/json
 
@@ -22,5 +22,15 @@ content-type: application/json
     "customerName": "",
     "userName": "",
     "passWord": ""
+}
+
+#### Validate Account by login
+POST http://localhost:3000/api/customer/validate-accounts
+content-type: application/json
+
+{
+    "langId": "EN",
+    "userName": "admin@softbase.co.th",
+    "passWord": "1234"
 }
 

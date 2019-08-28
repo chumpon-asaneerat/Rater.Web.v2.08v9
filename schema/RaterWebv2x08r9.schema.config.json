@@ -79,7 +79,7 @@
     "GetVoteSummaries": false,
     "GetRawVotes": false,
     "Register": true,
-    "CheckUsers": false,
+    "CheckUsers": true,
     "SignIn": false,
     "CheckAccess": false,
     "GetAccessUser": false,

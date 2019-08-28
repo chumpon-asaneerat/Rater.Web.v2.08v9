@@ -58,5 +58,37 @@
                 }
             ]
         }
+    },
+    "CheckUsers": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.200Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "null"
+                },
+                {
+                    "name": "userName",
+                    "type": "nvarchar(50)",
+                    "default": "null"
+                },
+                {
+                    "name": "passWord",
+                    "type": "nvarchar(20)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
     }
 }
