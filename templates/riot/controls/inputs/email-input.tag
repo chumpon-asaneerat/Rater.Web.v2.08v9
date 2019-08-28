@@ -32,6 +32,7 @@
         //#region local variables
 
         let self = this;
+        let ctrl;
 
         //#endregion
 
@@ -46,12 +47,21 @@
 
         this.on('mount', () => {
             // after mount.
+            ctrl = self.refs['ctrl'];
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
             // after unmount.
+            ctrl = null;
         });
+
+        //#endregion
+
+        //#region public method
+
+        this.focus = () => { ctrl.focus(); }
+        this.value = () => { return ctrl.value; }
 
         //#endregion
     </script>

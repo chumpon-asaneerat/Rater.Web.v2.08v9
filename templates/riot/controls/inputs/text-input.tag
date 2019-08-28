@@ -1,6 +1,6 @@
 <text-input>
     <span>{ opts.label }</span>
-    <input ref="ctrl" type="text" value="{ opts.value }" placeholder="{ opts.hint }">
+    <input ref="ctrl" type="text" value="{ opts.value }" placeholder="{ opts.hint } autofocus">
     <style>
         :scope {
             margin: 0 auto;
@@ -32,13 +32,14 @@
         //#region local variables
 
         let self = this;
+        let ctrl;
 
         //#endregion
 
         //#region local element methods
 
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
 
         //#endregion
 
@@ -46,12 +47,21 @@
 
         this.on('mount', () => {
             // after mount.
+            ctrl = self.refs['ctrl'];
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
             // after unmount.
+            ctrl = null;
         });
+
+        //#endregion
+
+        //#region public method
+
+        this.focus = () => { ctrl.focus(); }
+        this.value = () => { return ctrl.value; }
 
         //#endregion
     </script>
