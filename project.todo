@@ -2,13 +2,16 @@ My Choice Rater Web v2.0.8x9:
     APIs:
         REST API - Languages:
             ✔ GetLanguages. @done(19-08-22 20:09)
-            ☐ Register.
+            ✔ Register. @done(19-08-29 19:03)
             ☐ SignIn.
+            ☐ SignOut.
     Database:
-        ☐ Redesign customer register process.
-        ☐ Redesign user sign in process.
-        ☐ Redesign user sign out process.
-        ☐ Redesign device check up process.
+        ✔ Redesign customer register process. @done(19-08-29 19:03)
+        Redesign user sign in/out process:
+            ☐ Modify client access table (keep more id information).
+            ☐ Modify sign in stored procedure
+            ☐ Modify sign out stored procedure
+        ☐ Redesign device check up process:
         ☐ Redesign device register process.
         ☐ Redesign device user sign in process.
         ☐ Redesign device user sign out process.
