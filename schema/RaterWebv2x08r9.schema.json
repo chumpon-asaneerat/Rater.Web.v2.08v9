@@ -1,4 +1,178 @@
 {
+    "GetRandomCode": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.760Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "length",
+                    "type": "int",
+                    "default": "6"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "RandomString",
+                    "type": "nvarchar(50)",
+                    "default": "null"
+                }
+            ]
+        }
+    },
+    "GetErrorMsg": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.763Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "errCode",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveErrorMsg": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.767Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "errCode",
+                    "type": "int"
+                },
+                {
+                    "name": "message",
+                    "type": "nvarchar(max)"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveErrorMsgML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.770Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "errCode",
+                    "type": "int"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "message",
+                    "type": "nvarchar(max)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetErrorMsgs": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.770Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "null"
+                },
+                {
+                    "name": "errCode",
+                    "type": "int",
+                    "default": "null"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveLanguage": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.987Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "flagId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "sortOrder",
+                    "type": "int"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "DisableLanguage": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.993Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "null"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "EnableLanguage": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:52.993Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "null"
+                }
+            ],
+            "outputs": []
+        }
+    },
     "GetLanguages": {
         "type": "PROCEDURE",
         "updated": "2019-08-19T17:07:52.997Z",
@@ -11,6 +185,1610 @@
                 }
             ],
             "outputs": []
+        }
+    },
+    "SavePeriodUnit": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.007Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "periodUnitId",
+                    "type": "int"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(50)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SavePeriodUnitML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.010Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "periodUnitId",
+                    "type": "int"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(50)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetPeriodUnits": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.013Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveLimitUnit": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.013Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "limitUnitId",
+                    "type": "int"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "unitText",
+                    "type": "nvarchar(20)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveLimitUnitML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.020Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "limitUnitId",
+                    "type": "int"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "unitText",
+                    "type": "nvarchar(20)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetLimitUnits": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.020Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "GetMemberTypes": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.023Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveLicenseType": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.027Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "description",
+                    "type": "nvarchar(100)"
+                },
+                {
+                    "name": "adText",
+                    "type": "nvarchar(max)"
+                },
+                {
+                    "name": "periodUnitId",
+                    "type": "int"
+                },
+                {
+                    "name": "numberOfUnit",
+                    "type": "int"
+                },
+                {
+                    "name": "price",
+                    "type": "decimal(18, 2)"
+                },
+                {
+                    "name": "currSymbol",
+                    "type": "nvarchar(5)"
+                },
+                {
+                    "name": "currText",
+                    "type": "nvarchar(20)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "licenseTypeId",
+                    "type": "int"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveLicenseTypeML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.030Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "licenseTypeId",
+                    "type": "int"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(100)"
+                },
+                {
+                    "name": "adText",
+                    "type": "nvarchar(max)"
+                },
+                {
+                    "name": "price",
+                    "type": "decimal(18, 2)"
+                },
+                {
+                    "name": "currSymbol",
+                    "type": "nvarchar(5)"
+                },
+                {
+                    "name": "currText",
+                    "type": "nvarchar(20)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetLicenseTypes": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.033Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "null"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveLicenseFeature": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.037Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "licenseTypeId",
+                    "type": "int"
+                },
+                {
+                    "name": "limitUnitId",
+                    "type": "int"
+                },
+                {
+                    "name": "noOfLimit",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "seq",
+                    "type": "int"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetLicenseFeatures": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.037Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "null"
+                },
+                {
+                    "name": "licenseTypeId",
+                    "type": "int",
+                    "default": "null"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "GetLicenses": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.040Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "null"
+                },
+                {
+                    "name": "licenseTypeId",
+                    "type": "int",
+                    "default": "null"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveUserInfo": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.043Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "prefix",
+                    "type": "nvarchar(10)"
+                },
+                {
+                    "name": "firstName",
+                    "type": "nvarchar(40)"
+                },
+                {
+                    "name": "lastName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "userName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "passWord",
+                    "type": "nvarchar(20)"
+                },
+                {
+                    "name": "memberType",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "userId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveUserInfoML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.047Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "userId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "prefix",
+                    "type": "nvarchar(10)"
+                },
+                {
+                    "name": "firstName",
+                    "type": "nvarchar(40)"
+                },
+                {
+                    "name": "lastName",
+                    "type": "nvarchar(50)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetUserInfos": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.050Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "memberType",
+                    "type": "int",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveCustomer": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.063Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "taxCode",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "address1",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "address2",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "city",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "province",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "postalcode",
+                    "type": "nvarchar(8)"
+                },
+                {
+                    "name": "phone",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "mobile",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "fax",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "email",
+                    "type": "nvarchar(80)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveCustomerML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.067Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "customerName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "taxCode",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "address1",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "address2",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "city",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "province",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "postalcode",
+                    "type": "nvarchar(8)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetCustomers": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.067Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "DeleteCustomer": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.070Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveMemberInfo": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.083Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "prefix",
+                    "type": "nvarchar(10)"
+                },
+                {
+                    "name": "firstName",
+                    "type": "nvarchar(40)"
+                },
+                {
+                    "name": "lastName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "userName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "passWord",
+                    "type": "nvarchar(20)"
+                },
+                {
+                    "name": "memberType",
+                    "type": "int"
+                },
+                {
+                    "name": "tagId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "idCard",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "employeeCode",
+                    "type": "nvarchar(30)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "memberId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveMemberInfoML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.090Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "memberId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "prefix",
+                    "type": "nvarchar(10)"
+                },
+                {
+                    "name": "firstName",
+                    "type": "nvarchar(40)"
+                },
+                {
+                    "name": "lastName",
+                    "type": "nvarchar(50)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetMemberInfos": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.090Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "memberId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveBranch": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.097Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "branchName",
+                    "type": "nvarchar(80)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "branchId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveBranchML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.100Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "branchId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "branchName",
+                    "type": "nvarchar(80)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetBranchs": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.100Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "branchId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveOrg": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.107Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "parentId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "branchId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "orgName",
+                    "type": "nvarchar(80)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "orgId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveOrgML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.110Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "orgId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "orgName",
+                    "type": "nvarchar(80)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetOrgs": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.113Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "branchId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "orgId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveQSet": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.120Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(max)"
+                },
+                {
+                    "name": "hasRemark",
+                    "type": "bit"
+                },
+                {
+                    "name": "displayMode",
+                    "type": "tinyint"
+                },
+                {
+                    "name": "isDefault",
+                    "type": "bit"
+                },
+                {
+                    "name": "beginDate",
+                    "type": "datetime"
+                },
+                {
+                    "name": "endDate",
+                    "type": "datetime"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveQSetML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.123Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "description",
+                    "type": "nvarchar(max)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetQSets": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.127Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveQSlide": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.130Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qText",
+                    "type": "nvarchar(max)"
+                },
+                {
+                    "name": "hasRemark",
+                    "type": "bit"
+                },
+                {
+                    "name": "sortOrder",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "qSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(100)"
+                }
+            ]
+        }
+    },
+    "SaveQSlideML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.137Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "qText",
+                    "type": "nvarchar(max)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetQSlides": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.140Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "qSeq",
+                    "type": "int",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveQSlideItem": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.147Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "qText",
+                    "type": "nvarchar(max)"
+                },
+                {
+                    "name": "isRemark",
+                    "type": "bit"
+                },
+                {
+                    "name": "sortOrder",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "qSSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(100)"
+                }
+            ]
+        }
+    },
+    "SaveQSlideItemML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.150Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "qSSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "qText",
+                    "type": "nvarchar(max)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetQSlideItems": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.153Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "qSeq",
+                    "type": "int",
+                    "default": "NULL"
+                },
+                {
+                    "name": "qSSeq",
+                    "type": "int",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveDevice": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.157Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "deviceTypeId",
+                    "type": "int"
+                },
+                {
+                    "name": "deviceName",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "location",
+                    "type": "nvarchar(150)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "deviceId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveDeviceML": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.163Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "deviceId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "deviceName",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "location",
+                    "type": "nvarchar(150)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetDevices": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.163Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "deviceId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "enabled",
+                    "type": "bit",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "GetDeviceTypes": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.167Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "deviceTypeId",
+                    "type": "int",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "SaveVote": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.170Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "orgId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "deviceId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "userId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "voteDate",
+                    "type": "datetime"
+                },
+                {
+                    "name": "voteValue",
+                    "type": "int"
+                },
+                {
+                    "name": "remark",
+                    "type": "nvarchar(100)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "voteSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetVoteSummaries": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.187Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qSeq",
+                    "type": "int"
+                },
+                {
+                    "name": "BeginDate",
+                    "type": "datetime"
+                },
+                {
+                    "name": "EndDate",
+                    "type": "datetime"
+                },
+                {
+                    "name": "orgId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "deviceId",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "userId",
+                    "type": "nvarchar(30)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(100)"
+                }
+            ]
+        }
+    },
+    "GetRawVotes": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.190Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qsetId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "qseq",
+                    "type": "int"
+                },
+                {
+                    "name": "beginDate",
+                    "type": "datetime"
+                },
+                {
+                    "name": "endDate",
+                    "type": "datetime"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "pageNum",
+                    "type": "int"
+                },
+                {
+                    "name": "rowsPerPage",
+                    "type": "int"
+                },
+                {
+                    "name": "totalRecords",
+                    "type": "int"
+                },
+                {
+                    "name": "maxPage",
+                    "type": "int"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(100)"
+                }
+            ]
         }
     },
     "Register": {
@@ -77,6 +1855,111 @@
                 {
                     "name": "passWord",
                     "type": "nvarchar(20)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SignIn": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.203Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "userName",
+                    "type": "nvarchar(50)",
+                    "default": "null"
+                },
+                {
+                    "name": "passWord",
+                    "type": "nvarchar(20)"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "accessId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "CheckAccess": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.207Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "accessId",
+                    "type": "nvarchar(30)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetAccessUser": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.210Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)"
+                },
+                {
+                    "name": "accessId",
+                    "type": "nvarchar(30)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SignOut": {
+        "type": "PROCEDURE",
+        "updated": "2019-08-19T17:07:53.213Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "accessId",
+                    "type": "nvarchar(30)"
                 }
             ],
             "outputs": [
