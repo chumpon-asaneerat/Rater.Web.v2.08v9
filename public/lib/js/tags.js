@@ -256,17 +256,30 @@ riot.tag2('text-input', '<span>&nbsp;{opts.label}</span> <div class="h-seperator
         this.value = () => { return ctrl.value; }
 
 });
-riot.tag2('register-screen', '<div class="header-space"></div> <text-input ref="customerName" label="Customer Name:" value="" hint="Please enter customer name." autofocus="true"></text-input> <email-input ref="userName" label="User Name:" value="" hint="Please enter user name (email)."></email-input> <password-input ref="passWord" label="Password:" value="" hint="Please enter password."></password-input> <icon-button ref="register" class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 5vh; padding: 5px; display: block; width: 90vw; height: 230px; max-width: 400px; color: white; border: 1px solid darkorange; border-radius: 5px; background: rgba(255, 140, 0, .8); } register-screen .button,[data-is="register-screen"] .button{ margin: 0 auto; margin-top: 10px; padding: 5px; background: #69b9f3; font-size: 1rem; width: 96%; transform: translateX(2%); } register-screen .header-space,[data-is="register-screen"] .header-space{ display: block; height: 5px; }', '', function(opts) {
+riot.tag2('register-screen', '<div class="header-space"></div> <text-input ref="customerName" label="{label.customerName}" value="" hint="{hint.customerName}" autofocus="true"></text-input> <email-input ref="userName" label="{label.userName}" value="" hint="{hint.userName}"></email-input> <password-input ref="passWord" label="{label.password}" value="" hint="{hint.password}"></password-input> <icon-button ref="register" class="button" awesome="fas fa-save" text="{label.register}" href="javascript:;"></icon-button>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 5vh; padding: 5px; display: block; width: 90vw; height: 230px; max-width: 400px; color: white; border: 1px solid darkorange; border-radius: 5px; background: rgba(255, 140, 0, .8); } register-screen .button,[data-is="register-screen"] .button{ margin: 0 auto; margin-top: 10px; padding: 5px; background: #69b9f3; font-size: 1rem; width: 96%; transform: translateX(2%); } register-screen .header-space,[data-is="register-screen"] .header-space{ display: block; height: 5px; }', '', function(opts) {
 
 
         let self = this;
         let customerName, userName, passWord, register;
         let api = DbApi;
+        this.label = {
+            "customerName": "Customer Name:",
+            "userName": "User Name:",
+            "password": "Password:",
+            "register": "Register"
+        };
+        this.hint = {
+            "customerName": "Please Enter Customer name.",
+            "userName": "Please enter user name (email).",
+            "password": "Please Enter password."
+        };
 
         let bindEvents = () => {
             register.addEventListener('click', onRegister);
+            document.addEventListener('languagechanged', onLanguageChanged);
         }
         let unbindEvents = () => {
+            document.removeEventListener('languagechanged', onLanguageChanged);
             register.removeEventListener('click', onRegister);
         }
 
@@ -286,6 +299,12 @@ riot.tag2('register-screen', '<div class="header-space"></div> <text-input ref="
             customerName = null;
             register = null;
         });
+
+        let onLanguageChanged = (e) => {
+            self.label = appcontent.current.screens.register.label;
+            self.hint = appcontent.current.screens.register.hint;
+            self.update();
+        }
 
         let sendToServer = (data) => {
             let fn = (r) => {

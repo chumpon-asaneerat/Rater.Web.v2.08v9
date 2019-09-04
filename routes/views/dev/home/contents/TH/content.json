@@ -1,4 +1,23 @@
 {
+    "screens" : {
+        "register": {
+            "navmenu" : [
+                { "url": "javascript:;", "text": "ลงทะเบียน", "active": true },
+                { "url": "/signin", "text": "ลงชื่อใช้งาน", "active": false }
+            ],
+            "label": {
+                "customerName": "ชื่อลูกค้า:",
+                "userName": "ชื่อบัญชีผู้ใช้:",
+                "password": "รหัสผ่าน:",
+                "register": "ลงทะเบียน"
+            },
+            "hint": {
+                "customerName": "กรุณาบันทึก ชื่อลูกค้า.",
+                "userName": "กรุณาบันทึก ชื่อบัญชีผู้ใช้ (อีเมล์).",
+                "password": "กรุณาบันทึก รหัสผ่าน."
+            }
+        }
+    },
     "footer": {
         "label": {
             "status": "สถานะ",

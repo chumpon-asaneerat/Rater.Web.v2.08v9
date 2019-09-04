@@ -1,9 +1,9 @@
 <register-screen>
     <div class="header-space"></div>
-    <text-input ref="customerName" label="Customer Name:" value="" hint="Please enter customer name." autofocus="true"></text-input>
-    <email-input ref="userName" label="User Name:" value="" hint="Please enter user name (email)."></email-input>
-    <password-input ref="passWord" label="Password:" value="" hint="Please enter password."></password-input>
-    <icon-button ref="register" class="button" awesome="fas fa-save" text="register" href="javascript:;"></icon-button>
+    <text-input ref="customerName" label="{ label.customerName }" value="" hint="{ hint.customerName }" autofocus="true"></text-input>
+    <email-input ref="userName" label="{ label.userName }" value="" hint="{ hint.userName }"></email-input>
+    <password-input ref="passWord" label="{ label.password }" value="" hint="{ hint.password }"></password-input>
+    <icon-button ref="register" class="button" awesome="fas fa-save" text="{ label.register }" href="javascript:;"></icon-button>
     <style>
         :scope {
             margin: 0 auto;
@@ -38,6 +38,17 @@
         let self = this;
         let customerName, userName, passWord, register;
         let api = DbApi; // set reference to helper class.
+        this.label = {
+            "customerName": "Customer Name:",
+            "userName": "User Name:",
+            "password": "Password:",
+            "register": "Register"
+        };
+        this.hint = {
+            "customerName": "Please Enter Customer name.",
+            "userName": "Please enter user name (email).",
+            "password": "Please Enter password."
+        };
 
         //#endregion
 
@@ -45,8 +56,10 @@
 
         let bindEvents = () => {
             register.addEventListener('click', onRegister);
+            document.addEventListener('languagechanged', onLanguageChanged);
         }
         let unbindEvents = () => {
+            document.removeEventListener('languagechanged', onLanguageChanged);
             register.removeEventListener('click', onRegister);
         }
 
@@ -74,6 +87,12 @@
         //#endregion
 
         //#region private methods
+
+        let onLanguageChanged = (e) => {
+            self.label = appcontent.current.screens.register.label;
+            self.hint = appcontent.current.screens.register.hint;
+            self.update();
+        }
 
         let sendToServer = (data) => {
             let fn = (r) => {
