@@ -29,3 +29,87 @@ My Choice Rater Web v2.0.8x9:
         ☐ Supports Breadcrumb screens.
         ☐ Supports loading component.
         ☐ Nav menu items with sync screen component. 
+    Rater Screens:
+        Public:
+            ☐ Home.
+            ☐ Register.
+            ☐ Sign In.
+            ☐ Sign Out.
+        EDL:
+            Admin:
+                ☐ Home (dashboard).
+                License Setting:
+                    ☐ Period Unit Setup.
+                    ☐ Limit Unit Setup.
+                    ☐ License Type Setup.
+                Customer Management:
+                    ☐ Overview.
+                    ☐ Customers View.
+                    ☐ Customer License Activate/Extended/Change.
+                Staff Management (EDL user):
+                    ☐ Staff View.
+                    ☐ Staff Add/Edit/Delete (allow edit all profile).
+            Supervisor:
+                ☐ Home (dashboard).
+                Customer Management:
+                    ☐ Overview.
+                    ☐ Customers View.
+                    ☐ Customer License Activate/Extended.
+                Staff Management (EDL user):
+                    ☐ Staff View.
+                    ☐ Staff Add/Edit/Delete (allow self edit profile and all staff profile).
+            Staff:
+                ☐ Home (dashboard)
+                ☐ Staff Profile.
+        Customer:
+            Admin:
+                ☐ Home (dashboard).
+                Staff Managements:
+                    ☐ Staffs View.
+                    ☐ Staff Add/Edit/Delete.
+                Org Management:
+                    ☐ Branch View.
+                    ☐ Branchs Add/Edit/Delete.
+                    ☐ Org View.
+                    ☐ Org Add/Edit/Delete.
+                Question Management:
+                    ☐ Overview.
+                    ☐ Question Editor.
+                Device Management:
+                    ☐ Overview.
+                    ☐ Device Setup (Information/Remote control).
+                Reports:
+                    ☐ Raw Votes (allow delete).
+                    Vote Summaries:
+                        ☐ Pie Chart (view by choice per org/branch).
+                        ☐ Bar Chart (view average score compare by org/branch).
+            Exclusive:
+                ☐ Home (dashboard).
+                Staff Managements:
+                    ☐ Staffs View.
+                    ☐ Staff Add/Edit/Delete.
+                Org Management:
+                    ☐ Branch View.
+                    ☐ Branchs Add/Edit/Delete.
+                    ☐ Org View.
+                    ☐ Org Add/Edit/Delete.
+                Question Management:
+                    ☐ Overview.
+                    ☐ Question Editor.
+                Device Management:
+                    ☐ Overview.
+                    ☐ Device Setup (Information/Remote control).
+                Reports:
+                    ☐ Raw Votes (allow delete).
+                    Vote Summaries:
+                        ☐ Pie Chart (view by choice per org/branch).
+                        ☐ Bar Chart (view average score compare by org/branch).
+            Staff:
+                ☐ Home (dashboard).
+                ☐ Staff Profile.
+                ☐ Staff Report(s).
+            Device:
+                ☐ Home (dashboard/main menu).
+                ☐ Sign In (device).
+                ☐ Sign Out (device).
+                ☐ Question View.
