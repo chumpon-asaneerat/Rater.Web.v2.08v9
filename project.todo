@@ -9,8 +9,8 @@ My Choice Rater Web v2.0.8x9:
         ✔ Redesign customer register process. @done(19-08-29 19:03)
         Redesign user sign in/out process:
             ☐ Modify client access table (keep more id information).
-            ☐ Modify sign in stored procedure
-            ☐ Modify sign out stored procedure
+            ☐ Modify sign in stored procedure.
+            ☐ Modify sign out stored procedure.
         ☐ Redesign device check up process:
         ☐ Redesign device register process.
         ☐ Redesign device user sign in process.
