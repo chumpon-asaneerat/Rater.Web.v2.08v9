@@ -29,6 +29,7 @@ My Choice Rater Web v2.0.8x9:
         ☐ Supports Breadcrumb screens.
         ☐ Supports loading component.
         ☐ Nav menu items with sync screen component. 
+        ☐ Rewrite app/screen components.
     Rater Screens:
         Public:
             ☐ Home.
