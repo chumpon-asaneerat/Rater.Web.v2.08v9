@@ -30,6 +30,7 @@ My Choice Rater Web v2.0.8x9:
         ☐ Supports loading component.
         ☐ Nav menu items with sync screen component. 
         ☐ Rewrite app/screen components.
+        ☐ Navbar add breadcrumb ??.
     Rater Screens:
         Public:
             ☐ Home.
