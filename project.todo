@@ -31,6 +31,11 @@ My Choice Rater Web v2.0.8x9:
         ☐ Nav menu items with sync screen component. 
         ☐ Rewrite app/screen components.
         ☐ Navbar add breadcrumb ??.
+        DateTime Picker:
+            ☐ Year/Month/Date dropdown component.
+            ☐ Hour/Miniute/Second dropdown component.
+        ☐ Color Picker.
+        ☐ Property Grid.
     Rater Screens:
         Public:
             ☐ Home.
