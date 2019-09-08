@@ -1,0 +1,36 @@
+#======================================
+###### Language APIs ######
+#======================================
+#### Gets all languages.
+GET http://localhost:3000/api/languages/search HTTP/1.1
+#### Gets enable languages.
+GET http://localhost:3000/api/languages/search?enabled=1
+#### Gets disable languages.
+POST http://localhost:3000/api/languages/search
+Cookie: foo=bar
+content-type: application/json
+
+{
+    "enabled": "false"
+}
+
+#### Register customer.
+POST http://localhost:3000/api/customer/register
+content-type: application/json
+
+{
+    "customerName": "",
+    "userName": "",
+    "passWord": ""
+}
+
+#### Validate Account by login
+POST http://localhost:3000/api/customer/validate-accounts
+content-type: application/json
+
+{
+    "langId": "EN",
+    "userName": "admin@softbase.co.th",
+    "passWord": "1234"
+}
+

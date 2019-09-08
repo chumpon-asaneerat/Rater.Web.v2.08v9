@@ -1,0 +1,27 @@
+{
+    "screens" : {
+        "register": {
+            "navmenu" : [
+                { "url": "javascript:;", "text": "Register", "active": true },
+                { "url": "/signin", "text": "Sign In", "active": false }
+            ],
+            "label": {
+                "customerName": "Customer Name:",
+                "userName": "User Name:",
+                "password": "Password:",
+                "register": "Register"
+            },
+            "hint": {
+                "customerName": "Please Enter Customer name.",
+                "userName": "Please enter user name (email).",
+                "password": "Please Enter password."
+            }
+        }
+    },
+    "footer": {
+        "label": {
+            "status": "status",
+            "copyright": "EDL Co., Ltd."
+        }
+    }
+}
