@@ -8,7 +8,6 @@
         :scope {
             width: 100vw;
             margin: 0 auto;
-            padding: 0;
             display: grid;
             grid-template-columns: 1fr 90px 40px;
             grid-template-rows: 1fr;
@@ -16,6 +15,7 @@
                 'banner lang-menu links-menu';
             background: cornflowerblue;
             color: whitesmoke;
+            user-select: none;
         }
         .banner {
             grid-area: banner;

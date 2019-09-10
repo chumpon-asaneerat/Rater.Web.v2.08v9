@@ -6,7 +6,7 @@
     <page-footer class="footer"></page-footer>
     <style>
         :scope {
-            margin: 0 auto;
+            margin: 0 auto;            
             height: 100vh;
             display: grid;
             grid-template-columns: 1fr;
@@ -46,15 +46,17 @@
         }
         navibar {
             grid-area: navibar;
+            padding: 5px;
             overflow: hidden;
         }
         .scrarea {
             grid-area: scrarea;
+            padding: 5px;
             overflow: auto;
         }
         .footer {
             grid-area: footer;
-            padding: 0 2px;
+            padding: 2px 3px 2px 3px;
             overflow: hidden;
         }
     </style>

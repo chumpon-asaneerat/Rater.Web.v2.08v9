@@ -2,9 +2,7 @@
     <div class="menu">
         <a ref="flags" class="flag-combo" href="javascript:;">
             <span class="flag-css flag-icon flag-icon-{ lang.current.flagId.toLowerCase() }" ref="css-icon"></span>
-            &nbsp;
-            <div class="flag-text">{ lang.langId }</div>
-            &nbsp;
+            <div class="flag-text">&nbsp;{ lang.langId }&nbsp;</div>
             <span class="drop-synbol fas fa-caret-down"></span>
         </a>
     </div>
@@ -23,31 +21,15 @@
         :scope {
             margin: 0 auto;
             padding: 0, 2px;
+            user-select: none;
         }
         .menu {
             margin: 0 auto;
             padding: 0;
-            display: grid;
-            grid-template-rows: 1fr;
-            grid-template-columns: 1fr;
-            grid-template-areas: 
-                'flag';
-            align-items: center;
-            justify-content: stretch;
         }
         a {
             margin: 0 auto;
-            color: whitesmoke;
-        }
-        a .flag-item {
-            height: 30px;
-            display: grid;
-            grid-template-rows: 1fr;
-            grid-template-columns: 1fr;
-            grid-template-areas: 
-                'flag';
-            align-items: center;
-            justify-content: stretch;
+            color: whitesmoke;            
         }
         a:link, a:visited { text-decoration: none; }
         a:hover, a:active {
@@ -56,21 +38,19 @@
         }
         .flag-combo {
             margin: 0 auto;
+            
         }
         .flag-combo .flag-css {
             margin: 0px auto;
             padding-top: 1px;
-            width: 20px;
-            display: inline-block;
+            display: inline-block;            
         }
         .flag-combo .flag-text {
             margin: 0 auto;
             display: inline-block;
-            width: 25px;
         }
         .flag-combo .drop-symbol {
             margin: 0 auto;
-            width: 10px;
             display: inline-block;
         }
         .flag-item {
@@ -84,11 +64,8 @@
         }
         .flag-item:hover {
             color: yellow;
-
             background:linear-gradient(to bottom, #0c5a24 5%, #35750a 100%);
-            /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77a809', endColorstr='#89c403',GradientType=0);*/
             background-color:#77a809;
-            
             cursor: pointer;
         }
         .flag-item.selected {
@@ -102,8 +79,9 @@
         }
         .flag-item .flag-text {
             margin: 0 auto;
-            width: 120px;
-            display: inline-block;
+            min-width: 80px;
+            max-width: 120px;
+            display: inline-block;            
         }
         .language-dropbox {
             display: inline-block;

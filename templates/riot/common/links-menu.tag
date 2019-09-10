@@ -1,70 +1,161 @@
 <links-menu>
-    <a ref="burger" href="#">
-        <span ref="showlinks" class="burger fas fa-bars"></span>
-    </a>
-    <!--
-    <a ref="close" href="#" class="toggle">
-        <span ref="hidelinks" class="burger fas fa-times"></span>
-    </a>
-    -->
-    <div class="toggle">
+    <div class="menu">
+        <a ref="links" class="link-combo" href="javascript:;">
+            <span ref="showlinks" class="burger fas fa-bars"></span>
+        </a>
     </div>
-    <yield/>
+    <div ref="dropItems" class="links-dropbox">
+        <div each={ item in menus }>
+            <a class="link-item" href="javascript:;" onclick="{ selectItem }">
+                &nbsp;
+                <span class="link-css { item.css }" ref="css-icon"></span>
+                &nbsp;
+                <div class="link-text">{ item.text }</div>
+                &nbsp;&nbsp;&nbsp;
+            </a>                
+        </div>
+    </div>
     <style>
         :scope {
             margin: 0 auto;
             padding: 0 3px;
-            display: flex;
-            align-items: center;
-            justify-content: stretch;
+            user-select: none;
         }
-        :scope.dropdown {
+        .menu {
+            margin: 0 auto;
+            padding: 0;
+        }
+        a {
+            margin: 0 auto;
+            color: whitesmoke;
+        }
+        a:link, a:visited { text-decoration: none; }
+        a:hover, a:active {
+            color: yellow;
+            text-decoration: none;
+        }
+        .link-combo {
             margin: 0 auto;
         }
-        .toggle {
+        .link-item {
+            margin: 0px auto;
+            padding: 2px;
+            padding-left: 5px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .link-item:hover {
+            color: yellow;
+            background:linear-gradient(to bottom, #0c5a24 5%, #35750a 100%);
+            background-color:#77a809;
+            cursor: pointer;
+        }
+        .link-item.selected {
+            background-color: darkorange;
+        }
+        .link-item .link-css {
+            margin: 0px auto;
+            padding-top: 1px;
+            width: 25px;
+            display: inline-block;
+        }
+        .link-item .link-text {
+            margin: 0 auto;
+            min-width: 80px;
+            max-width: 120px;
+            display: inline-block;
+        }
+        .links-dropbox {
             display: inline-block;
             position: fixed;
-            width: 100px;
-            height: 250px;
+            margin: 0 auto;
+            padding: 1px;
+            top: 45px;
+            right: 5px;
+            background-color: #333;
+            color:whitesmoke;
+            max-height: calc(100vh - 50px - 20px);
             overflow: hidden;
             overflow-y: auto;
             display: none;
         }
-        .toggle.show {
+        .links-dropbox.show {
             display: inline-block;
         }
     </style>
     <script>
-        //#region local variables
-
         let self = this;
-
-        //#endregion
-
-        //#region local element methods
-
-        let bindEvents = () => {}
-        let unbindEvents = () => {}
-
-        //#endregion
-
-        //#region riot handlers
+        let links, dropItems;
+        this.menus = [
+            { screenId:'register', css: 'far fa-user-circle', text:'Retister' },
+            { screenId:'signin', css: 'fas fa-user-plus', text:'Sign In' },
+            { screenId:'signout', css: 'fas fa-sign-out-alt', text:'Sign Out' }
+        ];
+        
+        let bindEvents = () => {
+            document.addEventListener('languagechanged', onLanguageChanged);
+            links.addEventListener('click', toggle);
+            window.addEventListener('click', checkClickPosition);
+        }
+        let unbindEvents = () => {
+            window.removeEventListener('click', checkClickPosition);
+            links.removeEventListener('click', toggle);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+        }
 
         this.on('mount', () => {
+            links = self.refs['links'];
+            dropItems = self.refs['dropItems'];
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
+            dropItems = null;
+            links = null;
         });
 
-        //#endregion
+        let onLanguageChanged = (e) => { self.update(); }
 
-        //#region private methods
+        let toggle = () => {
+            dropItems.classList.toggle('show');
+            self.update();
+        }
 
-        //#endregion
+        let isInClassList = (elem, classList) => {
+            let len = classList.length;
+            let found = false;
+            for (let i = 0; i < len; i++) {
+                if (elem.matches(classList[i])) {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
 
-        //#region public methods
+        let checkClickPosition = (e) => {
+            // Close the dropdown menu if the user clicks outside of it
+            let classList = ['.link-combo', '.burger'];
+            let match = isInClassList(e.target, classList);
+            if (!match) {
+                if (dropItems.classList.contains('show')) {
+                    toggle();
+                }
+            }
+        }
 
-        //#endregion
+        this.selectItem = (e) => {
+            toggle(); // toggle off
+            let selLink = e.item.item;
+            console.log(selLink)
+            /*
+            lang.change(selLink.screenId);
+            */
+
+            e.preventDefault();
+            e.stopPropagation();
+        }
     </script>
 </links-menu>

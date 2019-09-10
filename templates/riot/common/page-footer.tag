@@ -10,6 +10,7 @@
     </p>
     <style>
         :scope {
+            margin: 0 auto;
             width: 100vw;
             display: grid;
             grid-template-columns: fit-content(50px) 1fr fit-content(150px);
@@ -20,7 +21,7 @@
             justify-items: stretch;
             align-items: stretch;
 
-            font-size: 0.75em;
+            font-size: 0.70em;
             font-weight: bold;
             background: darkorange;
             color: whitesmoke;
@@ -28,12 +29,15 @@
         .caption {
             grid-area: caption;
             padding-left: 3px;
+            user-select: none;
         }
         .status {
             grid-area: status;
+            user-select: none;
         }
         .copyright {
             grid-area: copyright;
+            user-select: none;
         }
     </style>
     <script>
