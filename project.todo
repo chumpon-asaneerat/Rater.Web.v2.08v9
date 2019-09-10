@@ -31,6 +31,7 @@ My Choice Rater Web v2.0.8x9:
         ✔ Nav menu items with sync screen component. @done(19-09-10 13:50)
         ☐ Rewrite app/screen components.
         ✔ Rewrite Navibar. @done(19-09-10 13:50)
+        ☐ Dual Page Screen (View/Edit).
         DateTime Picker:
             ☐ Year/Month/Date dropdown component.
             ☐ Hour/Miniute/Second dropdown component.
