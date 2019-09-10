@@ -82,6 +82,15 @@
             align-items: center;
             justify-content: center;
         }
+        .flag-item:hover {
+            color: yellow;
+
+            background:linear-gradient(to bottom, #0c5a24 5%, #35750a 100%);
+            /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77a809', endColorstr='#89c403',GradientType=0);*/
+            background-color:#77a809;
+            
+            cursor: pointer;
+        }
         .flag-item.selected {
             background-color: darkorange;
         }
@@ -105,7 +114,7 @@
             right: 5px;
             background-color: #333;
             color:whitesmoke;
-            height: 200px;
+            max-height: calc(100vh - 50px - 20px);
             overflow: hidden;
             overflow-y: auto;
             display: none;
@@ -147,10 +156,26 @@
             self.update();
         }
 
+        let isInClassList = (elem, classList) => {
+            let len = classList.length;
+            let found = false;
+            for (let i = 0; i < len; i++) {
+                if (elem.matches(classList[i])) {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
+
         let checkClickPosition = (e) => {
             // Close the dropdown menu if the user clicks outside of it
-            if (!e.target.matches('.flag-combo')) {
-                toggle();
+            let classList = ['.flag-combo', '.flag-css', '.flag-text', '.drop-synbol'];
+            let match = isInClassList(e.target, classList);
+            if (!match) {
+                if (dropItems.classList.contains('show')) {
+                    toggle();
+                }
             }
         }
 

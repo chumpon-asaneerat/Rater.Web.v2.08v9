@@ -10,9 +10,11 @@
             height: 100vh;
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr;
+            grid-template-rows: 0px 1fr 0px;
             grid-template-areas: 
-                'scrarea';
+                'navibar'
+                'scrarea'
+                'footer';
             overflow: hidden;
         }
         :scope[navibar][footer] {
@@ -26,16 +28,18 @@
         }
         :scope[navibar] {
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr 20px;
+            grid-template-rows: 40px 1fr 0px;
             grid-template-areas:
                 'navibar'
-                'scrarea';
+                'scrarea'
+                'footer';
             overflow: hidden;
         }
         :scope[footer] {
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr 20px;
+            grid-template-rows: 0px 1fr 20px;
             grid-template-areas:
+                'navibar'
                 'scrarea'
                 'footer';
             overflow: hidden;
