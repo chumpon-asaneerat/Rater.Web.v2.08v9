@@ -1,6 +1,4 @@
-riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <yield></yield> </div> <page-footer class="footer"></page-footer>', 'app,[data-is="app"]{ margin: 0 auto; height: 100vh; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'scrarea\'; overflow: hidden; } app[navbar][footer],[data-is="app"][navbar][footer]{ grid-template-columns: 1fr; grid-template-rows: 40px 1fr 20px; grid-template-areas: \'nav-bar\' \'scrarea\' \'footer\'; overflow: hidden; } app[navbar],[data-is="app"][navbar]{ grid-template-columns: 1fr; grid-template-rows: 1fr 20px; grid-template-areas: \'nav-bar\' \'fooscrareater\'; overflow: hidden; } app[footer],[data-is="app"][footer]{ grid-template-columns: 1fr; grid-template-rows: 1fr 20px; grid-template-areas: \'scrarea\' \'footer\'; overflow: hidden; } app .nav-bar,[data-is="app"] .nav-bar{ grid-area: nav-bar; overflow: hidden; } app .scrarea,[data-is="app"] .scrarea{ grid-area: scrarea; overflow: auto; } app .footer,[data-is="app"] .footer{ grid-area: footer; padding: 0 2px; overflow: hidden; }', '', function(opts) {
-
-
+riot.tag2('app', '<navibar></navibar> <div class="scrarea"> <yield></yield> </div> <page-footer class="footer"></page-footer>', 'app,[data-is="app"]{ margin: 0 auto; height: 100vh; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'scrarea\'; overflow: hidden; } app[navibar][footer],[data-is="app"][navibar][footer]{ grid-template-columns: 1fr; grid-template-rows: 40px 1fr 20px; grid-template-areas: \'navibar\' \'scrarea\' \'footer\'; overflow: hidden; } app[navibar],[data-is="app"][navibar]{ grid-template-columns: 1fr; grid-template-rows: 1fr 20px; grid-template-areas: \'navibar\' \'scrarea\'; overflow: hidden; } app[footer],[data-is="app"][footer]{ grid-template-columns: 1fr; grid-template-rows: 1fr 20px; grid-template-areas: \'scrarea\' \'footer\'; overflow: hidden; } app navibar,[data-is="app"] navibar{ grid-area: navibar; overflow: hidden; } app .scrarea,[data-is="app"] .scrarea{ grid-area: scrarea; overflow: auto; } app .footer,[data-is="app"] .footer{ grid-area: footer; padding: 0 2px; overflow: hidden; }', '', function(opts) {
         let self = this;
         this.screens = [];
 
@@ -42,20 +40,19 @@ riot.tag2('app', '<nav-bar class="navibar"></nav-bar> <div class="scrarea"> <yie
             }
             return ret;
         }
-
 });
 
-riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo" href="javascript:;"> <span class="flag-css flag-icon flag-icon-{lang.current.flagId.toLowerCase()}" ref="css-icon"></span> &nbsp; <div class="flag-text">{lang.langId}</div> &nbsp; <span class="drop-synbol fas fa-caret-down"></span> </a> </div> <div ref="dropItems" class="toggle"> <div each="{item in lang.languages}"> <a class="flag-item {(lang.langId === item.langId) ? \'selected\' : \'\'}" href="javascript:;" onclick="{selectItem}"> &nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}" ref="css-icon"></span> &nbsp; <div class="flag-text">{item.Description}</div> &nbsp;&nbsp;&nbsp; </a> </div> </div>', 'language-menu,[data-is="language-menu"]{ margin: 0 auto; padding: 0, 2px; } language-menu .menu,[data-is="language-menu"] .menu{ margin: 0 auto; padding: 0; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'flag\'; align-items: center; justify-content: stretch; } language-menu a,[data-is="language-menu"] a{ margin: 0 auto; color: whitesmoke; } language-menu a .flag-item,[data-is="language-menu"] a .flag-item{ height: 30px; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'flag\'; align-items: center; justify-content: stretch; } language-menu a:link,[data-is="language-menu"] a:link,language-menu a:visited,[data-is="language-menu"] a:visited{ text-decoration: none; } language-menu a:hover,[data-is="language-menu"] a:hover,language-menu a:active,[data-is="language-menu"] a:active{ color: yellow; text-decoration: none; } language-menu .flag-combo,[data-is="language-menu"] .flag-combo{ margin: 0 auto; } language-menu .flag-combo .flag-css,[data-is="language-menu"] .flag-combo .flag-css{ margin: 0px auto; padding-top: 1px; width: 20px; display: inline-block; } language-menu .flag-combo .flag-text,[data-is="language-menu"] .flag-combo .flag-text{ margin: 0 auto; display: inline-block; width: 25px; } language-menu .flag-combo .drop-symbol,[data-is="language-menu"] .flag-combo .drop-symbol{ margin: 0 auto; width: 10px; display: inline-block; } language-menu .flag-item,[data-is="language-menu"] .flag-item{ margin: 0px auto; padding: 2px; padding-left: 5px; height: 50px; display: flex; align-items: center; justify-content: center; } language-menu .flag-item.selected,[data-is="language-menu"] .flag-item.selected{ background-color: darkorange; } language-menu .flag-item .flag-css,[data-is="language-menu"] .flag-item .flag-css{ margin: 0px auto; padding-top: 1px; width: 25px; display: inline-block; } language-menu .flag-item .flag-text,[data-is="language-menu"] .flag-item .flag-text{ margin: 0 auto; width: 120px; display: inline-block; } language-menu .toggle,[data-is="language-menu"] .toggle{ display: inline-block; position: fixed; margin: 0 auto; padding: 1px; top: 45px; right: 5px; background-color: #333; color:whitesmoke; height: 150px; overflow: hidden; overflow-y: auto; display: none; } language-menu .toggle.show,[data-is="language-menu"] .toggle.show{ display: inline-block; }', '', function(opts) {
-
-
+riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo" href="javascript:;"> <span class="flag-css flag-icon flag-icon-{lang.current.flagId.toLowerCase()}" ref="css-icon"></span> &nbsp; <div class="flag-text">{lang.langId}</div> &nbsp; <span class="drop-synbol fas fa-caret-down"></span> </a> </div> <div ref="dropItems" class="language-dropbox"> <div each="{item in lang.languages}"> <a class="flag-item {(lang.langId === item.langId) ? \'selected\' : \'\'}" href="javascript:;" onclick="{selectItem}"> &nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}" ref="css-icon"></span> &nbsp; <div class="flag-text">{item.Description}</div> &nbsp;&nbsp;&nbsp; </a> </div> </div>', 'language-menu,[data-is="language-menu"]{ margin: 0 auto; padding: 0, 2px; } language-menu .menu,[data-is="language-menu"] .menu{ margin: 0 auto; padding: 0; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'flag\'; align-items: center; justify-content: stretch; } language-menu a,[data-is="language-menu"] a{ margin: 0 auto; color: whitesmoke; } language-menu a .flag-item,[data-is="language-menu"] a .flag-item{ height: 30px; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; grid-template-areas: \'flag\'; align-items: center; justify-content: stretch; } language-menu a:link,[data-is="language-menu"] a:link,language-menu a:visited,[data-is="language-menu"] a:visited{ text-decoration: none; } language-menu a:hover,[data-is="language-menu"] a:hover,language-menu a:active,[data-is="language-menu"] a:active{ color: yellow; text-decoration: none; } language-menu .flag-combo,[data-is="language-menu"] .flag-combo{ margin: 0 auto; } language-menu .flag-combo .flag-css,[data-is="language-menu"] .flag-combo .flag-css{ margin: 0px auto; padding-top: 1px; width: 20px; display: inline-block; } language-menu .flag-combo .flag-text,[data-is="language-menu"] .flag-combo .flag-text{ margin: 0 auto; display: inline-block; width: 25px; } language-menu .flag-combo .drop-symbol,[data-is="language-menu"] .flag-combo .drop-symbol{ margin: 0 auto; width: 10px; display: inline-block; } language-menu .flag-item,[data-is="language-menu"] .flag-item{ margin: 0px auto; padding: 2px; padding-left: 5px; height: 50px; display: flex; align-items: center; justify-content: center; } language-menu .flag-item.selected,[data-is="language-menu"] .flag-item.selected{ background-color: darkorange; } language-menu .flag-item .flag-css,[data-is="language-menu"] .flag-item .flag-css{ margin: 0px auto; padding-top: 1px; width: 25px; display: inline-block; } language-menu .flag-item .flag-text,[data-is="language-menu"] .flag-item .flag-text{ margin: 0 auto; width: 120px; display: inline-block; } language-menu .language-dropbox,[data-is="language-menu"] .language-dropbox{ display: inline-block; position: fixed; margin: 0 auto; padding: 1px; top: 45px; right: 5px; background-color: #333; color:whitesmoke; height: 200px; overflow: hidden; overflow-y: auto; display: none; } language-menu .language-dropbox.show,[data-is="language-menu"] .language-dropbox.show{ display: inline-block; }', '', function(opts) {
         let self = this;
         let flags, dropItems;
 
         let bindEvents = () => {
             document.addEventListener('languagechanged', onLanguageChanged);
             flags.addEventListener('click', toggle);
+            window.addEventListener('click', checkClickPosition);
         }
         let unbindEvents = () => {
+            window.removeEventListener('click', checkClickPosition);
             flags.removeEventListener('click', toggle);
             document.removeEventListener('languagechanged', onLanguageChanged);
         }
@@ -78,6 +75,13 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
             self.update();
         }
 
+        let checkClickPosition = (e) => {
+
+            if (!e.target.matches('.flag-combo')) {
+                toggle();
+            }
+        }
+
         this.selectItem = (e) => {
             toggle();
             let selLang = e.item.item;
@@ -86,7 +90,6 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
             e.preventDefault();
             e.stopPropagation();
         }
-
 });
 riot.tag2('links-menu', '<a ref="burger" href="#"> <span ref="showlinks" class="burger fas fa-bars"></span> </a> <div class="toggle"> </div> <yield></yield>', 'links-menu,[data-is="links-menu"]{ margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } links-menu.dropdown,[data-is="links-menu"].dropdown{ margin: 0 auto; } links-menu .toggle,[data-is="links-menu"] .toggle{ display: inline-block; position: fixed; width: 100px; height: 250px; overflow: hidden; overflow-y: auto; display: none; } links-menu .toggle.show,[data-is="links-menu"] .toggle.show{ display: inline-block; }', '', function(opts) {
 
@@ -105,9 +108,7 @@ riot.tag2('links-menu', '<a ref="burger" href="#"> <span ref="showlinks" class="
 
 });
 
-riot.tag2('nav-bar', '<div class="banner"> <div>app</div> </div> <language-menu></language-menu> <links-menu></links-menu>', 'nav-bar,[data-is="nav-bar"]{ width: 100vw; margin: 0 auto; padding: 0; display: grid; grid-template-columns: 1fr 90px 40px; grid-template-rows: 1fr; grid-template-areas: \'banner lang-menu links-menu\'; background: cornflowerblue; color: whitesmoke; } nav-bar .banner,[data-is="nav-bar"] .banner{ grid-area: banner; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } nav-bar language-menu,[data-is="nav-bar"] language-menu{ grid-area: lang-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } nav-bar links-menu,[data-is="nav-bar"] links-menu{ grid-area: links-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; }', '', function(opts) {
-
-
+riot.tag2('navibar', '<div class="banner"> <div>app</div> </div> <language-menu></language-menu> <links-menu></links-menu>', 'navibar,[data-is="navibar"]{ width: 100vw; margin: 0 auto; padding: 0; display: grid; grid-template-columns: 1fr 90px 40px; grid-template-rows: 1fr; grid-template-areas: \'banner lang-menu links-menu\'; background: cornflowerblue; color: whitesmoke; } navibar .banner,[data-is="navibar"] .banner{ grid-area: banner; margin: 0; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar language-menu,[data-is="navibar"] language-menu{ grid-area: lang-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar links-menu,[data-is="navibar"] links-menu{ grid-area: links-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; }', '', function(opts) {
         let self = this;
 
         let bindEvents = () => {}
@@ -119,7 +120,6 @@ riot.tag2('nav-bar', '<div class="banner"> <div>app</div> </div> <language-menu>
         this.on('unmount', () => {
             unbindEvents();
         });
-
 });
 riot.tag2('page-footer', '<p class="caption"> {(appcontent.current) ? appcontent.current.footer.label.status + \' : \' : \'Status : \'} </p> <p class="status" ref="l1"></p> <p class="copyright"> &nbsp;&copy; {(appcontent.current) ? appcontent.current.footer.label.copyright : \'EDL Co., Ltd.\'} &nbsp;&nbsp; </p>', 'page-footer,[data-is="page-footer"]{ width: 100vw; display: grid; grid-template-columns: fit-content(50px) 1fr fit-content(150px); grid-template-rows: 1fr; grid-template-areas: \'caption status copyright\'; justify-items: stretch; align-items: stretch; font-size: 0.75em; font-weight: bold; background: darkorange; color: whitesmoke; } page-footer .caption,[data-is="page-footer"] .caption{ grid-area: caption; padding-left: 3px; } page-footer .status,[data-is="page-footer"] .status{ grid-area: status; } page-footer .copyright,[data-is="page-footer"] .copyright{ grid-area: copyright; }', '', function(opts) {
 
@@ -177,183 +177,4 @@ riot.tag2('screen', '<yield></yield> </script>', 'screen,[data-is="screen"]{ mar
             self.app = app;
         }
 
-});
-riot.tag2('icon-button', '<a href="{opts.href}"> <span class="{opts.awesome}">&nbsp;</span>{opts.text} </a>', 'icon-button,[data-is="icon-button"]{ display: inline-block; margin: 0 auto; padding: 5px; text-align: center; border-radius: 3px; color: white; } icon-button:hover,[data-is="icon-button"]:hover{ color: red; cursor: pointer; } icon-button a,[data-is="icon-button"] a{ color: inherit; text-decoration: none; } icon-button a:hover,[data-is="icon-button"] a:hover{ color: red; text-decoration: none; cursor: pointer; }', '', function(opts) {
-        let self = this;
-});
-riot.tag2('email-input', '<span>&nbsp;{opts.label}</span> <div class="h-seperator"></div> <input ref="ctrl" riot-value="{opts.value}" placeholder="{opts.hint}" type="{\'email\'}">', 'email-input,[data-is="email-input"]{ margin: 0 auto; padding: 2px; display: block; } email-input span,[data-is="email-input"] span{ margin: 0; display: block; font-size: 14px; width: 100%; } email-input input,[data-is="email-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } email-input input:focus,[data-is="email-input"] input:focus{ border: 1px solid royalblue !important; } email-input .h-seperator,[data-is="email-input"] .h-seperator{ display:block; height: 3px; }', '', function(opts) {
-
-
-        let self = this;
-        let ctrl;
-
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
-
-        this.on('mount', () => {
-
-            ctrl = self.refs['ctrl'];
-            if (self.opts.autofocus === "true") ctrl.focus();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-
-            ctrl = null;
-        });
-
-        this.focus = () => { ctrl.focus(); }
-        this.value = () => { return ctrl.value; }
-
-});
-riot.tag2('password-input', '<span>&nbsp;{opts.label}</span> <div class="h-seperator"></div> <input ref="ctrl" type="password" riot-value="{opts.value}" placeholder="{opts.hint}">', 'password-input,[data-is="password-input"]{ margin: 0 auto; padding: 2px; display: block; } password-input span,[data-is="password-input"] span{ margin: 0; display: block; font-size: 14px; width: 100%; } password-input input,[data-is="password-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } password-input input:focus,[data-is="password-input"] input:focus{ border: 1px solid royalblue !important; } password-input .h-seperator,[data-is="password-input"] .h-seperator{ display:block; height: 3px; }', '', function(opts) {
-
-
-        let self = this;
-        let ctrl;
-
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
-
-        this.on('mount', () => {
-
-            ctrl = self.refs['ctrl'];
-            if (self.opts.autofocus === "true") ctrl.focus();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-
-            ctrl = null;
-        });
-
-        this.focus = () => { ctrl.focus(); }
-        this.value = () => { return ctrl.value; }
-
-});
-riot.tag2('text-input', '<span>&nbsp;{opts.label}</span> <div class="h-seperator"></div> <input ref="ctrl" type="text" riot-value="{opts.value}" placeholder="{opts.hint}">', 'text-input,[data-is="text-input"]{ margin: 0 auto; padding: 2px; display: block; } text-input span,[data-is="text-input"] span{ margin: 0; display: block; font-size: 14px; width: 100%; } text-input input,[data-is="text-input"] input{ margin: 0; padding: 0 2px; display: block; width: 100%; border: 1px solid silver; border-radius: 4px; outline: none; box-shadow: none; } text-input input:focus,[data-is="text-input"] input:focus{ border: 1px solid royalblue !important; } text-input .h-seperator,[data-is="text-input"] .h-seperator{ display:block; height: 3px; }', '', function(opts) {
-
-
-        let self = this;
-        let ctrl;
-
-        let bindEvents = () => {}
-        let unbindEvents = () => {}
-
-        this.on('mount', () => {
-
-            ctrl = self.refs['ctrl'];
-            if (self.opts.autofocus === "true") ctrl.focus();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-
-            ctrl = null;
-        });
-
-        this.focus = () => { ctrl.focus(); }
-        this.value = () => { return ctrl.value; }
-
-});
-riot.tag2('register-screen', '<div class="header-space"></div> <text-input ref="customerName" label="{label.customerName}" value="" hint="{hint.customerName}" autofocus="true"></text-input> <email-input ref="userName" label="{label.userName}" value="" hint="{hint.userName}"></email-input> <password-input ref="passWord" label="{label.password}" value="" hint="{hint.password}"></password-input> <icon-button ref="register" class="button" awesome="fas fa-save" text="{label.register}" href="javascript:;"></icon-button>', 'register-screen,[data-is="register-screen"]{ margin: 0 auto; margin-top: 5vh; padding: 5px; display: block; width: 90vw; height: 230px; max-width: 400px; color: white; border: 1px solid darkorange; border-radius: 5px; background: rgba(255, 140, 0, .8); } register-screen .button,[data-is="register-screen"] .button{ margin: 0 auto; margin-top: 10px; padding: 5px; background: #69b9f3; font-size: 1rem; width: 96%; transform: translateX(2%); } register-screen .header-space,[data-is="register-screen"] .header-space{ display: block; height: 5px; }', '', function(opts) {
-
-
-        let self = this;
-        let customerName, userName, passWord, register;
-        let api = DbApi;
-        this.label = {
-            "customerName": "Customer Name:",
-            "userName": "User Name:",
-            "password": "Password:",
-            "register": "Register"
-        };
-        this.hint = {
-            "customerName": "Please Enter Customer name.",
-            "userName": "Please enter user name (email).",
-            "password": "Please Enter password."
-        };
-
-        let bindEvents = () => {
-            register.addEventListener('click', onRegister);
-            document.addEventListener('languagechanged', onLanguageChanged);
-        }
-        let unbindEvents = () => {
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            register.removeEventListener('click', onRegister);
-        }
-
-        this.on('mount', () => {
-
-            register = self.refs['register'].root;
-            customerName = self.refs['customerName'];
-            userName = self.refs['userName'];
-            passWord = self.refs['passWord'];
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-
-            passWord = null;
-            userName = null;
-            customerName = null;
-            register = null;
-        });
-
-        let onLanguageChanged = (e) => {
-            self.label = appcontent.current.screens.register.label;
-            self.hint = appcontent.current.screens.register.hint;
-            self.update();
-        }
-
-        let sendToServer = (data) => {
-            let fn = (r) => {
-                let ret = api.parse(r);
-                if (ret.errors.hasError) {
-                    console.log('has error:', ret.errors);
-                }
-                else {
-
-                    nlib.nav.gotoUrl('/');
-                }
-            }
-            XHR.postJson('/api/customer/register', data, fn);
-        }
-
-        let onRegister = (e) => {
-            if (checkCustomerName() && checkUserName() && checkPassword()) {
-                let data = {
-                    "customerName": customerName.value(),
-                    "userName": userName.value(),
-                    "passWord": passWord.value()
-                }
-                sendToServer(data);
-            }
-        }
-
-        let checkCustomerName = () => {
-            let ret = false;
-            let val = customerName.value();
-            ret = (val && val.length > 0);
-            if (!ret) customerName.focus()
-            return ret;
-        }
-        let checkUserName = () => {
-            let ret = false;
-            let val = userName.value();
-            ret = (val && val.length > 0);
-            if (!ret) userName.focus()
-            return ret;
-        }
-        let checkPassword = () => {
-            let ret = false;
-            let val = passWord.value();
-            ret = (val && val.length > 0);
-            if (!ret) passWord.focus()
-            return ret;
-        }
-
-});
-riot.tag2('signin-screen', '', '', '', function(opts) {
-        let self = this;
 });

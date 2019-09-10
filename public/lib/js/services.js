@@ -180,7 +180,7 @@ class ContentService {
     getCurrent() {
         let match = this.content && this.content[this.langId];
         let ret = (match) ? this.content[this.langId] : this.content['EN'];
-        console.log('Current:', ret);
+        //console.log('Current:', ret);
         return ret;
     }
     get langId() { 
