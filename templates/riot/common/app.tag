@@ -51,7 +51,7 @@
         }
         .scrarea {
             grid-area: scrarea;
-            padding: 5px;
+            padding: 2px;
             overflow: auto;
         }
         .footer {

@@ -1,12 +1,27 @@
 <screen>
-    <yield/>
+    <div class="content-area">
+        <yield/>
+    </div>
     <style>
         :scope {
             margin: 0 auto;
             padding: 0;
             display: none;
+            width: 100%;
+            height: 100%;
         }
-        :scope.show { display: block; }
+        :scope.show { 
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: 
+                'content-area';
+        }
+        .content-area {
+            display: flex;
+            align-items: center;
+            justify-content: stretch;
+        }
     </style>
     <script>
         //#region local variables
