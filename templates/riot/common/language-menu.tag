@@ -99,6 +99,7 @@
         }
         .language-dropbox.show {
             display: inline-block;
+            z-index: 99999;
         }
     </style>
     <script>
