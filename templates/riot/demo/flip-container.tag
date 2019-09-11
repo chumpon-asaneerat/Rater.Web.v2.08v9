@@ -2,12 +2,18 @@
     <div class="flip-container">
         <div class="flipper">
             <div class="front">
+                <!--
                 <img src="public/assets/images/png/books/book1.png" alt="Avatar" style="width: 100%; height:auto;">
+                -->
+                <yield from="front"/>
             </div>
             <div class="back">
+                <!--
                 <h1>John Doe</h1>
                 <p>Architect & Engineer</p>
                 <p>We love that guy</p>
+                -->
+                <yield from="back"/>
             </div>
         </div>
     </div>
