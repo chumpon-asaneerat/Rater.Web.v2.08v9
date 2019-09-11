@@ -1,6 +1,6 @@
 <flip-container>
     <div class="flip-container">
-        <div class="flipper">
+        <div ref="flipper" class="flipper">
             <div class="front">
                 <!--
                 <img src="public/assets/images/png/books/book1.png" alt="Avatar" style="width: 100%; height:auto;">
@@ -45,7 +45,12 @@
             transition: transform 0.6s;
             transform-style: preserve-3d;
         }
+        /*
         .flip-container:hover .flipper {
+            transform: rotateY(180deg);
+        }
+        */
+        .flip-container .flipper.toggle {
             transform: rotateY(180deg);
         }
         .front, .back {
@@ -63,4 +68,24 @@
             transform: rotateY(180deg);
         }
     </style>
+    <script>
+        let self = this;
+        let flipper;
+
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
+
+        this.on('mount', () => {
+            flipper = self.refs['flipper'];
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            flipper = null;
+        });
+
+        this.toggle = () => {
+            flipper.classList.toggle('toggle');
+        }
+    </script>
 </flip-container>

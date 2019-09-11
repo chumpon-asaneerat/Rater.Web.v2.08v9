@@ -42,17 +42,4 @@
             justify-content: stretch;
         }
     </style>
-    <script>
-        let self = this;
-
-        let bindEvents = () => {}
-        let unbindEvents = () => {}
-
-        this.on('mount', () => {
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-        });
-    </script>
 </navibar>

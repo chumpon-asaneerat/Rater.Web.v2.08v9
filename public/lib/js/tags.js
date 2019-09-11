@@ -179,17 +179,6 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
 });
 
 riot.tag2('navibar', '<div class="banner"> <div>app</div> </div> <language-menu></language-menu> <links-menu></links-menu>', 'navibar,[data-is="navibar"]{ width: 100vw; margin: 0 auto; display: grid; grid-template-columns: 1fr 90px 40px; grid-template-rows: 1fr; grid-template-areas: \'banner lang-menu links-menu\'; background: cornflowerblue; color: whitesmoke; user-select: none; } navibar .banner,[data-is="navibar"] .banner{ grid-area: banner; margin: 0; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar language-menu,[data-is="navibar"] language-menu{ grid-area: lang-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar links-menu,[data-is="navibar"] links-menu{ grid-area: links-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; }', '', function(opts) {
-        let self = this;
-
-        let bindEvents = () => {}
-        let unbindEvents = () => {}
-
-        this.on('mount', () => {
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-        });
 });
 riot.tag2('page-footer', '<p class="caption"> {(appcontent.current) ? appcontent.current.footer.label.status + \' : \' : \'Status : \'} </p> <p class="status" ref="l1"></p> <p class="copyright"> &nbsp;&copy; {(appcontent.current) ? appcontent.current.footer.label.copyright : \'EDL Co., Ltd.\'} &nbsp;&nbsp; </p>', 'page-footer,[data-is="page-footer"]{ margin: 0 auto; width: 100vw; display: grid; grid-template-columns: fit-content(50px) 1fr fit-content(150px); grid-template-rows: 1fr; grid-template-areas: \'caption status copyright\'; justify-items: stretch; align-items: stretch; font-size: 0.70em; font-weight: bold; background: darkorange; color: whitesmoke; } page-footer .caption,[data-is="page-footer"] .caption{ grid-area: caption; padding-left: 3px; user-select: none; } page-footer .status,[data-is="page-footer"] .status{ grid-area: status; user-select: none; } page-footer .copyright,[data-is="page-footer"] .copyright{ grid-area: copyright; user-select: none; }', '', function(opts) {
 
@@ -211,8 +200,6 @@ riot.tag2('page-footer', '<p class="caption"> {(appcontent.current) ? appcontent
 });
     
 riot.tag2('screen', '<div class="content-area"> <yield></yield> </div> </script>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; width: 100%; height: 100%; } screen.show,[data-is="screen"].show{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; } screen .content-area,[data-is="screen"] .content-area{ display: flex; align-items: center; justify-content: stretch; }', '', function(opts) {
-
-
         let self = this;
         this.app = null;
 
@@ -246,9 +233,55 @@ riot.tag2('screen', '<div class="content-area"> <yield></yield> </div> </script>
             if (!app) return self.app;
             self.app = app;
         }
+});
+riot.tag2('card-sample', '<flip-container ref="flipper"> <yield to="front"> <div ref="view" class="view"> <img src="public/assets/images/png/books/book1.png" style="width: 100%; height: auto;"> </div> </yield> <yield to="back"> <div ref="entry" class="entry"> <h1>John Doe</h1> <p>Architect & Engineer</p> <p>We love that guy</p> </div> </yield> </flip-container>', 'card-sample,[data-is="card-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } card-sample .view,[data-is="card-sample"] .view,card-sample .entry,[data-is="card-sample"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+        let self = this;
+        let flipper, view, entry;
 
+        let bindEvents = () => {
+            view.addEventListener('click', toggle);
+            entry.addEventListener('click', toggle);
+        }
+        let unbindEvents = () => {
+            entry.removeEventListener('click', toggle);
+            view.removeEventListener('click', toggle);
+        }
+
+        this.on('mount', () => {
+            flipper = self.refs['flipper'];
+
+            view = flipper.refs['view'];
+            entry = flipper.refs['entry'];
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            entry = null;
+            view = null;
+            flipper = null;
+        });
+
+        let toggle = () => {
+            flipper.toggle();
+        }
 });
-riot.tag2('card-sample', '<flip-container> <yield to="front"> <img src="public/assets/images/png/books/book1.png" style="width: 100%; height: auto;"> </yield> <yield to="back"> <h1>John Doe</h1> <p>Architect & Engineer</p> <p>We love that guy</p> </yield> </flip-container>', 'card-sample,[data-is="card-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
-});
-riot.tag2('flip-container', '<div class="flip-container"> <div class="flipper"> <div class="front"> <yield from="front"></yield> </div> <div class="back"> <yield from="back"></yield> </div> </div> </div>', 'flip-container,[data-is="flip-container"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'flip-container\'; overflow: hidden; } flip-container .flip-container,[data-is="flip-container"] .flip-container{ grid-area: flip-container; background-color: transparent; border: 1px solid #f1f1f1; } flip-container .flipper,[data-is="flip-container"] .flipper{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; } flip-container .flip-container:hover .flipper,[data-is="flip-container"] .flip-container:hover .flipper{ transform: rotateY(180deg); } flip-container .front,[data-is="flip-container"] .front,flip-container .back,[data-is="flip-container"] .back{ position: absolute; width: 100%; height: 100%; backface-visibility: hidden; } flip-container .front,[data-is="flip-container"] .front{ transform: rotateY(0deg); } flip-container .back,[data-is="flip-container"] .back{ background-color: dodgerblue; color: white; transform: rotateY(180deg); }', '', function(opts) {
+riot.tag2('flip-container', '<div class="flip-container"> <div ref="flipper" class="flipper"> <div class="front"> <yield from="front"></yield> </div> <div class="back"> <yield from="back"></yield> </div> </div> </div>', 'flip-container,[data-is="flip-container"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'flip-container\'; overflow: hidden; } flip-container .flip-container,[data-is="flip-container"] .flip-container{ grid-area: flip-container; background-color: transparent; border: 1px solid #f1f1f1; } flip-container .flipper,[data-is="flip-container"] .flipper{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; } flip-container .flip-container .flipper.toggle,[data-is="flip-container"] .flip-container .flipper.toggle{ transform: rotateY(180deg); } flip-container .front,[data-is="flip-container"] .front,flip-container .back,[data-is="flip-container"] .back{ position: absolute; width: 100%; height: 100%; backface-visibility: hidden; } flip-container .front,[data-is="flip-container"] .front{ transform: rotateY(0deg); } flip-container .back,[data-is="flip-container"] .back{ background-color: dodgerblue; color: white; transform: rotateY(180deg); }', '', function(opts) {
+        let self = this;
+        let flipper;
+
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
+
+        this.on('mount', () => {
+            flipper = self.refs['flipper'];
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            flipper = null;
+        });
+
+        this.toggle = () => {
+            flipper.classList.toggle('toggle');
+        }
 });
