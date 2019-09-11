@@ -18,9 +18,13 @@
                 'content-area';
         }
         .content-area {
+            /*
             display: flex;
             align-items: center;
             justify-content: stretch;
+            */
+            width: 100%;
+            height: 100%;
         }
     </style>
     <script>
@@ -41,7 +45,7 @@
             let screens = self.app.screens;
             screens.forEach(screen => { if (screen !== self) screen.hide(); })
         }
-        
+
         this.hide = () => {
             self.root.classList.remove('show')
             self.update();

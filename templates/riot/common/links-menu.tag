@@ -8,8 +8,7 @@
         <div each={ item in menus }>
             <a class="link-item" href="javascript:;" onclick="{ selectItem }">
                 &nbsp;
-                <span class="link-css { item.css }" ref="css-icon"></span>
-                &nbsp;
+                <span class="link-css { item.css }" ref="css-icon">&nbsp;</span>
                 <div class="link-text">{ item.text }</div>
                 &nbsp;&nbsp;&nbsp;
             </a>                
@@ -57,7 +56,7 @@
         }
         .link-item .link-css {
             margin: 0px auto;
-            padding-top: 1px;
+            /* padding-top: 1px; */
             width: 25px;
             display: inline-block;
         }
