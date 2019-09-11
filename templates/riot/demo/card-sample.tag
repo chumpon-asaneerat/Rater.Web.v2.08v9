@@ -7,9 +7,15 @@
         </yield>
         <yield to="back">
             <div ref="entry" class="entry">
-                <h1>John Doe</h1>
-                <p>Architect & Engineer</p>
-                <p>We love that guy</p>
+                <div class="head">
+                    <h1>John Doe</h1>
+                    <p>Architect & Engineer</p>
+                    <p>We love that guy</p>
+                </div>
+                <div class="input-ui">
+                    <input type="text" value="" placeholder="enter some text">
+                    <button ref="submit">Submit</button>
+                </div>
             </div>
         </yield>
     </flip-container>
@@ -26,17 +32,28 @@
             width: 100%;
             height: 100%;
         }
+        .head {
+            text-align: center;
+        }
+        .input-ui {
+            margin: 0 auto;
+            padding: 5px;
+            width: auto;
+        }
     </style>
     <script>
         let self = this;
-        let flipper, view, entry;
+        //let flipper, view, entry;
+        let flipper, view, submit;
 
         let bindEvents = () => {
             view.addEventListener('click', toggle);
-            entry.addEventListener('click', toggle);
+            //entry.addEventListener('click', toggle);
+            submit.addEventListener('click', toggle);
         }
         let unbindEvents = () => {
-            entry.removeEventListener('click', toggle);
+            submit.removeEventListener('click', toggle);
+            //entry.removeEventListener('click', toggle);
             view.removeEventListener('click', toggle);
         }
 
@@ -44,12 +61,14 @@
             flipper = self.refs['flipper'];
             // The view/entry is in yield scope cannot be access via self variable.
             view = flipper.refs['view'];
-            entry = flipper.refs['entry'];
+            //entry = flipper.refs['entry'];
+            submit = flipper.refs['submit'];
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
-            entry = null;
+            submit = null;
+            //entry = null;
             view = null;
             flipper = null;            
         });
