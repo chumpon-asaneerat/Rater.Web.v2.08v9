@@ -38,6 +38,8 @@ My Choice Rater Web v2.0.8x9:
             ☐ Hour/Miniute/Second dropdown component.
         ☐ Color Picker.
         ☐ Property Grid.
+        ☐ Message Service (Event based).
+        ☐ Status Service (Event based).
     Rater Screens:
         Public:
             ☐ Home.
