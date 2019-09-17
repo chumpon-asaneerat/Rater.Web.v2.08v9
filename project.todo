@@ -16,6 +16,7 @@ My Choice Rater Web v2.0.8x9:
         ☐ Redesign device user sign in process.
         ☐ Redesign device user sign out process.
         ☐ Redesign device nofification process.
+        ☐ Init Sample Data.
     Server:
         ✔ Create customer admin routes. @done(19-08-22 21:25)
         ✔ Create customer exclusive routes. @done(19-08-22 21:25)
