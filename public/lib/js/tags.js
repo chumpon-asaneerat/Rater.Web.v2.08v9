@@ -234,6 +234,12 @@ riot.tag2('screen', '<div class="content-area"> <yield></yield> </div> </script>
             self.app = app;
         }
 });
+riot.tag2('password-input', '', '', '', function(opts) {
+});
+
+riot.tag2('text-input', '<div class="box"> <input type="text" name="" required=""> <label>Name</label> </div>', 'text-input,[data-is="text-input"]{ margin: 0; padding: 0; font-family: sans-serif; } text-input .box,[data-is="text-input"] .box{ position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; background: #fff; padding: 40px; border: 1px solid rgba(0, 0, 0, .1); box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } text-input .box input,[data-is="text-input"] .box input{ padding: 10px 0; margin-bottom: 30px; } text-input .box input,[data-is="text-input"] .box input{ width: 100%; box-sizing: border-box; box-shadow: none; outline: none; border: none; border-bottom: 2px solid #999; } text-input .box,[data-is="text-input"] .box{ position: relative; } text-input .box label,[data-is="text-input"] .box label{ position: absolute; top: 10px; left: 0; color: #999; transition: .5s; pointer-events: none; } text-input .box input:focus ~ label,[data-is="text-input"] .box input:focus ~ label,text-input .box input:valid ~ label,[data-is="text-input"] .box input:valid ~ label{ top: -12px; left: 0; color: #f7497d; font-size: 12px; font-weight: bold; } text-input .box input:focus,[data-is="text-input"] .box input:focus,text-input .box input:valid,[data-is="text-input"] .box input:valid{ border-bottom: 2px solid #f7497d; }', '', function(opts) {
+});
+
 riot.tag2('card-sample', '<flip-container ref="flipper"> <yield to="front"> <div ref="view" class="view"> <img src="public/assets/images/png/books/book1.png" style="width: 100%; height: auto;"> </div> </yield> <yield to="back"> <div ref="entry" class="entry"> <div class="head"> <h1>John Doe</h1> <p>Architect & Engineer</p> <p>We love that guy</p> </div> <div class="input-ui"> <input type="text" value="" placeholder="enter some text"> <button ref="submit">Submit</button> </div> </div> </yield> </flip-container>', 'card-sample,[data-is="card-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } card-sample .view,[data-is="card-sample"] .view,card-sample .entry,[data-is="card-sample"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; } card-sample .head,[data-is="card-sample"] .head{ text-align: center; } card-sample .input-ui,[data-is="card-sample"] .input-ui{ margin: 0 auto; padding: 5px; width: auto; }', '', function(opts) {
         let self = this;
 
@@ -270,6 +276,8 @@ riot.tag2('card-sample', '<flip-container ref="flipper"> <yield to="front"> <div
             flipper.toggle();
         }
 });
+riot.tag2('dual-screen', '', '', '', function(opts) {
+});
 riot.tag2('flip-container', '<div class="flip-container"> <div ref="flipper" class="flipper"> <div class="front"> <yield from="front"></yield> </div> <div class="back"> <yield from="back"></yield> </div> </div> </div>', 'flip-container,[data-is="flip-container"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'flip-container\'; overflow: hidden; } flip-container .flip-container,[data-is="flip-container"] .flip-container{ grid-area: flip-container; background-color: transparent; border: 1px solid #f1f1f1; } flip-container .flipper,[data-is="flip-container"] .flipper{ position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; } flip-container .flip-container .flipper.toggle,[data-is="flip-container"] .flip-container .flipper.toggle{ transform: rotateY(180deg); } flip-container .front,[data-is="flip-container"] .front,flip-container .back,[data-is="flip-container"] .back{ position: absolute; width: 100%; height: 100%; backface-visibility: hidden; } flip-container .front,[data-is="flip-container"] .front{ transform: rotateY(0deg); } flip-container .back,[data-is="flip-container"] .back{ background-color: dodgerblue; color: white; transform: rotateY(180deg); }', '', function(opts) {
         let self = this;
         let flipper;
@@ -289,4 +297,6 @@ riot.tag2('flip-container', '<div class="flip-container"> <div ref="flipper" cla
         this.toggle = () => {
             flipper.classList.toggle('toggle');
         }
+});
+riot.tag2('table-edit', '', '', '', function(opts) {
 });
