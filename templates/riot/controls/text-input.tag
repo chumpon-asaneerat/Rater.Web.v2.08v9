@@ -4,6 +4,7 @@
         <label>Name</label>
     </div>
     <style>
+        /*
         :scope {
             margin: 0;
             padding: 0;
@@ -58,6 +59,7 @@
         .box input:valid {
             border-bottom: 2px solid #f7497d;
         }
+        */
     </style>
     <script></script>
 </text-input>
