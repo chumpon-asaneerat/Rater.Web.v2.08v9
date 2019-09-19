@@ -5,20 +5,14 @@
         /* Change Autocomplete styles in Chrome*/
         input:-webkit-autofill,
         input:-webkit-autofill:hover, 
-        input:-webkit-autofill:focus,
-        textarea:-webkit-autofill,
-        textarea:-webkit-autofill:hover,
-        textarea:-webkit-autofill:focus,
-        select:-webkit-autofill,
-        select:-webkit-autofill:hover,
-        select:-webkit-autofill:focus {
+        input:-webkit-autofill:focus {
             transition: background-color 5000s ease-in-out 0s;
         }
 
         :scope {
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
+            /* font-family: sans-serif; */
             display: inline-block;
             position: relative;
             height: auto;
@@ -49,6 +43,7 @@
             pointer-events: none;
         }
         :scope input:focus ~ label,
+        :scope input:-webkit-autofill ~ label,
         :scope input:valid ~ label {
             top: -5px;
             left: 10px;
