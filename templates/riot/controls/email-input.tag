@@ -6,13 +6,16 @@
         input:-webkit-autofill,
         input:-webkit-autofill:hover, 
         input:-webkit-autofill:focus {
+            font-family: sans-serif;
+            font-size: 14px;
             transition: background-color 5000s ease-in-out 0s;
         }
 
         :scope {
             margin: 0;
             padding: 0;
-            /* font-family: sans-serif; */
+            font-family: sans-serif;
+            font-size: 14px;
             display: inline-block;
             position: relative;
             height: auto;
@@ -25,7 +28,6 @@
         :scope input {
             padding: 5px 0;
             margin-bottom: 5px;
-
             width: 100%;
             background-color: #fff;
             box-sizing: border-box;
@@ -48,7 +50,6 @@
             top: -5px;
             left: 10px;
             color: #f7497d;
-            font-size: 14px;
             font-weight: bold;
         }
         :scope input:focus,
