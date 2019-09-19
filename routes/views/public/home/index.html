@@ -18,16 +18,22 @@
     <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
     <!-- nlib css -->
     <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
+    <style>
+        .input-box {
+            width: 75vw;
+        }
+    </style>
 </head>
 <body>
     <app id="app" navibar footer>
         <screen data-ref="home">
             <h4>Home.</h4>
             <h4>The main page.</h4>
-            <h2>Contact Us</h2>
-            <text-input title="Customer Name"></text-input>
-            <email-input title="User Name"></email-input>
-            <password-input title="Password"></password-input>
+            <div class="input-box">
+                <text-input title="Customer Name"></text-input>
+                <email-input title="User Name"></email-input>
+                <password-input title="Password"></password-input>
+            </div>
         </screen>
         <screen data-ref="main">
             <card-sample></card-sample>
