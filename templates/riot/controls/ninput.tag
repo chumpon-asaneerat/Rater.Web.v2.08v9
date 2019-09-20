@@ -1,16 +1,7 @@
-<password-input>
-    <input type="password" name="" required="">
+<ninput>
+    <input type={ opts.type } name={ opts.name } required="">
     <label>{ opts.title }</label>
     <style>
-        /* Change Autocomplete styles in Chrome*/
-        input:-webkit-autofill,
-        input:-webkit-autofill:hover, 
-        input:-webkit-autofill:focus {
-            font-family: sans-serif;
-            font-size: 14px;
-            transition: background-color 5000s ease-in-out 0s;
-        }
-
         :scope {
             margin: 0;
             padding: 0;
@@ -36,6 +27,14 @@
             border: none;
             border-bottom: 2px solid #999;
         }
+        /* Change Autocomplete styles in Chrome*/
+        :scope input:-webkit-autofill,
+        :scope input:-webkit-autofill:hover, 
+        :scope input:-webkit-autofill:focus {
+            font-family: sans-serif;
+            font-size: 14px;
+            transition: background-color 5000s ease-in-out 0s;
+        }
         :scope label {
             position: absolute;
             top: 15px;
@@ -56,6 +55,5 @@
         :scope input:valid {
             border-bottom: 2px solid #f7497d;
         }
-    </style>
-    <script></script>
-</password-input>
+</style>
+</ninput>
