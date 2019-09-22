@@ -89,8 +89,9 @@
         let self = this;
         let links, dropItems;
         this.menus = [
+            { screenId:'home', css: 'far fa-user-circle', text:'Home' },
             { screenId:'register', css: 'far fa-user-circle', text:'Retister' },
-            { screenId:'signin', css: 'fas fa-user-plus', text:'Sign In' },
+            { screenId:'signon', css: 'fas fa-user-plus', text:'Sign In' },
             { screenId:'signout', css: 'fas fa-sign-out-alt', text:'Sign Out' }
         ];
         
@@ -149,10 +150,7 @@
         this.selectItem = (e) => {
             toggle(); // toggle off
             let selLink = e.item.item;
-            console.log(selLink)
-            /*
-            lang.change(selLink.screenId);
-            */
+            app.screen(selLink.screenId).show();
 
             e.preventDefault();
             e.stopPropagation();

@@ -29,14 +29,18 @@ riot.tag2('app', '<navibar></navibar> <div class="scrarea"> <yield></yield> </di
             self.screens.forEach((screen) => { screen.setapp(self); })
         }
         let setDefaultScreen = () => {
-            if (self.screens && self.screens[0]) self.screens[0].show();
+            if (self.screens && self.screens[0]) {
+                self.screens[0].show();
+            }
         }
         let resetScreens = () => { self.screens = []; }
 
-        this.screen = (id) => {
+        this.screen = (screenid) => {
             let ret = null;
-            if (id >= 0 && id < self.screens.length) {
-                ret = self.screens[id];
+            let map = self.screens.map(scr => scr.opts.screenid);
+            let idx = map.indexOf(screenid);
+            if (idx !== -1) {
+                ret = self.screens[idx];
             }
             return ret;
         }
@@ -111,8 +115,9 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
         let self = this;
         let links, dropItems;
         this.menus = [
+            { screenId:'home', css: 'far fa-user-circle', text:'Home' },
             { screenId:'register', css: 'far fa-user-circle', text:'Retister' },
-            { screenId:'signin', css: 'fas fa-user-plus', text:'Sign In' },
+            { screenId:'signon', css: 'fas fa-user-plus', text:'Sign In' },
             { screenId:'signout', css: 'fas fa-sign-out-alt', text:'Sign Out' }
         ];
 
@@ -171,7 +176,7 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
         this.selectItem = (e) => {
             toggle();
             let selLink = e.item.item;
-            console.log(selLink)
+            app.screen(selLink.screenId).show();
 
             e.preventDefault();
             e.stopPropagation();

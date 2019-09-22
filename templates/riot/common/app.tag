@@ -91,14 +91,18 @@
             self.screens.forEach((screen) => { screen.setapp(self); })
         }
         let setDefaultScreen = () => {
-            if (self.screens && self.screens[0]) self.screens[0].show();
+            if (self.screens && self.screens[0]) {
+                self.screens[0].show();
+            }
         }
         let resetScreens = () => { self.screens = []; }
 
-        this.screen = (id) => {
+        this.screen = (screenid) => {
             let ret = null;
-            if (id >= 0 && id < self.screens.length) {
-                ret = self.screens[id];
+            let map = self.screens.map(scr => scr.opts.screenid);
+            let idx = map.indexOf(screenid);
+            if (idx !== -1) {
+                ret = self.screens[idx];
             }
             return ret;
         }

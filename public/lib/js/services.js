@@ -156,14 +156,6 @@ class LanguageService {
 
 //#endregion
 
-//#region ScreenManager class
-
-class ScreenManager {
-    constructor() {}
-}
-
-//#endregion
-
 //#region ContentService class
 
 class ContentService {
