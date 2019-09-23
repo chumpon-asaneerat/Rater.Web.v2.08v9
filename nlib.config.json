@@ -163,7 +163,7 @@
                     "route": "/dist",
                     "path": "public/dist/reveal-3.8.0",
                     "maxAge": "5y",
-                    "enable": false
+                    "enable": true
                 },
                 {
                     "route": "/dist/js",
