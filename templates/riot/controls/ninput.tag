@@ -5,7 +5,6 @@
         :scope {
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
             font-size: 14px;
             display: inline-block;
             position: relative;
@@ -13,7 +12,7 @@
             width: 100%;
             background: #fff;
             padding: 10px;
-            /* border: 1px solid rgba(0, 0, 0, .1); */
+            /* border: 1px solid rgba(0, 0, 0, .1); */            
             box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2);
         }
         :scope input {
@@ -25,22 +24,23 @@
             box-shadow: none;
             outline: none;
             border: none;
+            font-size: 14px;
+            box-shadow: 0 0 0px 1000px white inset;
             border-bottom: 2px solid #999;
         }
         /* Change Autocomplete styles in Chrome*/
         :scope input:-webkit-autofill,
         :scope input:-webkit-autofill:hover, 
         :scope input:-webkit-autofill:focus {
-            font-family: sans-serif;
             font-size: 14px;
             transition: background-color 5000s ease-in-out 0s;
         }
         :scope label {
             position: absolute;
             top: 15px;
-            left: 15px;
+            left: 14px;
             color: #999;
-            transition: .5s;
+            transition: .2s;
             pointer-events: none;
         }
         :scope input:focus ~ label,
