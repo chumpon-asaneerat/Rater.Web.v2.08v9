@@ -305,3 +305,5 @@ riot.tag2('table-edit', '', '', '', function(opts) {
 });
 riot.tag2('device-entry', '', '', '', function(opts) {
 });
+riot.tag2('member-entry', '', '', '', function(opts) {
+});
