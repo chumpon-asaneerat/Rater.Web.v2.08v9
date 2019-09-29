@@ -48,9 +48,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            max-width: 100vw;
-            max-height: calc(100vh - 63px);
-            overflow: auto;
             backface-visibility: hidden;
         }
         .entry-block {

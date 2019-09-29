@@ -30,37 +30,27 @@
     </style>
     <script>
         let self = this;
-        this.app = null;
 
         let bindEvents = () => { }
         let unbindEvents = () => { }
 
-        this.on('mount', () => {
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-        });
+        this.on('mount', () => { bindEvents(); });
+        this.on('unmount', () => { unbindEvents(); });
 
         let hideOtherScreens = () => {
-            let screens = self.app.screens;
-            screens.forEach(screen => { if (screen !== self) screen.hide(); })
+            let screens = screenservice.screens;
+            if (screens) {
+                screens.forEach(screen => { if (screen !== self) screen.hide(); })
+            }
         }
-
         this.hide = () => {
             self.root.classList.remove('show')
             self.update();
         }
-
         this.show = () => {
             hideOtherScreens();
-            self.root.classList.add('show')      
+            self.root.classList.add('show')
             self.update();
-        }
-
-        this.setapp = (app) => {
-            if (!app) return self.app;
-            self.app = app;
         }
     </script>
     </script>

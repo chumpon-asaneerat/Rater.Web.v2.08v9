@@ -62,7 +62,6 @@
     </style>
     <script>
         let self = this;
-        this.screens = [];
 
         let bindEvents = () => { }
         let unbindEvents = () => { }
@@ -81,30 +80,14 @@
         let scanScreens = () => {
             let sobjs = self.tags['screen'];
             if (sobjs) {
-                if (!Array.isArray(sobjs)) self.screens.push(sobjs)
-                else self.screens.push(...sobjs)
+                if (!Array.isArray(sobjs)) screenservice.screens.push(sobjs)
+                else screenservice.screens.push(...sobjs)
             }
-            setAppToScreens();
             setDefaultScreen();
         }
-        let setAppToScreens = () => {
-            self.screens.forEach((screen) => { screen.setapp(self); })
-        }
         let setDefaultScreen = () => {
-            if (self.screens && self.screens[0]) {
-                self.screens[0].show();
-            }
+            screenservice.showDefault();
         }
-        let resetScreens = () => { self.screens = []; }
-
-        this.screen = (screenid) => {
-            let ret = null;
-            let map = self.screens.map(scr => scr.opts.screenid);
-            let idx = map.indexOf(screenid);
-            if (idx !== -1) {
-                ret = self.screens[idx];
-            }
-            return ret;
-        }
+        let resetScreens = () => { screenservice.clear(); }
     </script>
 </app>

@@ -2,7 +2,10 @@
     <dual-screen ref="flipper">
         <yield to="viewer">
             <div ref="view" class="view">
+                <!--
                 <img src="public/assets/images/png/books/book1.png" style="width: 100%; height: auto;">
+                -->                
+                <div ref="grid" id="grid"></div>
             </div>                
         </yield>
         <yield to="entry">
@@ -49,7 +52,9 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            max-width: 100vw;
+            max-height: calc(100vh - 63px);
+            overflow: auto;
         }
         .head {
             text-align: center;
@@ -63,9 +68,10 @@
     <script>
         let self = this;
         //let flipper, view, entry;
-        let flipper, view, submit;
+        let flipper, view, submit, grid, table;
 
         let bindEvents = () => {
+            document.addEventListener('screenchanged', screenchanged);
             view.addEventListener('click', toggle);
             //entry.addEventListener('click', toggle);
             submit.addEventListener('click', toggle);
@@ -74,6 +80,59 @@
             submit.removeEventListener('click', toggle);
             //entry.removeEventListener('click', toggle);
             view.removeEventListener('click', toggle);
+            document.removeEventListener('screenchanged', screenchanged);
+        }
+
+        let screenchanged = (e) => {
+            if (e.detail.screenId === 'home') {
+                console.log('home loaded..');
+                table.redraw(true)
+            }
+        }
+
+        let initGrid = () => {
+            console.log('init table')
+            let tabledata = [
+                {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+                {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            ];
+            table = new Tabulator("#grid", {
+                height: "100%",
+                columns: [
+                    { title: "Name", field: "name" },
+                    //{ title: "Progress", field:"progress", sorter: "number" },
+                    //{ title: "Gender", field: "gender" },
+                    { title: "Age", field: "age" },
+                    { title: "Favourite Color", field: "col" },
+                    { title: "Date Of Birth", field: "dob", align: "center" }
+                ]
+            });  
+            table.setData(tabledata)
+            console.log(table)
         }
 
         this.on('mount', () => {
@@ -82,10 +141,14 @@
             view = flipper.refs['view'];
             //entry = flipper.refs['entry'];
             submit = flipper.refs['submit'];
+            grid = flipper.refs['grid'];
             bindEvents();
+
+            initGrid();
         });
         this.on('unmount', () => {
             unbindEvents();
+            grid = null;
             submit = null;
             //entry = null;
             view = null;

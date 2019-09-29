@@ -199,6 +199,46 @@ class ContentService {
 
 //#endregion
 
+class ScreenService {
+    constructor() {
+        this.screens = [];
+        this.current = null;
+    }
+    clear() {
+        this.screens = [];
+        this.current = null;
+    }
+    showDefault() {
+        if (this.screens.length > 0) {
+            this.show(this.screens[0].opts.screenid);
+        }
+    }
+    getScreen(screenId) {
+        let ret = null;
+        let map = this.screens.map(scr => scr.opts.screenid);
+        let idx = map.indexOf(screenId);
+        if (idx !== -1) {
+            ret = this.screens[idx];
+        }
+        return ret;
+    }
+    show(screenId) {
+        let scr = this.getScreen(screenId);
+        if (scr) {
+            this.current = scr;
+            scr.show();
+            // Raise event.
+            let evt = new CustomEvent('screenchanged', { detail: { screenId: screenId } });
+            document.dispatchEvent(evt);
+        }
+    }
+}
+
+; (function () {
+    window.screenservice = window.screenservice || new ScreenService();
+})();
+
+
 /*
 
 class QSet {

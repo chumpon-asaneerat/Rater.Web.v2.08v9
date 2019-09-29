@@ -150,7 +150,7 @@
         this.selectItem = (e) => {
             toggle(); // toggle off
             let selLink = e.item.item;
-            app.screen(selLink.screenId).show();
+            screenservice.show(selLink.screenId);
 
             e.preventDefault();
             e.stopPropagation();
