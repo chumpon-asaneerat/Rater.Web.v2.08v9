@@ -1,11 +1,11 @@
 <card-sample>    
-    <flip-container ref="flipper">
-        <yield to="front">
+    <dual-screen ref="flipper">
+        <yield to="viewer">
             <div ref="view" class="view">
                 <img src="public/assets/images/png/books/book1.png" style="width: 100%; height: auto;">
             </div>                
         </yield>
-        <yield to="back">
+        <yield to="entry">
             <div ref="entry" class="entry">
                 <div class="head">
                     <h1>John Doe</h1>
@@ -16,9 +16,27 @@
                     <input type="text" value="" placeholder="enter some text">
                     <button ref="submit">Submit</button>
                 </div>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>We love that guy</p>
+                <p>Architect & Engineer</p>
             </div>
         </yield>
-    </flip-container>
+    </dual-screen>
     <style>
         :scope {
             margin: 0 auto;
@@ -31,6 +49,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
         .head {
             text-align: center;

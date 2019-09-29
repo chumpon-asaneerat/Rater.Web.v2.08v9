@@ -1,19 +1,11 @@
 <flip-container>
-    <div class="flip-container">
+    <div class="auto-container">
         <div ref="flipper" class="flipper">
-            <div class="front">
-                <!--
-                <img src="public/assets/images/png/books/book1.png" alt="Avatar" style="width: 100%; height:auto;">
-                -->
-                <yield from="front"/>
+            <div class="viewer-div">
+                <yield from="viewer"/>
             </div>
-            <div class="back">
-                <!--
-                <h1>John Doe</h1>
-                <p>Architect & Engineer</p>
-                <p>We love that guy</p>
-                -->
-                <yield from="back"/>
+            <div class="entry-div">
+                <yield from="entry"/>
             </div>
         </div>
     </div>
@@ -30,7 +22,7 @@
                 'flip-container';
             overflow: hidden;
         }
-        .flip-container {
+        .auto-container {
             grid-area: flip-container;
             background-color: transparent;
             border: 1px solid #f1f1f1;
@@ -46,23 +38,23 @@
             transform-style: preserve-3d;
         }
         /*
-        .flip-container:hover .flipper {
+        .auto-container:hover .flipper {
             transform: rotateY(180deg);
         }
         */
-        .flip-container .flipper.toggle {
+        .auto-container .flipper.toggle {
             transform: rotateY(180deg);
         }
-        .front, .back {
+        .viewer-div, .entry-div {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
         }
-        .front {
+        .viewer-div {
             transform: rotateY(0deg);
         }
-        .back {
+        .entry-div {
             background-color: dodgerblue;
             color: white;
             transform: rotateY(180deg);
