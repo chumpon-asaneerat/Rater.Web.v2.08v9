@@ -309,3 +309,5 @@ riot.tag2('device-entry', '', '', '', function(opts) {
 });
 riot.tag2('member-entry', '', '', '', function(opts) {
 });
+riot.tag2('org-entry', '', '', '', function(opts) {
+});
