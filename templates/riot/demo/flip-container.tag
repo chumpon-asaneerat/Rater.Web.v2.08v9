@@ -19,11 +19,11 @@
             grid-template-columns: 1fr;
             grid-template-rows: 1fr;
             grid-template-areas: 
-                'flip-container';
+                'auto-container';
             overflow: hidden;
         }
         .auto-container {
-            grid-area: flip-container;
+            grid-area: auto-container;
             background-color: transparent;
             border: 1px solid #f1f1f1;
             /* Remove this if you don't want the 3D effect */
