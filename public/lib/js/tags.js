@@ -303,6 +303,8 @@ riot.tag2('flip-container', '<div class="flip-container"> <div ref="flipper" cla
 });
 riot.tag2('table-edit', '', '', '', function(opts) {
 });
+riot.tag2('branch-entry', '', '', '', function(opts) {
+});
 riot.tag2('device-entry', '', '', '', function(opts) {
 });
 riot.tag2('member-entry', '', '', '', function(opts) {
