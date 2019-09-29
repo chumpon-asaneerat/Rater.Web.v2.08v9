@@ -305,9 +305,13 @@ riot.tag2('table-edit', '', '', '', function(opts) {
 });
 riot.tag2('branch-entry', '', '', '', function(opts) {
 });
+riot.tag2('customer-entry', '', '', '', function(opts) {
+});
 riot.tag2('device-entry', '', '', '', function(opts) {
 });
 riot.tag2('member-entry', '', '', '', function(opts) {
 });
 riot.tag2('org-entry', '', '', '', function(opts) {
+});
+riot.tag2('user-entry', '', '', '', function(opts) {
 });
