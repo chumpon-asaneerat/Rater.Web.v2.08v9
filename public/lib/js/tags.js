@@ -212,11 +212,31 @@ riot.tag2('screen', '<div class="content-area"> <yield></yield> </div> </script>
             self.update();
         }
 });
+riot.tag2('dual-screen', '<div class="auto-container"> <div ref="flipper" class="flipper"> <div class="viewer-block"> <div class="content"> <yield from="viewer"></yield> </div> </div> <div class="entry-block"> <div class="content"> <yield from="entry"></yield> </div> </div> </div> </div>', 'dual-screen,[data-is="dual-screen"]{ margin: 0; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'auto-container\'; overflow: hidden; } dual-screen .auto-container,[data-is="dual-screen"] .auto-container{ margin: 0; padding: 0; width: 100%; height: 100%; grid-area: auto-container; border: 1px solid #f1f1f1; } dual-screen .flipper,[data-is="dual-screen"] .flipper{ margin: 0; padding: 0; position: relative; } dual-screen .auto-container .flipper.toggle,[data-is="dual-screen"] .auto-container .flipper.toggle{ cursor: default; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block,dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ display: block; margin: 0; padding: 0; width: 100%; height: 100%; backface-visibility: hidden; } dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ background-color: dimgray; color: white; } dual-screen .content,[data-is="dual-screen"] .content{ position: relative; display: block; } @media only screen and (max-width: 600px) { dual-screen .flipper,[data-is="dual-screen"] .flipper{ width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; } dual-screen .auto-container .flipper.toggle,[data-is="dual-screen"] .auto-container .flipper.toggle{ transform: rotateY(180deg); } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block,dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ position: absolute; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block{ transform: rotateY(0deg); } dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ transform: rotateY(180deg); } } @media only screen and (min-width: 600px) and (max-width: 1600px) { dual-screen .flipper,[data-is="dual-screen"] .flipper{ display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr; grid-template-areas: \'viewer entry\'; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block,dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ position: relative; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block{ grid-area: viewer; } dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ grid-area: entry; } }', '', function(opts) {
+        let self = this;
+        let flipper;
+
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
+
+        this.on('mount', () => {
+            flipper = self.refs['flipper'];
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            flipper = null;
+        });
+
+        this.toggle = () => {
+            flipper.classList.toggle('toggle');
+        }
+});
 riot.tag2('ninput', '<input type="{opts.type}" name="{opts.name}" required=""> <label>{opts.title}</label>', 'ninput,[data-is="ninput"]{ margin: 0; padding: 0; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: #fff; padding: 10px; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } ninput input,[data-is="ninput"] input{ padding: 5px 0; margin-bottom: 5px; width: 100%; background-color: #fff; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput input:-webkit-autofill,[data-is="ninput"] input:-webkit-autofill,ninput input:-webkit-autofill:hover,[data-is="ninput"] input:-webkit-autofill:hover,ninput input:-webkit-autofill:focus,[data-is="ninput"] input:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } ninput label,[data-is="ninput"] label{ position: absolute; top: 15px; left: 14px; color: #999; transition: .2s; pointer-events: none; } ninput input:focus ~ label,[data-is="ninput"] input:focus ~ label,ninput input:-webkit-autofill ~ label,[data-is="ninput"] input:-webkit-autofill ~ label,ninput input:valid ~ label,[data-is="ninput"] input:valid ~ label{ top: -5px; left: 10px; color: #f7497d; font-weight: bold; } ninput input:focus,[data-is="ninput"] input:focus,ninput input:valid,[data-is="ninput"] input:valid{ border-bottom: 2px solid #f7497d; }', '', function(opts) {
 });
 riot.tag2('osd', '', 'osd,[data-is="osd"]{ margin: 0 auto; padding: 0; }', '', function(opts) {
 });
-riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div ref="view" class="view"> <div ref="grid" id="grid"></div> </div> </yield> <yield to="entry"> <div ref="entry" class="entry"> <div class="head"> <h1>John Doe</h1> <p>Architect & Engineer</p> <p>We love that guy</p> </div> <div class="input-ui"> <input type="text" value="" placeholder="enter some text"> <button ref="submit">Submit</button> </div> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>Architect & Engineer</p> </div> </yield> </dual-screen>', 'card-sample,[data-is="card-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } card-sample .view,[data-is="card-sample"] .view,card-sample .entry,[data-is="card-sample"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-width: 100vw; max-height: calc(100vh - 63px); overflow: auto; } card-sample .head,[data-is="card-sample"] .head{ text-align: center; } card-sample .input-ui,[data-is="card-sample"] .input-ui{ margin: 0 auto; padding: 5px; width: auto; }', '', function(opts) {
+riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div ref="view" class="view"> <div ref="grid" id="grid"></div> </div> </yield> <yield to="entry"> <div ref="entry" class="entry"> <div class="head"> <h1>John Doe</h1> <p>Architect & Engineer</p> <p>We love that guy</p> </div> <div class="input-ui"> <input type="text" value="" placeholder="enter some text"> <button ref="submit">Submit</button> </div> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>Architect & Engineer</p> </div> </yield> </dual-screen>', 'card-sample,[data-is="card-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } card-sample .view,[data-is="card-sample"] .view,card-sample .entry,[data-is="card-sample"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-width: 100vh; max-height: calc(100vh - 63px); overflow: auto; } card-sample .head,[data-is="card-sample"] .head{ text-align: center; } card-sample .input-ui,[data-is="card-sample"] .input-ui{ margin: 0 auto; padding: 5px; width: auto; }', '', function(opts) {
         let self = this;
         let flipper, view, submit, table;
 
@@ -270,6 +290,7 @@ riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div r
             ];
             table = new Tabulator("#grid", {
                 height: "100%",
+                layout:"fitDataFill",
                 columns: [
                     { title: "Name", field: "name" },
 
@@ -307,26 +328,6 @@ riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div r
 
         let toggle = () => {
             flipper.toggle();
-        }
-});
-riot.tag2('dual-screen', '<div class="auto-container"> <div ref="flipper" class="flipper"> <div class="viewer-block"> <div class="content"> <yield from="viewer"></yield> </div> </div> <div class="entry-block"> <div class="content"> <yield from="entry"></yield> </div> </div> </div> </div>', 'dual-screen,[data-is="dual-screen"]{ margin: 0; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'auto-container\'; overflow: hidden; } dual-screen .auto-container,[data-is="dual-screen"] .auto-container{ margin: 0; padding: 0; width: 100%; height: 100%; grid-area: auto-container; border: 1px solid #f1f1f1; } dual-screen .flipper,[data-is="dual-screen"] .flipper{ margin: 0; padding: 0; position: relative; } dual-screen .auto-container .flipper.toggle,[data-is="dual-screen"] .auto-container .flipper.toggle{ cursor: default; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block,dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ display: block; margin: 0; padding: 0; width: 100%; height: 100%; backface-visibility: hidden; } dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ background-color: dimgray; color: white; } dual-screen .content,[data-is="dual-screen"] .content{ position: relative; display: block; } @media only screen and (max-width: 600px) { dual-screen .flipper,[data-is="dual-screen"] .flipper{ width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; } dual-screen .auto-container .flipper.toggle,[data-is="dual-screen"] .auto-container .flipper.toggle{ transform: rotateY(180deg); } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block,dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ position: absolute; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block{ transform: rotateY(0deg); } dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ transform: rotateY(180deg); } } @media only screen and (min-width: 600px) and (max-width: 1600px) { dual-screen .flipper,[data-is="dual-screen"] .flipper{ display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr; grid-template-areas: \'viewer entry\'; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block,dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ position: relative; } dual-screen .viewer-block,[data-is="dual-screen"] .viewer-block{ grid-area: viewer; } dual-screen .entry-block,[data-is="dual-screen"] .entry-block{ grid-area: entry; } }', '', function(opts) {
-        let self = this;
-        let flipper;
-
-        let bindEvents = () => {}
-        let unbindEvents = () => {}
-
-        this.on('mount', () => {
-            flipper = self.refs['flipper'];
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-            flipper = null;
-        });
-
-        this.toggle = () => {
-            flipper.classList.toggle('toggle');
         }
 });
 riot.tag2('flip-container', '<div class="auto-container"> <div ref="flipper" class="flipper"> <div class="viewer-div"> <yield from="viewer"></yield> </div> <div class="entry-div"> <yield from="entry"></yield> </div> </div> </div>', 'flip-container,[data-is="flip-container"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'auto-container\'; overflow: hidden; } flip-container .auto-container,[data-is="flip-container"] .auto-container{ grid-area: auto-container; background-color: transparent; border: 1px solid #f1f1f1; } flip-container .flipper,[data-is="flip-container"] .flipper{ position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; } flip-container .auto-container .flipper.toggle,[data-is="flip-container"] .auto-container .flipper.toggle{ transform: rotateY(180deg); } flip-container .viewer-div,[data-is="flip-container"] .viewer-div,flip-container .entry-div,[data-is="flip-container"] .entry-div{ position: absolute; width: 100%; height: 100%; backface-visibility: hidden; } flip-container .viewer-div,[data-is="flip-container"] .viewer-div{ transform: rotateY(0deg); } flip-container .entry-div,[data-is="flip-container"] .entry-div{ background-color: dodgerblue; color: white; transform: rotateY(180deg); }', '', function(opts) {

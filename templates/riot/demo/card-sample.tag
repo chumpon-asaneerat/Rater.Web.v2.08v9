@@ -52,7 +52,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            max-width: 100vw;
+            max-width: 100vh;
             max-height: calc(100vh - 63px);
             overflow: auto;
         }
@@ -119,6 +119,7 @@
             ];
             table = new Tabulator("#grid", {
                 height: "100%",
+                layout:"fitDataFill",
                 columns: [
                     { title: "Name", field: "name" },
                     //{ title: "Progress", field:"progress", sorter: "number" },
