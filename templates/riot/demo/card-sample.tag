@@ -67,8 +67,7 @@
     </style>
     <script>
         let self = this;
-        //let flipper, view, entry;
-        let flipper, view, submit, grid, table;
+        let flipper, view, submit, table;
 
         let bindEvents = () => {
             document.addEventListener('screenchanged', screenchanged);
@@ -85,13 +84,11 @@
 
         let screenchanged = (e) => {
             if (e.detail.screenId === 'home') {
-                console.log('home loaded..');
                 table.redraw(true)
             }
         }
 
         let initGrid = () => {
-            console.log('init table')
             let tabledata = [
                 {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
                 {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
@@ -129,10 +126,13 @@
                     { title: "Age", field: "age" },
                     { title: "Favourite Color", field: "col" },
                     { title: "Date Of Birth", field: "dob", align: "center" }
-                ]
+                ],
+                rowClick: (e, row) => {
+                    console.log("Row " + row.getIndex() + " Clicked!!!!")
+                    console.log('Selected data:', row.getData())
+                }
             });  
             table.setData(tabledata)
-            console.log(table)
         }
 
         this.on('mount', () => {

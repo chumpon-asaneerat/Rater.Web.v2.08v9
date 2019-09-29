@@ -199,6 +199,8 @@ class ContentService {
 
 //#endregion
 
+//#region ScreenService class
+
 class ScreenService {
     constructor() {
         this.screens = [];
@@ -238,6 +240,7 @@ class ScreenService {
     window.screenservice = window.screenservice || new ScreenService();
 })();
 
+//#endregion
 
 /*
 

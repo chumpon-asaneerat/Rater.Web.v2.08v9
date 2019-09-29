@@ -218,8 +218,7 @@ riot.tag2('osd', '', 'osd,[data-is="osd"]{ margin: 0 auto; padding: 0; }', '', f
 });
 riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div ref="view" class="view"> <div ref="grid" id="grid"></div> </div> </yield> <yield to="entry"> <div ref="entry" class="entry"> <div class="head"> <h1>John Doe</h1> <p>Architect & Engineer</p> <p>We love that guy</p> </div> <div class="input-ui"> <input type="text" value="" placeholder="enter some text"> <button ref="submit">Submit</button> </div> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>Architect & Engineer</p> </div> </yield> </dual-screen>', 'card-sample,[data-is="card-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } card-sample .view,[data-is="card-sample"] .view,card-sample .entry,[data-is="card-sample"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-width: 100vw; max-height: calc(100vh - 63px); overflow: auto; } card-sample .head,[data-is="card-sample"] .head{ text-align: center; } card-sample .input-ui,[data-is="card-sample"] .input-ui{ margin: 0 auto; padding: 5px; width: auto; }', '', function(opts) {
         let self = this;
-
-        let flipper, view, submit, grid, table;
+        let flipper, view, submit, table;
 
         let bindEvents = () => {
             document.addEventListener('screenchanged', screenchanged);
@@ -236,13 +235,11 @@ riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div r
 
         let screenchanged = (e) => {
             if (e.detail.screenId === 'home') {
-                console.log('home loaded..');
                 table.redraw(true)
             }
         }
 
         let initGrid = () => {
-            console.log('init table')
             let tabledata = [
                 {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
                 {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
@@ -279,10 +276,13 @@ riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div r
                     { title: "Age", field: "age" },
                     { title: "Favourite Color", field: "col" },
                     { title: "Date Of Birth", field: "dob", align: "center" }
-                ]
+                ],
+                rowClick: (e, row) => {
+                    console.log("Row " + row.getIndex() + " Clicked!!!!")
+                    console.log('Selected data:', row.getData())
+                }
             });
             table.setData(tabledata)
-            console.log(table)
         }
 
         this.on('mount', () => {
