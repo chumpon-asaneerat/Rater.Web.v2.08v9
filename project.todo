@@ -30,9 +30,9 @@ My Choice Rater Web v2.0.8x9:
         ☐ Supports Breadcrumb screens.
         ☐ Supports loading component.
         ✔ Nav menu items with sync screen component. @done(19-09-10 13:50)
-        ☐ Rewrite app/screen components.
+        ✔ Rewrite app/screen components. @done(19-09-29 21:38)
         ✔ Rewrite Navibar. @done(19-09-10 13:50)
-        ☐ Dual Page Screen (View/Edit).
+        ✔ Dual Page Screen (View/Edit). @done(19-09-29 21:39)
         ✔ Flip Page Screen (View/Edit). @done(19-09-12 11:34)
         DateTime Picker:
             ☐ Year/Month/Date dropdown component.
