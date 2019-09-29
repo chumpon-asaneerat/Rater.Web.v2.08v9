@@ -7,7 +7,7 @@ class App {
 
 let app;
 
-(() => {    
-    let tags = riot.mount('app');
+(() => {
+    let tags = riot.mount('app')
     app = new App(tags[0]);
 })();
