@@ -19,7 +19,7 @@ const WebServer = require(nlibExprjs);
 //#region database requires
 
 const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
-const db = new sqldb();
+//const db = new sqldb();
 
 //#endregion
 
@@ -32,7 +32,7 @@ const router = new WebRouter();
 
 //#region exec/validate wrapper method
 
-const exec = async (callback) => {
+const exec = async (db, callback) => {
     let ret;
     let connected = await db.connect();
     if (connected) {
@@ -44,7 +44,7 @@ const exec = async (callback) => {
     }
     return ret;
 }
-const validate = (data) => {
+const validate = (db, data) => {
     let result = data;
     if (!result) {
         result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
@@ -69,7 +69,7 @@ const checkForError = (data) => {
 //#region Language api class
 
 const api = class {
-    static async GetLanguages(params) {
+    static async GetLanguages(db, params) {
         return await db.GetLanguages(params);
     }
 }
@@ -84,12 +84,13 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static getLanguages(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         let fn = async () => {
-            return api.GetLanguages(params);
+            return api.GetLanguages(db, params);
         }
-        exec(fn).then(data => {
-            let result = validate(data);
+        exec(db, fn).then(data => {
+            let result = validate(db, data);
             WebServer.sendJson(req, res, result);
         })
     }

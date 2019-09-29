@@ -19,7 +19,7 @@ const WebServer = require(nlibExprjs);
 //#region database requires
 
 const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
-const db = new sqldb();
+//const db = new sqldb();
 
 //#endregion
 
@@ -32,7 +32,7 @@ const router = new WebRouter();
 
 //#region exec/validate wrapper method
 
-const exec = async (callback) => {
+const exec = async (db, callback) => {
     let ret;
     let connected = await db.connect();
     if (connected) {
@@ -44,7 +44,7 @@ const exec = async (callback) => {
     }
     return ret;
 }
-const validate = (data) => {
+const validate = (db, data) => {
     let result = data;
     if (!result) {
         result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
@@ -69,13 +69,13 @@ const checkForError = (data) => {
 //#region api class
 
 const api = class {
-    static async Register(params) {
+    static async Register(db, params) {
         return await db.Register(params);
     }
-    static async SignIn(params) {
+    static async SignIn(db, params) {
         return await db.SignIn(params);
     }
-    static async CheckUsers(params) {
+    static async CheckUsers(db, params) {
         return await db.CheckUsers(params);
     }
 }
@@ -90,12 +90,13 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static register(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         let fn = async () => {
-            return api.Register(params);
+            return api.Register(db, params);
         }
-        exec(fn).then(data => {
-            let result = validate(data);
+        exec(db, fn).then(data => {
+            let result = validate(db, data);
             WebServer.sendJson(req, res, result);
         })
     }
@@ -106,15 +107,16 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static validateAcccounts(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
         
         let fn = async () => {
-            return api.CheckUsers(params);
+            return api.CheckUsers(db, params);
         }
-        exec(fn).then(data => {
-            let dbResult = validate(data);
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
             let result = {
                 data : null,
                 //src: dbResult.data,
@@ -123,28 +125,31 @@ const routes = class {
                 //datasets: dbResult.datasets,
                 out: dbResult.out
             }
-            let accounts = dbResult.data;
-            let langs = accounts.map(acc => acc.langId)
-            let customers = [];
-            accounts.forEach(acc => {
-                let map = customers.map(c => c.customerId);
-                let idx = map.indexOf(acc.customerId);
+
+            let records = dbResult.data;
+            let ret = {};
+
+            records.forEach(rec => {
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.customerId);
+                let idx = map.indexOf(rec.customerId);
                 let nobj;
                 if (idx === -1) {
-                    // set customer id
-                    nobj = { customerId: acc.customerId }
+                    // set id
+                    nobj = { customerId: rec.customerId }
                     // init lang properties list.
-                    langs.forEach(lang => { nobj[lang] = {} })
-                    customers.push(nobj)
+                    ret[rec.langId].push(nobj)
                 }
                 else {
-                    nobj = customers[idx];
+                    nobj = ret[rec.langId][idx];
                 }
-                nobj[acc.langId].FullName = acc.FullName;
-                nobj[acc.langId].CustomerName = acc.CustomerName;
+                nobj.FullName = rec.FullName;
+                nobj.CustomerName = rec.CustomerName;
             })
-            // set array to result.
-            result.data = customers;
+            // set to result.
+            result.data = ret;
 
             WebServer.sendJson(req, res, result);
         })
@@ -156,12 +161,13 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static signin(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         let fn = async () => {
-            return api.SignIn(params);
+            return api.SignIn(db, params);
         }
-        exec(fn).then(data => {
-            let result = validate(data);
+        exec(db, fn).then(data => {
+            let result = validate(db, data);
             WebServer.sendJson(req, res, result);
         })
     }

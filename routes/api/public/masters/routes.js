@@ -19,7 +19,7 @@ const WebServer = require(nlibExprjs);
 //#region database requires
 
 const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
-const db = new sqldb();
+//const db = new sqldb();
 
 //#endregion
 
@@ -32,19 +32,19 @@ const router = new WebRouter();
 
 //#region exec/validate wrapper method
 
-const exec = async (callback) => {
+const exec = async (db, callback) => {    
     let ret;
     let connected = await db.connect();
     if (connected) {
         ret = await callback();
-        await db.disconnect();
+        //await db.disconnect();
     }
     else {
         ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
     }
     return ret;
 }
-const validate = (data) => {
+const validate = (db, data) => {
     let result = data;
     if (!result) {
         result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
@@ -69,22 +69,22 @@ const checkForError = (data) => {
 //#region api class
 
 const api = class {
-    static async GetMemberTypes(params) {
+    static async GetMemberTypes(db, params) {        
         return await db.GetMemberTypes(params);
     }
-    static async GetPeriodUnits(params) {
+    static async GetPeriodUnits(db, params) {
         return await db.GetPeriodUnits(params);
     }
-    static async GetLimitUnits(params) {
+    static async GetLimitUnits(db, params) {
         return await db.GetLimitUnits(params);
     }
-    static async GetLicenseTypes(params) {
+    static async GetLicenseTypes(db, params) {
         return await db.GetLicenseTypes(params);
     }
-    static async GetLicenseFeatures(params) {
+    static async GetLicenseFeatures(db, params) {
         return await db.GetLicenseFeatures(params);
     }
-    static async GetDeviceTypes(params) {
+    static async GetDeviceTypes(db, params) {
         return await db.GetDeviceTypes(params);
     }
 }
@@ -99,16 +99,17 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static GetMemberTypes(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
         params.enabled = true;
 
         let fn = async () => {
-            return api.GetMemberTypes(params);
+            return api.GetMemberTypes(db, params);
         }
-        exec(fn).then(data => {
-            let dbResult = validate(data);
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
 
             let result = {
                 data : null,
@@ -119,27 +120,28 @@ const routes = class {
                 out: dbResult.out
             }
             let records = dbResult.data;
-            let langs = records.map(rec => rec.langId);
-            let rets = [];
+            let ret = {};
 
             records.forEach(rec => {
-                let map = rets.map(c => c.memberTypeId);
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.memberTypeId);
                 let idx = map.indexOf(rec.memberTypeId);
                 let nobj;
                 if (idx === -1) {
                     // set id
                     nobj = { memberTypeId: rec.memberTypeId }
                     // init lang properties list.
-                    langs.forEach(lang => { nobj[lang] = {} })
-                    rets.push(nobj)
+                    ret[rec.langId].push(nobj)
                 }
                 else {
-                    nobj = rets[idx];
+                    nobj = ret[rec.langId][idx];
                 }
-                nobj[rec.langId].Description = rec.MemberTypeDescription;
+                nobj.Description = rec.MemberTypeDescription;
             })
-            // set array to result.
-            result.data = rets;
+            // set to result.
+            result.data = ret;
 
             WebServer.sendJson(req, res, result);
         })
@@ -151,16 +153,17 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static GetLimitUnits(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
         params.enabled = true;
 
         let fn = async () => {
-            return api.GetLimitUnits(params);
+            return api.GetLimitUnits(db, params);
         }
-        exec(fn).then(data => {
-            let dbResult = validate(data);
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
 
             let result = {
                 data : null,
@@ -171,28 +174,29 @@ const routes = class {
                 out: dbResult.out
             }
             let records = dbResult.data;
-            let langs = records.map(rec => rec.langId);
-            let rets = [];
+            let ret = {};
 
             records.forEach(rec => {
-                let map = rets.map(c => c.limitUnitId);
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.limitUnitId);
                 let idx = map.indexOf(rec.limitUnitId);
                 let nobj;
                 if (idx === -1) {
                     // set id
                     nobj = { limitUnitId: rec.limitUnitId }
                     // init lang properties list.
-                    langs.forEach(lang => { nobj[lang] = {} })
-                    rets.push(nobj)
+                    ret[rec.langId].push(nobj)
                 }
                 else {
-                    nobj = rets[idx];
+                    nobj = ret[rec.langId][idx];
                 }
-                nobj[rec.langId].Description = rec.LimitUnitDescription;
-                nobj[rec.langId].Text = rec.LimitUnitText;
+                nobj.Description = rec.LimitUnitDescription;
+                nobj.Text = rec.LimitUnitText;
             })
-            // set array to result.
-            result.data = rets;
+            // set to result.
+            result.data = ret;
 
             WebServer.sendJson(req, res, result);
         })
@@ -204,16 +208,17 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static GetPeriodUnits(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
         params.enabled = true;
 
         let fn = async () => {
-            return api.GetPeriodUnits(params);
+            return api.GetPeriodUnits(db, params);
         }
-        exec(fn).then(data => {
-            let dbResult = validate(data);
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
 
             let result = {
                 data : null,
@@ -224,27 +229,28 @@ const routes = class {
                 out: dbResult.out
             }
             let records = dbResult.data;
-            let langs = records.map(rec => rec.langId);
-            let rets = [];
+            let ret = {};
 
             records.forEach(rec => {
-                let map = rets.map(c => c.periodUnitId);
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.periodUnitId);
                 let idx = map.indexOf(rec.periodUnitId);
                 let nobj;
                 if (idx === -1) {
                     // set id
                     nobj = { periodUnitId: rec.periodUnitId }
                     // init lang properties list.
-                    langs.forEach(lang => { nobj[lang] = {} })
-                    rets.push(nobj)
+                    ret[rec.langId].push(nobj)
                 }
                 else {
-                    nobj = rets[idx];
+                    nobj = ret[rec.langId][idx];
                 }
-                nobj[rec.langId].Description = rec.PeriodUnitDescription;
+                nobj.Description = rec.PeriodUnitDescription;
             })
-            // set array to result.
-            result.data = rets;
+            // set to result.
+            result.data = ret;
 
             WebServer.sendJson(req, res, result);
         })
@@ -256,16 +262,17 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static GetDeviceTypes(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
         params.deviceTypeId = null;
 
         let fn = async () => {
-            return api.GetDeviceTypes(params);
+            return api.GetDeviceTypes(db, params);
         }
-        exec(fn).then(data => {
-            let dbResult = validate(data);
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
 
             let result = {
                 data : null,
@@ -276,27 +283,28 @@ const routes = class {
                 out: dbResult.out
             }
             let records = dbResult.data;
-            let langs = records.map(rec => rec.langId);
-            let rets = [];
+            let ret = {};
 
             records.forEach(rec => {
-                let map = rets.map(c => c.deviceTypeId);
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.deviceTypeId);
                 let idx = map.indexOf(rec.deviceTypeId);
                 let nobj;
                 if (idx === -1) {
                     // set id
                     nobj = { deviceTypeId: rec.deviceTypeId }
                     // init lang properties list.
-                    langs.forEach(lang => { nobj[lang] = {} })
-                    rets.push(nobj)
+                    ret[rec.langId].push(nobj)
                 }
                 else {
-                    nobj = rets[idx];
+                    nobj = ret[rec.langId][idx];
                 }
-                nobj[rec.langId].type = rec.Type;
+                nobj.type = rec.Type;
             })
-            // set array to result.
-            result.data = rets;
+            // set to result.
+            result.data = ret;
 
             WebServer.sendJson(req, res, result);
         })
@@ -308,15 +316,16 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static GetLicenseTypes(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
 
         let fn = async () => {
-            return api.GetLicenseTypes(params);
+            return api.GetLicenseTypes(db, params);
         }
-        exec(fn).then(data => {
-            let dbResult = validate(data);
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
 
             let result = {
                 data : null,
@@ -327,34 +336,36 @@ const routes = class {
                 out: dbResult.out
             }
             let records = dbResult.data;
-            let langs = records.map(rec => rec.langId);
-            let rets = [];
+            let ret = {};
 
             records.forEach(rec => {
-                let map = rets.map(c => c.licenseTypeId);
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.licenseTypeId);
                 let idx = map.indexOf(rec.licenseTypeId);
                 let nobj;
                 if (idx === -1) {
                     // set id
                     nobj = { licenseTypeId: rec.licenseTypeId }
                     // init lang properties list.
-                    langs.forEach(lang => { nobj[lang] = {} })
-                    rets.push(nobj)
+                    ret[rec.langId].push(nobj)
                 }
                 else {
-                    nobj = rets[idx];
+                    nobj = ret[rec.langId][idx];
                 }
-                nobj[rec.langId].Description = rec.LicenseTypeDescription;
-                nobj[rec.langId].AdText = rec.AdText;
-                nobj[rec.langId].periodUnitId = rec.periodUnitId;
-                nobj[rec.langId].NoOfUnit = rec.NoOfUnit;
-                nobj[rec.langId].UseDefaultPrice = rec.UseDefaultPrice;
-                nobj[rec.langId].Price = rec.Price;
-                nobj[rec.langId].CurrencySymbol = rec.CurrencySymbol;
-                nobj[rec.langId].CurrencyText = rec.CurrencyText;
+                nobj.type = rec.Type;
+                nobj.Description = rec.LicenseTypeDescription;
+                nobj.AdText = rec.AdText;
+                nobj.periodUnitId = rec.periodUnitId;
+                nobj.NoOfUnit = rec.NoOfUnit;
+                nobj.UseDefaultPrice = rec.UseDefaultPrice;
+                nobj.Price = rec.Price;
+                nobj.CurrencySymbol = rec.CurrencySymbol;
+                nobj.CurrencyText = rec.CurrencyText;
             })
-            // set array to result.
-            result.data = rets;
+            // set to result.
+            result.data = ret;
 
             WebServer.sendJson(req, res, result);
         })
@@ -366,16 +377,17 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static GetLicenseFeatures(req, res) {
+        let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
         params.licenseTypeId = null;
 
         let fn = async () => {
-            return api.GetLicenseFeatures(params);
+            return api.GetLicenseFeatures(db, params);
         }
-        exec(fn).then(data => {
-            let dbResult = validate(data);
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
 
             let result = {
                 data : null,
@@ -386,47 +398,45 @@ const routes = class {
                 out: dbResult.out
             }
             let records = dbResult.data;
-            let langs = records.map(rec => rec.langId);
-            let rets = [];
+            let ret = {};
 
             records.forEach(rec => {
-                let map = rets.map(c => c.licenseTypeId);
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.licenseTypeId);
                 let idx = map.indexOf(rec.licenseTypeId);
                 let nobj;
                 if (idx === -1) {
                     // set id
-                    nobj = { 
-                        licenseTypeId: rec.licenseTypeId
-                    }
+                    nobj = { licenseTypeId: rec.licenseTypeId }
+                    nobj.items = [];
                     // init lang properties list.
-                    langs.forEach(lang => { nobj[lang] = {} })
-                    rets.push(nobj)
+                    ret[rec.langId].push(nobj)
                 }
                 else {
-                    nobj = rets[idx];
+                    nobj = ret[rec.langId][idx];
                 }
-                if (!nobj[rec.langId].items) nobj[rec.langId].items = [];
 
-                let seqs = nobj[rec.langId].items.map(item => item.seq);
+                let seqs = nobj.items.map(item => item.seq);
                 let idx2 = seqs.indexOf(rec.seq);
                 let nobj2;
                 if (idx2 === -1) {
                     nobj2 = {
                         seq: rec.seq
                     }
-                    nobj[rec.langId].items.push(nobj2);
+                    nobj.items.push(nobj2);
                 }
                 else {
                     nobj2 = seqs[idx2];
-                }
-                
+                }                
                 nobj2.limitUnitId = rec.limitUnitId;
                 nobj2.NoOfLimit = rec.NoOfLimit;
                 nobj2.UnitDescription = rec.LimitUnitDescription;
                 nobj2.UnitText = rec.LimitUnitText;
             })
-            // set array to result.
-            result.data = rets;
+            // set to result.
+            result.data = ret;
 
             WebServer.sendJson(req, res, result);
         })
