@@ -50,7 +50,4 @@
             justify-content: stretch;
         }
     </style>
-    <script>
-        let self = this;
-    </script>
 </navibar>
