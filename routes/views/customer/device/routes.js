@@ -113,11 +113,10 @@ const checkSecure2 = (req, res, next) => {
     next();
 }
 
-router.use(checkSecure)
+router.use(checkSecure);
+router.use(checkSecure2);
 router.get('/', routes.home)
 router.get('/:file', routes.getfile)
-router.get('/api2', routes.api2)
-router.get('/api3', checkSecure2, routes.api3)
 
 const init_routes = (svr) => {
     svr.route('/customer/device', router);
