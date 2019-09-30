@@ -432,14 +432,24 @@ class ScreenService {
     constructor() {
         this.screens = [];
         this.current = null;
+        let self = this;
+        let appContentChanged = (e) => {
+            self.refresh();
+        }
+        document.addEventListener('appcontentchanged', appContentChanged)
     }
+    refresh() {
+        if (this.current && this.content) {
+            let scrcontent = this.content;
+            document.title = scrcontent.title + ' - My Choice Rater Web v2.0.8 build s9 ';
+        }
+        else {
+            document.title = 'My Choice Rater Web v2.0.8 build s9';
+        }
+}
     clear() {
         this.screens = [];
         this.current = null;
-        let appContentChanged = (e) => {
-            self.current = self.getCurrent();
-        }
-        document.addEventListener('appcontentchanged', appContentChanged)
     }
     get screenId() {
         return (this.current) ? this.current.opts.screenid : null;
@@ -463,6 +473,7 @@ class ScreenService {
         if (scr) {
             this.current = scr;
             scr.show();
+            this.refresh();
             // Raise event.
             let evt = new CustomEvent('screenchanged', { detail: { screenId: screenId } });
             document.dispatchEvent(evt);
@@ -480,7 +491,7 @@ class ScreenService {
             }
         }
         if (!ret) {
-            console.error('Not found, screen id:', id)
+            //console.error('Not found, screen id:', id)
         }
         return ret;
     }
