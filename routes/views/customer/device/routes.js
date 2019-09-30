@@ -71,6 +71,36 @@ const routes = class {
             WebServer.sendJson(req, res, nlib.NResult.data(json));
         }
     }
+
+    /**
+     * api2
+     * @param {Request} req The Request.
+     * @param {Response} res The Response.
+     */
+    static api2(req, res) {
+        let data = { message: 'The api 2 (secure)' }
+        let ret = nlib.NResult.data(data);
+        let obj = {
+            val1: 1,
+            val2: new Date().toString()
+        }
+        WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
+        //WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(1).months);
+        //WebServer.cookie.writeObject(req, res, obj);
+        WebServer.sendJson(req, res, ret);
+    }
+    /**
+     * api3
+     * @param {Request} req The Request.
+     * @param {Response} res The Response.
+     */
+    static api3(req, res) {
+        let data = { message: 'The api 3 (super secure)' }
+        let obj = WebServer.signedCookie.readObject(req, res);
+        data.obj = obj;
+        let ret = nlib.NResult.data(data);
+        WebServer.sendJson(req, res, ret);
+    }
 }
 
 const checkSecure = (req, res, next) => {
@@ -78,9 +108,16 @@ const checkSecure = (req, res, next) => {
     next();
 }
 
+const checkSecure2 = (req, res, next) => {
+    console.log('secure level 2 checked.');
+    next();
+}
+
 router.use(checkSecure)
 router.get('/', routes.home)
 router.get('/:file', routes.getfile)
+router.get('/api2', routes.api2)
+router.get('/api3', checkSecure2, routes.api3)
 
 const init_routes = (svr) => {
     svr.route('/customer/device', router);
