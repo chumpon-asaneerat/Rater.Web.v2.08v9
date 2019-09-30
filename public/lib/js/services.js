@@ -165,6 +165,9 @@ class ContentService {
         let self = this;
         let contentChanged = (e) => {
             self.current = self.getCurrent();
+            // raise event.
+            let evt = new CustomEvent('appcontentchanged');
+            document.dispatchEvent(evt);
         }
         document.addEventListener('languagechanged', contentChanged)
     }
@@ -174,6 +177,9 @@ class ContentService {
             let data = api.parse(r);
             self.content = data.records;
             self.current = self.getCurrent();
+            // raise event.
+            let evt = new CustomEvent('appcontentchanged');
+            document.dispatchEvent(evt);
         }
         XHR.get(url, paramObj, fn);
     }
@@ -430,6 +436,13 @@ class ScreenService {
     clear() {
         this.screens = [];
         this.current = null;
+        let appContentChanged = (e) => {
+            self.current = self.getCurrent();
+        }
+        document.addEventListener('appcontentchanged', appContentChanged)
+    }
+    get screenId() {
+        return (this.current) ? this.current.opts.screenid : null;
     }
     showDefault() {
         if (this.screens.length > 0) {
@@ -454,6 +467,22 @@ class ScreenService {
             let evt = new CustomEvent('screenchanged', { detail: { screenId: screenId } });
             document.dispatchEvent(evt);
         }
+    }
+    get content() {
+        // get current screen content.
+        let ret = null;
+        let id = this.screenId;
+        if (appcontent.current) {
+            let maps = appcontent.current.screens.map(scr => scr.screenid)
+            let idx = maps.indexOf(id)
+            if (idx !== -1) {
+                ret = appcontent.current.screens[idx]
+            }
+        }
+        if (!ret) {
+            console.error('Not found, screen id:', id)
+        }
+        return ret;
     }
 }
 

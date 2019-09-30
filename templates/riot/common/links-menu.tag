@@ -8,7 +8,7 @@
         <div each={ item in menus }>
             <a class="link-item" href="javascript:;" onclick="{ selectItem }">
                 &nbsp;
-                <span class="link-css { item.css }" ref="css-icon">&nbsp;</span>
+                <span class="link-css { item.icon }" ref="css-icon">&nbsp;</span>
                 <div class="link-text">{ item.text }</div>
                 &nbsp;&nbsp;&nbsp;
             </a>                
@@ -88,22 +88,21 @@
     <script>
         let self = this;
         let links, dropItems;
-        this.menus = [
-            { screenId:'home', css: 'far fa-user-circle', text:'Home' },
-            { screenId:'register', css: 'far fa-user-circle', text:'Retister' },
-            { screenId:'signon', css: 'fas fa-user-plus', text:'Sign In' },
-            { screenId:'signout', css: 'fas fa-sign-out-alt', text:'Sign Out' }
-        ];
+        this.menus = [];
         
         let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
             links.addEventListener('click', toggle);
             window.addEventListener('click', checkClickPosition);
         }
         let unbindEvents = () => {
             window.removeEventListener('click', checkClickPosition);
             links.removeEventListener('click', toggle);
+            document.removeEventListener('screenchanged', onScreenChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -117,8 +116,18 @@
             links = null;
         });
 
-        let onLanguageChanged = (e) => { self.update(); }
-
+        let onAppContentChanged = (e) => { 
+            self.menus = (screenservice.content) ? screenservice.content.links : [];
+            self.update();
+        }
+        let onLanguageChanged = (e) => { 
+            self.menus = (screenservice.content) ? screenservice.content.links : [];
+            self.update();
+        }
+        let onScreenChanged = (e) => {
+            self.menus = (screenservice.content) ? screenservice.content.links : [];
+            self.update();
+        }
         let toggle = () => {
             dropItems.classList.toggle('show');
             self.update();
@@ -135,7 +144,6 @@
             }
             return found;
         }
-
         let checkClickPosition = (e) => {
             // Close the dropdown menu if the user clicks outside of it
             let classList = ['.link-combo', '.burger'];
@@ -146,11 +154,15 @@
                 }
             }
         }
-
         this.selectItem = (e) => {
             toggle(); // toggle off
             let selLink = e.item.item;
-            screenservice.show(selLink.screenId);
+            if (selLink.type === 'screen') {
+                screenservice.show(selLink.ref);
+            }
+            else {
+                console.log('Not implements type, data:', selLink);
+            }
 
             e.preventDefault();
             e.stopPropagation();

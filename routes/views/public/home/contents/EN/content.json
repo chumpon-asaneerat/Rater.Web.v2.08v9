@@ -1,4 +1,30 @@
 {
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "Home",
+            "links": [
+                { "type": "screen", "ref": "signin", "text":"Sign In", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"Register", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "signin",
+            "title": "Sign In",
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"Register", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "register",
+            "title": "Register",
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "far fa-user-circle", "icontype": "font" },
+                { "type": "screen", "ref": "signin", "text":"Sign In", "icon": "far fa-user-circle", "icontype": "font" }
+            ]
+        }
+    ],
     "footer": {
         "label": {
             "status": "status",

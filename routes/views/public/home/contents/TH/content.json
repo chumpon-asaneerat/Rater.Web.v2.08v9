@@ -1,4 +1,30 @@
 {
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "หน้าหลัก",
+            "links": [
+                { "type": "screen", "ref": "signin", "text":"เข้าใช้งาน", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"ลงทะเบียน", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "signin",
+            "title": "เข้าใช้งาน",
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"ลงทะเบียน", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "register",
+            "title": "ลงทะเบียน",
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "far fa-user-circle", "icontype": "font" },
+                { "type": "screen", "ref": "signin", "text":"เข้าใช้งาน", "icon": "far fa-user-circle", "icontype": "font" }
+            ]
+        }
+    ],
     "footer": {
         "label": {
             "status": "สถานะ",
