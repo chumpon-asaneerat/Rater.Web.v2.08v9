@@ -446,7 +446,10 @@ class ScreenService {
         else {
             document.title = 'My Choice Rater Web v2.0.8 build s9';
         }
-}
+        // raise event.
+        let evt = new CustomEvent('apptitlechanged');
+        document.dispatchEvent(evt);
+    }
     clear() {
         this.screens = [];
         this.current = null;
