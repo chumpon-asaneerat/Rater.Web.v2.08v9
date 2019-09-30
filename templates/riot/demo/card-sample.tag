@@ -52,8 +52,8 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            max-width: 100vh;
-            max-height: calc(100vh - 63px);
+            /* max-width: 100%; */
+            max-height: calc(100vh - 64px);
             overflow: auto;
         }
         .head {
@@ -119,14 +119,16 @@
             ];
             table = new Tabulator("#grid", {
                 height: "100%",
-                layout:"fitDataFill",
+                layout:"fitData",
+                //layout:"fitDataFill",
+                //layout:"fitColumns",
                 columns: [
                     { title: "Name", field: "name" },
-                    //{ title: "Progress", field:"progress", sorter: "number" },
-                    //{ title: "Gender", field: "gender" },
                     { title: "Age", field: "age" },
                     { title: "Favourite Color", field: "col" },
-                    { title: "Date Of Birth", field: "dob", align: "center" }
+                    { title: "Date Of Birth", field: "dob", align: "center" },
+                    { title: "Progress", field:"progress", sorter: "number" },
+                    { title: "Gender", field: "gender" }
                 ],
                 rowClick: (e, row) => {
                     console.log("Row " + row.getIndex() + " Clicked!!!!")
