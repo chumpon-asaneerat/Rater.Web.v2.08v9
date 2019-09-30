@@ -73,6 +73,12 @@ const routes = class {
     }
 }
 
+const checkSecure = (req, res, next) => {
+    console.log('secure checked.');
+    next();
+}
+
+router.use(checkSecure)
 router.get('/', routes.home)
 router.get('/:file', routes.getfile)
 
