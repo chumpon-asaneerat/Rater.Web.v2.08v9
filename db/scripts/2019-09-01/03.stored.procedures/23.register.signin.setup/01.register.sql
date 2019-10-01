@@ -10,6 +10,8 @@ GO
 -- [== History ==]
 -- <2016-11-02> :
 --	- Stored Procedure Created.
+-- <2019-10-01> :
+--	- auto add license history.
 --
 -- [== Example ==]
 --
@@ -89,6 +91,9 @@ DECLARE @iOrgCnt int = 0;
 			RETURN;
 		END
 
+		-- Auto add license history.
+		EXEC SaveLicenseHistory @customerId, @licenseTypeId;
+
 		/* MEMBER INFO */
 		SELECT @iAdminCnt = COUNT(*)
 		  FROM MemberInfo
@@ -160,8 +165,6 @@ DECLARE @iOrgCnt int = 0;
 		BEGIN
 			RETURN;
 		END
-
-		-- Save License History.
 
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
 	END TRY

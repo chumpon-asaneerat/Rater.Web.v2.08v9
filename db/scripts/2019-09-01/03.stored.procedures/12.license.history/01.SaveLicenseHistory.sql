@@ -25,6 +25,12 @@ CREATE PROCEDURE [dbo].[SaveLicenseHistory]
 AS
 BEGIN
 DECLARE @iCnt int;
+
+DECLARE @priodId int;
+DECLARE @priodTimes int;
+
+DECLARE @beginDate datetime;
+DECLARE @endDate datetime;
 DECLARE @maxDevice int;
 DECLARE @maxAccount int;
 DECLARE @maxClient int;
@@ -119,6 +125,19 @@ DECLARE @maxClient int;
 			   AND LicenseTypeId = @licenseTypeId
 			IF (@maxClient IS NULL OR @maxClient < 1) SET @maxClient = 1;
 
+			-- CALC PERIOD
+			SELECT @priodId = PeriodUnitId, @priodTimes = NumberOfUnit
+				FROM LicenseType
+				WHERE LicenseTypeId = 0;
+				
+			SET @beginDate = GETDATE();
+			IF (@priodId = 1) SELECT @endDate = DATEADD(day, @priodTimes, GETDATE());
+			ELSE 
+			BEGIN 
+				IF (@priodId = 2) SELECT @endDate = DATEADD(month, @priodTimes, GETDATE());
+				ELSE SELECT @endDate = DATEADD(year, @priodTimes, GETDATE());
+			END
+
 			INSERT INTO LicenseHistory
 			(
 				HistoryId
@@ -127,6 +146,8 @@ DECLARE @maxClient int;
 			  , MaxDevice
 			  , MaxAccount
 			  , MaxClient
+			  , BeginDate
+			  , EndDate
 			) 
 			VALUES
 			(
@@ -136,6 +157,8 @@ DECLARE @maxClient int;
 			  , @maxDevice
 			  , @maxAccount
 			  , @maxClient
+			  , @beginDate
+			  , @endDate
 			)
 		END
 
