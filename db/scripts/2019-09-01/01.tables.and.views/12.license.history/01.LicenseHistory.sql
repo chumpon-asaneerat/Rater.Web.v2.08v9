@@ -8,6 +8,9 @@ CREATE TABLE [dbo].[LicenseHistory](
 	[HistoryId] [int] NOT NULL,
 	[CustomerId] [nvarchar](30) NOT NULL,
 	[LicenseTypeId] [int] NOT NULL,
+	[MaxDevice] [int] NOT NULL,
+	[MaxAccount] [int] NOT NULL,
+	[MaxClient] [int] NOT NULL,
 	[RequestDate] [datetime] NOT NULL,
 	[BeginDate] [datetime] NULL,
 	[EndDate] [datetime] NULL,
@@ -17,6 +20,15 @@ CREATE TABLE [dbo].[LicenseHistory](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[LicenseHistory] ADD  CONSTRAINT [DF_LicenseHistory_MaxDevice]  DEFAULT ((0)) FOR [MaxDevice]
+GO
+
+ALTER TABLE [dbo].[LicenseHistory] ADD  CONSTRAINT [DF_LicenseHistory_MaxAccount]  DEFAULT ((0)) FOR [MaxAccount]
+GO
+
+ALTER TABLE [dbo].[LicenseHistory] ADD  CONSTRAINT [DF_LicenseHistory_MaxClient]  DEFAULT ((0)) FOR [MaxClient]
 GO
 
 ALTER TABLE [dbo].[LicenseHistory] ADD  CONSTRAINT [DF_LicenseHistory_RequestDate]  DEFAULT (getdate()) FOR [RequestDate]

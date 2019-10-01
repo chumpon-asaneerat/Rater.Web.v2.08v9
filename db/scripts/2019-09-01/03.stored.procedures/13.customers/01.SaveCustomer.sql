@@ -17,6 +17,8 @@ GO
 --	- Add code to used exists data if null is set (TaxCode, Address1, Address2, etc.).
 -- <2018-04-16> :
 --	- change error code(s).
+-- <2019-10-01> :
+--	- Auto add free license.
 --
 -- [== Example ==]
 --
@@ -231,6 +233,9 @@ DECLARE @iCustCnt int = 0;
 				 , Email = RTRIM(LTRIM(COALESCE(@email, Email)))
 			 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
 		END
+
+		-- Auto add license history (free)
+		EXEC SaveLicenseHistory @customerId, 0;
 
         EXEC GetErrorMsg 0, @errNum out, @errMsg out
 	END TRY

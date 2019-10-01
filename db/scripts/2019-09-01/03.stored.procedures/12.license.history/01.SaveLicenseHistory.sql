@@ -25,6 +25,9 @@ CREATE PROCEDURE [dbo].[SaveLicenseHistory]
 AS
 BEGIN
 DECLARE @iCnt int;
+DECLARE @maxDevice int;
+DECLARE @maxAccount int;
+DECLARE @maxClient int;
     -- Error Code:
     --    0 : Success
 	-- 2601 : Customer Id cannot be null or empty string.
@@ -97,17 +100,42 @@ DECLARE @iCnt int;
 			END
 			SET @historyId = @historyId + 1;
 
+			-- MAX DEVICE (MIN = 1)
+			SELECT @maxDevice = NoOfLimit
+			  FROM LicenseFeature
+			 WHERE LimitUnitId = 1
+			   AND LicenseTypeId = @licenseTypeId
+			IF (@maxDevice IS NULL OR @maxDevice < 1) SET @maxDevice = 1;
+			-- MAX ACCOUNT (MIN = 1)
+			SELECT @maxAccount = NoOfLimit
+			  FROM LicenseFeature
+			 WHERE LimitUnitId = 1
+			   AND LicenseTypeId = @licenseTypeId
+			IF (@maxAccount IS NULL OR @maxAccount < 1) SET @maxAccount = 1;
+			-- MAX CLIENT (MIN = 1)
+			SELECT @maxClient = NoOfLimit
+			  FROM LicenseFeature
+			 WHERE LimitUnitId = 1
+			   AND LicenseTypeId = @licenseTypeId
+			IF (@maxClient IS NULL OR @maxClient < 1) SET @maxClient = 1;
+
 			INSERT INTO LicenseHistory
 			(
 				HistoryId
 			  , CustomerId
 			  , LicenseTypeId
+			  , MaxDevice
+			  , MaxAccount
+			  , MaxClient
 			) 
 			VALUES
 			(
 				@historyId
 			  , @customerId
 			  , @licenseTypeId
+			  , @maxDevice
+			  , @maxAccount
+			  , @maxClient
 			)
 		END
 
