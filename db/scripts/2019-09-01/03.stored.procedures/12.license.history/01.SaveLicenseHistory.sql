@@ -128,7 +128,7 @@ DECLARE @maxClient int;
 			-- CALC PERIOD
 			SELECT @priodId = PeriodUnitId, @priodTimes = NumberOfUnit
 				FROM LicenseType
-				WHERE LicenseTypeId = 0;
+				WHERE LicenseTypeId = @licenseTypeId;
 				
 			SET @beginDate = GETDATE();
 			IF (@priodId = 1) SELECT @endDate = DATEADD(day, @priodTimes, GETDATE());

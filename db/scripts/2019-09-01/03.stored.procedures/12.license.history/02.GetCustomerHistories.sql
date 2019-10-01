@@ -29,12 +29,16 @@ BEGIN
          , hisv.langId
 		 , hisv.customerId
 		 , hisv.CustomerName
-		 , hisv.maxDevice
-		 , hisv.maxAccount
-		 , hisv.maxClient
 		 , hisv.RequestDate
 		 , hisv.BeginDate
 		 , hisv.EndDate
+         , hisv.Revoked
+		 , hisv.Expired
+		 , hisv.RemainDays
+		 , hisv.maxDevice
+		 , hisv.maxAccount
+		 , hisv.maxClient
+		 /*
 		 , hisv.TaxCode
 		 , hisv.Address1
 		 , hisv.Address2
@@ -45,9 +49,8 @@ BEGIN
 		 , hisv.Mobile
 		 , hisv.Fax
 		 , hisv.Email
+		 */
 		 , hisv.Description
-		 , hisv.AdText
-		 , hisv.PeriodUnitId
 		 , hisv.AdText
 		 , hisv.NumberOfUnit
 		 , hisv.PeriodUnit

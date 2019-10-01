@@ -282,6 +282,13 @@ BEGIN
 	EXEC SaveErrorMsg 2604, N'LicenseTypeId not exists.'
 	EXEC SaveErrorMsg 2605, N'Request is on processing.'
 	EXEC SaveErrorMsg 2606, N'Your Free License is already used.'
+	-- REVOKE LICENSE HISTORY
+	EXEC SaveErrorMsg 2701, N'History Id cannot be null or empty string.'
+	EXEC SaveErrorMsg 2702, N'History Id not exists.'	
+	-- EXTEND LICENSE HISTORY
+	EXEC SaveErrorMsg 2801, N'History Id cannot be null or empty string.'
+	EXEC SaveErrorMsg 2802, N'History Id not exists.'
+    EXEC SaveErrorMsg 2803, N'License Still in active state.'
 END
 
 GO

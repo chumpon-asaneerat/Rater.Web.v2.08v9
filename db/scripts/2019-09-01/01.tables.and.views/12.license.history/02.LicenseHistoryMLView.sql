@@ -15,6 +15,18 @@ AS
 		 , lhis.RequestDate
 		 , lhis.BeginDate
 		 , lhis.EndDate
+		 , CASE
+		    WHEN CAST(lhis.EndDate AS DATE) = CAST(lhis.BeginDate AS DATE) THEN CAST(1 AS bit)
+			ELSE CAST(0 AS bit)
+		   END AS Revoked
+		 , CASE 
+		    WHEN CAST(lhis.EndDate AS DATE) < CAST(GETDATE() AS DATE) THEN CAST(1 AS bit)
+		    ELSE CAST(0 AS bit)
+		   END AS Expired
+		 , CASE
+		    WHEN (CAST(lhis.EndDate AS DATE) = CAST(lhis.BeginDate AS DATE)) THEN 0
+			ELSE DATEDIFF(day, CAST(GETDATE() AS DATE), CAST(lhis.EndDate AS DATE))
+		   END AS RemainDays
 		 , cmlv.CustomerName
 		 , cmlv.TaxCode
 		 , cmlv.Address1
