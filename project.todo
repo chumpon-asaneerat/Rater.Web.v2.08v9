@@ -16,6 +16,9 @@ My Choice Rater Web v2.0.8x9:
         ☐ Redesign device user sign in process.
         ☐ Redesign device user sign out process.
         ☐ Redesign device nofification process.
+        ☐ Redesign license register selection supports.
+        ☐ Redesign license register history supports.
+        ☐ Redesign license related information (access count, client count, etc.) supports.
         ☐ Init Sample Data.
     Server:
         ✔ Create customer admin routes. @done(19-08-22 21:25)
