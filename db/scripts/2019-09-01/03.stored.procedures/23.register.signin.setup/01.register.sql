@@ -13,12 +13,13 @@ GO
 --
 -- [== Example ==]
 --
---exec Register N'Softbase Co., Ltd.', N'admin@softbase.co.th', N'1234'
+--EXEC Register N'Softbase Co., Ltd.', N'admin@softbase.co.th', N'1234', 0
 -- =============================================
 CREATE PROCEDURE [dbo].[Register] (
   @customerName as nvarchar(50)
 , @userName as nvarchar(50)
 , @passWord as nvarchar(20)
+, @licenseTypeId int = null
 , @customerId as nvarchar(30) = null out
 , @memberId as nvarchar(30) = null out
 , @branchId as nvarchar(30) = null out
@@ -27,6 +28,7 @@ CREATE PROCEDURE [dbo].[Register] (
 , @errMsg as nvarchar(100) = N'' out)
 AS
 BEGIN
+DECLARE @iCnt int = 0;
 DECLARE @iAdminCnt int = 0;
 DECLARE @iBranchCnt int = 0;
 DECLARE @iOrgCnt int = 0;
@@ -34,6 +36,9 @@ DECLARE @iOrgCnt int = 0;
 	--    0 : Success
 	-- 1801 : CustomerName cannot be null or empty string.
 	-- 1802 : UserName and Password cannot be null or empty string.
+	-- 1803 : LicenseTypeId cannot be null.
+	-- 1804 : LicenseTypeId not exits.
+	-- 1805 : 
 	-- OTHER : SQL Error Number & Error Message.
 	BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@customerName) = 1)
@@ -45,6 +50,21 @@ DECLARE @iOrgCnt int = 0;
 		IF (dbo.IsNullOrEmpty(@customerName) = 1)
 		BEGIN
 			EXEC GetErrorMsg 1802, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@licenseTypeId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 1803, @errNum out, @errMsg out
+			RETURN
+		END
+		SELECT @iCnt = COUNT(LicenseTypeId) 
+		  FROM LicenseType 
+		 WHERE LicenseTypeId = @licenseTypeId
+		IF (@iCnt = 0)
+		BEGIN
+            -- Cannot found License Type Id.
+            EXEC GetErrorMsg 1804, @errNum out, @errMsg out
 			RETURN
 		END
 
@@ -140,6 +160,8 @@ DECLARE @iOrgCnt int = 0;
 		BEGIN
 			RETURN;
 		END
+
+		-- Save License History.
 
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
 	END TRY
