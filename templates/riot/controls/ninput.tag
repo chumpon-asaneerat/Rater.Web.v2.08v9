@@ -4,27 +4,32 @@
     <style>
         :scope {
             margin: 0;
-            padding: 0;
+            padding: 10px;
             font-size: 14px;
             display: inline-block;
             position: relative;
             height: auto;
             width: 100%;
-            background: #fff;
-            padding: 10px;
+            /* background: rgba(255, 255, 255, .2); */
+            background: white;            
             /* border: 1px solid rgba(0, 0, 0, .1); */            
             box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2);
+        }
+        :scope .padtop {
+            width: 100%;
+            height: 0px;
         }
         :scope input {
             padding: 5px 0;
             margin-bottom: 5px;
             width: 100%;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, .2);
             box-sizing: border-box;
             box-shadow: none;
             outline: none;
             border: none;
             font-size: 14px;
+            /* box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.2) inset; */
             box-shadow: 0 0 0px 1000px white inset;
             border-bottom: 2px solid #999;
         }
@@ -46,7 +51,7 @@
         :scope input:focus ~ label,
         :scope input:-webkit-autofill ~ label,
         :scope input:valid ~ label {
-            top: -5px;
+            top: -10px;
             left: 10px;
             color: #f7497d;
             font-weight: bold;
