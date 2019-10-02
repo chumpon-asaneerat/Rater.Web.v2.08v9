@@ -16,7 +16,8 @@
                 "userName": "ชื่อบัญชี",
                 "passWord": "รหัสผ่าน",
                 "submit": "เข้าใช้งาน",
-                "cancel": "ยกเลิก"
+                "cancel": "ยกเลิก",
+                "customerName": "ชื่อลูกค้า"
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "far fa-user-circle", "icontype": "fontcss" },

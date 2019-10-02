@@ -16,7 +16,8 @@
                 "userName": "User Name",
                 "passWord": "Password",
                 "submit": "Sign In",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "customerName": "Customer Name"
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"Home", "icon": "far fa-user-circle", "icontype": "fontcss" },

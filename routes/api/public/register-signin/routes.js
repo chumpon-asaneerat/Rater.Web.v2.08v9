@@ -173,9 +173,9 @@ const routes = class {
     }
 }
 
-router.all('/register', routes.register)
-router.all('/validate-accounts', routes.validateAcccounts)
-router.all('/signin', routes.signin)
+router.post('/register', routes.register)
+router.post('/validate-accounts', routes.validateAcccounts)
+router.post('/signin', routes.signin)
 
 const init_routes = (svr) => {
     svr.route('/api/customer', router);

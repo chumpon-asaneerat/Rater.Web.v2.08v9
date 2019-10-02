@@ -1,4 +1,4 @@
-<signin-entry>
+<register-entry>
     <div class="content-area">
         <div class="padtop"></div>
         <div class="padtop"></div>
@@ -6,45 +6,25 @@
         <div class="padtop"></div>
         <div class="padtop"></div>
         <div class="padtop"></div>
-        <div ref="userSignIn" class="user-signin">
-            <div class="group-header">
-                <h4>{ content.title }</h4>
-                <div class="padtop"></div>
-            </div>
-            <div class="group-body">
-                <div class="padtop"></div>
-                <div class="padtop"></div>
-                <ninput ref="userName" title="{ content.label.userName }" type="text" name="userName"></ninput>
-                <div class="padtop"></div>
-                <ninput ref="passWord" title="{ content.label.passWord }" type="password" name="pwd"></ninput>
-                <div class="padtop"></div>
-                <button ref="submit">
-                    <span class="fas fa-user">&nbsp;</span>
-                    { content.label.submit }
-                </button>
-                <div class="padtop"></div>
-                <div class="padtop"></div>
-            </div>
+        <div class="group-header">
+            <h4><span class="fas fa-save">&nbsp;</span>&nbsp;{ content.title }</h4>
+            <div class="padtop"></div>
         </div>
-        <div ref="userSelection" class="user-selection hide">
-            <div class="group-header">
-                <h4>{ content.label.selectAccount }</h4>
-                <div class="padtop"></div>
-            </div>
-            <div class="group-body">
-                    <div class="padtop"></div>
-                    <div class="padtop"></div>
-                    <h1>SELECT USER 1</h1>
-                    <h1>SELECT USER 2</h1>
-                    <h1>SELECT USER 3</h1>
-                    <div class="padtop"></div>
-                    <button ref="cancel">
-                        <span class="fa fa-user-times">&nbsp;</span>
-                        Cancel
-                    </button>
-                    <div class="padtop"></div>
-                    <div class="padtop"></div>
-                </div>
+        <div class="group-body">
+            <div class="padtop"></div>
+            <div class="padtop"></div>
+            <ninput ref="customerName" title="{ content.label.customerName }" type="text" name="customerName"></ninput>
+            <div class="padtop"></div>
+            <ninput ref="userName" title="{ content.label.userName }" type="text" name="userName"></ninput>
+            <div class="padtop"></div>
+            <ninput ref="passWord" title="{ content.label.passWord }" type="password" name="pwd"></ninput>
+            <div class="padtop"></div>
+            <button ref="submit">
+                <span class="fas fa-save">&nbsp;</span>
+                { content.label.submit }
+            </button>
+            <div class="padtop"></div>
+            <div class="padtop"></div>
         </div>
     </div>
     <style>
@@ -80,30 +60,16 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-        :scope .content-area .user-signin,
-        :scope .content-area .user-selection {
-            display: block;
-            position: relative;
-            margin: 0 auto;
-            padding: 0;
-        }
-        :scope .content-area .user-signin.hide,
-        :scope .content-area .user-selection.hide {
-            display: none;
-        }
         :scope .padtop, 
         :scope .content-area .padtop,
-        :scope .content-area .user-signin .group-header .padtop,
-        :scope .content-area .user-signin .group-body .padtop, 
-        :scope .content-area .user-selection .group-header .padtop,
-        :scope .content-area .user-selection .group-body .padtop {
+        :scope .content-area .group-header .padtop,
+        :scope .content-area .group-body .padtop {
             display: block;
             margin: 0 auto;
             width: 100%;
             min-height: 10px;
         }
-        :scope .content-area .user-signin .group-header,
-        :scope .content-area .user-selection .group-header {
+        :scope .content-area .group-header {
             display: block;
             margin: 0 auto;
             padding: 3px;
@@ -115,17 +81,17 @@
             border: 1px solid dimgray;
             border-radius: 8px 8px 0 0;
         }
-        :scope .content-area .user-signin .group-header h4,
-        :scope .content-area .user-selection .group-header h4 {
+        :scope .content-area .group-header h4 {
             display: block;
             margin: 0 auto;
             padding: 0;
+            padding-top: 5px;
+            font-size: 1.1rem;
             text-align: center;
             color: whitesmoke;
             user-select: none;
         }
-        :scope .content-area .user-signin .group-body,
-        :scope .content-area .user-selection .group-body {
+        :scope .content-area .group-body {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -141,8 +107,7 @@
             border-radius: 0 0 8px 8px;
         }
 
-        :scope .content-area .user-signin .group-body button,
-        :scope .content-area .user-selection .group-body button {
+        :scope .content-area .group-body button {
             display: inline-block;
             margin: 5px auto;
             padding: 10px 15px;
@@ -153,111 +118,105 @@
         }
     </style>
     <script>
-        let self = this;
+        let self = this;        
         let defaultContent = {
-            title: 'Sign In',
+            title: 'Register',
             label: {
-                selectAccount: 'Please Select Account',
+                customerName: 'Customer Name',
                 userName: 'User Name (admin)',
                 passWord: 'Password',
-                submit: 'Sign In'
+                submit: 'Reister'
             }
         }
         this.content = defaultContent;
 
-        let userSignIn, userSelection;
-        let userName, passWord, submit, cancel;
+        let customerName, userName, passWord, submit;
 
         let bindEvents = () => {
             document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
             document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('registersuccess', onRegisterSuccess);
+            document.addEventListener('registerfailed', onRegisterFailed);
             submit.addEventListener('click', onSubmit);
-            cancel.addEventListener('click', onCancel);
         }
         let unbindEvents = () => {
-            cancel.removeEventListener('click', onCancel);
             submit.removeEventListener('click', onSubmit);
+            document.addEventListener('registerfailed', onRegisterFailed);
+            document.addEventListener('registersuccess', onRegisterSuccess);
             document.removeEventListener('screenchanged', onScreenChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
             document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
-            userSignIn = self.refs['userSignIn'];
-            userSelection = self.refs['userSelection'];
+            customerName = self.refs['customerName'];
             userName = self.refs['userName'];
             passWord = self.refs['passWord'];
             submit = self.refs['submit'];
-            cancel = self.refs['cancel'];
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
+            customerName = null;
             userName = null;
             passWord = null;
             submit = null;
-            cancel = null;
-            userSignIn = null;
-            userSelection = null;
         });
-
         let onAppContentChanged = (e) => { 
-            if (screenservice && screenservice.screenId === 'signin') {
+            if (screenservice && screenservice.screenId === 'register') {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
             }
         }
-        let onLanguageChanged = (e) => {
-            if (screenservice && screenservice.screenId === 'signin') {
+        let onLanguageChanged = (e) => { 
+            if (screenservice && screenservice.screenId === 'register') {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
             }
         }
         let onScreenChanged = (e) => {
-            if (e.detail.screenId === 'signin') {
+            if (e.detail.screenId === 'register') {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
-                showUserSignIn();
+                customerName.focus();
             }
             else {
                 clearInputs();
             }
         }
+        let onRegisterSuccess = (e) => {
+
+        }
+        let onRegisterFailed = (e) => {
+
+        }
         let onSubmit = (e) => {
-            if (checkUserName() && checkPassword()) {
+            if (checkCustomerName() && checkUserName() && checkPassword()) {
                 //e.preventDefault();
                 //e.stopPropagation();
                 let data = {
-                    "userName": userName.value(),
-                    "passWord": passWord.value()
+                    customerName: customerName.value(),
+                    userName: userName.value(),
+                    passWord: passWord.value(),
+                    licenseTypeId: 0
                 }
-                console.log(data);
-                showUserSelection();
+                secure.register(data.customerName, data.userName, data.passWord, data.licenseTypeId);
             }
         }
-        let onCancel = (e) => {
-            console.log('cancel user selection');
-            showUserSignIn();
-        }
         let clearInputs = () => {
-            if (userName && passWord) {
+            if (customerName && userName && passWord) {
+                customerName.clear();
                 userName.clear();
                 passWord.clear();
             }
         }
-        let showUserSignIn = () => {
-            if (userSignIn && userSelection) {
-                userSignIn.classList.remove('hide');
-                userSelection.classList.add('hide');
-                userName.focus();
-            }
-        }
-        let showUserSelection = () => {
-            if (userSignIn && userSelection) {
-                userSignIn.classList.add('hide');
-                userSelection.classList.remove('hide');
-            }
+        let checkCustomerName = () => {
+            let ret = false;            
+            let val = customerName.value();
+            ret = (val && val.length > 0);
+            if (!ret) customerName.focus()
+            return ret;
         }
         let checkUserName = () => {
             let ret = false;
@@ -274,4 +233,4 @@
             return ret;
         }
     </script>
-</signin-entry>
+</register-entry>

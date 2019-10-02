@@ -103,6 +103,23 @@ const api = DbApi; // create shortcur variable.
 
 //#endregion
 
+//#region MessageService class
+
+class MessageService {
+    error(value) {
+        if (value) console.error(value)
+    }
+    info(value) {
+        if (value) console.log(value)
+    }
+}
+
+; (function () {
+    window.logger = window.logger || new MessageService();
+})();
+
+//#endregion
+
 //#region LanguageService class
 
 class LanguageService {
@@ -502,6 +519,89 @@ class ScreenService {
 
 ; (function () {
     window.screenservice = window.screenservice || new ScreenService();
+})();
+
+//#endregion
+
+//#region SecureService class
+
+class SecureService {
+    constructor() {
+        this.content = null;
+        this.account = { username: '', password: ''}
+    }
+    reset() {
+        this.content = null;
+        this.account = { username: '', password: ''}
+    }
+    register(customername, username, pwd, licenseTypeId) {
+        let url = '/api/customer/register'
+        let paramObj = { 
+            customerName: customername,
+            userName: username,
+            passWord: pwd,
+            licenseTypeId: licenseTypeId
+        }
+
+        let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            // raise event.
+            let evt;
+            if (data.errors.hasError) {
+                evt = new CustomEvent('registerfailed');
+            }
+            else {
+                evt = new CustomEvent('registersuccess');
+            }
+            document.dispatchEvent(evt);
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    verifyUsers(username, pwd) {
+        let url = '/api/customer/validate-accounts'
+        this.account = { username: username, password: pwd}
+
+        let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            // raise event.
+            let evt = new CustomEvent('userlistchanged');
+            document.dispatchEvent(evt);
+        }
+        XHR.postJson(url, this.account, fn);
+    }
+    signin(customerId) {
+        let url = '/api/customer/signin'
+        let paramObj = {
+            customerId: customerId,
+            userName: this.account.username,
+            passWord: this.account.password
+        }
+        //let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            let err = data.errors;
+            let evt = new CustomEvent('signinfailed', { detail: { error: err }});
+            document.dispatchEvent(evt);
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    get users() {
+        let ret = []
+        if (this.content) {
+            let usrs = (this.content[lang.langId]) ? this.content[lang.langId] : (this.content['EN']) ? this.content['EN'] : [];
+            ret = usrs;
+        }
+        return ret;
+    }
+}
+
+; (function () {
+    //console.log('Init secure service...');
+    window.secure = window.secure || new SecureService();
 })();
 
 //#endregion

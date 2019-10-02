@@ -415,7 +415,7 @@ riot.tag2('member-entry', '', '', '', function(opts) {
 });
 riot.tag2('org-entry', '', '', '', function(opts) {
 });
-riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="group-header"> <h4>{content.title}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <ninput ref="customerName" title="{content.label.customerName}" type="text" name="customerName"></ninput> <div class="padtop"></div> <ninput ref="userName" title="{content.label.userName}" type="text" name="userName"></ninput> <div class="padtop"></div> <ninput ref="passWord" title="{content.label.passWord}" type="password" name="pwd"></ninput> <div class="padtop"></div> <button ref="submit"> <span class="fas fa-save">&nbsp;</span> {content.label.submit} </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div>', 'register-entry,[data-is="register-entry"]{ margin: 0 auto; padding: 2px; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } register-entry .content-area,[data-is="register-entry"] .content-area{ grid-area: content-area; margin: 0 auto; padding: 0px; position: relative; display: block; width: 100%; height: 100%; background-color: white; background-image: url(\'public/assets/images/backgrounds/bg-08.jpg\'); background-blend-mode: multiply, luminosity; background-position: center; background-repeat: no-repeat; background-size: cover; } register-entry .padtop,[data-is="register-entry"] .padtop,register-entry .content-area .padtop,[data-is="register-entry"] .content-area .padtop,register-entry .content-area .group-header .padtop,[data-is="register-entry"] .content-area .group-header .padtop,register-entry .content-area .group-body .padtop,[data-is="register-entry"] .content-area .group-body .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; } register-entry .content-area .group-header,[data-is="register-entry"] .content-area .group-header{ display: block; margin: 0 auto; padding: 3px; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: cornflowerblue; border: 1px solid dimgray; border-radius: 8px 8px 0 0; } register-entry .content-area .group-header h4,[data-is="register-entry"] .content-area .group-header h4{ display: block; margin: 0 auto; padding: 0; text-align: center; color: whitesmoke; user-select: none; } register-entry .content-area .group-body,[data-is="register-entry"] .content-area .group-body{ display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0; height: auto; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background: white; border: 1px solid dimgray; border-radius: 0 0 8px 8px; } register-entry .content-area .group-body button,[data-is="register-entry"] .content-area .group-body button{ display: inline-block; margin: 5px auto; padding: 10px 15px; color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; }', '', function(opts) {
+riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="group-header"> <h4><span class="fas fa-save">&nbsp;</span>&nbsp;{content.title}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <ninput ref="customerName" title="{content.label.customerName}" type="text" name="customerName"></ninput> <div class="padtop"></div> <ninput ref="userName" title="{content.label.userName}" type="text" name="userName"></ninput> <div class="padtop"></div> <ninput ref="passWord" title="{content.label.passWord}" type="password" name="pwd"></ninput> <div class="padtop"></div> <button ref="submit"> <span class="fas fa-save">&nbsp;</span> {content.label.submit} </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div>', 'register-entry,[data-is="register-entry"]{ margin: 0 auto; padding: 2px; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } register-entry .content-area,[data-is="register-entry"] .content-area{ grid-area: content-area; margin: 0 auto; padding: 0px; position: relative; display: block; width: 100%; height: 100%; background-color: white; background-image: url(\'public/assets/images/backgrounds/bg-08.jpg\'); background-blend-mode: multiply, luminosity; background-position: center; background-repeat: no-repeat; background-size: cover; } register-entry .padtop,[data-is="register-entry"] .padtop,register-entry .content-area .padtop,[data-is="register-entry"] .content-area .padtop,register-entry .content-area .group-header .padtop,[data-is="register-entry"] .content-area .group-header .padtop,register-entry .content-area .group-body .padtop,[data-is="register-entry"] .content-area .group-body .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; } register-entry .content-area .group-header,[data-is="register-entry"] .content-area .group-header{ display: block; margin: 0 auto; padding: 3px; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: cornflowerblue; border: 1px solid dimgray; border-radius: 8px 8px 0 0; } register-entry .content-area .group-header h4,[data-is="register-entry"] .content-area .group-header h4{ display: block; margin: 0 auto; padding: 0; padding-top: 5px; font-size: 1.1rem; text-align: center; color: whitesmoke; user-select: none; } register-entry .content-area .group-body,[data-is="register-entry"] .content-area .group-body{ display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0; height: auto; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background: white; border: 1px solid dimgray; border-radius: 0 0 8px 8px; } register-entry .content-area .group-body button,[data-is="register-entry"] .content-area .group-body button{ display: inline-block; margin: 5px auto; padding: 10px 15px; color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; }', '', function(opts) {
         let self = this;
         let defaultContent = {
             title: 'Register',
@@ -434,10 +434,14 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
             document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
             document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('registersuccess', onRegisterSuccess);
+            document.addEventListener('registerfailed', onRegisterFailed);
             submit.addEventListener('click', onSubmit);
         }
         let unbindEvents = () => {
             submit.removeEventListener('click', onSubmit);
+            document.addEventListener('registerfailed', onRegisterFailed);
+            document.addEventListener('registersuccess', onRegisterSuccess);
             document.removeEventListener('screenchanged', onScreenChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
             document.removeEventListener('appcontentchanged', onAppContentChanged);
@@ -457,7 +461,6 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
             passWord = null;
             submit = null;
         });
-
         let onAppContentChanged = (e) => {
             if (screenservice && screenservice.screenId === 'register') {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
@@ -480,15 +483,22 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
                 clearInputs();
             }
         }
+        let onRegisterSuccess = (e) => {
+
+        }
+        let onRegisterFailed = (e) => {
+
+        }
         let onSubmit = (e) => {
             if (checkCustomerName() && checkUserName() && checkPassword()) {
 
                 let data = {
-                    "customerName": customerName.value(),
-                    "userName": userName.value(),
-                    "passWord": passWord.value()
+                    customerName: customerName.value(),
+                    userName: userName.value(),
+                    passWord: passWord.value(),
+                    licenseTypeId: 0
                 }
-                console.log(data);
+                secure.register(data.customerName, data.userName, data.passWord, data.licenseTypeId);
             }
         }
         let clearInputs = () => {
@@ -520,7 +530,7 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
             return ret;
         }
 });
-riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div ref="userSignIn" class="user-signin"> <div class="group-header"> <h4>{content.title}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <ninput ref="userName" title="{content.label.userName}" type="text" name="userName"></ninput> <div class="padtop"></div> <ninput ref="passWord" title="{content.label.passWord}" type="password" name="pwd"></ninput> <div class="padtop"></div> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> {content.label.submit} </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> <div ref="userSelection" class="user-selection hide"> <div class="group-header"> <h4>{content.label.selectAccount}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <h1>SELECT USER 1</h1> <h1>SELECT USER 2</h1> <h1>SELECT USER 3</h1> <div class="padtop"></div> <button ref="cancel"> <span class="fa fa-user-times">&nbsp;</span> Cancel </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> </div>', 'signin-entry,[data-is="signin-entry"]{ margin: 0 auto; padding: 2px; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } signin-entry .content-area,[data-is="signin-entry"] .content-area{ grid-area: content-area; margin: 0 auto; padding: 0px; position: relative; display: block; width: 100%; height: 100%; background-color: white; background-image: url(\'public/assets/images/backgrounds/bg-08.jpg\'); background-blend-mode: multiply, luminosity; background-position: center; background-repeat: no-repeat; background-size: cover; } signin-entry .content-area .user-signin,[data-is="signin-entry"] .content-area .user-signin,signin-entry .content-area .user-selection,[data-is="signin-entry"] .content-area .user-selection{ display: block; position: relative; margin: 0 auto; padding: 0; } signin-entry .content-area .user-signin.hide,[data-is="signin-entry"] .content-area .user-signin.hide,signin-entry .content-area .user-selection.hide,[data-is="signin-entry"] .content-area .user-selection.hide{ display: none; } signin-entry .padtop,[data-is="signin-entry"] .padtop,signin-entry .content-area .padtop,[data-is="signin-entry"] .content-area .padtop,signin-entry .content-area .user-signin .group-header .padtop,[data-is="signin-entry"] .content-area .user-signin .group-header .padtop,signin-entry .content-area .user-signin .group-body .padtop,[data-is="signin-entry"] .content-area .user-signin .group-body .padtop,signin-entry .content-area .user-selection .group-header .padtop,[data-is="signin-entry"] .content-area .user-selection .group-header .padtop,signin-entry .content-area .user-selection .group-body .padtop,[data-is="signin-entry"] .content-area .user-selection .group-body .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; } signin-entry .content-area .user-signin .group-header,[data-is="signin-entry"] .content-area .user-signin .group-header,signin-entry .content-area .user-selection .group-header,[data-is="signin-entry"] .content-area .user-selection .group-header{ display: block; margin: 0 auto; padding: 3px; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: cornflowerblue; border: 1px solid dimgray; border-radius: 8px 8px 0 0; } signin-entry .content-area .user-signin .group-header h4,[data-is="signin-entry"] .content-area .user-signin .group-header h4,signin-entry .content-area .user-selection .group-header h4,[data-is="signin-entry"] .content-area .user-selection .group-header h4{ display: block; margin: 0 auto; padding: 0; text-align: center; color: whitesmoke; user-select: none; } signin-entry .content-area .user-signin .group-body,[data-is="signin-entry"] .content-area .user-signin .group-body,signin-entry .content-area .user-selection .group-body,[data-is="signin-entry"] .content-area .user-selection .group-body{ display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0; height: auto; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background: white; border: 1px solid dimgray; border-radius: 0 0 8px 8px; } signin-entry .content-area .user-signin .group-body button,[data-is="signin-entry"] .content-area .user-signin .group-body button,signin-entry .content-area .user-selection .group-body button,[data-is="signin-entry"] .content-area .user-selection .group-body button{ display: inline-block; margin: 5px auto; padding: 10px 15px; color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; }', '', function(opts) {
+riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div ref="userSignIn" class="user-signin"> <div class="group-header"> <h4><span class="fa fa-user-lock">&nbsp;</span>&nbsp;{content.title}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <ninput ref="userName" title="{content.label.userName}" type="text" name="userName"></ninput> <div class="padtop"></div> <ninput ref="passWord" title="{content.label.passWord}" type="password" name="pwd"></ninput> <div class="padtop"></div> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> {content.label.submit} </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> <div ref="userSelection" class="user-selection hide"> <div class="group-header"> <h4>{content.label.selectAccount}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <user-selection ref="userList" customername="{content.label.customerName}""></user-selection> <div class="padtop"></div> <button ref="cancel"> <span class="fa fa-user-times">&nbsp;</span> Cancel </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> </div>', 'signin-entry,[data-is="signin-entry"]{ margin: 0 auto; padding: 2px; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } signin-entry .content-area,[data-is="signin-entry"] .content-area{ grid-area: content-area; margin: 0 auto; padding: 0px; position: relative; display: block; width: 100%; height: 100%; background-color: white; background-image: url(\'public/assets/images/backgrounds/bg-15.jpg\'); background-blend-mode: multiply, luminosity; background-position: center; background-repeat: no-repeat; background-size: cover; } signin-entry .content-area .user-signin,[data-is="signin-entry"] .content-area .user-signin,signin-entry .content-area .user-selection,[data-is="signin-entry"] .content-area .user-selection{ display: block; position: relative; margin: 0 auto; padding: 0; } signin-entry .content-area .user-signin.hide,[data-is="signin-entry"] .content-area .user-signin.hide,signin-entry .content-area .user-selection.hide,[data-is="signin-entry"] .content-area .user-selection.hide{ display: none; } signin-entry .padtop,[data-is="signin-entry"] .padtop,signin-entry .content-area .padtop,[data-is="signin-entry"] .content-area .padtop,signin-entry .content-area .user-signin .group-header .padtop,[data-is="signin-entry"] .content-area .user-signin .group-header .padtop,signin-entry .content-area .user-signin .group-body .padtop,[data-is="signin-entry"] .content-area .user-signin .group-body .padtop,signin-entry .content-area .user-selection .group-header .padtop,[data-is="signin-entry"] .content-area .user-selection .group-header .padtop,signin-entry .content-area .user-selection .group-body .padtop,[data-is="signin-entry"] .content-area .user-selection .group-body .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; } signin-entry .content-area .user-signin .group-header,[data-is="signin-entry"] .content-area .user-signin .group-header,signin-entry .content-area .user-selection .group-header,[data-is="signin-entry"] .content-area .user-selection .group-header{ display: block; margin: 0 auto; padding: 3px; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: cornflowerblue; border: 1px solid dimgray; border-radius: 8px 8px 0 0; } signin-entry .content-area .user-signin .group-header h4,[data-is="signin-entry"] .content-area .user-signin .group-header h4,signin-entry .content-area .user-selection .group-header h4,[data-is="signin-entry"] .content-area .user-selection .group-header h4{ display: block; margin: 0 auto; padding: 0; padding-top: 5px; font-size: 1.1rem; text-align: center; color: whitesmoke; user-select: none; } signin-entry .content-area .user-signin .group-body,[data-is="signin-entry"] .content-area .user-signin .group-body,signin-entry .content-area .user-selection .group-body,[data-is="signin-entry"] .content-area .user-selection .group-body{ display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0; height: auto; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background: white; border: 1px solid dimgray; border-radius: 0 0 8px 8px; } signin-entry .content-area .user-signin .group-body button,[data-is="signin-entry"] .content-area .user-signin .group-body button,signin-entry .content-area .user-selection .group-body button,[data-is="signin-entry"] .content-area .user-selection .group-body button{ display: inline-block; margin: 5px auto; padding: 10px 15px; color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; text-decoration: none; vertical-align: middle; }', '', function(opts) {
         let self = this;
         let defaultContent = {
             title: 'Sign In',
@@ -528,7 +538,8 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
                 selectAccount: 'Please Select Account',
                 userName: 'User Name (admin)',
                 passWord: 'Password',
-                submit: 'Sign In'
+                submit: 'Sign In',
+                customerName: 'Customer Name'
             }
         }
         this.content = defaultContent;
@@ -540,12 +551,16 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
             document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
             document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('userlistchanged', onUserListChanged);
+            document.addEventListener('signinfailed', onSignInFailed);
             submit.addEventListener('click', onSubmit);
             cancel.addEventListener('click', onCancel);
         }
         let unbindEvents = () => {
             cancel.removeEventListener('click', onCancel);
             submit.removeEventListener('click', onSubmit);
+            document.removeEventListener('signinfailed', onSignInFailed);
+            document.removeEventListener('userlistchanged', onUserListChanged);
             document.removeEventListener('screenchanged', onScreenChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
             document.removeEventListener('appcontentchanged', onAppContentChanged);
@@ -569,7 +584,6 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
             userSignIn = null;
             userSelection = null;
         });
-
         let onAppContentChanged = (e) => {
             if (screenservice && screenservice.screenId === 'signin') {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
@@ -592,19 +606,24 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
                 clearInputs();
             }
         }
+        let onUserListChanged = (e) => {
+            showUserSelection();
+        }
+        let onSignInFailed = (e) => {
+            let err = e.detail.error;
+            showError(err);
+        }
         let onSubmit = (e) => {
             if (checkUserName() && checkPassword()) {
 
                 let data = {
-                    "userName": userName.value(),
-                    "passWord": passWord.value()
+                    userName: userName.value(),
+                    passWord: passWord.value()
                 }
-                console.log(data);
-                showUserSelection();
+                secure.verifyUsers(data.userName, data.passWord);
             }
         }
         let onCancel = (e) => {
-            console.log('cancel user selection');
             showUserSignIn();
         }
         let clearInputs = () => {
@@ -612,6 +631,7 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
                 userName.clear();
                 passWord.clear();
             }
+            secure.reset();
         }
         let showUserSignIn = () => {
             if (userSignIn && userSelection) {
@@ -622,8 +642,19 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
         }
         let showUserSelection = () => {
             if (userSignIn && userSelection) {
-                userSignIn.classList.add('hide');
-                userSelection.classList.remove('hide');
+                if (secure.users.length > 1) {
+
+                    userSignIn.classList.add('hide');
+                    userSelection.classList.remove('hide');
+                }
+                else if (secure.users.length === 1) {
+
+                    let customerId = secure.users[0].customerId;
+                    secure.signin(customerId);
+                }
+                else {
+                    showMsg({ msg: 'No user found!!!.'})
+                }
             }
         }
         let checkUserName = () => {
@@ -639,6 +670,59 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
             ret = (val && val.length > 0);
             if (!ret) passWord.focus()
             return ret;
+        }
+        let showMsg = (err) => {
+            logger.info(err)
+            secure.reset();
+        }
+});
+riot.tag2('user-selection', '<virtual each="{user in users}"> <div class="account"> <div class="label">{opts.customername}</div> <div class="data">{user.CustomerName}</div> <button onclick="{onSignIn}">&nbsp;<span class="fas fa-sign-in-alt">&nbsp;</span></button> </div> <hr> </virtual>', 'user-selection,[data-is="user-selection"]{ display: block; margin: 0 auto; padding: 0; } user-selection .account,[data-is="user-selection"] .account{ margin: 0 auto; padding: 0; height: 100%; width: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; grid-template-areas: \'label button\' \'data button\'; overflow: hidden; overflow-y: auto; } user-selection .account .label,[data-is="user-selection"] .account .label{ grid-area: label; display: block; margin: 0 auto; padding: 0; font-weight: bold; color: navy; width: 100%; } user-selection .account .data,[data-is="user-selection"] .account .data{ grid-area: data; display: block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; } user-selection .account button,[data-is="user-selection"] .account button{ grid-area: button; display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; }', '', function(opts) {
+        let self = this;
+
+        this.users = [];
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('userlistchanged', onUserListChanged);
+
+        }
+        let unbindEvents = () => {
+
+            document.removeEventListener('userlistchanged', onUserListChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+
+        });
+        let onAppContentChanged = (e) => {
+            if (screenservice && screenservice.screenId === 'signin') {
+                self.users = (secure.content) ? secure.users : [];
+                self.update();
+            }
+        }
+        let onLanguageChanged = (e) => {
+            if (screenservice && screenservice.screenId === 'signin') {
+                self.users = (screenservice.content) ? secure.users : [];
+                self.update();
+            }
+        }
+        let onUserListChanged = (e) => {
+            if (screenservice && screenservice.screenId === 'signin') {
+                self.users = (secure.content) ? secure.users : [];
+                self.update();
+            }
+        }
+        this.onSignIn = (e) => {
+            let acc = e.item.user;
+            secure.signin(acc.customerId);
         }
 });
 riot.tag2('user-entry', '', '', '', function(opts) {
