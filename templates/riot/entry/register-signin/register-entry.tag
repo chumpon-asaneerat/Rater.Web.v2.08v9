@@ -186,10 +186,12 @@
             }
         }
         let onRegisterSuccess = (e) => {
-
+            screenservice.showDefault();
+            clearInputs();
         }
         let onRegisterFailed = (e) => {
-
+            let err = { msg: 'register failed.' }
+            showMsg(err);
         }
         let onSubmit = (e) => {
             if (checkCustomerName() && checkUserName() && checkPassword()) {
@@ -231,6 +233,10 @@
             ret = (val && val.length > 0);
             if (!ret) passWord.focus()
             return ret;
+        }
+        let showMsg = (err) => {
+            logger.info(err)
+            //secure.reset();
         }
     </script>
 </register-entry>

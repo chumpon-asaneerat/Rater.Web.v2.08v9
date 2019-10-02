@@ -542,7 +542,6 @@ class SecureService {
             passWord: pwd,
             licenseTypeId: licenseTypeId
         }
-
         let self = this;
         let fn = (r) => {
             let data = api.parse(r);

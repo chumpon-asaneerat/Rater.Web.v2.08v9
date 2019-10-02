@@ -165,12 +165,6 @@ const RaterWebv2x08r9 = class extends SqlServer {
         return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
     }
 
-    async SaveCustomer(pObj) {
-        let name = 'SaveCustomer';
-        let proc = schema[name];
-        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
-    }
-
     async SaveCustomerML(pObj) {
         let name = 'SaveCustomerML';
         let proc = schema[name];
@@ -339,12 +333,6 @@ const RaterWebv2x08r9 = class extends SqlServer {
         return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
     }
 
-    async Register(pObj) {
-        let name = 'Register';
-        let proc = schema[name];
-        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
-    }
-
     async CheckUsers(pObj) {
         let name = 'CheckUsers';
         let proc = schema[name];
@@ -371,6 +359,48 @@ const RaterWebv2x08r9 = class extends SqlServer {
 
     async SignOut(pObj) {
         let name = 'SignOut';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
+    async CheckLicense(pObj) {
+        let name = 'CheckLicense';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
+    async SaveCustomer(pObj) {
+        let name = 'SaveCustomer';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
+    async Register(pObj) {
+        let name = 'Register';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
+    async SaveLicenseHistory(pObj) {
+        let name = 'SaveLicenseHistory';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
+    async GetCustomerHistories(pObj) {
+        let name = 'GetCustomerHistories';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
+    async RevokeLicense(pObj) {
+        let name = 'RevokeLicense';
+        let proc = schema[name];
+        return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
+    }
+
+    async ExtendLicense(pObj) {
+        let name = 'ExtendLicense';
         let proc = schema[name];
         return await this.execute(name, pObj, proc.parameter.inputs, proc.parameter.outputs);
     }

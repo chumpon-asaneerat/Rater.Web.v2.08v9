@@ -654,72 +654,6 @@
             "outputs": []
         }
     },
-    "SaveCustomer": {
-        "type": "PROCEDURE",
-        "updated": "2019-08-19T17:07:53.063Z",
-        "parameter": {
-            "inputs": [
-                {
-                    "name": "customerName",
-                    "type": "nvarchar(50)"
-                },
-                {
-                    "name": "taxCode",
-                    "type": "nvarchar(30)"
-                },
-                {
-                    "name": "address1",
-                    "type": "nvarchar(80)"
-                },
-                {
-                    "name": "address2",
-                    "type": "nvarchar(80)"
-                },
-                {
-                    "name": "city",
-                    "type": "nvarchar(50)"
-                },
-                {
-                    "name": "province",
-                    "type": "nvarchar(50)"
-                },
-                {
-                    "name": "postalcode",
-                    "type": "nvarchar(8)"
-                },
-                {
-                    "name": "phone",
-                    "type": "nvarchar(80)"
-                },
-                {
-                    "name": "mobile",
-                    "type": "nvarchar(80)"
-                },
-                {
-                    "name": "fax",
-                    "type": "nvarchar(80)"
-                },
-                {
-                    "name": "email",
-                    "type": "nvarchar(80)"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "customerId",
-                    "type": "nvarchar(30)"
-                },
-                {
-                    "name": "errNum",
-                    "type": "int"
-                },
-                {
-                    "name": "errMsg",
-                    "type": "nvarchar(max)"
-                }
-            ]
-        }
-    },
     "SaveCustomerML": {
         "type": "PROCEDURE",
         "updated": "2019-08-19T17:07:53.067Z",
@@ -1791,52 +1725,6 @@
             ]
         }
     },
-    "Register": {
-        "type": "PROCEDURE",
-        "updated": "2019-08-19T17:07:53.197Z",
-        "parameter": {
-            "inputs": [
-                {
-                    "name": "customerName",
-                    "type": "nvarchar(50)"
-                },
-                {
-                    "name": "userName",
-                    "type": "nvarchar(50)"
-                },
-                {
-                    "name": "passWord",
-                    "type": "nvarchar(20)"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "customerId",
-                    "type": "nvarchar(30)"
-                },
-                {
-                    "name": "memberId",
-                    "type": "nvarchar(30)"
-                },
-                {
-                    "name": "branchId",
-                    "type": "nvarchar(30)"
-                },
-                {
-                    "name": "orgId",
-                    "type": "nvarchar(30)"
-                },
-                {
-                    "name": "errNum",
-                    "type": "int"
-                },
-                {
-                    "name": "errMsg",
-                    "type": "nvarchar(100)"
-                }
-            ]
-        }
-    },
     "CheckUsers": {
         "type": "PROCEDURE",
         "updated": "2019-08-19T17:07:53.200Z",
@@ -1960,6 +1848,259 @@
                 {
                     "name": "accessId",
                     "type": "nvarchar(30)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "CheckLicense": {
+        "type": "PROCEDURE",
+        "updated": "2019-10-01T23:00:01.800Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "null"
+                },
+                {
+                    "name": "licenseTypeId",
+                    "type": "int",
+                    "default": "null"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "SaveCustomer": {
+        "type": "PROCEDURE",
+        "updated": "2019-10-02T02:17:25.110Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "taxCode",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "address1",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "address2",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "city",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "province",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "postalcode",
+                    "type": "nvarchar(8)"
+                },
+                {
+                    "name": "phone",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "mobile",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "fax",
+                    "type": "nvarchar(80)"
+                },
+                {
+                    "name": "email",
+                    "type": "nvarchar(80)"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "Register": {
+        "type": "PROCEDURE",
+        "updated": "2019-10-02T02:18:41.980Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "userName",
+                    "type": "nvarchar(50)"
+                },
+                {
+                    "name": "passWord",
+                    "type": "nvarchar(20)"
+                },
+                {
+                    "name": "licenseTypeId",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "memberId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "branchId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "orgId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(100)"
+                }
+            ]
+        }
+    },
+    "SaveLicenseHistory": {
+        "type": "PROCEDURE",
+        "updated": "2019-10-02T02:30:59.233Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)"
+                },
+                {
+                    "name": "licenseTypeId",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "historyId",
+                    "type": "int"
+                },
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "GetCustomerHistories": {
+        "type": "PROCEDURE",
+        "updated": "2019-10-02T03:44:36.297Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "langId",
+                    "type": "nvarchar(3)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "customerId",
+                    "type": "nvarchar(30)",
+                    "default": "NULL"
+                }
+            ],
+            "outputs": []
+        }
+    },
+    "RevokeLicense": {
+        "type": "PROCEDURE",
+        "updated": "2019-10-02T03:45:33.110Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "historyId",
+                    "type": "int"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "errNum",
+                    "type": "int"
+                },
+                {
+                    "name": "errMsg",
+                    "type": "nvarchar(max)"
+                }
+            ]
+        }
+    },
+    "ExtendLicense": {
+        "type": "PROCEDURE",
+        "updated": "2019-10-02T04:23:35.340Z",
+        "parameter": {
+            "inputs": [
+                {
+                    "name": "historyId",
+                    "type": "int"
+                },
+                {
+                    "name": "endDate",
+                    "type": "datetime"
+                },
+                {
+                    "name": "maxDevice",
+                    "type": "int"
+                },
+                {
+                    "name": "maxAccount",
+                    "type": "int"
+                },
+                {
+                    "name": "maxClient",
+                    "type": "int"
                 }
             ],
             "outputs": [

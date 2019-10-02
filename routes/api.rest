@@ -19,9 +19,10 @@ POST http://localhost:3000/api/customer/register
 content-type: application/json
 
 {
-    "customerName": "",
-    "userName": "",
-    "passWord": ""
+    "customerName": "House Plant Co., Ltd.",
+    "userName": "admin@houseplant.com",
+    "passWord": "1234",
+    "licenseTypeId": 0
 }
 
 #### Validate Account by login

@@ -93,5 +93,10 @@
     "InitMasterPKs": false,
     "InitDeviceTypes": false,
     "InitDefaultUser": false,
-    "InitErrorMessages": false
+    "InitErrorMessages": false,
+    "CheckLicense": true,
+    "SaveLicenseHistory": true,
+    "GetCustomerHistories": true,
+    "RevokeLicense": true,
+    "ExtendLicense": true
 }
