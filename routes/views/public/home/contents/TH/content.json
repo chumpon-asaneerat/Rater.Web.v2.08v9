@@ -12,9 +12,11 @@
             "screenid": "signin",
             "title": "เข้าใช้งาน",
             "label": {
+                "selectAccount": "กรุณาเลือกบัญชี",
                 "userName": "ชื่อบัญชี",
                 "passWord": "รหัสผ่าน",
-                "submit": "เข้าใช้งาน"
+                "submit": "เข้าใช้งาน",
+                "cancel": "ยกเลิก"
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "far fa-user-circle", "icontype": "fontcss" },

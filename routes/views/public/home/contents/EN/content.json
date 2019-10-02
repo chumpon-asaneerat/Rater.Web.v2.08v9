@@ -12,9 +12,11 @@
             "screenid": "signin",
             "title": "Sign In",
             "label": {
+                "selectAccount": "Please Select Account",
                 "userName": "User Name",
                 "passWord": "Password",
-                "submit": "Sign In"
+                "submit": "Sign In",
+                "cancel": "Cancel"
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"Home", "icon": "far fa-user-circle", "icontype": "fontcss" },

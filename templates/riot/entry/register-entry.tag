@@ -13,11 +13,11 @@
         <div class="group-body">
             <div class="padtop"></div>
             <div class="padtop"></div>
-            <ninput title="{ content.label.customerName }" type="text" name="customerName"></ninput>
+            <ninput ref="customerName" title="{ content.label.customerName }" type="text" name="customerName"></ninput>
             <div class="padtop"></div>
-            <ninput title="{ content.label.userName }" type="email" name="userName"></ninput>
+            <ninput ref="userName" title="{ content.label.userName }" type="text" name="userName"></ninput>
             <div class="padtop"></div>
-            <ninput title="{ content.label.passWord }" type="password" name="pwd"></ninput>
+            <ninput ref="passWord" title="{ content.label.passWord }" type="password" name="pwd"></ninput>
             <div class="padtop"></div>
             <button ref="submit">
                 <span class="fas fa-save">&nbsp;</span>
@@ -128,7 +128,7 @@
         }
         this.content = defaultContent;
 
-        let submit;
+        let customerName, userName, passWord, submit;
 
         let bindEvents = () => {
             document.addEventListener('appcontentchanged', onAppContentChanged);
@@ -144,11 +144,17 @@
         }
 
         this.on('mount', () => {
+            customerName = self.refs['customerName'];
+            userName = self.refs['userName'];
+            passWord = self.refs['passWord'];
             submit = self.refs['submit'];
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
+            customerName = null;
+            userName = null;
+            passWord = null;
             submit = null;
         });
 
@@ -168,10 +174,51 @@
             if (e.detail.screenId === 'register') {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
+                customerName.focus();
+            }
+            else {
+                clearInputs();
             }
         }
         let onSubmit = (e) => {
-            console.log('submit click');
+            if (checkCustomerName() && checkUserName() && checkPassword()) {
+                //e.preventDefault();
+                //e.stopPropagation();
+                let data = {
+                    "customerName": customerName.value(),
+                    "userName": userName.value(),
+                    "passWord": passWord.value()
+                }
+                console.log(data);
+            }
+        }
+        let clearInputs = () => {
+            if (customerName && userName && passWord) {
+                customerName.clear();
+                userName.clear();
+                passWord.clear();
+            }
+        }
+        let checkCustomerName = () => {
+            let ret = false;            
+            let val = customerName.value();
+            ret = (val && val.length > 0);
+            if (!ret) customerName.focus()
+            return ret;
+        }
+        let checkUserName = () => {
+            let ret = false;
+            let val = userName.value();
+            ret = (val && val.length > 0);
+            if (!ret) userName.focus()
+            return ret;
+        }
+        let checkPassword = () => {
+            let ret = false;
+            let val = passWord.value();
+            ret = (val && val.length > 0);
+            if (!ret) passWord.focus()
+            return ret;
         }
     </script>
 </register-entry>
