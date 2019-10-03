@@ -26,6 +26,14 @@ const WebServer = require(nlibExprjs);
 
 //#endregion
 
+//#region secure middleware
+
+const raterPath = path.join(rootPath, 'raterweb');
+const raterSecurejs = path.join(raterPath, 'rater-secure')
+const secure = require(raterSecurejs).RaterSecure;
+
+//#endregion
+
 //#region router type and variables
 
 const WebRouter = WebServer.WebRouter;
@@ -103,19 +111,7 @@ const routes = class {
     }
 }
 
-const checkSecure = (req, res, next) => {
-    console.log('secure checked.');
-    next();
-}
-
-const checkSecure2 = (req, res, next) => {
-    console.log('secure level 2 checked.');
-    next();
-}
-
-router.use(checkSecure);
-router.use(checkSecure2);
-router.get('/', routes.home)
+router.get('/', secure.checkAccess, secure.checkRedirect, routes.home)
 router.get('/:file', routes.getfile)
 
 const init_routes = (svr) => {
