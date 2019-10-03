@@ -498,11 +498,25 @@ riot.tag2('membertype-grid', '', '', '', function(opts) {
 });
 riot.tag2('device-entry', '', '', '', function(opts) {
 });
+riot.tag2('admin-home', '', '', '', function(opts) {
+});
+riot.tag2('device-home', '', '', '', function(opts) {
+});
+riot.tag2('exclusive-home', '', '', '', function(opts) {
+});
+riot.tag2('staff-home', '', '', '', function(opts) {
+});
 riot.tag2('org-entry', '', '', '', function(opts) {
 });
 riot.tag2('member-entry', '', '', '', function(opts) {
 });
 riot.tag2('customer-entry', '', '', '', function(opts) {
+});
+riot.tag2('edl-admin-home', '', '', '', function(opts) {
+});
+riot.tag2('edl-staff-home', '', '', '', function(opts) {
+});
+riot.tag2('edl-supervisor-home', '', '', '', function(opts) {
 });
 riot.tag2('user-entry', '', '', '', function(opts) {
 });
