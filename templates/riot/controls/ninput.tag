@@ -79,8 +79,31 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
+
+        //#endregion
+
+        //#region controls variables and methods
+
         let input, clear;
+
+        let initCtrls = () => {
+            input = self.refs['input'];
+            clear = self.refs['clear'];
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => {
+            input = null;
+            clear = null;
+        }
+
+        //#endregion
+
+        //#region events bind/unbind
 
         let bindEvents = () => {
             clear.addEventListener('click', onClear);
@@ -88,37 +111,51 @@
         let unbindEvents = () => {
             clear.removeEventListener('click', onClear);
         }
+
+        //#endregion
+
+        //#region riot handlers
+
         this.on('mount', () => {
-            input = self.refs['input'];
-            clear = self.refs['clear'];
+            initCtrls();
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
-            input = null;
-            clear = null;
+            clearInputs();
         });
+
+        //#endregion
+
+        //#region dom event handlers
 
         let onClear = () => {
             if (input) input.value = '';
         }
+
+        //#endregion
+
+        //#region public methods
+
         this.clear = () => {
             if (input) input.value = '';
         }
         this.focus = () => {
             if (input) input.focus();
         }
-        this.value = (val) => {
+        this.value = () => {
             let ret;
             if (input) {
-                if (!val) {
-                    ret = input.value;
+                if (arguments && arguments.length > 0) {
+                    input.value = arguments[0];
                 }
                 else {
-                    input.value = val;
+                    ret = input.value;
                 }
             }
             return ret;
         }
+
+        //#endregion
     </script>
 </ninput>

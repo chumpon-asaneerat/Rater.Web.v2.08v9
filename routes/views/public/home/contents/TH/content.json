@@ -3,6 +3,9 @@
         { 
             "screenid": "home",
             "title": "หน้าหลัก",
+            "label": {
+                "screenTitle": "หน้าหลัก"
+            },
             "links": [
                 { "type": "screen", "ref": "signin", "text":"เข้าใช้งาน", "icon": "far fa-user-circle", "icontype": "fontcss" },
                 { "type": "screen", "ref": "register", "text":"ลงทะเบียน", "icon": "fas fa-user-plus", "icontype": "fontcss" }

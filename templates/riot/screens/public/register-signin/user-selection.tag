@@ -56,53 +56,83 @@
         }
 </style>
     <script>
+        //#region local variables
+
         let self = this;
-        //let btnSignIn;
+        let screenId = 'signin';
+
+        //#endregion
+
+        //#region content variables and methods
 
         this.users = [];
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.users = (secure.content) ? secure.users : [];
+                self.update();
+            }
+        }
+
+        //#endregion
+
+        //#region controls variables and methods
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        //#endregion
+
+        //#region events bind/unbind
 
         let bindEvents = () => {
             document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
-            //btnSignIn.addEventListener('click', onSignIn);
         }
         let unbindEvents = () => {
-            //btnSignIn.removeEventListener('click', onSignIn);
             document.removeEventListener('userlistchanged', onUserListChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
             document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
+        //#endregion
+
+        //#region riot handlers
+
         this.on('mount', () => {
-            //btnSignIn = self.refs['btnSignIn'];
+            initCtrls();
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
-            //btnSignIn = null;
+            freeCtrls();
         });
-        let onAppContentChanged = (e) => { 
-            if (screenservice && screenservice.screenId === 'signin') {
-                self.users = (secure.content) ? secure.users : [];
-                self.update();
-            }
-        }
-        let onLanguageChanged = (e) => { 
-            if (screenservice && screenservice.screenId === 'signin') {
-                self.users = (screenservice.content) ? secure.users : [];
-                self.update();
-            }
-        }
-        let onUserListChanged = (e) => { 
-            if (screenservice && screenservice.screenId === 'signin') {
-                self.users = (secure.content) ? secure.users : [];
-                self.update();
-            }
-        }
+
+        //#endregion
+
+        //#region dom event handlers
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onUserListChanged = (e) => { updatecontent(); }
+
+        //#endregion
+        
+        //#region local inline event handlers
+
         this.onSignIn = (e) => {
             let acc = e.item.user;
             secure.signin(acc.customerId);
         }
+
+        //#endregion
+
+        //#region private service wrapper methods
+
+        let showMsg = (err) => { }
+
+        //#endregion
     </script>
 </user-selection>

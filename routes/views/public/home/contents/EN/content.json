@@ -3,6 +3,9 @@
         { 
             "screenid": "home",
             "title": "Home",
+            "label": {
+                "screenTitle": "Rater Web Home"
+            },
             "links": [
                 { "type": "screen", "ref": "signin", "text":"Sign In", "icon": "far fa-user-circle", "icontype": "fontcss" },
                 { "type": "screen", "ref": "register", "text":"Register", "icon": "fas fa-user-plus", "icontype": "fontcss" }

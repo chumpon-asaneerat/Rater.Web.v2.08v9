@@ -61,33 +61,46 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
 
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        //#endregion
 
-        this.on('mount', () => {
-            // after mount.
-            scanScreens();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-            // after unmount.
-            resetScreens();
-        });
+        //#region controls variables and methods
 
-        let scanScreens = () => {
+        let initCtrls = () => {
             let sobjs = self.tags['screen'];
             if (sobjs) {
                 if (!Array.isArray(sobjs)) screenservice.screens.push(sobjs)
                 else screenservice.screens.push(...sobjs)
             }
-            setDefaultScreen();
-        }
-        let setDefaultScreen = () => {
             screenservice.showDefault();
         }
-        let resetScreens = () => { screenservice.clear(); }
+        let freeCtrls = () => {
+            screenservice.clear();
+        }
+
+        //#endregion
+
+        //#region events bind/unbind
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        //#endregion
+
+        //#region riot handlers
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        //#endregion
     </script>
 </app>

@@ -121,23 +121,52 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
+
+        //#endregion
+
+        //#region controls variables and methods
+
         let flipper;
+
+        let initCtrls = () => {
+            flipper = self.refs['flipper'];
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => {}
+
+        //#endregion
+        
+        //#region events bind/unbind
 
         let bindEvents = () => {}
         let unbindEvents = () => {}
 
+        //#endregion
+
+        //#region riot handlers
+
         this.on('mount', () => {
-            flipper = self.refs['flipper'];
+            initCtrls();
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
-            flipper = null;
+            freeCtrls();            
         });
+
+        //#endregion
+
+        //#region public methods
 
         this.toggle = () => {
             flipper.classList.toggle('toggle');
         }
+
+        //#endregion
     </script>
 </dual-screen>

@@ -86,9 +86,39 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
-        let links, dropItems;
+
+        //#endregion
+
+        //#region content variables and methods
+
         this.menus = [];
+        let updatecontent = () => {
+            self.menus = (screenservice.content) ? screenservice.content.links : [];
+            self.update();
+        }
+
+        //#endregion
+
+        //#region controls variables and methods
+        
+        let links, dropItems;
+
+        let initCtrls = () => {
+            links = self.refs['links'];
+            dropItems = self.refs['dropItems'];
+        }
+        let freeCtrls = () => {
+            dropItems = null;
+            links = null;
+        }
+        let clearInputs = () => {}
+
+        //#endregion
+
+        //#region events bind/unbind
         
         let bindEvents = () => {
             document.addEventListener('appcontentchanged', onAppContentChanged);
@@ -105,32 +135,52 @@
             document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
+        //#endregion
+
+        //#region riot handlers
+
         this.on('mount', () => {
-            links = self.refs['links'];
-            dropItems = self.refs['dropItems'];
+            initCtrls();
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
-            dropItems = null;
-            links = null;
+            freeCtrls();
         });
 
-        let onAppContentChanged = (e) => { 
-            self.menus = (screenservice.content) ? screenservice.content.links : [];
-            self.update();
+        //#endregion
+
+        //#region dom event handlers
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) =>  { updatecontent(); }
+        let onScreenChanged = (e) =>  { updatecontent(); }
+
+        //#endregion
+
+        //#region local inline event handlers
+
+        this.selectItem = (e) => {
+            toggle(); // toggle off
+            let selLink = e.item.item;
+            if (selLink.type === 'screen') {
+                screenservice.show(selLink.ref);
+            }
+            else {
+                console.log('Not implements type, data:', selLink);
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
         }
-        let onLanguageChanged = (e) => { 
-            self.menus = (screenservice.content) ? screenservice.content.links : [];
-            self.update();
-        }
-        let onScreenChanged = (e) => {
-            self.menus = (screenservice.content) ? screenservice.content.links : [];
-            self.update();
-        }
+
+        //#endregion
+
+        //#region private methods
+
         let toggle = () => {
             dropItems.classList.toggle('show');
-            self.update();
+            updatecontent();
         }
 
         let isInClassList = (elem, classList) => {
@@ -154,18 +204,7 @@
                 }
             }
         }
-        this.selectItem = (e) => {
-            toggle(); // toggle off
-            let selLink = e.item.item;
-            if (selLink.type === 'screen') {
-                screenservice.show(selLink.ref);
-            }
-            else {
-                console.log('Not implements type, data:', selLink);
-            }
 
-            e.preventDefault();
-            e.stopPropagation();
-        }
+        //#endregion
     </script>
 </links-menu>

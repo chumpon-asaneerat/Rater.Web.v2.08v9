@@ -103,8 +103,37 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
+
+        //#endregion
+
+        //#region content variables and methods
+
+        let updatecontent = () => {
+            self.update();
+        }
+
+        //#endregion
+
+        //#region controls variables and methods
+
         let flags, dropItems;
+
+        let initCtrls = () => {
+            flags = self.refs['flags'];
+            dropItems = self.refs['dropItems'];
+        }
+        let freeCtrls = () => {
+            dropItems = null;
+            flags = null;
+        }
+        let clearInputs = () => {}
+
+        //#endregion
+
+        //#region events bind/unbind
 
         let bindEvents = () => {
             document.addEventListener('languagechanged', onLanguageChanged);
@@ -117,24 +146,46 @@
             document.removeEventListener('languagechanged', onLanguageChanged);
         }
 
+        //#endregion
+
+        //#region riot handlers
+
         this.on('mount', () => {
-            flags = self.refs['flags'];
-            dropItems = self.refs['dropItems'];
+            initCtrls();
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
-            dropItems = null;
-            flags = null;
+            freeCtrls();
         });
 
-        let onLanguageChanged = (e) => { self.update(); }
+        //#endregion
+
+        //#region dom event handlers
+
+        let onLanguageChanged = (e) => { updatecontent(); }
+
+        //#endregion
+
+        //#region local inline event handlers
+
+        this.selectItem = (e) => {
+            toggle(); // toggle off
+            let selLang = e.item.item;
+            lang.change(selLang.langId);
+
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        //#endregion
+
+        //#region private methods
 
         let toggle = () => {
             dropItems.classList.toggle('show');
-            self.update();
+            updatecontent();
         }
-
         let isInClassList = (elem, classList) => {
             let len = classList.length;
             let found = false;
@@ -146,7 +197,6 @@
             }
             return found;
         }
-
         let checkClickPosition = (e) => {
             // Close the dropdown menu if the user clicks outside of it
             let classList = ['.flag-combo', '.flag-css', '.flag-text', '.drop-synbol'];
@@ -158,13 +208,6 @@
             }
         }
 
-        this.selectItem = (e) => {
-            toggle(); // toggle off
-            let selLang = e.item.item;
-            lang.change(selLang.langId);
-
-            e.preventDefault();
-            e.stopPropagation();
-        }
+        //#endregion
     </script>
 </language-menu>

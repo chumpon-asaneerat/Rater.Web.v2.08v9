@@ -118,7 +118,15 @@
         }
     </style>
     <script>
-        let self = this;        
+        //#region local variables
+
+        let self = this;
+        let screenId = 'register';
+
+        //#endregion
+
+        //#region content variables and methods
+
         let defaultContent = {
             title: 'Register',
             label: {
@@ -130,81 +138,30 @@
         }
         this.content = defaultContent;
 
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        //#endregion
+
+        //#region controls variables and methods
+
         let customerName, userName, passWord, submit;
 
-        let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
-            document.addEventListener('registersuccess', onRegisterSuccess);
-            document.addEventListener('registerfailed', onRegisterFailed);
-            submit.addEventListener('click', onSubmit);
-        }
-        let unbindEvents = () => {
-            submit.removeEventListener('click', onSubmit);
-            document.addEventListener('registerfailed', onRegisterFailed);
-            document.addEventListener('registersuccess', onRegisterSuccess);
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
-        }
-
-        this.on('mount', () => {
+        let initCtrls = () => {
             customerName = self.refs['customerName'];
             userName = self.refs['userName'];
             passWord = self.refs['passWord'];
             submit = self.refs['submit'];
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
+        }
+        let freeCtrls = () => {
             customerName = null;
             userName = null;
             passWord = null;
             submit = null;
-        });
-        let onAppContentChanged = (e) => { 
-            if (screenservice && screenservice.screenId === 'register') {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
-            }
-        }
-        let onLanguageChanged = (e) => { 
-            if (screenservice && screenservice.screenId === 'register') {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
-            }
-        }
-        let onScreenChanged = (e) => {
-            if (e.detail.screenId === 'register') {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
-                customerName.focus();
-            }
-            else {
-                clearInputs();
-            }
-        }
-        let onRegisterSuccess = (e) => {
-            screenservice.showDefault();
-            clearInputs();
-        }
-        let onRegisterFailed = (e) => {
-            let err = { msg: 'register failed.' }
-            showMsg(err);
-        }
-        let onSubmit = (e) => {
-            if (checkCustomerName() && checkUserName() && checkPassword()) {
-                //e.preventDefault();
-                //e.stopPropagation();
-                let data = {
-                    customerName: customerName.value(),
-                    userName: userName.value(),
-                    passWord: passWord.value(),
-                    licenseTypeId: 0
-                }
-                secure.register(data.customerName, data.userName, data.passWord, data.licenseTypeId);
-            }
         }
         let clearInputs = () => {
             if (customerName && userName && passWord) {
@@ -234,9 +191,91 @@
             if (!ret) passWord.focus()
             return ret;
         }
-        let showMsg = (err) => {
-            logger.info(err)
-            //secure.reset();
+
+        //#endregion
+
+        //#region events bind/unbind
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('registersuccess', onRegisterSuccess);
+            document.addEventListener('registerfailed', onRegisterFailed);
+            submit.addEventListener('click', onSubmit);
         }
+        let unbindEvents = () => {
+            submit.removeEventListener('click', onSubmit);
+            document.addEventListener('registerfailed', onRegisterFailed);
+            document.addEventListener('registersuccess', onRegisterSuccess);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
+        }
+
+        //#endregion
+
+        //#region riot handlers
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        //#endregion
+
+        //#region dom event handlers
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+                customerName.focus();
+            }
+            else {
+                clearInputs();
+            }
+        }
+        
+        let onRegisterSuccess = (e) => {
+            screenservice.showDefault();
+            clearInputs();
+        }
+        let onRegisterFailed = (e) => {
+            let err = { msg: 'register failed.' }
+            showMsg(err);
+        }
+        let onSubmit = (e) => {
+            if (checkCustomerName() && checkUserName() && checkPassword()) {
+                //e.preventDefault();
+                //e.stopPropagation();
+                let data = {
+                    customerName: customerName.value(),
+                    userName: userName.value(),
+                    passWord: passWord.value(),
+                    licenseTypeId: 0
+                }
+                secure.register(data.customerName, data.userName, data.passWord, data.licenseTypeId);
+            }
+        }
+
+        //#endregion
+
+        //#region private service wrapper methods
+
+        let showMsg = (err) => {
+            logger.info(err);
+        }
+
+        //#endregion
+
+        //#region private methods
+
+        //#endregion
     </script>
 </register-entry>

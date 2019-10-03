@@ -155,7 +155,15 @@
         }
     </style>
     <script>
+        //#region local variables
+
         let self = this;
+        let screenId = 'signin';
+
+        //#endregion
+
+        //#region content variables and methods
+
         let defaultContent = {
             title: 'Sign In',
             label: {
@@ -168,8 +176,61 @@
         }
         this.content = defaultContent;
 
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        //#endregion
+
+        //#region controls variables and methods
+
         let userSignIn, userSelection;
         let userName, passWord, submit, cancel;
+
+        let initCtrls = () => {
+            userSignIn = self.refs['userSignIn'];
+            userSelection = self.refs['userSelection'];
+            userName = self.refs['userName'];
+            passWord = self.refs['passWord'];
+            submit = self.refs['submit'];
+            cancel = self.refs['cancel'];
+        }
+        let freeCtrls = () => {
+            userName = null;
+            passWord = null;
+            submit = null;
+            cancel = null;
+            userSignIn = null;
+            userSelection = null;
+        }
+        let clearInputs = () => {
+            if (userName && passWord) {
+                userName.clear();
+                passWord.clear();
+            }
+            secure.reset();
+        }
+        let checkUserName = () => {
+            let ret = false;
+            let val = userName.value();
+            ret = (val && val.length > 0);
+            if (!ret) userName.focus()
+            return ret;
+        }
+        let checkPassword = () => {
+            let ret = false;
+            let val = passWord.value();
+            ret = (val && val.length > 0);
+            if (!ret) passWord.focus()
+            return ret;
+        }
+
+        //#endregion
+
+        //#region events bind/unbind
 
         let bindEvents = () => {
             document.addEventListener('appcontentchanged', onAppContentChanged);
@@ -190,49 +251,36 @@
             document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
+        //#endregion
+
+        //#region riot handlers
+
         this.on('mount', () => {
-            userSignIn = self.refs['userSignIn'];
-            userSelection = self.refs['userSelection'];
-            userName = self.refs['userName'];
-            passWord = self.refs['passWord'];
-            submit = self.refs['submit'];
-            cancel = self.refs['cancel'];
+            initCtrls();
             bindEvents();
         });
         this.on('unmount', () => {
             unbindEvents();
-            userName = null;
-            passWord = null;
-            submit = null;
-            cancel = null;
-            userSignIn = null;
-            userSelection = null;
+            freeCtrls();
         });
-        let onAppContentChanged = (e) => { 
-            if (screenservice && screenservice.screenId === 'signin') {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
-            }
-        }
-        let onLanguageChanged = (e) => {
-            if (screenservice && screenservice.screenId === 'signin') {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
-            }
-        }
+
+        //#endregion
+
+        //#region dom event handlers
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
         let onScreenChanged = (e) => {
-            if (e.detail.screenId === 'signin') {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
+            updatecontent();
+            if (e.detail.screenId === screenId) {
                 showUserSignIn();
             }
             else {
                 clearInputs();
             }
         }
-        let onUserListChanged = (e) => {
-            showUserSelection();
-        }
+        
+        let onUserListChanged = (e) => { showUserSelection(); }
         let onSignInFailed = (e) => {
             let err = e.detail.error;
             showError(err);
@@ -248,16 +296,21 @@
                 secure.verifyUsers(data.userName, data.passWord);                
             }
         }
-        let onCancel = (e) => {
-            showUserSignIn();
-        }
-        let clearInputs = () => {
-            if (userName && passWord) {
-                userName.clear();
-                passWord.clear();
-            }
+        let onCancel = (e) => { showUserSignIn(); }
+
+        //#endregion
+
+        //#region private service wrapper methods
+
+        let showMsg = (err) => {
+            logger.info(err);
             secure.reset();
         }
+
+        //#endregion
+
+        //#region private methods
+
         let showUserSignIn = () => {
             if (userSignIn && userSelection) {
                 userSignIn.classList.remove('hide');
@@ -282,23 +335,7 @@
                 }
             }            
         }
-        let checkUserName = () => {
-            let ret = false;
-            let val = userName.value();
-            ret = (val && val.length > 0);
-            if (!ret) userName.focus()
-            return ret;
-        }
-        let checkPassword = () => {
-            let ret = false;
-            let val = passWord.value();
-            ret = (val && val.length > 0);
-            if (!ret) passWord.focus()
-            return ret;
-        }
-        let showMsg = (err) => {
-            logger.info(err)
-            secure.reset();
-        }
+
+        //#endregion
     </script>
 </signin-entry>

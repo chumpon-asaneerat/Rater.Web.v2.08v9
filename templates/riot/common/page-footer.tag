@@ -47,7 +47,7 @@
 
         //#endregion
 
-        //#region local element methods
+        //#region events bind/unbind
 
         let bindEvents = () => {
             document.addEventListener('languagechanged', onLanguageChanged);
@@ -65,7 +65,7 @@
 
         //#endregion
 
-        //#region private methods
+        //#region dom event handlers
 
         let onLanguageChanged = (e) => { self.update(); }
 
