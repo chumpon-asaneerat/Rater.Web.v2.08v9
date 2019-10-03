@@ -579,12 +579,13 @@ class SecureService {
             userName: this.account.username,
             passWord: this.account.password
         }
-        //let self = this;
         let fn = (r) => {
             let data = api.parse(r);
             let err = data.errors;
-            let evt = new CustomEvent('signinfailed', { detail: { error: err }});
-            document.dispatchEvent(evt);
+            if (err && err.hasError) {
+                let evt = new CustomEvent('signinfailed', { detail: { error: err }});
+                document.dispatchEvent(evt);
+            }
         }
         XHR.postJson(url, paramObj, fn);
     }

@@ -168,7 +168,10 @@ const routes = class {
         }
         exec(db, fn).then(data => {
             let result = validate(db, data);
-            WebServer.sendJson(req, res, result);
+            console.log(data);
+            if (!result || result.errors.hasError || result.errNum !== 0) {
+                WebServer.sendJson(req, res, result);
+            }            
         })
     }
 }

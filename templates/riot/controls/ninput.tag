@@ -137,17 +137,15 @@
 
         //#region public methods
 
-        this.clear = () => {
-            if (input) input.value = '';
-        }
-        this.focus = () => {
-            if (input) input.focus();
-        }
+        this.clear = () => { if (input) input.value = ''; }
+        this.focus = () => { if (input) input.focus(); }
         this.value = () => {
             let ret;
             if (input) {
-                if (arguments && arguments.length > 0) {
-                    input.value = arguments[0];
+                // in riot arguments is contains in Arguments array.
+                let args = arguments.Arguments;
+                if (args && args.length > 0) {
+                    input.value = args[0];
                 }
                 else {
                     ret = input.value;

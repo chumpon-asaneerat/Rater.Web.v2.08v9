@@ -325,17 +325,15 @@ riot.tag2('ninput', '<input ref="input" type="{opts.type}" name="{opts.name}" re
             if (input) input.value = '';
         }
 
-        this.clear = () => {
-            if (input) input.value = '';
-        }
-        this.focus = () => {
-            if (input) input.focus();
-        }
+        this.clear = () => { if (input) input.value = ''; }
+        this.focus = () => { if (input) input.focus(); }
         this.value = () => {
             let ret;
             if (input) {
-                if (arguments && arguments.length > 0) {
-                    input.value = arguments[0];
+
+                let args = arguments.Arguments;
+                if (args && args.length > 0) {
+                    input.value = args[0];
                 }
                 else {
                     ret = input.value;
@@ -789,7 +787,7 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
         let onUserListChanged = (e) => { showUserSelection(); }
         let onSignInFailed = (e) => {
             let err = e.detail.error;
-            showError(err);
+            showMsg(err);
         }
         let onSubmit = (e) => {
             if (checkUserName() && checkPassword()) {

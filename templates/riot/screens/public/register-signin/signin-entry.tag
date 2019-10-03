@@ -283,7 +283,7 @@
         let onUserListChanged = (e) => { showUserSelection(); }
         let onSignInFailed = (e) => {
             let err = e.detail.error;
-            showError(err);
+            showMsg(err);
         }
         let onSubmit = (e) => {
             if (checkUserName() && checkPassword()) {
