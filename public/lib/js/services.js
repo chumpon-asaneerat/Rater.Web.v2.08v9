@@ -579,20 +579,39 @@ class SecureService {
             userName: this.account.username,
             passWord: this.account.password
         }
-        console.log('Sign In:', paramObj);
+        //console.log('Sign In:', paramObj);
         let fn = (r) => {
             let data = api.parse(r);
             let err = data.errors;
             if (err && err.hasError) {
-                console.log('Sign In Failed.');
+                //console.log('Sign In Failed.');
                 let evt = new CustomEvent('signinfailed', { detail: { error: err }});
                 document.dispatchEvent(evt);
             }
             else {
-                console.log('Sign In Success.');
-            }
+                //console.log('Sign In Success.');
+                nlib.nav.gotoUrl('/', true);
+            }            
         }
         XHR.postJson(url, paramObj, fn);
+    }
+    signout() {
+        let url = '/api/customer/signout'
+        let fn = (r) => {
+            //console.log(r);
+            //console.log('sign out detected.');
+            nlib.nav.gotoUrl('/', true);
+        }
+        XHR.postJson(url, this.account, fn);
+    }
+    postUrl(url) {
+        if (!url || url.length <= 0) return;
+        let fn = (r) => {
+            let data = api.parse(r);
+            let evt = new CustomEvent('posturlcompleted', { detail: { data: data }});
+            document.dispatchEvent(evt);
+        }
+        XHR.postJson(url, this.account, fn);
     }
     get users() {
         let ret = []

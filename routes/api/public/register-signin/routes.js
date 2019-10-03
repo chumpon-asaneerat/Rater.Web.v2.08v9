@@ -23,6 +23,14 @@ const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
 
 //#endregion
 
+//#region secure middleware
+
+const raterPath = path.join(rootPath, 'raterweb');
+const raterSecurejs = path.join(raterPath, 'rater-secure')
+const secure = require(raterSecurejs).RaterSecure;
+
+//#endregion
+
 //#region router type and variables
 
 const WebRouter = WebServer.WebRouter;
@@ -160,7 +168,7 @@ const routes = class {
      * @param {Request} req The Request.
      * @param {Response} res The Response.
      */
-    static signin(req, res) {
+    static signin(req, res, next) {
         let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         let fn = async () => {
@@ -182,6 +190,8 @@ const routes = class {
 router.post('/register', routes.register)
 router.post('/validate-accounts', routes.validateAcccounts)
 router.post('/signin', routes.signin)
+//router.post('/signout', secure.signout, secure.checkAccess, secure.checkRedirect)
+router.post('/signout', secure.signout)
 
 const init_routes = (svr) => {
     svr.route('/api/customer', router);

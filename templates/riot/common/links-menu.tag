@@ -163,13 +163,20 @@
         this.selectItem = (e) => {
             toggle(); // toggle off
             let selLink = e.item.item;
-            if (selLink.type === 'screen') {
+            let linkType = (selLink.type) ? selLink.type.toLowerCase() : '';
+            if (linkType  === 'screen') {
                 screenservice.show(selLink.ref);
+            }
+            else if (linkType === 'url') {
+                secure.postUrl(selLink.ref);
+            }
+            else if (linkType === 'cmd') {
+                if (selLink.ref.toLowerCase() === 'signout')
+                secure.signout();
             }
             else {
                 console.log('Not implements type, data:', selLink);
             }
-
             e.preventDefault();
             e.stopPropagation();
         }

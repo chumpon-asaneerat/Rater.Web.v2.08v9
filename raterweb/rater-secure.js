@@ -79,6 +79,9 @@ const api = class {
     static async CheckAccess(db, params) {
         return await db.CheckAccess(params);
     }
+    static async SignOut(db, params) {
+        return await db.SignOut(params);
+    }
 }
 
 //#endregion
@@ -409,6 +412,23 @@ class RaterSecure {
     static getDeviceId(req, res) { return getDeviceId(req, res) }
     static getMemberId(req, res) { return getMemberId(req, res) }
     static getMemberType(req, res) { return getMemberType(req, res) }
+
+    static signout(req, res) {
+        let obj = WebServer.signedCookie.readObject(req, res);
+        //rater.secure.deviceId = getValue(obj, secureNames.deviceId)
+        let db = new sqldb();
+        let params = { 
+            accessId: obj.accessId
+        };
+        let fn = async () => {
+            return api.SignOut(db, params);
+        }
+        exec(db, fn).then(result => {
+            obj.accessId = ''; // cannot assigned null;
+            WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
+            WebServer.sendJson(req, res, result);
+        });
+    }
 
     //#endregion
 }

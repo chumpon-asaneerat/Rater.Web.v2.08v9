@@ -7,7 +7,7 @@
                 "screenTitle": "Staff Home"
             },
             "links": [
-                { "type": "url", "ref": "signout", "text":"Sign Out", "icon": "far fa-user-circle", "icontype": "fontcss" }
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "far fa-user-circle", "icontype": "fontcss" }
             ]
         }
     ],
