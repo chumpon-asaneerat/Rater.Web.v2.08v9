@@ -50,10 +50,10 @@ My Choice Rater Web v2.0.8x9:
             ☐ Fixd Tabulator height overflow problem.
         Public:
             ☐ Home. (Features and Price List Card).
-            ☐ Register.
-            ☐ Sign In.
-            ☐ Customer Section (single account multiple companies)
-            ☐ Sign Out.
+            ✔ Register. @done(19-10-04 00:06)
+            ✔ Sign In. @done(19-10-04 00:06)
+            ✔ Customer Section (single account multiple companies) @done(19-10-04 00:07)
+            ✔ Sign Out. @done(19-10-04 00:07)
         EDL:
             Admin:
                 ☐ Home (dashboard).
