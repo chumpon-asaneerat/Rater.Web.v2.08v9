@@ -9,9 +9,9 @@
             <a class="link-item" href="javascript:;" onclick="{ selectItem }">
                 &nbsp;
                 <span class="link-css { item.icon }" ref="css-icon">&nbsp;</span>
-                <div class="link-text">{ item.text }</div>
+                <div class="link-text">&nbsp;{ item.text }</div>
                 &nbsp;&nbsp;&nbsp;
-            </a>                
+            </a>
         </div>
     </div>
     <style>

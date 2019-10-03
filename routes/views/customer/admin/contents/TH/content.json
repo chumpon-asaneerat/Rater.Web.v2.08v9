@@ -2,12 +2,12 @@
     "screens": [
         { 
             "screenid": "home",
-            "title": "หน้าหลัก - ผูู่้แลระบบ",
+            "title": "หน้าหลัก - ผู้ดูแลระบบ",
             "label": {
-                "screenTitle": "หน้าหลัก - ผูู่้แลระบบ"
+                "screenTitle": "หน้าหลัก - ผู้ดูแลระบบ"
             },
             "links": [
-                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "far fa-user-circle", "icontype": "fontcss" }
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
             ]
         }
     ],
