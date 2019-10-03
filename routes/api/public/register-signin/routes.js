@@ -172,6 +172,7 @@ const routes = class {
                 WebServer.sendJson(req, res, result);
             }
             else {
+                // redirect checking.
             }
         })
     }

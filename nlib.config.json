@@ -173,6 +173,18 @@
                 },
                 {
                     "route": "/dist",
+                    "path": "public/dist/fabricjs-3.4.0",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist",
+                    "path": "public/dist/gifuct-js-1.0.0",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist",
                     "path": "public/lib",
                     "maxAge": "15s",
                     "enable": true
