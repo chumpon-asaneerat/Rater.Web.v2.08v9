@@ -11,32 +11,36 @@
     <style>
         :scope {
             margin: 0 auto;
-            width: 100vw;
+            padding: 0;
+            width: 100%;
             display: grid;
             grid-template-columns: fit-content(50px) 1fr fit-content(150px);
             grid-template-rows: 1fr;
             grid-template-areas: 
                 'caption status copyright';
 
-            justify-items: stretch;
-            align-items: stretch;
-
-            font-size: 0.70em;
+            font-size: 0.7em;
             font-weight: bold;
             background: darkorange;
             color: whitesmoke;
         }
         .caption {
             grid-area: caption;
+            margin: 0 auto;
+            padding-top: 2px;
             padding-left: 3px;
             user-select: none;
         }
         .status {
             grid-area: status;
+            margin: 0 auto;
+            padding-top: 2px;
             user-select: none;
         }
         .copyright {
             grid-area: copyright;
+            margin: 0 auto;
+            padding-top: 2px;
             user-select: none;
         }
     </style>
