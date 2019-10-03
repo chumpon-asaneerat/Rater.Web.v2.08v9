@@ -293,7 +293,7 @@
                     userName: userName.value(),
                     passWord: passWord.value()
                 }
-                secure.verifyUsers(data.userName, data.passWord);                
+                secure.verifyUsers(data.userName, data.passWord);
             }
         }
         let onCancel = (e) => { showUserSignIn(); }

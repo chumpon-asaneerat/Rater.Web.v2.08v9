@@ -2,9 +2,9 @@
     "screens": [
         { 
             "screenid": "home",
-            "title": "Admin Home",
+            "title": "Staff Home",
             "label": {
-                "screenTitle": "Admin Home"
+                "screenTitle": "Staff Home"
             },
             "links": [
                 { "type": "url", "ref": "signout", "text":"Sign Out", "icon": "far fa-user-circle", "icontype": "fontcss" }

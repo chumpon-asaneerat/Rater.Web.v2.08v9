@@ -65,17 +65,14 @@ const routes = class {
         }
     }
     static getContents(req, res) {
-        let file = req.params.file.toLowerCase();
-        if (file === 'contents') {
-            let contentPath = path.join(__dirname, 'contents');
-            let folders = getDirectories(contentPath);
-            let json = {}
-            folders.forEach(dir => {
-                let langId = dir.replace(contentPath + '\\', '')
-                json[langId] = JSON.parse(fs.readFileSync(path.join(dir, 'content.json'), 'utf8'))
-            })
-            WebServer.sendJson(req, res, nlib.NResult.data(json));
-        }
+        let contentPath = path.join(__dirname, 'contents');
+        let folders = getDirectories(contentPath);
+        let json = {}
+        folders.forEach(dir => {
+            let langId = dir.replace(contentPath + '\\', '')
+            json[langId] = JSON.parse(fs.readFileSync(path.join(dir, 'content.json'), 'utf8'))
+        })
+        WebServer.sendJson(req, res, nlib.NResult.data(json));
     }
 }
 
@@ -84,7 +81,7 @@ router.get('/contents', routes.getContents)
 router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
-    svr.route('/customer/admin', router);
+    svr.route('/customer/staff', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

@@ -43,22 +43,20 @@ const routes = class {
         WebServer.sendFile(req, res, __dirname, 'index.html');
     }
     /**
-     * getfile
+     * getjsfile
      * @param {Request} req The Request.
      * @param {Response} res The Response.
      */
-    static getfile(req, res) {
+    static getjsfile(req, res) {
         let file = req.params.file.toLowerCase();
         let files = ['app.js']
         let idx = files.indexOf(file);
         if (idx !== -1) {
-            WebServer.sendFile(req, res, __dirname, files[idx]);
-        }
-        else {
-            routes.getContent(req, res)
+            let fname = path.join(__dirname, 'js', files[idx]);
+            WebServer.sendFile(req, res, fname);
         }
     }
-    static getContent(req, res) {
+    static getContents(req, res) {
         let file = req.params.file.toLowerCase();
         if (file === 'contents') {
             let contentPath = path.join(__dirname, 'contents');
@@ -71,52 +69,11 @@ const routes = class {
             WebServer.sendJson(req, res, nlib.NResult.data(json));
         }
     }
-
-    /**
-     * api2
-     * @param {Request} req The Request.
-     * @param {Response} res The Response.
-     */
-    static api2(req, res) {
-        let data = { message: 'The api 2 (secure)' }
-        let ret = nlib.NResult.data(data);
-        let obj = {
-            val1: 1,
-            val2: new Date().toString()
-        }
-        WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
-        //WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(1).months);
-        //WebServer.cookie.writeObject(req, res, obj);
-        WebServer.sendJson(req, res, ret);
-    }
-    /**
-     * api3
-     * @param {Request} req The Request.
-     * @param {Response} res The Response.
-     */
-    static api3(req, res) {
-        let data = { message: 'The api 3 (super secure)' }
-        let obj = WebServer.signedCookie.readObject(req, res);
-        data.obj = obj;
-        let ret = nlib.NResult.data(data);
-        WebServer.sendJson(req, res, ret);
-    }
 }
 
-const checkSecure = (req, res, next) => {
-    console.log('secure checked.');
-    next();
-}
-
-const checkSecure2 = (req, res, next) => {
-    console.log('secure level 2 checked.');
-    next();
-}
-
-router.use(checkSecure);
-router.use(checkSecure2);
 router.get('/', routes.home)
-router.get('/:file', routes.getfile)
+router.get('/contents', routes.getContents)
+router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
     svr.route('/customer/device', router);

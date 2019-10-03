@@ -113,6 +113,7 @@ const getRoutePath = (req) => {
 }
 const isStartsWith = (src, sPath) => {
     let lsrc = src.toLowerCase();
+    if (lsrc.charAt(0) === '/') lsrc = lsrc.substring(1); // remove slash
     let lpath = sPath.toLowerCase();
     if (lpath.charAt(0) === '/') lpath = lpath.substring(1); // remove slash
     let ret = lsrc.startsWith(lpath);
@@ -145,37 +146,49 @@ const gotoHome = (req, res, next, url) => {
     }
 }
 const gotoAdmin = (req, res, next, url) => {
-    if (!isAdmin(url)) res.redirect('/customer/admin')
+    if (!isAdmin(url)) {
+        res.redirect('/customer/admin')
+    }
     else {
         if (next) next()
     }
 }
 const gotoExcuisive = (req, res, next, url) => {
-    if (!isExcuisive(url)) res.redirect('/customer/exclusive')
+    if (!isExcuisive(url)) {
+        res.redirect('/customer/exclusive')
+    }
     else {
         if (next) next()
     }
 }
 const gotoStaff = (req, res, next, url) => {
-    if (!isStaff(url)) res.redirect('/customer/staff')
+    if (!isStaff(url)) {
+        res.redirect('/customer/staff')
+    }
     else {
         if (next) next()
     }
 }
 const gotoEDLAdmin = (req, res, next, url) => {
-    if (!isEDLAdmin(url)) res.redirect('/edl/admin')
+    if (!isEDLAdmin(url)) {
+        res.redirect('/edl/admin')
+    }
     else {
         if (next) next()
     }
 }
 const gotoEDLSupervisor = (req, res, next, url) => {
-    if (!isEDLSupervisor(url)) res.redirect('/edl/supervisor')
+    if (!isEDLSupervisor(url)) {
+        res.redirect('/edl/supervisor')
+    }
     else {
         if (next) next()
     }
 }
 const gotoEDLStaff = (req, res, next, url) => {
-    if (!isEDLStaff(url)) res.redirect('/edl/staff')
+    if (!isEDLStaff(url)) {
+        res.redirect('/edl/staff')
+    }
     else {
         if (next) next()
     }
@@ -209,7 +222,8 @@ const checkRedirect = (req, res, next) => {
         mtype = secure.memberType;            
     }
     // auto redirct if not match home url.
-    goHome(mtype)(req, res, next, url);
+    let fn = goHome(mtype);
+    fn(req, res, next, url);
 }
 // for api permission
 const sendNoPermission = (req, res) => {

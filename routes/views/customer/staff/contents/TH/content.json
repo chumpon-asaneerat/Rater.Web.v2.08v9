@@ -2,9 +2,9 @@
     "screens": [
         { 
             "screenid": "home",
-            "title": "Admin Home",
+            "title": "หน้าหลัก - พนักงาน",
             "label": {
-                "screenTitle": "Admin Home"
+                "screenTitle": "หน้าหลัก - พนักงาน"
             },
             "links": [
                 { "type": "url", "ref": "signout", "text":"Sign Out", "icon": "far fa-user-circle", "icontype": "fontcss" }
@@ -13,8 +13,8 @@
     ],
     "footer": {
         "label": {
-            "status": "status",
-            "copyright": "EDL Co., Ltd."
+            "status": "สถานะ",
+            "copyright": "บริษัท อีดีแอล จำกัด"
         }
     }
 }

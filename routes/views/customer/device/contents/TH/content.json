@@ -1,4 +1,16 @@
 {
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "หน้าหลัก - อุปกรณ์",
+            "label": {
+                "screenTitle": "หน้าหลัก - อุปกรณ์"
+            },
+            "links": [
+                { "type": "url", "ref": "signout", "text":"Sign Out", "icon": "far fa-user-circle", "icontype": "fontcss" }
+            ]
+        }
+    ],
     "footer": {
         "label": {
             "status": "สถานะ",

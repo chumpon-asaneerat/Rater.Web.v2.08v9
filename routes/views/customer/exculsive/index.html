@@ -24,39 +24,21 @@
     <link href="/dist/css/reveal.css" rel="stylesheet" type="text/css" />
     <!-- nlib css -->
     <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
-    <style>
-        .input-box-group {
-            width: 75vw;
-        }
-    </style>
 </head>
 <body>
     <app id="app" navibar footer>
-        <!--
-        <screen data-ref="main" screenid="main">
-            <h4>Home.</h4>
-            <h4>The main page.</h4>
-            <div class="input-box-group">
-                <ninput title="Customer Name" type="text" name="customerName"></ninput>
-                <ninput title="Email Account" type="email" name="emailAccount"></ninput>
-                <ninput title="Password" type="password" name="pwd"></ninput>
-            </div>
-        </screen>
-        -->
-        <!--
-        <screen data-ref="cardsample" screenid="cardsample">
-            <card-sample></card-sample>
-        </screen>
-        -->
         <screen data-ref="home" screenid="home">
-            <rater-home></rater-home>
-        </screen>
-        <screen data-ref="register" screenid="register">
-            <register-entry></register-entry>
-        </screen>
-        <screen data-ref="signin" screenid="signin">
-            <signin-entry></signin-entry>
-        </screen>
+            <h4>Home.</h4>
+            <h4>The Exclusive Dashboard page.</h4>
+        </screen>        
+        <screen data-ref="staff" screenid="staff">
+            <h4>Staff.</h4>
+            <h4>The Staff Management.</h4>
+        </screen>        
+        <screen data-ref="report" screenid="report">
+            <h4>Reports.</h4>
+            <h4>The Reports.</h4>
+        </screen>        
     </app>
     
     <!-- JQuery -->
@@ -89,7 +71,7 @@
     <!-- services -->
     <script src="/dist/js/services.js"></script>
     <!-- local scripts -->
-    <script src="js/app.js"></script>
+    <script src="exclusive/js/app.js"></script>
     <script>
         //console.log('page loaded.');
     </script>
