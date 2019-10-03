@@ -190,7 +190,6 @@ const routes = class {
 router.post('/register', routes.register)
 router.post('/validate-accounts', routes.validateAcccounts)
 router.post('/signin', routes.signin)
-//router.post('/signout', secure.signout, secure.checkAccess, secure.checkRedirect)
 router.post('/signout', secure.signout)
 
 const init_routes = (svr) => {
