@@ -1,0 +1,18 @@
+{
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "Home",
+            "label": {
+                "screenTitle": "Dev Home"
+            },
+            "links": []
+        }
+    ],
+    "footer": {
+        "label": {
+            "status": "status",
+            "copyright": "EDL Co., Ltd."
+        }
+    }
+}

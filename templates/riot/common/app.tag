@@ -1,7 +1,9 @@
 <app>
-    <navibar></navibar>
+    <navibar class="navibar"></navibar>
     <div class="scrarea">
-        <yield/>
+        <div class="wrapper">
+            <yield/>
+        </div>
     </div>
     <page-footer class="footer"></page-footer>
     <style>
@@ -12,10 +14,14 @@
             grid-template-columns: 1fr;
             grid-template-rows: 0px 1fr 0px;
             grid-template-areas: 
-                'navibar'
-                'scrarea'
-                'footer';
+                'scrarea';
             overflow: hidden;
+        }
+        :scope .navibar {
+            display: none
+        }
+        :scope .footer {
+            display: none
         }
         :scope[navibar][footer] {
             grid-template-columns: 1fr;
@@ -26,6 +32,8 @@
                 'footer';
             overflow: hidden;
         }
+        :scope[navibar][footer] .navibar { display: grid; }
+        :scope[navibar][footer] .footer { display: grid;}
         :scope[navibar] {
             grid-template-columns: 1fr;
             grid-template-rows: 40px 1fr 0px;
@@ -35,6 +43,7 @@
                 'footer';
             overflow: hidden;
         }
+        :scope[navibar] .navibar { display: grid; }
         :scope[footer] {
             grid-template-columns: 1fr;
             grid-template-rows: 0px 1fr 20px;
@@ -44,15 +53,27 @@
                 'footer';
             overflow: hidden;
         }
-        navibar {
+        :scope[footer] .footer { display: grid;}
+        .navibar {
             grid-area: navibar;
             padding: 5px;
             overflow: hidden;
         }
         .scrarea {
+            display: grid;
             grid-area: scrarea;
+            margin: 0 auto;
             padding: 0;
+            width: 100%;
+            height: 100%;
             overflow: auto;
+        }
+        .wrapper {
+            display: grid;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
         .footer {
             grid-area: footer;
