@@ -1017,6 +1017,128 @@ riot.tag2('member-view', '', 'member-view,[data-is="member-view"]{ margin: 0 aut
         this.publicMethod = (message) => { }
 
 });
+riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
 riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }', '', function(opts) {
 
 
@@ -1078,7 +1200,251 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
         this.publicMethod = (message) => { }
 
 });
+riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
 riot.tag2('question-runtime', '', 'question-runtime,[data-is="question-runtime"]{ margin: 0 auto; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('raw-vote-view', '', 'raw-vote-view,[data-is="raw-vote-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('staff-perf-view', '', 'staff-perf-view,[data-is="staff-perf-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 
 
         let self = this;
