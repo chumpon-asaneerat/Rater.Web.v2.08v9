@@ -526,6 +526,10 @@ riot.tag2('branch-grid', '', '', '', function(opts) {
 });
 riot.tag2('membertype-grid', '', '', '', function(opts) {
 });
+riot.tag2('avg-vote-counter', '', '', '', function(opts) {
+});
+riot.tag2('total-vote-counter', '', '', '', function(opts) {
+});
 riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ margin: 0 auto; }', '', function(opts) {
 
 
