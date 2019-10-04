@@ -58,8 +58,8 @@ My Choice Rater Web v2.0.8x9:
             Admin:
                 ☐ Home (dashboard).
                 License Setting:
-                    ☐ Period Unit Setup.
-                    ☐ Limit Unit Setup.
+                    ✘ Period Unit Setup. @cancelled(19-10-04 07:09)
+                    ✘ Limit Unit Setup. @cancelled(19-10-04 07:09)
                     ☐ License Type Setup.
                 Customer Management:
                     ☐ Overview.
