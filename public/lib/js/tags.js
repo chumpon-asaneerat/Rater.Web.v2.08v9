@@ -1509,6 +1509,10 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
         this.publicMethod = (message) => { }
 
 });
+riot.tag2('product-card', '', '', '', function(opts) {
+});
+riot.tag2('product-list', '', '', '', function(opts) {
+});
 riot.tag2('customer-entry', '', 'customer-entry,[data-is="customer-entry"]{ margin: 0 auto; }', '', function(opts) {
 
 
