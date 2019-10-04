@@ -2,20 +2,23 @@
     <style>
         :scope {
             margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
     <script>
         //#region local variables
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'staffeditor';
 
         //#endregion
 
         //#region content variables and methods
 
         let defaultContent = {
-            title: 'Title',
+            title: 'Staff Information',
             label: {},
             links: []
         }
@@ -32,8 +35,10 @@
 
         //#region controls variables and methods
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
+        let initCtrls = () => {
+        }
+        let freeCtrls = () => {
+        }
         let clearInputs = () => {}
 
         //#endregion
@@ -74,6 +79,7 @@
             updatecontent();
             if (e.detail.screenId === screenId) {
                 // screen shown.
+                table.redraw(true);
             }
             else {
                 // other screen shown.
