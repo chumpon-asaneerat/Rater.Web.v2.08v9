@@ -1,4 +1,4 @@
-<member-view>
+<member-screen>
     <style>
         :scope {
             margin: 0 auto;
@@ -97,4 +97,4 @@
 
         //#endregion
     </script>
-</member-view>
+</member-screen>

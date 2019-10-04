@@ -1,4 +1,18 @@
 <flip-screen>
+    <div class="auto-container">
+        <div ref="flipper" class="flipper">
+            <div class="viewer-block">
+                <div class="content">
+                    <yield from="viewer"/>
+                </div>
+            </div>
+            <div class="entry-block">
+                <div class="content">
+                    <yield from="entry"/>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         :scope {
             margin: 0;
@@ -63,5 +77,53 @@
             height: 100%;
         }
     </style>
-    <script></script>
+    <script>
+        //#region local variables
+
+        let self = this;
+
+        //#endregion
+
+        //#region controls variables and methods
+
+        let flipper;
+
+        let initCtrls = () => {
+            flipper = self.refs['flipper'];
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => {}
+
+        //#endregion
+        
+        //#region events bind/unbind
+
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
+
+        //#endregion
+
+        //#region riot handlers
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();            
+        });
+
+        //#endregion
+
+        //#region public methods
+
+        this.toggle = () => {
+            flipper.classList.toggle('toggle');
+        }
+
+        //#endregion
+    </script>
 </flip-screen>
