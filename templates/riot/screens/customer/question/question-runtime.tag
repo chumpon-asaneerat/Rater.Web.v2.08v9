@@ -1,4 +1,4 @@
-<user-entry>
+<question-runtime>
     <style>
         :scope {
             margin: 0 auto;
@@ -94,4 +94,4 @@
 
         //#endregion
     </script>
-</user-entry>
+</question-runtime>
