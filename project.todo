@@ -65,6 +65,12 @@ My Choice Rater Web v2.0.8x9:
         ☐ Property Grid.
         ☐ Message Service (Event based).
         ☐ Status Service (Event based).
+        Designer:
+            ☐ Design Editor.
+            ☐ Drag and Drop supports. (from toolbox to editor).
+            ☐ Resize (hotspots) supports.
+            ☐ Sync json (render html element from json/update json from html element).
+            ☐ Selection service.
     Research:
         Tabulator:
             ☐ Fixed Tabulator resize problem.
