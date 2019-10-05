@@ -18,6 +18,16 @@ My Choice Rater Web v2.0.8x9:
             ☐ Other version need to mark as wait for processs.
             ☐ When activated the EDL User and payment information is required.
         ☐ Init Sample Data.
+    nlib (server):
+        sqlserver:
+            ☐ Supports blob (image/file (json)/binary).
+        websocket:
+            ☐ provide server side socket (with individual channel).
+    nlib (client):
+        Assets Service:
+            ☐ Url file cache. (image/video/sound/font/json ?).
+        websocket:
+            ☐ provide client side socket (with individual channel).
     rater (client):
         ☐ services.js split to multiple file.
         ☐ check all service dependency in service.js (after split).
@@ -37,11 +47,20 @@ My Choice Rater Web v2.0.8x9:
         ✔ Rewrite Navibar. @done(19-09-10 13:50)
         ✔ Dual Page Screen (View/Edit). @done(19-09-29 21:39)
         ✔ Flip Page Screen (View/Edit). @done(19-09-12 11:34)
-        DateTime Picker:
-            ☐ Year/Month/Date dropdown component.
-            ☐ Hour/Miniute/Second dropdown component.
-        ☐ Color Picker.
-        ☐ Font Picker with color.
+        Date Picker:
+            ☐ Year/Month/Date dropdown/updown (each value) component.
+        Time Picker:
+            ☐ Hour/Miniute/Second dropdown/updown (each value) component.
+        Color Picker:
+            ☐ Choose from color chart.
+            ☐ Enter Custom color input text.
+            ☐ Sync between both input and color chart.
+        Font Picker:
+            ☐ Font families dropdown (predefined).
+            ☐ Font size.
+            ☐ Font style (italic/normal).
+            ☐ Font weight.
+            ☐ Text Color pocker.
         ☐ Image selector.
         ☐ Property Grid.
         ☐ Message Service (Event based).
