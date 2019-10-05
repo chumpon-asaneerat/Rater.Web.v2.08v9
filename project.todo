@@ -1,10 +1,4 @@
 My Choice Rater Web v2.0.8x9:
-    APIs:
-        REST API - Languages:
-            ✔ GetLanguages. @done(19-08-22 20:09)
-            ✔ Register. @done(19-08-29 19:03)
-            ☐ SignIn.
-            ☐ SignOut.
     Database:
         ✔ Redesign customer register process. @done(19-08-29 19:03)
         Redesign user sign in/out process:
@@ -19,19 +13,22 @@ My Choice Rater Web v2.0.8x9:
         ☐ Redesign license register selection supports.
         ✔ Redesign license register history supports. @done(19-10-02 04:43)
         ✔ Redesign license related information (access count, client count, etc.) supports. @done(19-10-02 04:42)
+        Register Process Update:
+            ✔ Only Free version can used immediately. @done(19-10-05 11:09)
+            ☐ Other version need to mark as wait for processs.
+            ☐ When activated the EDL User and payment information is required.
         ☐ Init Sample Data.
-    Server:
-        ✔ Create customer admin routes. @done(19-08-22 21:25)
-        ✔ Create customer exclusive routes. @done(19-08-22 21:25)
-        ✔ Create customer staff routes. @done(19-08-22 21:25)
-        ✔ Create customer device routes. @done(19-08-22 21:26)
-        ✔ Create EDL admin routes. @done(19-08-22 21:43)
-        ✔ Create EDL supervisor routes. @done(19-08-22 21:43)
-        ✔ Create EDL staff routes. @done(19-08-22 21:43)
     riot.js controls:
         ✔ Supports multi languages. @done(19-08-23 12:32)
         ☐ Supports Breadcrumb screens.
         ☐ Supports loading component.
+        ☐ Supports NSelect component.
+        ☐ Supports NText component.
+        ☐ Supports NImage component.
+        OSD component:
+            ☐ Display message with timeout (info/warning/error).
+            ☐ Check send message while previous message still shown.
+            ☐ Check use requestAnimationFrame instead of setTimeout.
         ✔ Nav menu items with sync screen component. @done(19-09-10 13:50)
         ✔ Rewrite app/screen components. @done(19-09-29 21:38)
         ✔ Rewrite Navibar. @done(19-09-10 13:50)
@@ -47,7 +44,13 @@ My Choice Rater Web v2.0.8x9:
         ☐ Image selector.
     Rater Screens:
         Common:
-            ☐ Fixd Tabulator height overflow problem.
+            ☐ Fixed Tabulator resize problem.
+            ☐ Check Tabulator row selection.
+            ☐ Check Tabulator freeze column.
+            ☐ Check Tabulator row custom layout
+        Dev:
+            ☐ Home.
+            ☐ Tabulator test tag.
         Public:
             ☐ Home. (Features and Price List Card).
             ✔ Register. @done(19-10-04 00:06)
