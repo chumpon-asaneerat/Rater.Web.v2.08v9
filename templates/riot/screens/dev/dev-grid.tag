@@ -32,7 +32,6 @@
         let updatecontent = () => {
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                if (table) table.redraw(true);
                 self.update();
             }
         }
@@ -79,22 +78,28 @@
 
         //#region dom event handlers
 
-        let onAppContentChanged = (e) => { updatecontent(); }
+        let onAppContentChanged = (e) => { 
+            updatecontent();
+            table.redraw(true);
+        }
         let onLanguageChanged = (e) => {
             if (lang.current.langId === 'TH') {
                 //table.replaceData(tabledata2);
                 table.clearData();
                 table.setData(tabledata2);
+                table.redraw(true);
             }
             else {
                 //table.replaceData(tabledata);
                 table.clearData();
                 table.setData(tabledata);
+                table.redraw(true);
             }
             updatecontent();
         }
         let onScreenChanged = (e) => {
             updatecontent();
+            table.redraw(true);
             if (e.detail.screenId === screenId) {
             }
             else {

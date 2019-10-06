@@ -1524,7 +1524,6 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
         let updatecontent = () => {
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                if (table) table.redraw(true);
                 self.update();
             }
         }
@@ -1555,22 +1554,28 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
             freeCtrls();
         });
 
-        let onAppContentChanged = (e) => { updatecontent(); }
+        let onAppContentChanged = (e) => {
+            updatecontent();
+            table.redraw(true);
+        }
         let onLanguageChanged = (e) => {
             if (lang.current.langId === 'TH') {
 
                 table.clearData();
                 table.setData(tabledata2);
+                table.redraw(true);
             }
             else {
 
                 table.clearData();
                 table.setData(tabledata);
+                table.redraw(true);
             }
             updatecontent();
         }
         let onScreenChanged = (e) => {
             updatecontent();
+            table.redraw(true);
             if (e.detail.screenId === screenId) {
             }
             else {
