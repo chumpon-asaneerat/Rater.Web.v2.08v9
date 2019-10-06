@@ -87,6 +87,8 @@ My Choice Rater Web v2.0.8x9:
             ☐ Slide View Panel (scale each slide).
             ☐ Slide Editor (scale working slide with zoom supports).
             ☐ Orientaion for moble/tablet/pc.
+        Screen Size:
+            ☐ Test Code for test screen resolution (media queries).
     Rater Screens:
         Dev:
             ☐ Home.
