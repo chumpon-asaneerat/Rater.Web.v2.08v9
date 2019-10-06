@@ -1,4 +1,4 @@
-<dev-grid>
+<dev-sample-grid>
     <div ref="grid" id="grid"></div>
     <style>
         :scope {
@@ -17,23 +17,19 @@
         //#region local variables
 
         let self = this;
-        let screenId = 'home';
 
         //#endregion
 
         //#region content variables and methods
 
-        let defaultContent = {
-            title: 'Dev Grid',
-            label: {}
-        }
-        this.content = defaultContent;
-
         let updatecontent = () => {
+            /*
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
             }
+            */
+            self.update();
         }
 
         //#endregion
@@ -54,8 +50,10 @@
             document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
             document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('sample:endedit', onEndEdit);
         }
         let unbindEvents = () => {
+            document.removeEventListener('sample:endedit', onEndEdit);
             document.removeEventListener('screenchanged', onScreenChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
             document.removeEventListener('appcontentchanged', onAppContentChanged);
@@ -116,61 +114,77 @@
         };
 
         let tabledata = [
-                {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
-                {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-            ];
-            let tabledata2 = [
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"}
-            ];
+            {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+            {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+        ];
+        let tabledata2 = [
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"}
+        ];
+
+        let editRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('sample:beginedit', { detail: { item: data } })
+            document.dispatchEvent(evt);
+        }
+        let deleteRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('sample:delete', { detail: { item: data } })
+            document.dispatchEvent(evt);
+        }
+        let onEndEdit = (e) => {
+            let data = e.detail.item;
+            //table.replaceData(data);
+            table.redraw(true);
+        }
 
         let initGrid = () => {
             let opts = {
@@ -182,15 +196,11 @@
                 columns: [
                     { formatter: editIcon, align:"center", width:44, 
                       resizable: false, frozen: true, headerSort: false,
-                      cellClick: (e, cell) => {
-                          console.log("Edit Row : " + cell.getRow().getData().name)
-                      }
+                      cellClick: editRow
                     },
                     { formatter: deleteIcon, align:"center", width: 44, 
                       resizable: false, frozen: true, headerSort: false,
-                      cellClick: (e, cell) => {
-                          console.log("Delete Row : " + cell.getRow().getData().name)
-                      }
+                      cellClick: deleteRow
                     },
                     // rownum cannot be sort. required to append all data in array
                     // and bind as normal column.
@@ -223,4 +233,4 @@
             table.setData(data)
         }
     </script>
-</dev-grid>
+</dev-sample-grid>

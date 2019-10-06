@@ -3,12 +3,12 @@
         <div ref="flipper" class="flipper">
             <div class="viewer-block">
                 <div class="content">
-                    <yield from="viewer"/>
+                    <yield from="viewer"></yield>
                 </div>
             </div>
             <div class="entry-block">
                 <div class="content">
-                    <yield from="entry"/>
+                    <yield from="entry"></yield>
                 </div>
             </div>
         </div>

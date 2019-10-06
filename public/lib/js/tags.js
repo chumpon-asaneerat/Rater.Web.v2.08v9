@@ -560,9 +560,9 @@ riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ margin: 0 
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -621,9 +621,9 @@ riot.tag2('admin-home', '', 'admin-home,[data-is="admin-home"]{ margin: 0 auto; 
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -682,9 +682,9 @@ riot.tag2('device-home', '', 'device-home,[data-is="device-home"]{ margin: 0 aut
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -743,9 +743,9 @@ riot.tag2('exclusive-home', '', 'exclusive-home,[data-is="exclusive-home"]{ marg
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -804,9 +804,9 @@ riot.tag2('staff-home', '', 'staff-home,[data-is="staff-home"]{ margin: 0 auto; 
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -867,9 +867,9 @@ riot.tag2('member-entry', '', 'member-entry,[data-is="member-entry"]{ margin: 0 
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -929,9 +929,9 @@ riot.tag2('member-screen', '', 'member-screen,[data-is="member-screen"]{ margin:
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -990,9 +990,9 @@ riot.tag2('member-view', '', 'member-view,[data-is="member-view"]{ margin: 0 aut
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1051,9 +1051,9 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1112,9 +1112,9 @@ riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ margin: 0 aut
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1173,9 +1173,9 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1234,9 +1234,9 @@ riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ margin: 0 auto; paddin
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1295,9 +1295,9 @@ riot.tag2('question-runtime', '', 'question-runtime,[data-is="question-runtime"]
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1356,9 +1356,9 @@ riot.tag2('raw-vote-view', '', 'raw-vote-view,[data-is="raw-vote-view"]{ margin:
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1417,9 +1417,9 @@ riot.tag2('staff-perf-view', '', 'staff-perf-view,[data-is="staff-perf-view"]{ m
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1478,9 +1478,9 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1509,23 +1509,106 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="dev-grid"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-grid .item,[data-is="dev-grid"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
+riot.tag2('dev-home', '<div id="item"> Sample Data </div>', 'dev-home,[data-is="dev-home"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-home .item,[data-is="dev-home"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
+});
+riot.tag2('dev-sample-editor', '<h3>{(current) ? current.name : \'-\'}</h3> <button ref="cmdSave">Save</button> <button ref="cmdCancel">Cancel</button>', '', '', function(opts) {
 
 
         let self = this;
-        let screenId = 'home';
+        let screenId = 'screenid';
+        this.current;
 
         let defaultContent = {
-            title: 'Dev Grid',
-            label: {}
+            title: 'Title',
+            label: {},
+            links: []
         }
         this.content = defaultContent;
 
         let updatecontent = () => {
-            if (screenservice && screenservice.screenId === screenId) {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
+
+            self.update();
+        }
+
+        let cmdSave, cmdCancel;
+
+        let initCtrls = () => {
+            cmdSave = self.refs['cmdSave'];
+            cmdCancel = self.refs['cmdCancel'];
+        }
+        let freeCtrls = () => {
+            cmdCancel = null;
+            cmdSave = null;
+        }
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('sample:beginedit', onSampleBeginEdit)
+            cmdSave.addEventListener('click', onSave)
+            cmdCancel.addEventListener('click', onCancel)
+        }
+        let unbindEvents = () => {
+            cmdCancel.removeEventListener('click', onCancel)
+            cmdSave.removeEventListener('click', onSave)
+            document.removeEventListener('sample:beginedit', onSampleBeginEdit)
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
             }
+            else {
+
+            }
+        }
+        let onSampleBeginEdit = (e) => {
+            let data = e.detail.item;
+            self.current = data;
+            console.log(self.current)
+            updatecontent();
+        }
+
+        onSave = (e) => {
+            self.current.name = 'change name';
+            let data = { item: self.current, isChanged: true }
+            evt = new CustomEvent('sample:endedit', { detail: data })
+            document.dispatchEvent(evt);
+        }
+        onCancel = (e) => {
+            let data = { item: self.current, isChanged: false }
+            evt = new CustomEvent('sample:endedit', { detail: data })
+            document.dispatchEvent(evt);
+        }
+
+        let showMsg = (err) => { }
+
+});
+riot.tag2('dev-sample-grid', '<div ref="grid" id="grid"></div>', 'dev-sample-grid,[data-is="dev-sample-grid"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-sample-grid .item,[data-is="dev-sample-grid"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
+
+
+        let self = this;
+
+        let updatecontent = () => {
+
+            self.update();
         }
 
         let initCtrls = () => {
@@ -1538,8 +1621,10 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
             document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
             document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('sample:endedit', onEndEdit);
         }
         let unbindEvents = () => {
+            document.removeEventListener('sample:endedit', onEndEdit);
             document.removeEventListener('screenchanged', onScreenChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
             document.removeEventListener('appcontentchanged', onAppContentChanged);
@@ -1590,61 +1675,77 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
         };
 
         let tabledata = [
-                {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
-                {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-            ];
-            let tabledata2 = [
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
-                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
-                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
-                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
-                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"}
-            ];
+            {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+            {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+        ];
+        let tabledata2 = [
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+            {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+            {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+            {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+            {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"}
+        ];
+
+        let editRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('sample:beginedit', { detail: { item: data } })
+            document.dispatchEvent(evt);
+        }
+        let deleteRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('sample:delete', { detail: { item: data } })
+            document.dispatchEvent(evt);
+        }
+        let onEndEdit = (e) => {
+            let data = e.detail.item;
+
+            table.redraw(true);
+        }
 
         let initGrid = () => {
             let opts = {
@@ -1654,15 +1755,11 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
                 columns: [
                     { formatter: editIcon, align:"center", width:44,
                       resizable: false, frozen: true, headerSort: false,
-                      cellClick: (e, cell) => {
-                          console.log("Edit Row : " + cell.getRow().getData().name)
-                      }
+                      cellClick: editRow
                     },
                     { formatter: deleteIcon, align:"center", width: 44,
                       resizable: false, frozen: true, headerSort: false,
-                      cellClick: (e, cell) => {
-                          console.log("Delete Row : " + cell.getRow().getData().name)
-                      }
+                      cellClick: deleteRow
                     },
 
                     { title: "Name", field: "name", resizable: false },
@@ -1689,7 +1786,72 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
             table.setData(data)
         }
 });
-riot.tag2('dev-home', '<div id="item"> Sample Data </div>', 'dev-home,[data-is="dev-home"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-home .item,[data-is="dev-home"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
+riot.tag2('dev-sample', '<flip-screen ref="flipper"> <yield to="viewer"> <dev-sample-grid ref="viewer" class="view"></dev-sample-grid> </yield> <yield to="entry"> <dev-sample-editor ref="entry" class="entry"></dev-sample-editor> </yield> </flip-screen>', 'dev-sample,[data-is="dev-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-sample .view,[data-is="dev-sample"] .view,dev-sample .entry,[data-is="dev-sample"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; }', '', function(opts) {
+
+
+        let self = this;
+        let current;
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+
+            self.update();
+        }
+
+        let flipper, view, entry;
+
+        let initCtrls = () => {
+            flipper = self.refs['flipper'];
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => { }
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('sample:beginedit', onSampleBeginEdit);
+            document.addEventListener('sample:endedit', onSampleEndEdit);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('sample:endedit', onSampleEndEdit);
+            document.removeEventListener('sample:beginedit', onSampleBeginEdit);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+        }
+        let onSampleBeginEdit = (e) => {
+            console.log('Begin Edit');
+            flipper.toggle();
+        }
+        let onSampleEndEdit = (e) => {
+            console.log('End Edit');
+            flipper.toggle();
+        }
+
 });
 riot.tag2('product-card', '', '', '', function(opts) {
 });
@@ -1725,9 +1887,9 @@ riot.tag2('customer-entry', '', 'customer-entry,[data-is="customer-entry"]{ marg
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1786,9 +1948,9 @@ riot.tag2('edl-admin-home', '', 'edl-admin-home,[data-is="edl-admin-home"]{ marg
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1847,9 +2009,9 @@ riot.tag2('edl-staff-home', '', 'edl-staff-home,[data-is="edl-staff-home"]{ marg
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1908,9 +2070,9 @@ riot.tag2('edl-supervisor-home', '', 'edl-supervisor-home,[data-is="edl-supervis
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1969,9 +2131,9 @@ riot.tag2('user-entry', '', 'user-entry,[data-is="user-entry"]{ margin: 0 auto; 
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         this.on('mount', () => {

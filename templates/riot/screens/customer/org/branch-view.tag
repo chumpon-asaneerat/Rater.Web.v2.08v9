@@ -49,9 +49,9 @@
             document.addEventListener('screenchanged', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
         }
 
         //#endregion

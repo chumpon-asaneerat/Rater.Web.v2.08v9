@@ -1,17 +1,13 @@
-<member-screen>
-    <style>
-        :scope {
-            margin: 0 auto;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+<dev-sample-editor>
+    <h3>{ (current) ? current.name : '-' }</h3>
+    <button ref="cmdSave">Save</button>
+    <button ref="cmdCancel">Cancel</button>
     <script>
         //#region local variables
 
         let self = this;
         let screenId = 'screenid';
+        this.current;
 
         //#endregion
 
@@ -25,18 +21,29 @@
         this.content = defaultContent;
         
         let updatecontent = () => {
+            /*
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
             }
+            */
+            self.update();
         }
 
         //#endregion
 
         //#region controls variables and methods
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
+        let cmdSave, cmdCancel;
+
+        let initCtrls = () => {
+            cmdSave = self.refs['cmdSave'];
+            cmdCancel = self.refs['cmdCancel'];
+        }
+        let freeCtrls = () => {
+            cmdCancel = null;
+            cmdSave = null;
+        }
         let clearInputs = () => {}
 
         //#endregion
@@ -47,8 +54,14 @@
             document.addEventListener('appcontentchanged', onAppContentChanged);
             document.addEventListener('languagechanged', onLanguageChanged);
             document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('sample:beginedit', onSampleBeginEdit)
+            cmdSave.addEventListener('click', onSave)
+            cmdCancel.addEventListener('click', onCancel)
         }
         let unbindEvents = () => {
+            cmdCancel.removeEventListener('click', onCancel)
+            cmdSave.removeEventListener('click', onSave)
+            document.removeEventListener('sample:beginedit', onSampleBeginEdit)
             document.removeEventListener('screenchanged', onScreenChanged);
             document.removeEventListener('languagechanged', onLanguageChanged);
             document.removeEventListener('appcontentchanged', onAppContentChanged);
@@ -82,19 +95,31 @@
                 // other screen shown.
             }
         }
+        let onSampleBeginEdit = (e) => {
+            let data = e.detail.item;
+            self.current = data;
+            console.log(self.current)
+            updatecontent();
+        }
 
         //#endregion
+
+        onSave = (e) => {
+            self.current.name = 'change name';
+            let data = { item: self.current, isChanged: true }
+            evt = new CustomEvent('sample:endedit', { detail: data })
+            document.dispatchEvent(evt);
+        }
+        onCancel = (e) => {
+            let data = { item: self.current, isChanged: false }
+            evt = new CustomEvent('sample:endedit', { detail: data })
+            document.dispatchEvent(evt);
+        }
 
         //#region private service wrapper methods
 
         let showMsg = (err) => { }
 
         //#endregion
-
-        //#region public methods
-
-        this.publicMethod = (message) => { }
-
-        //#endregion
     </script>
-</member-screen>
+</dev-sample-editor>
