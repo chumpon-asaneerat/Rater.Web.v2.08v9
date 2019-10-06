@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- tabulator css -->
+    <link href="/dist/css/tabulator.min.css" rel="stylesheet" type="text/css" />
+    <!-- chartjs css -->
+    <link href="/dist/css/chart.min.css" rel="stylesheet" type="text/css" />
+    <!-- reveal css -->
+    <link href="/dist/css/reveal.css" rel="stylesheet" type="text/css" />
+    <!-- nlib css -->
+    <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
+    <style>
+        .reveal, section, section {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .slides {
+            display: block;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .wrapper {
+            display: block;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        /*
+        canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+        */
+        /*
+        .canvas-container {
+            padding: 20px;
+            width: 100% !important;
+            height: 100% !important;
+            border: 1px solid blue;
+        }
+        .canvas-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        */
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <div class="wrapper"><canvas id="cv1" width="900" height="550"></canvas></div>
+            </section>
+            <section>
+                <div class="wrapper"><canvas id="cv2" width="900" height="550"></canvas></div>
+            </section>
+            <section>
+                <div class="wrapper"><canvas id="cv3" width="900" height="550"></canvas></div>
+            </section>
+            <section>
+                <div class="wrapper"><canvas id="cv4" width="900" height="550"></canvas></div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- Tabulator -->
+    <script src="/dist/js/tabulator.min.js"></script>
+    <!-- Chart.js -->
+    <script src="/dist/js/chart.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-datalabels.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-piechart-outlabels.min.js"></script>
+    <!-- fabric.js -->
+    <script src="/dist/js/fabric.min.js"></script>
+    <!-- Howler.js -->
+    <script src="/dist/js/howler.min.js"></script>
+    <!-- Reveal.js -->
+    <script src="/dist/js/reveal.js"></script>
+    <!-- Riot.js -->
+    <script src="/dist/js/riot.min.js"></script>
+    <!-- custom components -->
+    <!--
+    <script src="/dist/js/tags.js"></script>
+    -->
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <script>
+        /*
+        let cw = '900px'
+        let ch = '600px'
+        */
+        let cw = '100%'
+        let ch = '100%'
+
+        let cv1 = new fabric.Canvas('cv1');
+        //cv1.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        cv1.add(new fabric.Rect({
+            width: 120, height: 200,
+            left: 50, top: 50,
+            fill: 'red',
+            angle: 0
+        }))
+        let cv2 = new fabric.Canvas('cv2');
+        //cv2.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        cv2.add(new fabric.Rect({
+            width: 200, height: 100,
+            left: 100, top: 100,
+            fill: 'blue',
+            angle: 0
+        }))
+
+        let j1 = JSON.stringify(cv1);
+        console.log(j1)
+        let j2 = JSON.stringify(cv2);
+        console.log(j2)
+
+        let cv3 = new fabric.Canvas('cv3');
+        //cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        cv3.loadFromJSON(j1, () => { 
+            //cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+            cv3.renderAll(); 
+        }, (o, object) => { console.log(o,object) })
+
+        let cv4 = new fabric.Canvas('cv4');        
+        //cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        cv4.loadFromJSON(j2, () => { 
+            //cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+            cv4.renderAll(); 
+        }, (o, object) => { console.log(o,object) })
+
+        Reveal.initialize({
+            width: '920',
+            height: '600',
+            // Factor of the display size that should remain empty around the content
+	        margin: 0.1,
+            // Bounds for smallest/largest possible scale to apply to content
+            minScale: 1,
+            maxScale: 1
+        });
+    </script>
+</body>
+</html>
