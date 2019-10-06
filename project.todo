@@ -80,6 +80,7 @@ My Choice Rater Web v2.0.8x9:
         Canvas:
             ✔ Check used mutiple canvas on one body. @done(19-10-07 06:44)
             ✔ Check used mutiple canvas in reveal.js. @done(19-10-07 06:44)
+            ☐ Check Reveal Scale with fabric.js 100% canvas size.
         Data Model:
             ☐ Save/load HTMLElement HTML tag, attribute, css (used cssText).
             ☐ Detected style changed (i.e. on editting if style changed another source).
