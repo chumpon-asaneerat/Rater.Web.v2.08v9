@@ -78,8 +78,8 @@ My Choice Rater Web v2.0.8x9:
             ✔ Check Tabulator freeze column. @done(19-10-07 01:35)
             ☐ Check Tabulator row custom layout.
         Canvas:
-            ☐ Check used mutiple canvas on one body.
-            ☐ Check used mutiple canvas in reveal.js.
+            ✔ Check used mutiple canvas on one body. @done(19-10-07 06:44)
+            ✔ Check used mutiple canvas in reveal.js. @done(19-10-07 06:44)
         Data Model:
             ☐ Save/load HTMLElement HTML tag, attribute, css (used cssText).
             ☐ Detected style changed (i.e. on editting if style changed another source).
