@@ -73,9 +73,9 @@ My Choice Rater Web v2.0.8x9:
             ☐ Selection service.
     Research:
         Tabulator:
-            ☐ Fixed Tabulator resize problem.
-            ☐ Check Tabulator row selection.
-            ☐ Check Tabulator freeze column.
+            ✔ Fixed Tabulator resize problem. @done(19-10-07 01:35)
+            ✔ Check Tabulator row selection. @done(19-10-07 01:35)
+            ✔ Check Tabulator freeze column. @done(19-10-07 01:35)
             ☐ Check Tabulator row custom layout.
         Canvas:
             ☐ Check used mutiple canvas on one body.
