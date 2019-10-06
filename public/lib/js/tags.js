@@ -500,8 +500,6 @@ riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div r
             flipper.toggle();
         }
 });
-riot.tag2('dev-home', '<div id="item"> Sample Data </div>', 'dev-home,[data-is="dev-home"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-home .item,[data-is="dev-home"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
-});
 riot.tag2('flip-container', '<div class="auto-container"> <div ref="flipper" class="flipper"> <div class="viewer-div"> <yield from="viewer"></yield> </div> <div class="entry-div"> <yield from="entry"></yield> </div> </div> </div>', 'flip-container,[data-is="flip-container"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'auto-container\'; overflow: hidden; } flip-container .auto-container,[data-is="flip-container"] .auto-container{ grid-area: auto-container; background-color: transparent; border: 1px solid #f1f1f1; } flip-container .flipper,[data-is="flip-container"] .flipper{ position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; } flip-container .auto-container .flipper.toggle,[data-is="flip-container"] .auto-container .flipper.toggle{ transform: rotateY(180deg); } flip-container .viewer-div,[data-is="flip-container"] .viewer-div,flip-container .entry-div,[data-is="flip-container"] .entry-div{ position: absolute; width: 100%; height: 100%; backface-visibility: hidden; } flip-container .viewer-div,[data-is="flip-container"] .viewer-div{ transform: rotateY(0deg); } flip-container .entry-div,[data-is="flip-container"] .entry-div{ background-color: dodgerblue; color: white; transform: rotateY(180deg); }', '', function(opts) {
         let self = this;
         let flipper;
@@ -1510,6 +1508,138 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
 
         this.publicMethod = (message) => { }
 
+});
+riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="dev-grid"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-grid .item,[data-is="dev-grid"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'home';
+
+        let defaultContent = {
+            title: 'Dev Grid',
+            label: {}
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                if (table) table.redraw(true);
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {
+            initGrid();
+        }
+        let freeCtrls = () => { }
+        let clearInputs = () => { }
+
+        let bindEvents = () => {
+            document.addEventListener('appcontentchanged', onAppContentChanged);
+            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('screenchanged', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('screenchanged', onScreenChanged);
+            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('appcontentchanged', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+            }
+            else {
+            }
+        }
+
+        let editIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-edit'></span></button>";
+        };
+        let deleteIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-trash-alt'></span></button>";
+        };
+        let initGrid = () => {
+            let tabledata = [
+                {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+                {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+            ];
+
+            let opts = {
+                height: "100%",
+                layout:"fitData",
+
+                columns: [
+                    { formatter: editIcon, align:"center", width:44,
+                      frozen: true, headerSort: false,
+                      cellClick: (e, cell) => {
+                          console.log("Edit Row : " + cell.getRow().getData().name)
+                      }
+                    },
+                    { formatter: deleteIcon, align:"center", width: 44,
+                      frozen: true, headerSort: false,
+                      cellClick: (e, cell) => {
+                          console.log("Delete Row : " + cell.getRow().getData().name)
+                      }
+                    },
+
+                    { title: "Name", field: "name" },
+                    { title: "Age", field: "age" },
+                    { title: "Favourite Color", field: "col" },
+                    { title: "Date Of Birth", field: "dob", align: "center" },
+                    { title: "Progress", field:"progress", sorter: "number" },
+                    { title: "Gender", field: "gender" },
+                    { title: "Col A", field: "a" },
+                    { title: "Col B", field: "b" },
+                    { title: "Col C", field: "c" },
+                    { title: "Col D", field: "d" },
+                    { title: "Col E", field: "e" },
+                    { title: "Col F", field: "f" },
+                    { title: "Col End", field: "end"}
+                ]
+            }
+
+            table = new Tabulator("#grid", opts);
+            table.setData(tabledata)
+        }
+});
+riot.tag2('dev-home', '<div id="item"> Sample Data </div>', 'dev-home,[data-is="dev-home"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-home .item,[data-is="dev-home"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
 });
 riot.tag2('product-card', '', '', '', function(opts) {
 });

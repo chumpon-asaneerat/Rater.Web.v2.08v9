@@ -67,16 +67,23 @@
     </style>
 </head>
 <body>
-    <app id="app">
+    <app id="app" navibar footer>
+        <!-- Dev Home -->
         <!--
         <screen data-ref="home" screenid="home">
             <dev-home></dev-home>
         </screen>
         -->
+        <!-- Box Model -->
+        <!--
         <div class="box">
             <div id="item"  class="box1">ITEM</div>
             <div id="item2" class="box2">ITEM 2</div>
         </div>
+        -->
+        <screen data-ref="home" screenid="home">
+            <dev-grid></dev-grid>
+        </screen>
     </app>
     
     <!-- JQuery -->
@@ -112,6 +119,7 @@
     <script src="js/app.js"></script>
     <script>
         //console.log('page loaded.');
+        /*
         let id = document.getElementById('item')
         
         let css1 = id.style.cssText;
@@ -126,6 +134,7 @@
         console.log('item2 style before:', id2.style.cssText)
         id2.style.cssText = css2;
         console.log('item2 style after:', id2.style.cssText)
+        */
     </script>
 </body>
 </html>
