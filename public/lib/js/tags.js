@@ -1556,7 +1556,19 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
         });
 
         let onAppContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => {
+            if (lang.current.langId === 'TH') {
+
+                table.clearData();
+                table.setData(tabledata2);
+            }
+            else {
+
+                table.clearData();
+                table.setData(tabledata);
+            }
+            updatecontent();
+        }
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
@@ -1571,8 +1583,8 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
         let deleteIcon = (cell, formatterParams) => {
             return "<button><span class='fas fa-trash-alt'></span></button>";
         };
-        let initGrid = () => {
-            let tabledata = [
+
+        let tabledata = [
                 {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
                 {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
                 {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
@@ -1600,43 +1612,76 @@ riot.tag2('dev-grid', '<div ref="grid" id="grid"></div>', 'dev-grid,[data-is="de
                 {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
                 {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
             ];
+            let tabledata2 = [
+                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:1, name:"JJJJ", age:"12", col:"red", dob:""},
+                {id:2, name:"DDDD", age:"1", col:"blue", dob:"14/05/1982"},
+                {id:3, name:"XXXX", age:"42", col:"green", dob:"22/05/1982"},
+                {id:4, name:"YYYY", age:"125", col:"orange", dob:"01/08/1980"},
+                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"},
+                {id:5, name:"LLLL", age:"16", col:"yellow", dob:"31/01/1999"}
+            ];
 
+        let initGrid = () => {
             let opts = {
                 height: "100%",
-                layout:"fitData",
+                layout: "fitDataFill",
 
                 columns: [
                     { formatter: editIcon, align:"center", width:44,
-                      frozen: true, headerSort: false,
+                      resizable: false, frozen: true, headerSort: false,
                       cellClick: (e, cell) => {
                           console.log("Edit Row : " + cell.getRow().getData().name)
                       }
                     },
                     { formatter: deleteIcon, align:"center", width: 44,
-                      frozen: true, headerSort: false,
+                      resizable: false, frozen: true, headerSort: false,
                       cellClick: (e, cell) => {
                           console.log("Delete Row : " + cell.getRow().getData().name)
                       }
                     },
 
-                    { title: "Name", field: "name" },
-                    { title: "Age", field: "age" },
-                    { title: "Favourite Color", field: "col" },
-                    { title: "Date Of Birth", field: "dob", align: "center" },
-                    { title: "Progress", field:"progress", sorter: "number" },
-                    { title: "Gender", field: "gender" },
-                    { title: "Col A", field: "a" },
-                    { title: "Col B", field: "b" },
-                    { title: "Col C", field: "c" },
-                    { title: "Col D", field: "d" },
-                    { title: "Col E", field: "e" },
-                    { title: "Col F", field: "f" },
-                    { title: "Col End", field: "end"}
+                    { title: "Name", field: "name", resizable: false },
+                    { title: "Age", field: "age", resizable: false },
+                    { title: "Favourite Color", field: "col", resizable: false },
+                    { title: "Date Of Birth", field: "dob", align: "center", resizable: false },
+                    { title: "Progress", field:"progress", sorter: "number", resizable: false },
+                    { title: "Gender", field: "gender", resizable: false },
+                    { title: "Col A", field: "a", resizable: false },
+                    { title: "Col B", field: "b", resizable: false },
+                    { title: "Col C", field: "c", resizable: false },
+                    { title: "Col D", field: "d", resizable: false },
+                    { title: "Col E", field: "e", resizable: false },
+                    { title: "Col F", field: "f", resizable: false },
+                    { title: "Col End", field: "end", resizable: false}
                 ]
             }
 
             table = new Tabulator("#grid", opts);
-            table.setData(tabledata)
+            initData(tabledata)
+        }
+
+        let initData = (data) => {
+            table.setData(data)
         }
 });
 riot.tag2('dev-home', '<div id="item"> Sample Data </div>', 'dev-home,[data-is="dev-home"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-home .item,[data-is="dev-home"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {
