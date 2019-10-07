@@ -97,8 +97,8 @@
     <script src="/dist/js/nlib.js"></script>
     <script>
         
-        let cw = '900px'
-        let ch = '600px'
+        let cw = '700px'
+        let ch = '500px'
         /*
         let cw = '1920px'
         let ch = '1080px'
@@ -137,14 +137,14 @@
         cv3.loadFromJSON(j1, () => { 
             cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
             cv3.renderAll(); 
-        }, (o, object) => { console.log(o,object) })
+        }, (o, object) => { /* console.log(o,object) */ })
 
         let cv4 = new fabric.Canvas('cv4');        
         //cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv4.loadFromJSON(j2, () => { 
             cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
             cv4.renderAll(); 
-        }, (o, object) => { console.log(o,object) })
+        }, (o, object) => { /* console.log(o,object) */ })
         
         let resizeCanvas = (cv, size, scale) => {
             let oldDi = { 
@@ -184,8 +184,8 @@
         Reveal.initialize({
             //width: 960,
             //height: 700,
-            width: '95%',
-            height: '95%',
+            width: 800,
+            height: 600,
             // Factor of the display size that should remain empty around the content
 	        margin: 0,
             // Bounds for smallest/largest possible scale to apply to content
@@ -193,7 +193,7 @@
 	        maxScale: 1.2
         });
 
-        console.log(Reveal);
+        //console.log(Reveal);
 
         Reveal.addEventListener('resize', function(e) {
             //console.log(e.scale, e.oldscale, e.size);
