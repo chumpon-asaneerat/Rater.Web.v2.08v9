@@ -26,7 +26,10 @@
     <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
     <style>
         .canvas-container {
+            margin: 0 auto;
             border: 1px solid blue;
+            width: 100%;
+            height: 100%;
         }
         /*
         .canvas-container {
@@ -39,7 +42,7 @@
             width: 100% !important;
             height: 100% !important;
         }
-        */        
+        */
     </style>
 </head>
 <body>
@@ -50,17 +53,16 @@
                 <H3>The Title Text</H3>
                 <p>Sample text for test scale on reveal js.</p>
                 -->
-                <canvas id="cv1"></canvas>
-                
+                <canvas id="cv1" width="1280" height="720"></canvas>
             </section>
             <section>
-                <canvas id="cv2"></canvas>
+                <canvas id="cv2" width="1280" height="720"></canvas>
             </section>
             <section>
-                <canvas id="cv3"></canvas>
+                <canvas id="cv3" width="1280" height="720"></canvas>
             </section>
             <section>
-                <canvas id="cv4"></canvas>
+                <canvas id="cv4" width="1280" height="720"></canvas>
             </section>
         </div>
     </div>
@@ -97,15 +99,15 @@
     <script src="/dist/js/nlib.js"></script>
     <script>
         
-        let cw = '700px'
-        let ch = '500px'
+        let cw = '800px'
+        let ch = '600px'
         /*
         let cw = '1920px'
         let ch = '1080px'
         */
 
         let cv1 = new fabric.Canvas('cv1');
-        cv1.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        //cv1.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv1.add(new fabric.Rect({
             width: 120, height: 120,
             left: 50, top: 50,
@@ -119,7 +121,7 @@
             angle: 0
         }))
         let cv2 = new fabric.Canvas('cv2');
-        cv2.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        //cv2.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv2.add(new fabric.Rect({
             width: 200, height: 100,
             left: 100, top: 100,
@@ -135,18 +137,19 @@
         let cv3 = new fabric.Canvas('cv3');
         //cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv3.loadFromJSON(j1, () => { 
-            cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+            //cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
             cv3.renderAll(); 
         }, (o, object) => { /* console.log(o,object) */ })
 
         let cv4 = new fabric.Canvas('cv4');        
         //cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv4.loadFromJSON(j2, () => { 
-            cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+            //cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
             cv4.renderAll(); 
         }, (o, object) => { /* console.log(o,object) */ })
         
         let resizeCanvas = (cv, size, scale) => {
+            /*
             let oldDi = { 
                 width: cv.getWidth(), 
                 height: cv.getHeight()
@@ -156,6 +159,7 @@
             //scaleObjects(cv, size, oldDi)
             cv.renderAll();
             cv.calcOffset();
+            */
         }
 
         let scaleObjects = (cv, size, oldDi) => {
@@ -182,15 +186,17 @@
         }
 
         Reveal.initialize({
-            //width: 960,
-            //height: 700,
-            width: 800,
-            height: 600,
+            /*
+            width: 1024,
+            height: 768,
+            */
+            width: '100%',
+            height: '100%',
             // Factor of the display size that should remain empty around the content
 	        margin: 0,
             // Bounds for smallest/largest possible scale to apply to content
             minScale: 0.2,
-	        maxScale: 1.2
+	        maxScale: 1.5
         });
 
         //console.log(Reveal);
