@@ -106,11 +106,23 @@ const api = DbApi; // create shortcur variable.
 //#region MessageService class
 
 class MessageService {
-    error(value) {
-        if (value) console.error(value)
+    warn(value) {
+        if (value) {
+            let evt = new CustomEvent('app:warning', { detail: { msg: value }})
+            document.dispatchEvent(evt);
+        }
     }
     info(value) {
-        if (value) console.log(value)
+        if (value) {
+            let evt = new CustomEvent('app:info', { detail: { msg: value }})
+            document.dispatchEvent(evt);
+        }
+    }
+    error(value) {
+        if (value) {
+            let evt = new CustomEvent('app:error', { detail: { msg: value }})
+            document.dispatchEvent(evt);
+        }
     }
 }
 

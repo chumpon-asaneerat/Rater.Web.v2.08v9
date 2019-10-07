@@ -382,17 +382,32 @@ riot.tag2('ninput', '<input ref="input" type="{opts.type}" name="{opts.name}" re
         }
 
 });
-riot.tag2('osd', '', 'osd,[data-is="osd"]{ margin: 0 auto; padding: 0; }', '', function(opts) {
+riot.tag2('osd', '<div ref="msgbox" class="msg error"> </div>', 'osd,[data-is="osd"]{ display: inline-block; position: absolute; margin: 0 auto; padding: 0; left: 50%; margin-left: -100px; right: 50px; bottom: 50px; z-index: 1000; background-color: transparent; } osd .msg,[data-is="osd"] .msg{ display: block; position: relative; margin: 0; padding: 5px; padding-bottom: 10px; height: auto; width: 200px; color: white; background-color: rgba(0, 0, 0, .7); text-align: center; border: 0; border-radius: 8px; user-select: none; visibility: hidden; } osd .msg.show,[data-is="osd"] .msg.show{ visibility: visible; } osd .msg.show.info,[data-is="osd"] .msg.show.info{ color: whitesmoke; background-color: rgba(0, 0, 0, .7); } osd .msg.show.warn,[data-is="osd"] .msg.show.warn{ color: black; background-color: rgba(255, 255, 0, .7); } osd .msg.show.error,[data-is="osd"] .msg.show.error{ color: yellow; background-color: rgba(255, 0, 0, .7); }', '', function(opts) {
 
 
         let self = this;
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let msgbox;
+        let initCtrls = () => {
+            msgbox = self.refs['msgbox'];
+        }
+        let freeCtrls = () => {
+            msgbox = null;
+        }
+        let clearInputs = () => {
+            if (msgbox) msgbox.innerText = '';
+        }
 
-        let bindEvents = () => {}
-        let unbindEvents = () => {}
+        let bindEvents = () => {
+            document.addEventListener('app:info', onInfo);
+            document.addEventListener('app:warning', onWarn);
+            document.addEventListener('app:error', onError);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:error', onError);
+            document.removeEventListener('app:warning', onWarn);
+            document.removeEventListener('app:info', onInfo);
+        }
 
         this.on('mount', () => {
             initCtrls();
@@ -402,6 +417,44 @@ riot.tag2('osd', '', 'osd,[data-is="osd"]{ margin: 0 auto; padding: 0; }', '', f
             unbindEvents();
             freeCtrls();
         });
+
+        let onInfo = (e) => {
+            let msg = e.detail.msg;
+            if (msgbox) {
+                msgbox.innerText = msg;
+                msgbox.classList.add('info')
+                msgbox.classList.add('show')
+                autoClose();
+            }
+        }
+        let onWarn = (e) => {
+            let msg = e.detail.msg;
+            if (msgbox) {
+                msgbox.innerText = msg;
+                msgbox.classList.add('warn')
+                msgbox.classList.add('show')
+                autoClose();
+            }
+        }
+        let onError = (e) => {
+            let msg = e.detail.msg;
+            if (msgbox) {
+                msgbox.innerText = msg;
+                msgbox.classList.add('error')
+                msgbox.classList.add('show')
+                autoClose();
+            }
+        }
+
+        let close = () => {
+            msgbox.classList.remove('info')
+            msgbox.classList.remove('warn')
+            msgbox.classList.remove('error')
+            msgbox.classList.remove('show')
+            msgbox.innerText = '';
+        }
+
+        let autoClose = () => { setTimeout(() => { close(); }, 5000) };
 
 });
 riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div ref="view" class="view"> <div ref="grid" id="grid"></div> </div> </yield> <yield to="entry"> <div ref="entry" class="entry"> <div class="head"> <h1>John Doe</h1> <p>Architect & Engineer</p> <p>We love that guy</p> </div> <div class="input-ui"> <input type="text" value="" placeholder="enter some text"> <button ref="submit">Submit</button> </div> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>We love that guy</p> <p>Architect & Engineer</p> </div> </yield> </dual-screen>', 'card-sample,[data-is="card-sample"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } card-sample .view,[data-is="card-sample"] .view,card-sample .entry,[data-is="card-sample"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; } card-sample .head,[data-is="card-sample"] .head{ text-align: center; } card-sample .input-ui,[data-is="card-sample"] .input-ui{ margin: 0 auto; padding: 5px; width: auto; }', '', function(opts) {
