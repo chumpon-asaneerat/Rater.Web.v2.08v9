@@ -39,7 +39,7 @@ My Choice Rater Web v2.0.8x9:
         ☐ Supports NText component.
         ☐ Supports NImage component.
         OSD component:
-            ☐ Display message with timeout (info/warning/error).
+            ✔ Display message with timeout (info/warning/error). @done(19-10-07 11:58)
             ☐ Check send message while previous message still shown.
             ☐ Check use requestAnimationFrame instead of setTimeout.
         ✔ Nav menu items with sync screen component. @done(19-09-10 13:50)
@@ -63,7 +63,7 @@ My Choice Rater Web v2.0.8x9:
             ☐ Text Color pocker.
         ☐ Image selector.
         ☐ Property Grid.
-        ☐ Message Service (Event based).
+        ✔ Message Service (Event based). @done(19-10-07 11:56)
         ☐ Status Service (Event based).
         Designer:
             ☐ Design Editor.
