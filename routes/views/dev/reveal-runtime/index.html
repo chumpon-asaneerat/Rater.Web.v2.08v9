@@ -25,37 +25,9 @@
     <!-- nlib css -->
     <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
     <style>
-        .reveal, section, section {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+        .canvas-container {
+            border: 1px solid blue;
         }
-        .slides {
-            display: block;
-            position: relative;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .wrapper {
-            display: block;
-            position: relative;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        /*
-        canvas {
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-        }
-        */
         /*
         .canvas-container {
             padding: 20px;
@@ -67,23 +39,28 @@
             width: 100% !important;
             height: 100% !important;
         }
-        */
+        */        
     </style>
 </head>
 <body>
     <div class="reveal">
         <div class="slides">
             <section>
-                <div class="wrapper"><canvas id="cv1" width="900" height="550"></canvas></div>
+                <!--
+                <H3>The Title Text</H3>
+                <p>Sample text for test scale on reveal js.</p>
+                -->
+                <canvas id="cv1"></canvas>
+                
             </section>
             <section>
-                <div class="wrapper"><canvas id="cv2" width="900" height="550"></canvas></div>
+                <canvas id="cv2"></canvas>
             </section>
             <section>
-                <div class="wrapper"><canvas id="cv3" width="900" height="550"></canvas></div>
+                <canvas id="cv3"></canvas>
             </section>
             <section>
-                <div class="wrapper"><canvas id="cv4" width="900" height="550"></canvas></div>
+                <canvas id="cv4"></canvas>
             </section>
         </div>
     </div>
@@ -119,23 +96,30 @@
     <!-- nlib -->
     <script src="/dist/js/nlib.js"></script>
     <script>
-        /*
+        
         let cw = '900px'
         let ch = '600px'
+        /*
+        let cw = '1920px'
+        let ch = '1080px'
         */
-        let cw = '100%'
-        let ch = '100%'
 
         let cv1 = new fabric.Canvas('cv1');
-        //cv1.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        cv1.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv1.add(new fabric.Rect({
-            width: 120, height: 200,
+            width: 120, height: 120,
             left: 50, top: 50,
             fill: 'red',
             angle: 0
         }))
+        cv1.add(new fabric.Rect({
+            width: 120, height: 120,
+            left: 300, top: 150,
+            fill: 'silver',
+            angle: 0
+        }))
         let cv2 = new fabric.Canvas('cv2');
-        //cv2.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        cv2.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv2.add(new fabric.Rect({
             width: 200, height: 100,
             left: 100, top: 100,
@@ -151,25 +135,74 @@
         let cv3 = new fabric.Canvas('cv3');
         //cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv3.loadFromJSON(j1, () => { 
-            //cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+            cv3.setDimensions({ width: cw, height: ch }, { cssOnly: true });
             cv3.renderAll(); 
         }, (o, object) => { console.log(o,object) })
 
         let cv4 = new fabric.Canvas('cv4');        
         //cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv4.loadFromJSON(j2, () => { 
-            //cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+            cv4.setDimensions({ width: cw, height: ch }, { cssOnly: true });
             cv4.renderAll(); 
         }, (o, object) => { console.log(o,object) })
+        
+        let resizeCanvas = (cv, size, scale) => {
+            let oldDi = { 
+                width: cv.getWidth(), 
+                height: cv.getHeight()
+            };
+            cv.setWidth(size.width);
+            cv.setHeight(size.height);
+            //scaleObjects(cv, size, oldDi)
+            cv.renderAll();
+            cv.calcOffset();
+        }
+
+        let scaleObjects = (cv, size, oldDi) => {
+            cv.getObjects().map((o) => {
+                // calculate factors
+                var factorW = (size.width / oldDi.width);
+                var factorH = (size.height / oldDi.height)
+                // calculate new position
+                var left = o.left * factorW;
+                var top = o.top * factorH;
+                o.setLeft(left);
+                o.setTop(top);
+
+                // calculate new size
+                var width = oldDi.width * factorW;
+                var height = oldDi.height * factorH;
+                o.setWidth(width);
+                o.setHeight(height);
+
+                cv.renderAll();
+                //canvas.calcOffset();
+                cv.setCoords();
+            });
+        }
 
         Reveal.initialize({
-            width: '920',
-            height: '600',
+            //width: 960,
+            //height: 700,
+            width: '95%',
+            height: '95%',
             // Factor of the display size that should remain empty around the content
-	        margin: 0.1,
+	        margin: 0,
             // Bounds for smallest/largest possible scale to apply to content
-            minScale: 1,
-            maxScale: 1
+            minScale: 0.2,
+	        maxScale: 1.2
+        });
+
+        console.log(Reveal);
+
+        Reveal.addEventListener('resize', function(e) {
+            //console.log(e.scale, e.oldscale, e.size);
+            /*
+            resizeCanvas(cv1, e.scale, e.size);
+            resizeCanvas(cv2, e.scale, e.size);
+            resizeCanvas(cv3, e.scale, e.size);
+            resizeCanvas(cv4, e.scale, e.size);
+            */
         });
     </script>
 </body>
