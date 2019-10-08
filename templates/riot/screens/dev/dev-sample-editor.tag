@@ -51,9 +51,9 @@
         //#region events bind/unbind
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:beginedit', onSampleBeginEdit)
             cmdSave.addEventListener('click', onSave)
             cmdCancel.addEventListener('click', onCancel)
@@ -62,9 +62,9 @@
             cmdCancel.removeEventListener('click', onCancel)
             cmdSave.removeEventListener('click', onSave)
             document.removeEventListener('sample:beginedit', onSampleBeginEdit)
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         //#endregion

@@ -2,11 +2,91 @@
     "screens": [
         { 
             "screenid": "home",
-            "title": "Admin Home",
+            "title": "Administrator Home",
             "label": {
-                "screenTitle": "Admin Home"
+                "screenTitle": "Administrator Home"
             },
             "links": [
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "org",
+            "title": "Organization Management",
+            "label": {
+                "screenTitle": "Organization Management"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "member",
+            "title": "User Account Management",
+            "label": {
+                "screenTitle": "User Account Management"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "device",
+            "title": "Device Management",
+            "label": {
+                "screenTitle": "Device Management"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "question",
+            "title": "Question Management",
+            "label": {
+                "screenTitle": "Question Management"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "report",
+            "title": "Summary Reports",
+            "label": {
+                "screenTitle": "Summary Reports"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
                 { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
             ]
         }

@@ -1,14 +1,18 @@
-<edl-supervisor-home>
+<member-manage>
+    <h3>Member Manage.</h3>
     <style>
         :scope {
             margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
     <script>
         //#region local variables
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'member';
 
         //#endregion
 
@@ -94,4 +98,4 @@
 
         //#endregion
     </script>
-</edl-supervisor-home>
+</member-manage>

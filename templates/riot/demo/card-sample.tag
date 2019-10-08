@@ -70,7 +70,7 @@
         let flipper, view, submit, table;
 
         let bindEvents = () => {
-            document.addEventListener('screenchanged', screenchanged);
+            document.addEventListener('app:screen:changed', screenchanged);
             view.addEventListener('click', toggle);
             //entry.addEventListener('click', toggle);
             submit.addEventListener('click', toggle);
@@ -79,7 +79,7 @@
             submit.removeEventListener('click', toggle);
             //entry.removeEventListener('click', toggle);
             view.removeEventListener('click', toggle);
-            document.removeEventListener('screenchanged', screenchanged);
+            document.removeEventListener('app:screen:changed', screenchanged);
         }
 
         let screenchanged = (e) => {

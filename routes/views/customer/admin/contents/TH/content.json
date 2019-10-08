@@ -7,7 +7,87 @@
                 "screenTitle": "หน้าหลัก - ผู้ดูแลระบบ"
             },
             "links": [
-                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "org",
+            "title": "ผังองกรณ์",
+            "label": {
+                "screenTitle": "ผังองกรณ์"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "member",
+            "title": "บัญชีผู้ใช้งาน",
+            "label": {
+                "screenTitle": "บัญชีผู้ใช้งาน"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "device",
+            "title": "บัญชีอุปกรณ์",
+            "label": {
+                "screenTitle": "บัญชีอุปกรณ์"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "question",
+            "title": "จัดการชุดคำถาม",
+            "label": {
+                "screenTitle": "จัดการชุดคำถาม"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "report",
+            "title": "รายงานสรุป",
+            "label": {
+                "screenTitle": "รายงานสรุป"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
             ]
         }
     ],

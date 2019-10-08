@@ -233,9 +233,9 @@
         //#region events bind/unbind
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
             document.addEventListener('signinfailed', onSignInFailed);
             submit.addEventListener('click', onSubmit);
@@ -246,9 +246,9 @@
             submit.removeEventListener('click', onSubmit);
             document.removeEventListener('signinfailed', onSignInFailed);
             document.removeEventListener('userlistchanged', onUserListChanged);
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         //#endregion

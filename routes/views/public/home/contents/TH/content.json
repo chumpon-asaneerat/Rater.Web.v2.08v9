@@ -23,7 +23,7 @@
                 "customerName": "ชื่อลูกค้า"
             },
             "links": [
-                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
                 { "type": "screen", "ref": "register", "text":"ลงทะเบียน", "icon": "fas fa-user-plus", "icontype": "fontcss" }
             ]
         },
@@ -37,7 +37,7 @@
                 "submit": "ลงทะเบียน"
             },
             "links": [
-                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "far fa-user-circle", "icontype": "font" },
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "font" },
                 { "type": "screen", "ref": "signin", "text":"เข้าใช้งาน", "icon": "far fa-user-circle", "icontype": "font" }
             ]
         }

@@ -8,7 +8,7 @@
         //#region local variables
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'org';
 
         //#endregion
 
@@ -41,14 +41,14 @@
         //#region events bind/unbind
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         //#endregion

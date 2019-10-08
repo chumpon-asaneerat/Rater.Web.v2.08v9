@@ -23,7 +23,7 @@
                 "customerName": "Customer Name"
             },
             "links": [
-                { "type": "screen", "ref": "home", "text":"Home", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
                 { "type": "screen", "ref": "register", "text":"Register", "icon": "fas fa-user-plus", "icontype": "fontcss" }
             ]
         },
@@ -37,7 +37,7 @@
                 "submit": "Register"
             },
             "links": [
-                { "type": "screen", "ref": "home", "text":"Home", "icon": "far fa-user-circle", "icontype": "font" },
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "font" },
                 { "type": "screen", "ref": "signin", "text":"Sign In", "icon": "far fa-user-circle", "icontype": "font" }
             ]
         }

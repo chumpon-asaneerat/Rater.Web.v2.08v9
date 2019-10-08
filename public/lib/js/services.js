@@ -162,7 +162,7 @@ class LanguageService {
             this.pref.langId = this.current.langId;
             this.pref.save();
             // Raise event.
-            let evt = new CustomEvent('languagechanged');
+            let evt = new CustomEvent('language:content:changed');
             document.dispatchEvent(evt);
         }
     }
@@ -195,10 +195,10 @@ class ContentService {
         let contentChanged = (e) => {
             self.current = self.getCurrent();
             // raise event.
-            let evt = new CustomEvent('appcontentchanged');
+            let evt = new CustomEvent('app:content:changed');
             document.dispatchEvent(evt);
         }
-        document.addEventListener('languagechanged', contentChanged)
+        document.addEventListener('language:content:changed', contentChanged)
     }
     load(url, paramObj) {
         let self = this;
@@ -207,7 +207,7 @@ class ContentService {
             self.content = data.records;
             self.current = self.getCurrent();
             // raise event.
-            let evt = new CustomEvent('appcontentchanged');
+            let evt = new CustomEvent('app:content:changed');
             document.dispatchEvent(evt);
         }
         XHR.get(url, paramObj, fn);
@@ -244,7 +244,7 @@ class MemberTypesLoader {
         let contentChanged = (e) => {
             self.current = self.getCurrent();
         }
-        document.addEventListener('languagechanged', contentChanged)
+        document.addEventListener('language:content:changed', contentChanged)
     }
     load() {
         let self = this;
@@ -276,7 +276,7 @@ class PeriodUnitsLoader {
         let contentChanged = (e) => {
             self.current = self.getCurrent();
         }
-        document.addEventListener('languagechanged', contentChanged)
+        document.addEventListener('language:content:changed', contentChanged)
     }
     load() {
         let self = this;
@@ -308,7 +308,7 @@ class LimitUnitsLoader {
         let contentChanged = (e) => {
             self.current = self.getCurrent();
         }
-        document.addEventListener('languagechanged', contentChanged)
+        document.addEventListener('language:content:changed', contentChanged)
     }
     load() {
         let self = this;
@@ -340,7 +340,7 @@ class DeviceTypesLoader {
         let contentChanged = (e) => {
             self.current = self.getCurrent();
         }
-        document.addEventListener('languagechanged', contentChanged)
+        document.addEventListener('language:content:changed', contentChanged)
     }
     load() {
         let self = this;
@@ -371,7 +371,7 @@ class LicenseTypesLoader {
         let contentChanged = (e) => {
             self.current = self.getCurrent();
         }
-        document.addEventListener('languagechanged', contentChanged)
+        document.addEventListener('language:content:changed', contentChanged)
     }
     load() {
         let self = this;
@@ -403,7 +403,7 @@ class LicenseFeaturesLoader {
         let contentChanged = (e) => {
             self.current = self.getCurrent();
         }
-        document.addEventListener('languagechanged', contentChanged)
+        document.addEventListener('language:content:changed', contentChanged)
     }
     load() {
         let self = this;
@@ -465,7 +465,7 @@ class ScreenService {
         let appContentChanged = (e) => {
             self.refresh();
         }
-        document.addEventListener('appcontentchanged', appContentChanged)
+        document.addEventListener('app:content:changed', appContentChanged)
     }
     refresh() {
         if (this.current && this.content) {
@@ -507,7 +507,7 @@ class ScreenService {
             scr.show();
             this.refresh();
             // Raise event.
-            let evt = new CustomEvent('screenchanged', { detail: { screenId: screenId } });
+            let evt = new CustomEvent('app:screen:changed', { detail: { screenId: screenId } });
             document.dispatchEvent(evt);
         }
     }

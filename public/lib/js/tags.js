@@ -51,14 +51,14 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
             flags.addEventListener('click', toggle);
             window.addEventListener('click', checkClickPosition);
         }
         let unbindEvents = () => {
             window.removeEventListener('click', checkClickPosition);
             flags.removeEventListener('click', toggle);
-            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
         }
 
         this.on('mount', () => {
@@ -132,18 +132,18 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             links.addEventListener('click', toggle);
             window.addEventListener('click', checkClickPosition);
         }
         let unbindEvents = () => {
             window.removeEventListener('click', checkClickPosition);
             links.removeEventListener('click', toggle);
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -217,10 +217,10 @@ riot.tag2('page-footer', '<p class="caption"> {(appcontent.current) ? appcontent
         let self = this;
 
         let bindEvents = () => {
-            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('languagechanged', onLanguageChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
         }
 
         this.on('mount', () => { bindEvents(); });
@@ -462,7 +462,7 @@ riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div r
         let flipper, view, submit, table;
 
         let bindEvents = () => {
-            document.addEventListener('screenchanged', screenchanged);
+            document.addEventListener('app:screen:changed', screenchanged);
             view.addEventListener('click', toggle);
 
             submit.addEventListener('click', toggle);
@@ -471,7 +471,7 @@ riot.tag2('card-sample', '<dual-screen ref="flipper"> <yield to="viewer"> <div r
             submit.removeEventListener('click', toggle);
 
             view.removeEventListener('click', toggle);
-            document.removeEventListener('screenchanged', screenchanged);
+            document.removeEventListener('app:screen:changed', screenchanged);
         }
 
         let screenchanged = (e) => {
@@ -608,14 +608,14 @@ riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ margin: 0 
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -644,11 +644,11 @@ riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ margin: 0 
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('admin-home', '', 'admin-home,[data-is="admin-home"]{ margin: 0 auto; }', '', function(opts) {
+riot.tag2('device-manage', '<h3>Device Manage.</h3>', 'device-manage,[data-is="device-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'member';
 
         let defaultContent = {
             title: 'Title',
@@ -669,14 +669,75 @@ riot.tag2('admin-home', '', 'admin-home,[data-is="admin-home"]{ margin: 0 auto; 
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('admin-home', '<h3>Admin Home</h3>', 'admin-home,[data-is="admin-home"]{ margin: 0 auto; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'home';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -730,14 +791,14 @@ riot.tag2('device-home', '', 'device-home,[data-is="device-home"]{ margin: 0 aut
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -791,14 +852,14 @@ riot.tag2('exclusive-home', '', 'exclusive-home,[data-is="exclusive-home"]{ marg
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -852,14 +913,14 @@ riot.tag2('staff-home', '', 'staff-home,[data-is="staff-home"]{ margin: 0 auto; 
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -915,14 +976,14 @@ riot.tag2('member-entry', '', 'member-entry,[data-is="member-entry"]{ margin: 0 
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -952,11 +1013,11 @@ riot.tag2('member-entry', '', 'member-entry,[data-is="member-entry"]{ margin: 0 
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('member-screen', '', 'member-screen,[data-is="member-screen"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('member-manage', '<h3>Member Manage.</h3>', 'member-manage,[data-is="member-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'member';
 
         let defaultContent = {
             title: 'Title',
@@ -977,14 +1038,14 @@ riot.tag2('member-screen', '', 'member-screen,[data-is="member-screen"]{ margin:
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1038,14 +1099,14 @@ riot.tag2('member-view', '', 'member-view,[data-is="member-view"]{ margin: 0 aut
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1099,14 +1160,14 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1135,11 +1196,11 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <branch-view ref="viewer" class="view"></branch-view> </yield> <yield to="entry"> <branch-entry ref="entry" class="entry"></branch-entry> </yield> </flip-screen>', 'branch-manage,[data-is="branch-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } branch-manage .view,[data-is="branch-manage"] .view,branch-manage .entry,[data-is="branch-manage"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; }', '', function(opts) {
 
 
         let self = this;
-        let screenId = 'screenid';
+        let current;
 
         let defaultContent = {
             title: 'Title',
@@ -1149,10 +1210,75 @@ riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ margin: 0 aut
         this.content = defaultContent;
 
         let updatecontent = () => {
-            if (screenservice && screenservice.screenId === screenId) {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
-            }
+
+            self.update();
+        }
+
+        let flipper, view, entry;
+
+        let initCtrls = () => {
+            flipper = self.refs['flipper'];
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => { }
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('entry:beginedit', onEntryBeginEdit);
+            document.addEventListener('entry:endedit', onEntryEndEdit);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('entry:endedit', onEntryEndEdit);
+            document.removeEventListener('entry:beginedit', onEntryBeginEdit);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+        }
+        let onEntryBeginEdit = (e) => {
+            console.log('Begin Edit');
+            flipper.toggle();
+        }
+        let onEntryEndEdit = (e) => {
+            console.log('End Edit');
+            flipper.toggle();
+        }
+
+});
+riot.tag2('branch-view', '<div ref="title" class="titlearea">{content.title}</div> <div ref="container" class="scrarea"> <div ref="grid" id="grid"></div> </div>', 'branch-view,[data-is="branch-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px 1fr; grid-template-areas: \'titlearea\' \'scrarea\'; } branch-view .titlearea,[data-is="branch-view"] .titlearea{ margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } branch-view .scrarea,[data-is="branch-view"] .scrarea{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Branch Management',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+
+            self.update();
         }
 
         let initCtrls = () => {}
@@ -1160,14 +1286,14 @@ riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ margin: 0 aut
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1200,7 +1326,7 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
 
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'org';
 
         let defaultContent = {
             title: 'Title',
@@ -1221,14 +1347,75 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="org-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'org';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1282,14 +1469,75 @@ riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ margin: 0 auto; paddin
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('question-manage', '<h3>Questions Manage.</h3>', 'question-manage,[data-is="question-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'member';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1343,14 +1591,14 @@ riot.tag2('question-runtime', '', 'question-runtime,[data-is="question-runtime"]
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1404,14 +1652,75 @@ riot.tag2('raw-vote-view', '', 'raw-vote-view,[data-is="raw-vote-view"]{ margin:
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
+
+        let showMsg = (err) => { }
+
+        this.publicMethod = (message) => { }
+
+});
+riot.tag2('report-home', '<h3>Summary reports.</h3>', 'report-home,[data-is="report-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'member';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1465,14 +1774,14 @@ riot.tag2('staff-perf-view', '', 'staff-perf-view,[data-is="staff-perf-view"]{ m
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1526,14 +1835,14 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1596,9 +1905,9 @@ riot.tag2('dev-sample-editor', '<h3>{(current) ? current.name : \'-\'}</h3> <but
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:beginedit', onSampleBeginEdit)
             cmdSave.addEventListener('click', onSave)
             cmdCancel.addEventListener('click', onCancel)
@@ -1607,9 +1916,9 @@ riot.tag2('dev-sample-editor', '<h3>{(current) ? current.name : \'-\'}</h3> <but
             cmdCancel.removeEventListener('click', onCancel)
             cmdSave.removeEventListener('click', onSave)
             document.removeEventListener('sample:beginedit', onSampleBeginEdit)
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1671,16 +1980,16 @@ riot.tag2('dev-sample-grid', '<div ref="grid" id="grid"></div>', 'dev-sample-gri
         let clearInputs = () => { }
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:endedit', onEndEdit);
         }
         let unbindEvents = () => {
             document.removeEventListener('sample:endedit', onEndEdit);
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1868,18 +2177,18 @@ riot.tag2('dev-sample', '<flip-screen ref="flipper"> <yield to="viewer"> <dev-sa
         let clearInputs = () => { }
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:beginedit', onSampleBeginEdit);
             document.addEventListener('sample:endedit', onSampleEndEdit);
         }
         let unbindEvents = () => {
             document.removeEventListener('sample:endedit', onSampleEndEdit);
             document.removeEventListener('sample:beginedit', onSampleBeginEdit);
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1935,14 +2244,14 @@ riot.tag2('customer-entry', '', 'customer-entry,[data-is="customer-entry"]{ marg
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -1996,14 +2305,14 @@ riot.tag2('edl-admin-home', '', 'edl-admin-home,[data-is="edl-admin-home"]{ marg
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -2057,14 +2366,14 @@ riot.tag2('edl-staff-home', '', 'edl-staff-home,[data-is="edl-staff-home"]{ marg
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -2118,14 +2427,14 @@ riot.tag2('edl-supervisor-home', '', 'edl-supervisor-home,[data-is="edl-supervis
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -2179,14 +2488,14 @@ riot.tag2('user-entry', '', 'user-entry,[data-is="user-entry"]{ margin: 0 auto; 
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -2241,14 +2550,14 @@ riot.tag2('rater-home', '<h1>Rater Web Home</h1>', 'rater-home,[data-is="rater-h
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -2335,9 +2644,9 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
         }
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('registersuccess', onRegisterSuccess);
             document.addEventListener('registerfailed', onRegisterFailed);
             submit.addEventListener('click', onSubmit);
@@ -2346,9 +2655,9 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
             submit.removeEventListener('click', onSubmit);
             document.addEventListener('registerfailed', onRegisterFailed);
             document.addEventListener('registersuccess', onRegisterSuccess);
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -2465,9 +2774,9 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
         }
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
-            document.addEventListener('screenchanged', onScreenChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
             document.addEventListener('signinfailed', onSignInFailed);
             submit.addEventListener('click', onSubmit);
@@ -2478,9 +2787,9 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
             submit.removeEventListener('click', onSubmit);
             document.removeEventListener('signinfailed', onSignInFailed);
             document.removeEventListener('userlistchanged', onUserListChanged);
-            document.removeEventListener('screenchanged', onScreenChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {
@@ -2572,14 +2881,14 @@ riot.tag2('user-selection', '<virtual each="{user in users}"> <div class="accoun
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('appcontentchanged', onAppContentChanged);
-            document.addEventListener('languagechanged', onLanguageChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:content:changed', onLanguageChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('userlistchanged', onUserListChanged);
-            document.removeEventListener('languagechanged', onLanguageChanged);
-            document.removeEventListener('appcontentchanged', onAppContentChanged);
+            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         this.on('mount', () => {

@@ -140,12 +140,12 @@ const routes = class {
 }
 
 //router.use(secure.checkAccess);
-//router.use(secure.checkAdminPermission);
+//router.use(secure.checkExclusive);
 
 router.post('/branch/search', routes.GetBranchs);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/admin', router);
+    svr.route('/customer/api/exclusive', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
