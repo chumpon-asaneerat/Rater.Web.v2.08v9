@@ -1452,6 +1452,99 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
         this.publicMethod = (message) => { }
 
 });
+riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks" name="org" onclick="{showContent}">Org</button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}">Branch</button> </div> <div ref="tabcontent" name="org" class="tabcontent"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 6px 12px; border: 1px solid #ccc; border-top: none; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }', '', function(opts) {
+        let self = this;
+        let screenid = 'org';
+
+        let tabHeaders = [];
+        let tabContents = [];
+
+        let initCtrls = () => {
+            let headers = self.refs['tabheader'];
+            tabHeaders.push(...headers)
+            let contents = self.refs['tabcontent'];
+            tabContents.push(...contents)
+        }
+        let freeCtrls = () => {
+            tabHeaders = [];
+            tabContents = [];
+        }
+
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let clearActiveTabs = () => {
+            if (tabHeaders) {
+
+                for (let i = 0; i < tabHeaders.length; i++) {
+                    tabHeaders[i].className = tabHeaders[i].className.replace(" active", "");
+                }
+            }
+        }
+        let hideContents = () => {
+            if (tabContents) {
+
+                for (let i = 0; i < tabContents.length; i++) {
+                    tabContents[i].style.display = "none";
+                }
+            }
+        }
+        let getContent = (name) => {
+            let ret;
+            if (tabContents) {
+                for (let i = 0; i < tabContents.length; i++) {
+                    let attr = tabContents[i].attributes['name'];
+                    let aName = attr.value;
+                    let vName = name;
+                    if (aName === vName) {
+                        ret = tabContents[i];
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+        let getHeader = (name) => {
+            let ret;
+            if (tabHeaders) {
+                for (let i = 0; i < tabHeaders.length; i++) {
+                    let attr = tabHeaders[i].attributes['name'];
+                    let aName = attr.value;
+                    let vName = name;
+                    if (aName === vName) {
+                        ret = tabHeaders[i];
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+
+        this.showContent = (evt) => {
+            let target = evt.target;
+            let name = target.attributes['name'].value;
+            hideContents();
+            clearActiveTabs();
+
+            let currHeader = getHeader(name);
+            let currContent = getContent(name);
+            if (currContent) {
+                currContent.style.display = "block";
+            }
+            if (currHeader) {
+                currHeader.className += " active";
+            }
+        }
+});
 riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="org-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 
 
@@ -1513,7 +1606,7 @@ riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="o
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('org-view', '<h3>Org View</h3>', 'org-view,[data-is="org-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 
 
         let self = this;

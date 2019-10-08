@@ -1,4 +1,5 @@
 <org-view>
+    <h3>Org View</h3>
     <style>
         :scope {
             margin: 0 auto;
