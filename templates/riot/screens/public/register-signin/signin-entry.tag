@@ -234,7 +234,7 @@
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
             document.addEventListener('signinfailed', onSignInFailed);
@@ -247,7 +247,7 @@
             document.removeEventListener('signinfailed', onSignInFailed);
             document.removeEventListener('userlistchanged', onUserListChanged);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 

@@ -88,12 +88,12 @@
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('userlistchanged', onUserListChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 

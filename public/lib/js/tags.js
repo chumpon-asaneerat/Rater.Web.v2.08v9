@@ -51,14 +51,14 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
         let clearInputs = () => {}
 
         let bindEvents = () => {
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             flags.addEventListener('click', toggle);
             window.addEventListener('click', checkClickPosition);
         }
         let unbindEvents = () => {
             window.removeEventListener('click', checkClickPosition);
             flags.removeEventListener('click', toggle);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
         }
 
         this.on('mount', () => {
@@ -133,7 +133,7 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             links.addEventListener('click', toggle);
             window.addEventListener('click', checkClickPosition);
@@ -142,7 +142,7 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
             window.removeEventListener('click', checkClickPosition);
             links.removeEventListener('click', toggle);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -209,24 +209,93 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
 
 });
 
-riot.tag2('navibar', '<div class="banner"> <div class="title">My Choice Rater Web</div> </div> <language-menu></language-menu> <links-menu></links-menu>', 'navibar,[data-is="navibar"]{ width: 100vw; margin: 0 auto; display: grid; grid-template-columns: 1fr 90px 40px; grid-template-rows: 1fr; grid-template-areas: \'banner lang-menu links-menu\'; background: cornflowerblue; color: whitesmoke; user-select: none; } navibar .banner,[data-is="navibar"] .banner{ grid-area: banner; margin: 0; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar .banner .title,[data-is="navibar"] .banner .title{ margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } navibar language-menu,[data-is="navibar"] language-menu{ grid-area: lang-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar links-menu,[data-is="navibar"] links-menu{ grid-area: links-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; }', '', function(opts) {
-});
-riot.tag2('page-footer', '<p class="caption"> {(appcontent.current) ? appcontent.current.footer.label.status + \' : \' : \'Status : \'} </p> <p class="status" ref="l1"></p> <p class="copyright"> &nbsp;&copy; {(appcontent.current) ? appcontent.current.footer.label.copyright : \'EDL Co., Ltd.\'} &nbsp;&nbsp; </p>', 'page-footer,[data-is="page-footer"]{ margin: 0 auto; padding: 0; width: 100%; display: grid; grid-template-columns: fit-content(50px) 1fr fit-content(150px); grid-template-rows: 1fr; grid-template-areas: \'caption status copyright\'; font-size: 0.7em; font-weight: bold; background: darkorange; color: whitesmoke; } page-footer .caption,[data-is="page-footer"] .caption{ grid-area: caption; margin: 0 auto; padding-top: 2px; padding-left: 3px; user-select: none; } page-footer .status,[data-is="page-footer"] .status{ grid-area: status; margin: 0 auto; padding-top: 2px; user-select: none; } page-footer .copyright,[data-is="page-footer"] .copyright{ grid-area: copyright; margin: 0 auto; padding-top: 2px; user-select: none; }', '', function(opts) {
+riot.tag2('navibar', '<div class="banner"> <div class="caption">My Choice Rater Web{(content.label) ? \'&nbsp;-&nbsp;\' : \'&nbsp;\'}</div> <div class="title ">{content.label.screenTitle}</div> </div> <language-menu></language-menu> <links-menu></links-menu>', 'navibar,[data-is="navibar"]{ width: 100vw; margin: 0 auto; display: grid; grid-template-columns: 1fr 90px 40px; grid-template-rows: 1fr; grid-template-areas: \'banner lang-menu links-menu\'; background: cornflowerblue; color: whitesmoke; user-select: none; } navibar .banner,[data-is="navibar"] .banner{ grid-area: banner; margin: 0; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar .banner .title,[data-is="navibar"] .banner .title{ margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } navibar .banner .caption,[data-is="navibar"] .banner .caption{ margin: 0; padding: 0; width: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } @media only screen and (max-width: 700px) { navibar .banner .caption,[data-is="navibar"] .banner .caption{ width: 0; visibility: hidden; } } navibar language-menu,[data-is="navibar"] language-menu{ grid-area: lang-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; } navibar links-menu,[data-is="navibar"] links-menu{ grid-area: links-menu; margin: 0 auto; padding: 0 3px; display: flex; align-items: center; justify-content: stretch; }', '', function(opts) {
 
 
         let self = this;
 
+        let defaultContent = {
+            label: {
+                screenTitle: ''
+            }
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
         let bindEvents = () => {
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
         }
 
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+        });
 
-        let onLanguageChanged = (e) => { self.update(); }
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => { updatecontent(); }
+
+});
+riot.tag2('page-footer', '<p class="caption"> {content.label.status} </p> <p class="status" ref="l1"></p> <p class="copyright"> &nbsp;&copy; {content.label.copyright} &nbsp;&nbsp; </p>', 'page-footer,[data-is="page-footer"]{ margin: 0 auto; padding: 0; width: 100%; display: grid; grid-template-columns: fit-content(50px) 1fr fit-content(150px); grid-template-rows: 1fr; grid-template-areas: \'caption status copyright\'; font-size: 0.7em; font-weight: bold; background: darkorange; color: whitesmoke; } page-footer .caption,[data-is="page-footer"] .caption{ grid-area: caption; margin: 0 auto; padding-top: 2px; padding-left: 3px; user-select: none; } page-footer .status,[data-is="page-footer"] .status{ grid-area: status; margin: 0 auto; padding-top: 2px; user-select: none; } page-footer .copyright,[data-is="page-footer"] .copyright{ grid-area: copyright; margin: 0 auto; padding-top: 2px; user-select: none; }', '', function(opts) {
+
+
+        let self = this;
+
+        let defaultContent = {
+            label: {
+                status: 'Status',
+                copyright: 'EDL Co., Ltd.'
+            }
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (appcontent) {
+                self.content = (appcontent.current) ? appcontent.current.footer : defaultContent;
+                self.update();
+            }
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('language:changed', onLanguageChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('language:changed', onLanguageChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+        });
+
+        let onLanguageChanged = (e) => { updatecontent(); }
 
 });
     
@@ -609,12 +678,12 @@ riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ margin: 0 
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -670,12 +739,12 @@ riot.tag2('device-manage', '<h3>Device Manage.</h3>', 'device-manage,[data-is="d
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -731,12 +800,12 @@ riot.tag2('admin-home', '<h3>Admin Home</h3>', 'admin-home,[data-is="admin-home"
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -792,12 +861,12 @@ riot.tag2('device-home', '', 'device-home,[data-is="device-home"]{ margin: 0 aut
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -853,12 +922,12 @@ riot.tag2('exclusive-home', '', 'exclusive-home,[data-is="exclusive-home"]{ marg
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -914,12 +983,12 @@ riot.tag2('staff-home', '', 'staff-home,[data-is="staff-home"]{ margin: 0 auto; 
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -977,12 +1046,12 @@ riot.tag2('member-entry', '', 'member-entry,[data-is="member-entry"]{ margin: 0 
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1039,12 +1108,12 @@ riot.tag2('member-manage', '<h3>Member Manage.</h3>', 'member-manage,[data-is="m
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1100,12 +1169,12 @@ riot.tag2('member-view', '', 'member-view,[data-is="member-view"]{ margin: 0 aut
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1161,12 +1230,12 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1226,7 +1295,7 @@ riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <bra
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('entry:beginedit', onEntryBeginEdit);
             document.addEventListener('entry:endedit', onEntryEndEdit);
@@ -1235,7 +1304,7 @@ riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <bra
             document.removeEventListener('entry:endedit', onEntryEndEdit);
             document.removeEventListener('entry:beginedit', onEntryBeginEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1287,12 +1356,12 @@ riot.tag2('branch-view', '<div ref="title" class="titlearea">{content.title}</di
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1348,12 +1417,12 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1409,12 +1478,12 @@ riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="o
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1470,12 +1539,12 @@ riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ margin: 0 auto; paddin
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1531,12 +1600,12 @@ riot.tag2('question-manage', '<h3>Questions Manage.</h3>', 'question-manage,[dat
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1592,12 +1661,12 @@ riot.tag2('question-runtime', '', 'question-runtime,[data-is="question-runtime"]
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1653,12 +1722,12 @@ riot.tag2('raw-vote-view', '', 'raw-vote-view,[data-is="raw-vote-view"]{ margin:
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1714,12 +1783,12 @@ riot.tag2('report-home', '<h3>Summary reports.</h3>', 'report-home,[data-is="rep
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1775,12 +1844,12 @@ riot.tag2('staff-perf-view', '', 'staff-perf-view,[data-is="staff-perf-view"]{ m
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1836,12 +1905,12 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1906,7 +1975,7 @@ riot.tag2('dev-sample-editor', '<h3>{(current) ? current.name : \'-\'}</h3> <but
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:beginedit', onSampleBeginEdit)
             cmdSave.addEventListener('click', onSave)
@@ -1917,7 +1986,7 @@ riot.tag2('dev-sample-editor', '<h3>{(current) ? current.name : \'-\'}</h3> <but
             cmdSave.removeEventListener('click', onSave)
             document.removeEventListener('sample:beginedit', onSampleBeginEdit)
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -1981,14 +2050,14 @@ riot.tag2('dev-sample-grid', '<div ref="grid" id="grid"></div>', 'dev-sample-gri
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:endedit', onEndEdit);
         }
         let unbindEvents = () => {
             document.removeEventListener('sample:endedit', onEndEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2178,7 +2247,7 @@ riot.tag2('dev-sample', '<flip-screen ref="flipper"> <yield to="viewer"> <dev-sa
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:beginedit', onSampleBeginEdit);
             document.addEventListener('sample:endedit', onSampleEndEdit);
@@ -2187,7 +2256,7 @@ riot.tag2('dev-sample', '<flip-screen ref="flipper"> <yield to="viewer"> <dev-sa
             document.removeEventListener('sample:endedit', onSampleEndEdit);
             document.removeEventListener('sample:beginedit', onSampleBeginEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2245,12 +2314,12 @@ riot.tag2('customer-entry', '', 'customer-entry,[data-is="customer-entry"]{ marg
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2306,12 +2375,12 @@ riot.tag2('edl-admin-home', '', 'edl-admin-home,[data-is="edl-admin-home"]{ marg
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2367,12 +2436,12 @@ riot.tag2('edl-staff-home', '', 'edl-staff-home,[data-is="edl-staff-home"]{ marg
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2428,12 +2497,12 @@ riot.tag2('edl-supervisor-home', '', 'edl-supervisor-home,[data-is="edl-supervis
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2489,12 +2558,12 @@ riot.tag2('user-entry', '', 'user-entry,[data-is="user-entry"]{ margin: 0 auto; 
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2551,12 +2620,12 @@ riot.tag2('rater-home', '<h1>Rater Web Home</h1>', 'rater-home,[data-is="rater-h
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2645,7 +2714,7 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('registersuccess', onRegisterSuccess);
             document.addEventListener('registerfailed', onRegisterFailed);
@@ -2656,7 +2725,7 @@ riot.tag2('register-entry', '<div class="content-area"> <div class="padtop"></di
             document.addEventListener('registerfailed', onRegisterFailed);
             document.addEventListener('registersuccess', onRegisterSuccess);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2775,7 +2844,7 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
             document.addEventListener('signinfailed', onSignInFailed);
@@ -2788,7 +2857,7 @@ riot.tag2('signin-entry', '<div class="content-area"> <div class="padtop"></div>
             document.removeEventListener('signinfailed', onSignInFailed);
             document.removeEventListener('userlistchanged', onUserListChanged);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
@@ -2882,12 +2951,12 @@ riot.tag2('user-selection', '<virtual each="{user in users}"> <div class="accoun
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('userlistchanged', onUserListChanged);
         }
         let unbindEvents = () => {
             document.removeEventListener('userlistchanged', onUserListChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 

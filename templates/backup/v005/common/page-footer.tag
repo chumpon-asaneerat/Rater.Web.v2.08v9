@@ -46,10 +46,10 @@
         //#region local element methods
 
         let bindEvents = () => {
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
         }
 
         //#endregion

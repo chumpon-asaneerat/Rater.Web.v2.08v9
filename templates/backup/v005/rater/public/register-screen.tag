@@ -56,10 +56,10 @@
 
         let bindEvents = () => {
             register.addEventListener('click', onRegister);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             register.removeEventListener('click', onRegister);
         }
 

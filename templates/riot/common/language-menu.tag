@@ -136,14 +136,14 @@
         //#region events bind/unbind
 
         let bindEvents = () => {
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             flags.addEventListener('click', toggle);
             window.addEventListener('click', checkClickPosition);
         }
         let unbindEvents = () => {
             window.removeEventListener('click', checkClickPosition);
             flags.removeEventListener('click', toggle);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
         }
 
         //#endregion

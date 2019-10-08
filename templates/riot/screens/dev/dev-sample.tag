@@ -71,7 +71,7 @@
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
             document.addEventListener('sample:beginedit', onSampleBeginEdit);
             document.addEventListener('sample:endedit', onSampleEndEdit);
@@ -80,7 +80,7 @@
             document.removeEventListener('sample:endedit', onSampleEndEdit);
             document.removeEventListener('sample:beginedit', onSampleBeginEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 

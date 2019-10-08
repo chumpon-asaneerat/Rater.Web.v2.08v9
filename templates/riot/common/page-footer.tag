@@ -1,11 +1,11 @@
 <page-footer>
     <p class="caption">
-        { (appcontent.current) ? appcontent.current.footer.label.status + ' : ' : 'Status : ' }
+        { content.label.status }
     </p>
     <p class="status" ref="l1"></p>
     <p class="copyright">
         &nbsp;&copy; 
-        { (appcontent.current) ? appcontent.current.footer.label.copyright : 'EDL Co., Ltd.' }
+        { content.label.copyright }
         &nbsp;&nbsp;
     </p>
     <style>
@@ -51,27 +51,59 @@
 
         //#endregion
 
+        //#region content variables and methods
+
+        let defaultContent = {
+            label: {
+                status: 'Status',
+                copyright: 'EDL Co., Ltd.'
+            }
+        }
+        this.content = defaultContent;
+        
+        let updatecontent = () => {
+            if (appcontent) {
+                self.content = (appcontent.current) ? appcontent.current.footer : defaultContent;
+                self.update();
+            }
+        }
+
+        //#endregion
+
+        //#region controls variables and methods
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        //#endregion
+
         //#region events bind/unbind
 
         let bindEvents = () => {
-            document.addEventListener('language:content:changed', onLanguageChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
         }
         let unbindEvents = () => {
-            document.removeEventListener('language:content:changed', onLanguageChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
         }
 
         //#endregion
 
         //#region riot handlers
 
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+        });
 
         //#endregion
 
         //#region dom event handlers
 
-        let onLanguageChanged = (e) => { self.update(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
 
         //#endregion
     </script>
