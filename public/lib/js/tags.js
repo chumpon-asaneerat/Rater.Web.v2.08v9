@@ -1204,7 +1204,7 @@ riot.tag2('member-view', '', 'member-view,[data-is="member-view"]{ margin: 0 aut
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('branch-entry', '<h3>{info}</h3>', 'branch-entry,[data-is="branch-entry"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         this.info = 'no data';
 
         let self = this;
@@ -1264,8 +1264,6 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 
         let showMsg = (err) => { }
 
         this.publicMethod = (message) => { }
-
-    <h3>{ info }</h3>>
 
 });
 riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <branch-view ref="viewer" class="view"></branch-view> </yield> <yield to="entry"> <branch-entry ref="entry" class="entry"></branch-entry> </yield> </flip-screen>', 'branch-manage,[data-is="branch-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } branch-manage .view,[data-is="branch-manage"] .view,branch-manage .entry,[data-is="branch-manage"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; }', '', function(opts) {
@@ -1537,7 +1535,7 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks" name="org" onclick="{showContent}">Org</button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}">Branch</button> </div> <div ref="tabcontent" name="org" class="tabcontent"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 2px; border-top: none; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }', '', function(opts) {
+riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks active" name="org" onclick="{showContent}">Org</button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}">Branch</button> </div> <div ref="tabcontent" name="org" class="tabcontent" style="display: block;"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 2px; border-top: none; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }', '', function(opts) {
         let self = this;
         let screenid = 'org';
 

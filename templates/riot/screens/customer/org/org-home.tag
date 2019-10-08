@@ -1,10 +1,10 @@
 <org-home>
     <div class="tab">
-        <button ref="tabheader" class="tablinks" name="org" onclick="{ showContent }">Org</button>
+        <button ref="tabheader" class="tablinks active" name="org" onclick="{ showContent }">Org</button>
         <button ref="tabheader" class="tablinks" name="branch" onclick="{ showContent }">Branch</button>
     </div>
     <!-- Tab content -->
-    <div ref="tabcontent" name="org" class="tabcontent">
+    <div ref="tabcontent" name="org" class="tabcontent" style="display: block;">
         <org-manage></org-manage>
     </div>
     <div ref="tabcontent" name="branch" class="tabcontent">
