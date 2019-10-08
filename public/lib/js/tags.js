@@ -1205,10 +1205,11 @@ riot.tag2('member-view', '', 'member-view,[data-is="member-view"]{ margin: 0 aut
 
 });
 riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
-
+        this.info = 'no data';
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'org';
+        let entryId = 'branch';
 
         let defaultContent = {
             title: 'Title',
@@ -1264,12 +1265,15 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ margin: 0 
 
         this.publicMethod = (message) => { }
 
+    <h3>{ info }</h3>>
+
 });
 riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <branch-view ref="viewer" class="view"></branch-view> </yield> <yield to="entry"> <branch-entry ref="entry" class="entry"></branch-entry> </yield> </flip-screen>', 'branch-manage,[data-is="branch-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } branch-manage .view,[data-is="branch-manage"] .view,branch-manage .entry,[data-is="branch-manage"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; }', '', function(opts) {
 
 
         let self = this;
-        let current;
+        let screenId = 'org';
+        let entryId = 'branch';
 
         let defaultContent = {
             title: 'Title',
@@ -1279,8 +1283,10 @@ riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <bra
         this.content = defaultContent;
 
         let updatecontent = () => {
-
-            self.update();
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
         }
 
         let flipper, view, entry;
@@ -1324,19 +1330,20 @@ riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <bra
         }
         let onEntryBeginEdit = (e) => {
             console.log('Begin Edit');
-            flipper.toggle();
+
         }
         let onEntryEndEdit = (e) => {
             console.log('End Edit');
-            flipper.toggle();
+
         }
 
 });
-riot.tag2('branch-view', '<div ref="title" class="titlearea">{content.title}</div> <div ref="container" class="scrarea"> <div ref="grid" id="grid"></div> </div>', 'branch-view,[data-is="branch-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px 1fr; grid-template-areas: \'titlearea\' \'scrarea\'; } branch-view .titlearea,[data-is="branch-view"] .titlearea{ margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } branch-view .scrarea,[data-is="branch-view"] .scrarea{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('branch-view', '<div ref="title" class="titlearea"> <button class="addnew" onclick="{addnew}"> <span class="fas fa-plus-circle">&nbsp;</span> </button> <button class="refresh" onclick="{refresh}"> <span class="fas fa-sync">&nbsp;</span> </button> </div> <div ref="container" class="scrarea"> <div ref="grid" id="grid"></div> </div>', 'branch-view,[data-is="branch-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px 1fr; grid-template-areas: \'titlearea\' \'scrarea\'; } branch-view .titlearea,[data-is="branch-view"] .titlearea{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: auto auto 1fr; grid-template-rows: 100%; grid-template-areas: \'scrarea\'; overflow: hidden; border-radius: 3px; background-color: transparent; color: whitesmoke; } branch-view .titlearea .addnew,[data-is="branch-view"] .titlearea .addnew{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } branch-view .titlearea .refresh,[data-is="branch-view"] .titlearea .refresh{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } branch-view .scrarea,[data-is="branch-view"] .scrarea{ margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; height: calc(100% - 50px); }', '', function(opts) {
 
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'org';
+        let entryId = 'branch';
 
         let defaultContent = {
             title: 'Branch Management',
@@ -1346,20 +1353,69 @@ riot.tag2('branch-view', '<div ref="title" class="titlearea">{content.title}</di
         this.content = defaultContent;
 
         let updatecontent = () => {
-
-            self.update();
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+                if (table) table.redraw(true);
+            }
         }
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let table;
+
+        let editIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-edit'></span></button>";
+        };
+        let deleteIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-trash-alt'></span></button>";
+        };
+
+        let initGrid = (data) => {
+            let opts = {
+                height: "100%",
+                layout: "fitDataFill",
+                data: (data) ? data : []
+            }
+            setupColumns(opts);
+            table = new Tabulator("#grid", opts);
+        }
+        let setupColumns = (opts) => {
+            let = columns = [
+                { formatter: editIcon, align:"center", width:44,
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: editRow
+                },
+                { formatter: deleteIcon, align:"center", width: 44,
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: deleteRow
+                }
+            ]
+            if (self.content && self.content.label &&
+                self.content.label.branch && self.content.label.branch.view) {
+                let cols = self.content.label.branch.view.columns;
+                columns.push(...cols)
+            }
+            opts.columns = columns;
+        }
+        let syncData = () => {
+            if (table) table = null;
+            let data = orgmanager.branch.current;
+            initGrid(data)
+        }
+
+        let initCtrls = () => { initGrid(); }
+        let freeCtrls = () => { table = null; }
+        let clearInputs = () => { initGrid(); }
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('entry:endedit', onEndEdit);
+            document.addEventListener('branch:list:changed', onBranchListChanged);
         }
         let unbindEvents = () => {
+            document.removeEventListener('branch:list:changed', onBranchListChanged);
+            document.removeEventListener('entry:endedit', onEndEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
@@ -1374,21 +1430,50 @@ riot.tag2('branch-view', '<div ref="title" class="titlearea">{content.title}</di
             freeCtrls();
         });
 
-        let onAppContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
+        let onAppContentChanged = (e) => {
+            updatecontent();
+        }
+        let onLanguageChanged = (e) => {
+            updatecontent();
+            syncData();
+        }
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
 
+                syncData();
             }
             else {
 
             }
         }
+        let onBranchListChanged = (e) => { syncData(); }
+
+        let editRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('entry:beginedit', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
+        }
+        let deleteRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('entry:delete', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
+        }
+        let onEndEdit = (e) => {
+            let data = e.detail.item;
+
+            table.redraw(true);
+        }
 
         let showMsg = (err) => { }
 
-        this.publicMethod = (message) => { }
+        this.addnew = (e) => {
+            console.log('add new.');
+        }
+        this.refresh = (e) => {
+            console.log('refresh.');
+            orgmanager.branch.load();
+        }
 
 });
 riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }', '', function(opts) {
@@ -1452,7 +1537,7 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks" name="org" onclick="{showContent}">Org</button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}">Branch</button> </div> <div ref="tabcontent" name="org" class="tabcontent"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 6px 12px; border: 1px solid #ccc; border-top: none; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }', '', function(opts) {
+riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks" name="org" onclick="{showContent}">Org</button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}">Branch</button> </div> <div ref="tabcontent" name="org" class="tabcontent"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 2px; border-top: none; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }', '', function(opts) {
         let self = this;
         let screenid = 'org';
 
@@ -1532,6 +1617,12 @@ riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks
         this.showContent = (evt) => {
             let target = evt.target;
             let name = target.attributes['name'].value;
+            if (name === 'branch') {
+                orgmanager.branch.load();
+            }
+            else if (name === 'org') {
+                orgmanager.org.load();
+            }
             hideContents();
             clearActiveTabs();
 

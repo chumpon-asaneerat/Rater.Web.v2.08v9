@@ -19,7 +19,23 @@
             "screenid": "org",
             "title": "Organization Management",
             "label": {
-                "screenTitle": "Organization Management"
+                "screenTitle": "Organization Management",
+                "org": {
+                    "view": {
+                        "columns": []
+                    },
+                    "entry": {                        
+                    }
+                },
+                "branch": {
+                    "view": {
+                        "columns": [
+                            { "title": "Branch Name", "field": "branchName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                    }
+                }
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },

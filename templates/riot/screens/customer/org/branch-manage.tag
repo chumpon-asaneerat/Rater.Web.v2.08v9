@@ -28,7 +28,8 @@
         //#region local variables
 
         let self = this;
-        let current;
+        let screenId = 'org';
+        let entryId = 'branch';
 
         //#endregion
 
@@ -42,13 +43,10 @@
         this.content = defaultContent;
 
         let updatecontent = () => {
-            /*
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
             }
-            */
-            self.update();
         }
 
         //#endregion
@@ -108,11 +106,11 @@
         }
         let onEntryBeginEdit = (e) => {
             console.log('Begin Edit');
-            flipper.toggle();
+            //if (flipper) flipper.toggle();
         }
         let onEntryEndEdit = (e) => {
             console.log('End Edit');
-            flipper.toggle();
+            //if (flipper) flipper.toggle();
         }
 
         //#endregion

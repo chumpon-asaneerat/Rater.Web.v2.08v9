@@ -1,4 +1,5 @@
 <branch-entry>
+    <h3>{ info }</h3>>
     <style>
         :scope {
             margin: 0 auto;
@@ -8,10 +9,13 @@
         }
     </style>
     <script>
+        this.info = 'no data';
+        
         //#region local variables
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'org';
+        let entryId = 'branch';
 
         //#endregion
 

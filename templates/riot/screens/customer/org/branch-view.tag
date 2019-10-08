@@ -1,5 +1,12 @@
 <branch-view>
-    <div ref="title" class="titlearea">{ content.title }</div>
+    <div ref="title" class="titlearea">
+        <button class="addnew" onclick="{ addnew }">
+            <span class="fas fa-plus-circle">&nbsp;</span>
+        </button>
+        <button class="refresh" onclick="{ refresh }">
+            <span class="fas fa-sync">&nbsp;</span>
+        </button>
+    </div>
     <div ref="container" class="scrarea">
         <div ref="grid" id="grid"></div>
     </div>
@@ -16,26 +23,49 @@
                 'titlearea'
                 'scrarea';
         }
-        .titlearea {
+        :scope .titlearea {
             margin: 0 auto;
             padding: 0;
             width: 100%;
             height: 100%;
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            grid-template-rows: 100%;
+            grid-template-areas: 
+                'scrarea';
             overflow: hidden;
+            border-radius: 3px;
+            background-color: transparent;
+            color: whitesmoke;
         }
-        .scrarea {
-            
+        :scope .titlearea .addnew {
+            margin: 0 auto;
+            padding: 2px;
+            height: 100%;
+            width: 50px;
+            color: darkgreen;
+        }
+        :scope .titlearea .refresh {
+            margin: 0 auto;
+            padding: 2px;
+            height: 100%;
+            width: 50px;
+            color: darkgreen;
+        }
+        :scope .scrarea {
             margin: 0 auto;
             padding: 0;
+            margin-top: 3px;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 50px);
         }
     </style>
     <script>
         //#region local variables
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'org';
+        let entryId = 'branch';
 
         //#endregion
 
@@ -49,22 +79,62 @@
         this.content = defaultContent;
         
         let updatecontent = () => {
-            /*
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
+                if (table) table.redraw(true);
             }
-            */
-            self.update();
         }
 
         //#endregion
 
         //#region controls variables and methods
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let table;
+
+        let editIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-edit'></span></button>";
+        };
+        let deleteIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-trash-alt'></span></button>";
+        };
+
+        let initGrid = (data) => {            
+            let opts = {
+                height: "100%",
+                layout: "fitDataFill",
+                data: (data) ? data : []
+            }
+            setupColumns(opts);
+            table = new Tabulator("#grid", opts);
+        }
+        let setupColumns = (opts) => {
+            let = columns = [
+                { formatter: editIcon, align:"center", width:44, 
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: editRow
+                },
+                { formatter: deleteIcon, align:"center", width: 44, 
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: deleteRow
+                }
+            ]
+            if (self.content && self.content.label && 
+                self.content.label.branch && self.content.label.branch.view) {
+                let cols = self.content.label.branch.view.columns;
+                columns.push(...cols)
+            }
+            opts.columns = columns;
+        }
+        let syncData = () => {
+            if (table) table = null;
+            let data = orgmanager.branch.current;
+            initGrid(data)
+        }
+
+        let initCtrls = () => { initGrid(); }
+        let freeCtrls = () => { table = null; }
+        let clearInputs = () => { initGrid(); }
 
         //#endregion
 
@@ -74,8 +144,12 @@
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('entry:endedit', onEndEdit);
+            document.addEventListener('branch:list:changed', onBranchListChanged);
         }
         let unbindEvents = () => {
+            document.removeEventListener('branch:list:changed', onBranchListChanged);
+            document.removeEventListener('entry:endedit', onEndEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
@@ -98,16 +172,43 @@
 
         //#region dom event handlers
 
-        let onAppContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
+        let onAppContentChanged = (e) => { 
+            updatecontent();
+        }
+        let onLanguageChanged = (e) => { 
+            updatecontent();
+            syncData();
+        }
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
                 // screen shown.
+                syncData();
             }
             else {
                 // other screen shown.
             }
+        }
+        let onBranchListChanged = (e) => { syncData(); }
+
+        //#endregion
+
+        //#region grid handler
+
+        let editRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('entry:beginedit', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
+        }
+        let deleteRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('entry:delete', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
+        }
+        let onEndEdit = (e) => {
+            let data = e.detail.item;
+            //table.replaceData(data);
+            table.redraw(true);
         }
 
         //#endregion
@@ -120,7 +221,13 @@
 
         //#region public methods
 
-        this.publicMethod = (message) => { }
+        this.addnew = (e) => {
+            console.log('add new.');
+        }
+        this.refresh = (e) => { 
+            console.log('refresh.');
+            orgmanager.branch.load();
+        }
 
         //#endregion
     </script>

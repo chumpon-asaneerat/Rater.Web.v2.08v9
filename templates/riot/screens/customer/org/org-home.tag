@@ -41,8 +41,8 @@
         /* Style the tab content */
         :scope .tabcontent {
             display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
+            padding: 2px;
+            /* border: 1px solid #ccc; */
             border-top: none;
             width: 100%;
             height: 100%;
@@ -142,6 +142,12 @@
         this.showContent = (evt) => {
             let target = evt.target;
             let name = target.attributes['name'].value;
+            if (name === 'branch') {
+                orgmanager.branch.load();
+            }
+            else if (name === 'org') {
+                orgmanager.org.load();
+            }
             hideContents();
             clearActiveTabs();
             // Show the current tab, and add an "active" class to the button that opened the tab

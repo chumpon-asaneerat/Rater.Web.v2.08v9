@@ -86,13 +86,11 @@ const api = class {
 
 const routes = class {
     static GetBranchs(req, res) {
-        let obj = WebServer.signedCookie.readObject(req, res);
-        console.log(obj)
         let db = new sqldb();
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
-        //params.customerId = obj.customerId;
+        params.customerId = secure.getCustomerId(req, res);
         params.branchId = null;
         params.enabled = true;
 
@@ -139,13 +137,11 @@ const routes = class {
     }
 }
 
-//router.use(secure.checkAccess);
-//router.use(secure.checkExclusive);
-
+router.use(secure.checkAccess);
 router.post('/branch/search', routes.GetBranchs);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/exclusive', router);
+    svr.route('/customer/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

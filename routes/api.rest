@@ -35,16 +35,8 @@ content-type: application/json
     "passWord": "1234"
 }
 
-#### GetBranchs - Admin
-POST http://localhost:3000/customer/api/admin/branch/search
-content-type: application/json
-
-{
-    "customerId": "EDL-C2019080002"
-}
-
-#### GetBranchs - Exclusive
-POST http://localhost:3000/customer/api/exclusive/branch/search
+#### GetBranchs
+POST http://localhost:3000/customer/api/branch/search
 content-type: application/json
 
 {

@@ -19,7 +19,24 @@
             "screenid": "org",
             "title": "ผังองกรณ์",
             "label": {
-                "screenTitle": "ผังองกรณ์"
+                "screenTitle": "ผังองกรณ์",
+                "org": {
+                    "view": {
+                        "columns": []
+                    },
+                    "entry": {                        
+                    }
+                },
+                "branch": {
+                    "view": {
+                        "columns": [
+                            { "title": "ชื่อสาขา", "field": "branchName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                    }
+                }
+            
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
