@@ -80,6 +80,35 @@ const api = class {
     static async GetBranchs(db, params) {
         return await db.GetBranchs(params);
     }
+    static async SaveBranchs(db, params) {
+        let ret;
+        let rets = [];
+        let customerId = params.customerId;
+        if (params && params.items) {
+            let items = params.items;
+            let branchId;
+
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                item.customerId = customerId;
+                if (item.langId === 'EN') {
+                    ret = await db.SaveBranch(item);
+                    branchId = ret.out.branchId;
+                    rets.push(ret);
+                }
+            }
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                item.customerId = params.customerId;
+                item.branchId = branchId;
+                if (item.langId !== 'EN') {
+                    ret = await db.SaveBranchML(item);
+                    rets.push(ret);
+                }                
+            }
+        }
+        return rets;
+    }
 }
 
 //#endregion
@@ -135,10 +164,42 @@ const routes = class {
             WebServer.sendJson(req, res, result);
         })
     }
+    static SaveBranchs(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+
+        params.customerId = secure.getCustomerId(req, res);
+
+        let fn = async () => {
+            return api.SaveBranchs(db, params);
+        }
+        exec(db, fn).then(data => {
+            let results = [];
+            let result;
+            let dbResult;
+
+            for (let i = 0; i < data.length; i++) {
+                dbResult = validate(db, data[i]);
+
+                result = {
+                    data : dbResult.data,
+                    //src: dbResult.data,
+                    errors: dbResult.errors,
+                    //multiple: dbResult.multiple,
+                    //datasets: dbResult.datasets,
+                    out: dbResult.out
+                }
+                results.push(result);
+            }
+
+            WebServer.sendJson(req, res, results);
+        })
+    }
 }
 
 router.use(secure.checkAccess);
 router.post('/branch/search', routes.GetBranchs);
+router.post('/branch/save', routes.SaveBranchs);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);

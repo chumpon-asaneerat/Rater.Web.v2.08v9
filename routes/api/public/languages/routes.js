@@ -86,6 +86,8 @@ const routes = class {
     static getLanguages(req, res) {
         let db = new sqldb();
         let params = WebServer.parseReq(req).data;
+        // force enable only.
+        params.enabled = true;
         let fn = async () => {
             return api.GetLanguages(db, params);
         }

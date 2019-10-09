@@ -24,15 +24,11 @@
                 'scrarea';
         }
         :scope .titlearea {
+            grid-area: titlearea;
             margin: 0 auto;
             padding: 0;
             width: 100%;
             height: 100%;
-            display: grid;
-            grid-template-columns: auto auto 1fr;
-            grid-template-rows: 100%;
-            grid-template-areas: 
-                'scrarea';
             overflow: hidden;
             border-radius: 3px;
             background-color: transparent;
@@ -53,6 +49,7 @@
             color: darkgreen;
         }
         :scope .scrarea {
+            grid-area: scrarea;
             margin: 0 auto;
             padding: 0;
             margin-top: 3px;
@@ -202,12 +199,15 @@
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData();
+            console.log('delete:', data, ', langId:', lang.langId);
+            syncData();
+            /*
             evt = new CustomEvent('entry:delete', { detail: { entry: entryId, item: data } })
             document.dispatchEvent(evt);
+            */
         }
         let onEndEdit = (e) => {
-            let data = e.detail.item;
-            //table.replaceData(data);
+            syncData();        
             table.redraw(true);
         }
 
@@ -222,11 +222,13 @@
         //#region public methods
 
         this.addnew = (e) => {
-            console.log('add new.');
+            let data = { branchId: null, branchName: 'New Branch' };
+            evt = new CustomEvent('entry:beginedit', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
         }
         this.refresh = (e) => { 
-            console.log('refresh.');
             orgmanager.branch.load();
+            updatecontent();
         }
 
         //#endregion

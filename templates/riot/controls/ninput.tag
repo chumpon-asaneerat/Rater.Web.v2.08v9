@@ -139,13 +139,11 @@
 
         this.clear = () => { if (input) input.value = ''; }
         this.focus = () => { if (input) input.focus(); }
-        this.value = () => {
+        this.value = (text) => {
             let ret;
             if (input) {
-                // in riot arguments is contains in Arguments array.
-                let args = arguments.Arguments;
-                if (args && args.length > 0) {
-                    input.value = args[0];
+                if (text !== undefined && text !== null) {
+                    input.value = text;
                 }
                 else {
                     ret = input.value;

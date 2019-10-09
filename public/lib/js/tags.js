@@ -435,13 +435,11 @@ riot.tag2('ninput', '<input ref="input" type="{opts.type}" name="{opts.name}" re
 
         this.clear = () => { if (input) input.value = ''; }
         this.focus = () => { if (input) input.focus(); }
-        this.value = () => {
+        this.value = (text) => {
             let ret;
             if (input) {
-
-                let args = arguments.Arguments;
-                if (args && args.length > 0) {
-                    input.value = args[0];
+                if (text !== undefined && text !== null) {
+                    input.value = text;
                 }
                 else {
                     ret = input.value;
@@ -1204,17 +1202,25 @@ riot.tag2('member-view', '', 'member-view,[data-is="member-view"]{ margin: 0 aut
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('branch-entry', '<h3>{info}</h3>', 'branch-entry,[data-is="branch-entry"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('branch-editor', '<div class="entry"> <div class="tab"> <button ref="tabheader" class="tablinks active" name="default" onclick="{showContent}"> <span class="fas fa-cog"></span>&nbsp;{content.label.branch.entry.tabDefault}&nbsp; </button> <button ref="tabheader" class="tablinks" name="miltilang" onclick="{showContent}"> <span class="fas fa-globe-americas"></span>&nbsp;{content.label.branch.entry.tabMultiLang}&nbsp; </button> </div> <div ref="tabcontent" name="default" class="tabcontent" style="display: block;"> <branch-entry ref="EN" langid=""></branch-entry> </div> <div ref="tabcontent" name="miltilang" class="tabcontent"> <virtual if="{lang.languages}"> <virtual each="{item in lang.languages}"> <virtual if="{item.langId !== \'EN\'}"> <div class="panel-header" langid="{item.langId}"> &nbsp;&nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}"></span> &nbsp;{item.Description}&nbsp; </div> <div class="panel-body" langid="{item.langId}"> <branch-entry ref="{item.langId}" langid="{item.langId}"></branch-entry> </div> </virtual> </virtual> </virtual> </div> </div> <div class="tool"> <button onclick="{save}"><span class="fas fa-save"></span></button> <button onclick="{cancel}"><span class="fas fa-times"></span></button> </div>', 'branch-editor,[data-is="branch-editor"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: calc(100% - 75px) 30px; grid-template-areas: \'entry\' \'tool\'; overflow: hidden; background-color: white; } branch-editor .entry,[data-is="branch-editor"] .entry{ grid-area: entry; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: auto; } branch-editor .entry .tab,[data-is="branch-editor"] .entry .tab{ overflow: hidden; border: 1px solid #ccc; } branch-editor .entry .tab button,[data-is="branch-editor"] .entry .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } branch-editor .entry .tab button:hover,[data-is="branch-editor"] .entry .tab button:hover{ background-color: #ddd; } branch-editor .entry .tab button.active,[data-is="branch-editor"] .entry .tab button.active{ background-color: #ccc; } branch-editor .entry .tabcontent,[data-is="branch-editor"] .entry .tabcontent{ display: none; padding: 3px; width: 100%; height: calc(100% - 50px); max-width: 100%; max-height: calc(100% - 50px); overflow: auto; } branch-editor .entry .tabcontent .panel-header,[data-is="branch-editor"] .entry .tabcontent .panel-header{ margin: 0 auto; padding: 0; padding-top: 7px; width: 100%; height: 30px; color: white; background: cornflowerblue; border-radius: 5px 5px 0 0; } branch-editor .entry .tabcontent .panel-body,[data-is="branch-editor"] .entry .tabcontent .panel-body{ margin: 0 auto; margin-bottom: 5px; padding: 0; width: 100%; border: 1px solid cornflowerblue; } branch-editor .tool,[data-is="branch-editor"] .tool{ grid-area: tool; margin: 0 auto; padding: 0; padding-left: 3px; padding-top: 3px; width: 100%; height: 30px; overflow: hidden; }', '', function(opts) {
         this.info = 'no data';
 
         let self = this;
         let screenId = 'org';
         let entryId = 'branch';
 
+        let branchId = '';
+        let ctrls = [];
+
         let defaultContent = {
-            title: 'Title',
-            label: {},
-            links: []
+            label: {
+                branch: {
+                    entry: {
+                        tabDefault: 'Default',
+                        tabMultiLang: 'Languages'
+                    }
+                }
+            }
         }
         this.content = defaultContent;
 
@@ -1225,16 +1231,28 @@ riot.tag2('branch-entry', '<h3>{info}</h3>', 'branch-entry,[data-is="branch-entr
             }
         }
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let tabHeaders = [];
+        let tabContents = [];
+
+        let initCtrls = () => {
+            let headers = self.refs['tabheader'];
+            tabHeaders.push(...headers)
+            let contents = self.refs['tabcontent'];
+            tabContents.push(...contents)
+        }
+        let freeCtrls = () => {
+            tabHeaders = [];
+            tabContents = [];
+        }
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('entry:beginedit', onEntryBeginEdit)
         }
         let unbindEvents = () => {
+            document.removeEventListener('entry:beginedit', onEntryBeginEdit)
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
@@ -1261,12 +1279,232 @@ riot.tag2('branch-entry', '<h3>{info}</h3>', 'branch-entry,[data-is="branch-entr
             }
         }
 
+        let onEntryBeginEdit = (e) => {
+            let data = e.detail.item;
+            self.setup(data)
+        }
+
+        let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
+        let equals = (src, dst) => {
+            let o1 = JSON.stringify(src);
+            let o2 = JSON.stringify(dst);
+            return (o1 === o2);
+        }
+
+        this.save = (e) => {
+            let item;
+            let items = [];
+            ctrls.forEach(oRef => {
+                item = (oRef.entry) ? oRef.entry.getItem() : null;
+                if (item) {
+                    item.langId = oRef.langId;
+                    items.push(item)
+                }
+            });
+            orgmanager.branch.save(items);
+            evt = new CustomEvent('entry:endedit')
+            document.dispatchEvent(evt);
+        }
+        this.cancel = (e) => {
+            evt = new CustomEvent('entry:endedit')
+            document.dispatchEvent(evt);
+        }
+
         let showMsg = (err) => { }
 
-        this.publicMethod = (message) => { }
+        let clearActiveTabs = () => {
+            if (tabHeaders) {
+
+                for (let i = 0; i < tabHeaders.length; i++) {
+                    tabHeaders[i].className = tabHeaders[i].className.replace(" active", "");
+                }
+            }
+        }
+        let hideContents = () => {
+            if (tabContents) {
+
+                for (let i = 0; i < tabContents.length; i++) {
+                    tabContents[i].style.display = "none";
+                }
+            }
+        }
+        let getContent = (name) => {
+            let ret;
+            if (tabContents) {
+                for (let i = 0; i < tabContents.length; i++) {
+                    let attr = tabContents[i].attributes['name'];
+                    let aName = attr.value;
+                    let vName = name;
+                    if (aName === vName) {
+                        ret = tabContents[i];
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+        let getHeader = (name) => {
+            let ret;
+            if (tabHeaders) {
+                for (let i = 0; i < tabHeaders.length; i++) {
+                    let attr = tabHeaders[i].attributes['name'];
+                    let aName = attr.value;
+                    let vName = name;
+                    if (aName === vName) {
+                        ret = tabHeaders[i];
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+
+        this.showContent = (evt) => {
+            let target = evt.target;
+            let name = target.attributes['name'].value;
+            if (name === 'branch') {
+                orgmanager.branch.load();
+            }
+            else if (name === 'org') {
+                orgmanager.org.load();
+            }
+            hideContents();
+            clearActiveTabs();
+
+            let currHeader = getHeader(name);
+            let currContent = getContent(name);
+            if (currContent) {
+                currContent.style.display = "block";
+            }
+            if (currHeader) {
+                currHeader.className += " active";
+            }
+        }
+
+        this.setup = (item) => {
+            let isNew = false;
+            branchId = item.branchId;
+            if (branchId === undefined || branchId === null || branchId.trim() === '') {
+                isNew = true;
+            }
+            ctrls = [];
+
+            let loader = window.orgmanager.branch;
+
+            lang.languages.forEach(lg => {
+                let ctrl = self.refs[lg.langId];
+                let original = (isNew) ? clone(item) : loader.find(lg.langId, branchId);
+
+                if (ctrl) {
+                    let obj = {
+                        langId: lg.langId,
+                        entry: ctrl,
+                        scrObj: original
+                    }
+                    ctrl.setup(original);
+                    ctrls.push(obj)
+                }
+            });
+        }
 
 });
-riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <branch-view ref="viewer" class="view"></branch-view> </yield> <yield to="entry"> <branch-entry ref="entry" class="entry"></branch-entry> </yield> </flip-screen>', 'branch-manage,[data-is="branch-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } branch-manage .view,[data-is="branch-manage"] .view,branch-manage .entry,[data-is="branch-manage"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; }', '', function(opts) {
+riot.tag2('branch-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="branchName" title="{content.label.branch.entry.branchName}" type="text" name="branchName"></ninput>', 'branch-entry,[data-is="branch-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } branch-entry .padtop,[data-is="branch-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+        let self = this;
+        let screenId = 'org';
+        let entryId = 'branch';
+
+        let defaultContent = {
+            label: {
+                branch: {
+                    entry: { branchName: 'Branch Name' }
+                }
+            }
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let branchName;
+
+        let initCtrls = () => {
+            branchName = self.refs['branchName'];
+        }
+        let freeCtrls = () => {
+            branchName = null;
+        }
+        let clearInputs = () => {
+            branchName.clear()
+        }
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => { updatecontent(); }
+
+        let origObj;
+        let editObj;
+
+        let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
+        let equals = (src, dst) => {
+            let o1 = JSON.stringify(src);
+            let o2 = JSON.stringify(dst);
+            return (o1 === o2);
+        }
+
+        let ctrlToObj = () => {
+            if (editObj) {
+                if (branchName) {
+                    editObj.branchName = branchName.value();
+                }
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+                if (branchName) {
+                    branchName.value(editObj.branchName);
+                }
+            }
+        }
+
+        this.setup = (item) => {
+            origObj = clone(item);
+            editObj = clone(item);
+            objToCtrl();
+        }
+        this.getItem = () => {
+            ctrlToObj();
+            let hasId = (editObj.branchId !== undefined && editObj.branchId != null)
+            let isDirty = !hasId || !equals(origObj, editObj);
+
+            return (isDirty) ? editObj : null;
+        }
+
+});
+riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <branch-view ref="viewer" class="view"></branch-view> </yield> <yield to="entry"> <branch-editor ref="entry" class="entry"></branch-editor> </yield> </flip-screen>', 'branch-manage,[data-is="branch-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } branch-manage .view,[data-is="branch-manage"] .view,branch-manage .entry,[data-is="branch-manage"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; }', '', function(opts) {
 
 
         let self = this;
@@ -1291,8 +1529,10 @@ riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <bra
 
         let initCtrls = () => {
             flipper = self.refs['flipper'];
+            entry = self.refs['entry'];
         }
         let freeCtrls = () => {
+            entry = null;
             flipper = null;
         }
         let clearInputs = () => { }
@@ -1327,16 +1567,23 @@ riot.tag2('branch-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <bra
             updatecontent();
         }
         let onEntryBeginEdit = (e) => {
-            console.log('Begin Edit');
+
+            if (flipper) {
+                flipper.toggle();
+                let item = e.detail.item;
+                if (entry) entry.setup(item);
+            }
 
         }
         let onEntryEndEdit = (e) => {
-            console.log('End Edit');
 
+            if (flipper) {
+                flipper.toggle();
+            }
         }
 
 });
-riot.tag2('branch-view', '<div ref="title" class="titlearea"> <button class="addnew" onclick="{addnew}"> <span class="fas fa-plus-circle">&nbsp;</span> </button> <button class="refresh" onclick="{refresh}"> <span class="fas fa-sync">&nbsp;</span> </button> </div> <div ref="container" class="scrarea"> <div ref="grid" id="grid"></div> </div>', 'branch-view,[data-is="branch-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px 1fr; grid-template-areas: \'titlearea\' \'scrarea\'; } branch-view .titlearea,[data-is="branch-view"] .titlearea{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: auto auto 1fr; grid-template-rows: 100%; grid-template-areas: \'scrarea\'; overflow: hidden; border-radius: 3px; background-color: transparent; color: whitesmoke; } branch-view .titlearea .addnew,[data-is="branch-view"] .titlearea .addnew{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } branch-view .titlearea .refresh,[data-is="branch-view"] .titlearea .refresh{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } branch-view .scrarea,[data-is="branch-view"] .scrarea{ margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; height: calc(100% - 50px); }', '', function(opts) {
+riot.tag2('branch-view', '<div ref="title" class="titlearea"> <button class="addnew" onclick="{addnew}"> <span class="fas fa-plus-circle">&nbsp;</span> </button> <button class="refresh" onclick="{refresh}"> <span class="fas fa-sync">&nbsp;</span> </button> </div> <div ref="container" class="scrarea"> <div ref="grid" id="grid"></div> </div>', 'branch-view,[data-is="branch-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px 1fr; grid-template-areas: \'titlearea\' \'scrarea\'; } branch-view .titlearea,[data-is="branch-view"] .titlearea{ grid-area: titlearea; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; border-radius: 3px; background-color: transparent; color: whitesmoke; } branch-view .titlearea .addnew,[data-is="branch-view"] .titlearea .addnew{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } branch-view .titlearea .refresh,[data-is="branch-view"] .titlearea .refresh{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } branch-view .scrarea,[data-is="branch-view"] .scrarea{ grid-area: scrarea; margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; height: calc(100% - 50px); }', '', function(opts) {
 
 
         let self = this;
@@ -1454,23 +1701,25 @@ riot.tag2('branch-view', '<div ref="title" class="titlearea"> <button class="add
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData();
-            evt = new CustomEvent('entry:delete', { detail: { entry: entryId, item: data } })
-            document.dispatchEvent(evt);
+            console.log('delete:', data, ', langId:', lang.langId);
+            syncData();
+
         }
         let onEndEdit = (e) => {
-            let data = e.detail.item;
-
+            syncData();
             table.redraw(true);
         }
 
         let showMsg = (err) => { }
 
         this.addnew = (e) => {
-            console.log('add new.');
+            let data = { branchId: null, branchName: 'New Branch' };
+            evt = new CustomEvent('entry:beginedit', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
         }
         this.refresh = (e) => {
-            console.log('refresh.');
             orgmanager.branch.load();
+            updatecontent();
         }
 
 });
@@ -1535,9 +1784,28 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks active" name="org" onclick="{showContent}">Org</button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}">Branch</button> </div> <div ref="tabcontent" name="org" class="tabcontent" style="display: block;"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 2px; border-top: none; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }', '', function(opts) {
+riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks active" name="org" onclick="{showContent}"> <span class="fas fa-sitemap"></span>&nbsp;{content.label.org.view.title}&nbsp; </button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}"> <span class="fas fa-map-marked-alt"></span>&nbsp;{content.label.branch.view.title}&nbsp; </button> </div> <div ref="tabcontent" name="org" class="tabcontent" style="display: block;"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this;
         let screenid = 'org';
+
+        let defaultContent = {
+            label: {
+                org: {
+                    view: { title: 'Organization' }
+                },
+                branch: {
+                    view: { title: 'Branch' }
+                }
+            }
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
 
         let tabHeaders = [];
         let tabContents = [];
@@ -1633,6 +1901,7 @@ riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks
                 currHeader.className += " active";
             }
         }
+
 });
 riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="org-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 

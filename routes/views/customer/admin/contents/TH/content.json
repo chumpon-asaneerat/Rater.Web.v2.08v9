@@ -21,19 +21,24 @@
             "label": {
                 "screenTitle": "ผังองกรณ์",
                 "org": {
+                    "title": "องกรณ์",
                     "view": {
                         "columns": []
                     },
-                    "entry": {                        
+                    "entry": {
                     }
                 },
                 "branch": {
                     "view": {
+                        "title": "สาขา",
                         "columns": [
                             { "title": "ชื่อสาขา", "field": "branchName", "resizable": false }
                         ]
                     },
                     "entry": {
+                        "tabDefault": "ค่าตั้งต้น",
+                        "tabMultiLang": "ภาษาอื่น",
+                        "branchName": "ชื่อสาขา"
                     }
                 }
             

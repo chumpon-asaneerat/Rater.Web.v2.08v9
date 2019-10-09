@@ -22,6 +22,7 @@
                 "screenTitle": "Organization Management",
                 "org": {
                     "view": {
+                        "title": "Organization",
                         "columns": []
                     },
                     "entry": {                        
@@ -29,11 +30,15 @@
                 },
                 "branch": {
                     "view": {
+                        "title": "Branch",
                         "columns": [
                             { "title": "Branch Name", "field": "branchName", "resizable": false }
                         ]
                     },
                     "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "branchName": "Branch Name"
                     }
                 }
             },

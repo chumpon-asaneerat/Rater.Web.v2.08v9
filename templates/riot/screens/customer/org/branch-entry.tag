@@ -1,33 +1,37 @@
 <branch-entry>
-    <h3>{ info }</h3>
+    <div class="padtop"></div>
+    <div class="padtop"></div>
+    <ninput ref="branchName" title="{ content.label.branch.entry.branchName }" type="text" name="branchName"></ninput>
     <style>
         :scope {
-            margin: 0 auto;
+            margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
         }
+        :scope .padtop {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            min-height: 10px;
+        }
     </style>
     <script>
-        this.info = 'no data';
-
-        //#region local variables
-
         let self = this;
         let screenId = 'org';
         let entryId = 'branch';
 
-        //#endregion
-
         //#region content variables and methods
-
+        
         let defaultContent = {
-            title: 'Title',
-            label: {},
-            links: []
+            label: {
+                branch: {
+                    entry: { branchName: 'Branch Name' }
+                }
+            }
         }
         this.content = defaultContent;
-        
+
         let updatecontent = () => {
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
@@ -39,9 +43,17 @@
 
         //#region controls variables and methods
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let branchName;
+
+        let initCtrls = () => {
+            branchName = self.refs['branchName'];
+        }
+        let freeCtrls = () => {
+            branchName = null;
+        }
+        let clearInputs = () => {
+            branchName.clear()
+        }
 
         //#endregion
 
@@ -77,27 +89,49 @@
 
         let onAppContentChanged = (e) => { updatecontent(); }
         let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => {
-            updatecontent();
-            if (e.detail.screenId === screenId) {
-                // screen shown.
-            }
-            else {
-                // other screen shown.
-            }
-        }
-
-        //#endregion
-
-        //#region private service wrapper methods
-
-        let showMsg = (err) => { }
+        let onScreenChanged = (e) => { updatecontent(); }
 
         //#endregion
 
         //#region public methods
 
-        this.publicMethod = (message) => { }
+        let origObj;
+        let editObj;
+
+        let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
+        let equals = (src, dst) => {
+            let o1 = JSON.stringify(src);
+            let o2 = JSON.stringify(dst);
+            return (o1 === o2);
+        }
+
+        let ctrlToObj = () => {
+            if (editObj) {
+                if (branchName) {
+                    editObj.branchName = branchName.value();
+                }
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+                if (branchName) {
+                    branchName.value(editObj.branchName);
+                }
+            }
+        }
+
+        this.setup = (item) => {  
+            origObj = clone(item);
+            editObj = clone(item);
+            objToCtrl();
+        }
+        this.getItem = () => {
+            ctrlToObj();
+            let hasId = (editObj.branchId !== undefined && editObj.branchId != null)
+            let isDirty = !hasId || !equals(origObj, editObj);
+            //console.log(editObj)
+            return (isDirty) ? editObj : null;
+        }
 
         //#endregion
     </script>

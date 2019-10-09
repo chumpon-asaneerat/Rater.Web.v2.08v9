@@ -4,7 +4,7 @@
             <branch-view ref="viewer" class="view"></branch-view>
         </yield>
         <yield to="entry">
-            <branch-entry ref="entry" class="entry"></branch-entry>
+            <branch-editor ref="entry" class="entry"></branch-editor>
         </yield>
     </flip-screen>
     <style>
@@ -57,8 +57,10 @@
 
         let initCtrls = () => {
             flipper = self.refs['flipper'];
+            entry = self.refs['entry'];
         }
         let freeCtrls = () => {
+            entry = null;
             flipper = null;
         }
         let clearInputs = () => { }
@@ -105,12 +107,19 @@
             updatecontent();
         }
         let onEntryBeginEdit = (e) => {
-            console.log('Begin Edit');
-            //if (flipper) flipper.toggle();
+            //console.log('Begin Edit');
+            if (flipper) {
+                flipper.toggle();
+                let item = e.detail.item;
+                if (entry) entry.setup(item);
+            }
+            
         }
         let onEntryEndEdit = (e) => {
-            console.log('End Edit');
-            //if (flipper) flipper.toggle();
+            //console.log('End Edit');
+            if (flipper) {
+                flipper.toggle();
+            }
         }
 
         //#endregion

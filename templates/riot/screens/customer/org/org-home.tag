@@ -1,9 +1,13 @@
 <org-home>
     <div class="tab">
-        <button ref="tabheader" class="tablinks active" name="org" onclick="{ showContent }">Org</button>
-        <button ref="tabheader" class="tablinks" name="branch" onclick="{ showContent }">Branch</button>
+        <button ref="tabheader" class="tablinks active" name="org" onclick="{ showContent }">
+            <span class="fas fa-sitemap"></span>&nbsp;{ content.label.org.view.title }&nbsp;
+        </button>
+        <button ref="tabheader" class="tablinks" name="branch" onclick="{ showContent }">
+            <span class="fas fa-map-marked-alt"></span>&nbsp;{ content.label.branch.view.title }&nbsp;
+        </button>
     </div>
-    <!-- Tab content -->
+    
     <div ref="tabcontent" name="org" class="tabcontent" style="display: block;">
         <org-manage></org-manage>
     </div>
@@ -22,7 +26,6 @@
             border: 1px solid #ccc;
             background-color: #f1f1f1;
         }
-        /* Style the buttons that are used to open the tab content */
         :scope .tab button {
             background-color: inherit;
             float: left;
@@ -32,32 +35,51 @@
             padding: 14px 16px;
             transition: 0.3s;
         }
-        /* Change background color of buttons on hover */
         :scope .tab button:hover {
             background-color: #ddd;
         }
-        /* Create an active/current tablink class */
         :scope .tab button.active { background-color: #ccc; }
-        /* Style the tab content */
         :scope .tabcontent {
             display: none;
-            padding: 2px;
-            /* border: 1px solid #ccc; */
-            border-top: none;
+            padding: 0;
             width: 100%;
             height: 100%;
             max-width: 100%;
             max-height: 100%;
+            overflow: hidden;
         }
     </style>
     <script>
         let self = this;
         let screenid = 'org';
 
+        //#region content variables and methods
+        
+        let defaultContent = {
+            label: {
+                org: {
+                    view: { title: 'Organization' }
+                },
+                branch: {
+                    view: { title: 'Branch' }
+                }
+            }
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
         //#region controls variables and methods
 
         let tabHeaders = [];
         let tabContents = [];
+
+        //#endregion
 
         let initCtrls = () => {
             let headers = self.refs['tabheader'];
@@ -91,6 +113,8 @@
         });
 
         //#endregion
+
+        //#region tab control methods and inline handler
 
         let clearActiveTabs = () => {
             if (tabHeaders) {
@@ -160,5 +184,7 @@
                 currHeader.className += " active";
             }
         }
+
+        //#endregion
     </script>
 </org-home>

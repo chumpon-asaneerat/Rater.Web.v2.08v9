@@ -45,7 +45,7 @@ DECLARE @iBranchCnt int = 0;
 		IF (dbo.IsNullOrEmpty(@customerId) = 1)
 		BEGIN
 			-- Customer Id cannot be null or empty string.
-            EXEC GetErrorMsg 1002, @errNum out, @errMsg out
+            EXEC GetErrorMsg 1001, @errNum out, @errMsg out
 			RETURN
 		END
 

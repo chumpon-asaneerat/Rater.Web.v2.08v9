@@ -43,3 +43,17 @@ content-type: application/json
     "customerId": "EDL-C2019080002"
 }
 
+#### SaveBranchs
+POST http://localhost:3000/customer/api/branch/save
+content-type: application/json
+
+{
+    "items": [
+        { 
+            "langId": "EN",
+            "customerId": "EDL-C2019080002",
+            "branchName": "New Branch 2",
+            "branchId": null
+        }
+    ]
+}

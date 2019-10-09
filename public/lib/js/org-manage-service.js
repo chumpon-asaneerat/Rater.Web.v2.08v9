@@ -37,8 +37,6 @@ class BranchLoader {
         this.content = null;
         this.current = null;
 
-        this._selIndex = -1;
-
         let self = this;
         let contentChanged = (e) => {
             self.current = self.getCurrent();
@@ -56,6 +54,27 @@ class BranchLoader {
         }
         XHR.postJson(url, paramObj, fn);
     }
+    save(items) {
+        let self = this;
+        let url = '/customer/api/branch/save';
+        //console.log('save:', items)
+        let paramObj = {
+            items: items
+        };
+        let fn = (r) => {
+            let results = [];
+            for (let i = 0; i < r.result.length; i++) {
+                //let data = api.parse(r.result[i]);
+                let data = {
+                    records: r.result[i].data,
+                    out: r.result[i].out,
+                    errors: r.result[i].errors
+                }
+                results.push(data)
+            }
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
     getCurrent() {
         let match = this.content && this.content[this.langId];
         let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
@@ -67,31 +86,18 @@ class BranchLoader {
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';
     }
-    get selectedIndex() { return this._selIndex; }
-    set selectedIndex(value) {
-        if (this._selIndex != value) {
-            this._selIndex = value;
-            if (this._selIndex === undefined || this._selIndex === null) {
-                this._selIndex = -1;
-            }
-            else {
-                if (this._selIndex > this.content.length) {
-                    this._selIndex = -1;
-                }
+    find(langId, branchId) {
+        let ret = null;
+        if (this.current) {
+            //console.log('current:', this.content)
+            let items = this.content[langId];
+            //console.log('items:', items)
+            if (items) {                
+                let maps = items.map(item => item.branchId);
+                let idx = maps.indexOf(branchId);
+                ret = (idx !== -1) ? items[idx] : null;
             }
         }
-    }
-    get selectedItem() {
-        let ret = null;
-    }
-    addnew() {
-        let ret;
-
-        return ret;
-    }
-    saveItem(item) {
-        let ret;
-
         return ret;
     }
 }
