@@ -8,7 +8,10 @@
         </button>
     </div>
     <div ref="container" class="scrarea">
-        <div ref="grid" id="grid"></div>
+        <div ref="grid"></div>
+        <!--
+        <div ref="grid" id="gridbranch"></div>
+        -->
     </div>
     <style>
         :scope {
@@ -103,7 +106,8 @@
                 data: (data) ? data : []
             }
             setupColumns(opts);
-            table = new Tabulator("#grid", opts);
+            //table = new Tabulator("#gridbranch", opts);
+            table = new Tabulator(self.refs['grid'], opts);
         }
         let setupColumns = (opts) => {
             let = columns = [

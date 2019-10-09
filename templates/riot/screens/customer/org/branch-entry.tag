@@ -26,7 +26,9 @@
         let defaultContent = {
             label: {
                 branch: {
-                    entry: { branchName: 'Branch Name' }
+                    entry: { 
+                        branchName: 'Branch Name'
+                    }
                 }
             }
         }

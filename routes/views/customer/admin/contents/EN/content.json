@@ -55,7 +55,30 @@
             "screenid": "member",
             "title": "User Account Management",
             "label": {
-                "screenTitle": "User Account Management"
+                "screenTitle": "Staff Account Management",
+                "member": {
+                    "view": {
+                        "title": "Staff",
+                        "columns": [
+                            { "title": "Prefix", "field": "Prefix", "resizable": false },
+                            { "title": "First Name", "field": "FirstName", "resizable": false },
+                            { "title": "Last Name", "field": "LastName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "prefix": "Prefix",
+                        "firstName": "First Name",
+                        "lastName": "Last Name",
+                        "userName": "User Name",
+                        "passWopd": "Password",
+                        "tagId": "Tag Id",
+                        "idCard": "ID Card",
+                        "employeeCode": "Employee Code",
+                        "memberType": "Member Type"
+                    }
+                }
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
