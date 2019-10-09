@@ -109,7 +109,9 @@
             grid-area: panel-body;
             display: inline-block;
             margin: 0;
-            padding: 0;
+            padding: 3px;
+            padding-top: 5px;
+            padding-bottom: 5px;
             width: 100%;
             background-color: white;
             border: 1px solid cornflowerblue;

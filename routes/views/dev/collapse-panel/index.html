@@ -28,21 +28,9 @@
         .app {
             margin: 0;
             padding: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             border: 1px solid silver;
-        }
-        .app {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-            border: 1px solid silver;
-            display: grid;
-            grid-template-rows: 1fr;
-            grid-template-columns: 1fr;
-            background-color: sliver;
-            border: 3px solid black;
         }
         .app .large-screen {
             margin: 0;
@@ -51,11 +39,12 @@
             height: 100%;
             display: grid;
             grid-template-rows: 1fr;
-            grid-template-columns: 250px 1fr 250px;
+            grid-template-columns: 1fr;
             grid-template-areas: 
-                'slide-list slide-designer slide-toolbox';
+                'slide-designer';
             background-color: lightgray;
             border: 3px solid darkred;
+            overflow: hidden;
         }
         .app .small-screen {
             margin: 0;
@@ -71,7 +60,7 @@
             background-color: cornflowerblue;
             border: 3px solid darkred;
         }
-        @media only screen and (min-width: 800px) and (max-width: 1600px) {
+        @media only screen and (min-width: 750px) and (max-width: 1600px) {
             .app {
                 grid-template-areas: 
                     'large-screen';
@@ -80,7 +69,7 @@
                 display: none;
             }
         }
-        @media only screen and (max-width: 800px) {
+        @media only screen and (max-width: 750px) {
             .app {
                 grid-template-areas: 
                     'small-screen';
@@ -99,6 +88,7 @@
             overflow-y: auto;
             background-color: lightgray;
             border: 3px solid darkred;
+            overflow: auto;
         }
         .app .large-screen .slide-designer {
             grid-area: slide-designer;
@@ -109,17 +99,7 @@
             overflow: auto;
             background-color: whitesmoke;
             border: 3px solid darkgreen;
-        }
-        .app .large-screen .slide-toolbox {
-            grid-area: slide-toolbox;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            background-color: aliceblue;
-            border: 3px solid cornflowerblue;
+            overflow: auto;
         }
         .app .small-screen .unavaliable {
             grid-area: unavaliable;
@@ -129,32 +109,130 @@
             height: 100%;
             overflow: hidden;
         }
+        .item {
+            margin: 0 auto;
+            padding: 0;
+            font-size: 1.2rem;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            object-fit: cover;
+        }
+        .item::before {
+            content: "";
+            display: block;
+            height: 0;
+            width: 0;
+            padding-bottom: calc(9/16 * 100%);
+        }
+        .item.c1 {  
+            background-color: antiquewhite;
+        }
+        .item.c2 { 
+            background-color: blueviolet;
+        }
+        .item.c3 { 
+            background-color: brown; 
+        }
+        .item.c4 { 
+            background-color: navajowhite; 
+        }
+        .item.c5 { 
+            background-color: grey; 
+        }
+        .item.c6 { 
+            background-color: khaki;
+        }
+        .item.c7 { 
+            background-color: palegreen;
+        }
+        .item.c8 { 
+            background-color: orchid;
+        }
     </style>
 </head>
 <body>
     <div class="app">
         <div class="large-screen">
-            <div class="slide-list">
-                <div>slide list</div>
-            </div>
+            <tool-window caption="Tool window" style="left: 10px; top: 50px; width: 300px;">
+                <gallery style="height: 500px;">
+                    <div class="item c1">item 1</div>
+                    <div class="item c2">item 2</div>
+                    <div class="item c3">item 3</div>
+                    <div class="item c4">item 4</div>
+                    <div class="item c5">item 5</div>
+                    <div class="item c6">item 6</div>
+                    <div class="item c7">item 7</div>
+                    <div class="item c8">item 8</div>
+                </gallery>
+            </tool-window>
             <div class="slide-designer">
                 <div>slide designer</div>
             </div>
-            <div class="slide-toolbox">
-                <collapse-panel caption="My Item" removable>
+            <tool-window caption="Tool window" style="right: 10px; top: 50px; width: 250px;">
+                <collapse-panel caption="Tool 1">
                     <label>My Items</label>
                     <br>
                     <label>Property 1</label>
                     <br>
                     <label>Property 2</label>
                 </collapse-panel>
-            </div>
+                <collapse-panel caption="Tool 2">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 3">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 4">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 5">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 6">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 7">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 8">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+            </tool-window>
         </div>
         <div class="small-screen">
             <div class="unavaliable">
                 <h3>Cannot use designer in small screen.</h3>
             </div>
-        </div>
+        </div>        
     </div>
     
     <!-- JQuery -->
@@ -190,7 +268,11 @@
     <script src="/dist/js/services.js"></script>
     -->
     <script>
+        riot.mount('*');
+        /*
+        riot.mount('tool-window');
         riot.mount('collapse-panel');
+        */
     </script>
 </body>
 </html>
