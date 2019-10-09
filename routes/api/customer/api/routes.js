@@ -141,6 +141,38 @@ const api = class {
         }
         return rets;
     }
+    static async GetDevices(db, params) {
+        return await db.GetDevices(params);
+    }
+    static async SaveDevices(db, params) {
+        let ret;
+        let rets = [];
+        let customerId = params.customerId;
+        if (params && params.items) {
+            let items = params.items;
+            let deviceId;
+
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                item.customerId = customerId;
+                if (item.langId === 'EN') {
+                    ret = await db.SaveDevice(item);
+                    deviceId = ret.out.deviceId;
+                    rets.push(ret);
+                }
+            }
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                item.customerId = params.customerId;
+                item.deviceId = deviceId;
+                if (item.langId !== 'EN') {
+                    ret = await db.SaveDeviceML(item);
+                    rets.push(ret);
+                }                
+            }
+        }
+        return rets;
+    }
 }
 
 //#endregion
@@ -316,6 +348,90 @@ const routes = class {
             WebServer.sendJson(req, res, results);
         })
     }
+    static GetDevices(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+        // force langId to null;
+        params.langId = null;
+        params.customerId = secure.getCustomerId(req, res);
+        params.deviceId = null;
+        params.enabled = true;
+
+        let fn = async () => {
+            return api.GetDevices(db, params);
+        }
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
+
+            let result = {
+                data : null,
+                //src: dbResult.data,
+                errors: dbResult.errors,
+                //multiple: dbResult.multiple,
+                //datasets: dbResult.datasets,
+                out: dbResult.out
+            }
+            let records = dbResult.data;
+            let ret = {};
+
+            records.forEach(rec => {
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.deviceId);
+                let idx = map.indexOf(rec.deviceId);
+                let nobj;
+                if (idx === -1) {
+                    // set id
+                    nobj = { deviceId: rec.deviceId }
+                    // init lang properties list.
+                    ret[rec.langId].push(nobj)
+                }
+                else {
+                    nobj = ret[rec.langId][idx];
+                }
+                nobj.DeviceName = rec.DeviceName;
+                nobj.Location = rec.Location;
+                nobj.devceTypeId = rec.devceTypeId;
+                nobj.memberId = rec.memberId;
+            })
+            // set to result.
+            result.data = ret;
+
+            WebServer.sendJson(req, res, result);
+        })
+    }
+    static SaveDevices(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+
+        params.customerId = secure.getCustomerId(req, res);
+
+        let fn = async () => {
+            return api.SaveDevices(db, params);
+        }
+        exec(db, fn).then(data => {
+            let results = [];
+            let result;
+            let dbResult;
+
+            for (let i = 0; i < data.length; i++) {
+                dbResult = validate(db, data[i]);
+
+                result = {
+                    data : dbResult.data,
+                    //src: dbResult.data,
+                    errors: dbResult.errors,
+                    //multiple: dbResult.multiple,
+                    //datasets: dbResult.datasets,
+                    out: dbResult.out
+                }
+                results.push(result);
+            }
+
+            WebServer.sendJson(req, res, results);
+        })
+    }
 }
 
 router.use(secure.checkAccess);
@@ -325,6 +441,9 @@ router.post('/branch/save', routes.SaveBranchs);
 // member
 router.post('/member/search', routes.GetMemberInfos);
 router.post('/member/save', routes.SaveMemberInfos);
+// device
+router.post('/device/search', routes.GetDevices);
+router.post('/device/save', routes.SaveDevices);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);

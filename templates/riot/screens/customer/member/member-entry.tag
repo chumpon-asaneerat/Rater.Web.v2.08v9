@@ -173,7 +173,7 @@
         }
         let objToCtrl = () => {
             if (editObj) {
-                console.log(editObj)
+                //console.log(editObj)
                 if (prefix) prefix.value(editObj.Prefix);
                 if (firstName) firstName.value(editObj.FirstName);
                 if (lastName) lastName.value(editObj.LastName);

@@ -1,15 +1,15 @@
-<branch-editor>
+<device-editor>
     <div class="entry">
         <div class="tab">
             <button ref="tabheader" class="tablinks active" name="default" onclick="{ showContent }">
-                <span class="fas fa-cog"></span>&nbsp;{ content.label.branch.entry.tabDefault }&nbsp;
+                <span class="fas fa-cog"></span>&nbsp;{ content.label.device.entry.tabDefault }&nbsp;
             </button>
             <button ref="tabheader" class="tablinks" name="miltilang" onclick="{ showContent }">
-                <span class="fas fa-globe-americas"></span>&nbsp;{ content.label.branch.entry.tabMultiLang }&nbsp;
+                <span class="fas fa-globe-americas"></span>&nbsp;{ content.label.device.entry.tabMultiLang }&nbsp;
             </button>
         </div>
         <div ref="tabcontent" name="default" class="tabcontent" style="display: block;">
-            <branch-entry ref="EN" langId=""></branch-entry>
+            <device-entry ref="EN" langId=""></device-entry>
         </div>
         <div ref="tabcontent" name="miltilang" class="tabcontent">
             <virtual if={ lang.languages }>
@@ -21,7 +21,7 @@
                             &nbsp;{ item.Description }&nbsp;
                         </div>
                         <div class="panel-body" langId="{ item.langId }">
-                            <branch-entry ref="{ item.langId }" langId="{ item.langId }"></branch-entry>
+                            <device-entry ref="{ item.langId }" langId="{ item.langId }"></device-entry>
                         </div>
                     </virtual>
                 </virtual>
@@ -40,7 +40,7 @@
             height: 100%;
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: calc(100% - 75px) 30px;
+            grid-template-rows: 1fr 30px;
             grid-template-areas: 
                 'entry'
                 'tool';
@@ -78,7 +78,7 @@
             display: none;
             padding: 3px;
             width: 100%;
-            height: calc(100% - 50px);
+            /* height: calc(100% - 50px); */
             max-width: 100%;
             /* max-height: calc(100% - 50px); */
             overflow: auto;
@@ -116,10 +116,10 @@
         //#region local variables
 
         let self = this;
-        let screenId = 'org';
-        let entryId = 'branch';
+        let screenId = 'device';
+        let entryId = 'device';
 
-        let branchId = '';
+        let deviceId = '';
         let ctrls = [];
 
         //#endregion
@@ -128,7 +128,7 @@
 
         let defaultContent = {
             label: {
-                branch: {
+                device: {
                     entry: {
                         tabDefault: 'Default',
                         tabMultiLang: 'Languages'
@@ -211,6 +211,7 @@
 
         let onEntryBeginEdit = (e) => {
             let data = e.detail.item;
+            console.log('Begin Edit:', data)
             self.setup(data)
         }
 
@@ -233,7 +234,7 @@
                     items.push(item)
                 }
             });
-            orgmanager.branch.save(items);
+            devicemanager.device.save(items);
             evt = new CustomEvent('entry:endedit')
             document.dispatchEvent(evt);
         }
@@ -325,17 +326,17 @@
 
         this.setup = (item) => {
             let isNew = false;
-            branchId = item.branchId;
-            if (branchId === undefined || branchId === null || branchId.trim() === '') {
+            deviceId = item.deviceId;
+            if (deviceId === undefined || deviceId === null || deviceId.trim() === '') {
                 isNew = true;
             }
             ctrls = [];
-
-            let loader = window.orgmanager.branch;
+            
+            let loader = window.devicemanager.device;
 
             lang.languages.forEach(lg => {
                 let ctrl = self.refs[lg.langId];
-                let original = (isNew) ? clone(item) : loader.find(lg.langId, branchId);
+                let original = (isNew) ? clone(item) : loader.find(lg.langId, deviceId);
                 //console.log('find ori:' ,original)
                 if (ctrl) {
                     let obj = {
@@ -351,4 +352,4 @@
 
         //#endregion
     </script>
-</branch-editor>
+</device-editor>

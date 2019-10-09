@@ -94,7 +94,26 @@
             "screenid": "device",
             "title": "บัญชีอุปกรณ์",
             "label": {
-                "screenTitle": "บัญชีอุปกรณ์"
+                "screenTitle": "บัญชีอุปกรณ์",
+                "device": {
+                    "view": {
+                        "title": "Staff",
+                        "columns": [
+                            { "title": "Name", "field": "DeviceName", "resizable": false },
+                            { "title": "Type", "field": "Type", "resizable": false },
+                            { "title": "Location", "field": "Location", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "ค่าตั้งต้น",
+                        "tabMultiLang": "ภาษาอื่น",
+                        "deviceName": "ชื่ออุปกรณ์",
+                        "deviceTypeId": "ประเภทอุปกรณ์",
+                        "location": "จุดติดตั้ง",
+                        "orgId": "หน่วยงาน",
+                        "memberId": "ผู้ใช้ปัจจุบัน"
+                    }
+                }
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },

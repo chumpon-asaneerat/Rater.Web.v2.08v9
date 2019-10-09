@@ -93,7 +93,26 @@
             "screenid": "device",
             "title": "Device Management",
             "label": {
-                "screenTitle": "Device Management"
+                "screenTitle": "Device Management",
+                "device": {
+                    "view": {
+                        "title": "Staff",
+                        "columns": [
+                            { "title": "Name", "field": "DeviceName", "resizable": false },
+                            { "title": "Type", "field": "Type", "resizable": false },
+                            { "title": "Location", "field": "Location", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "deviceName": "Device Name",
+                        "deviceTypeId": "Device Type",
+                        "location": "Location",
+                        "orgId": "Organization",
+                        "memberId": "User"
+                    }
+                }
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },

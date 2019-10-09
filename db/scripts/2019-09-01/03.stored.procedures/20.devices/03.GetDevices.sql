@@ -39,18 +39,19 @@ BEGIN
 		 , DMLV.SortOrder
 		 , DMLV.Enabled 
 	  FROM DeviceMLView DMLV
-	     , DeviceTypeMLV DTMV
-		 , OrgMLView OMLV
-		 , MemberInfoMLView MIMLV
+	     , DeviceTypeML DTMV
+		 --, OrgMLView OMLV
+		 --, MemberInfoMLView MIMLV
 	 WHERE DMLV.[ENABLED] = COALESCE(@enabled, DMLV.[ENABLED])
 	   AND UPPER(LTRIM(RTRIM(DMLV.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, DMLV.LangId))))
+       AND UPPER(LTRIM(RTRIM(DTMV.LangId))) = UPPER(LTRIM(RTRIM(DMLV.LangId)))
 	   AND UPPER(LTRIM(RTRIM(DMLV.CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, DMLV.CustomerId))))
 	   AND UPPER(LTRIM(RTRIM(DMLV.DeviceId))) = UPPER(LTRIM(RTRIM(COALESCE(@deviceId, DMLV.DeviceId))))
 	   AND DMLV.DeviceTypeId = DTMV.DeviceTypeId
-	   AND OMLV.CustomerId = DMLV.CustomerId
-	   AND OMLV.OrgID = DMLV.OrgId
-	   AND MIMLV.CustomerId = DMLV.CustomerId
-	   AND MIMLV.MemberID = DMLV.MemberID
+	   --AND OMLV.CustomerId = DMLV.CustomerId
+	   --AND OMLV.OrgID = DMLV.OrgId
+	   --AND MIMLV.CustomerId = DMLV.CustomerId
+	   --AND MIMLV.MemberID = DMLV.MemberID
 	 ORDER BY DMLV.SortOrder, DMLV.LangId, DMLV.CustomerId, DMLV.DeviceId;
 END
 

@@ -113,8 +113,6 @@
         }
     </style>
     <script>
-        this.info = 'no data';
-
         //#region local variables
 
         let self = this;
