@@ -1,15 +1,15 @@
-<member-editor>
+<org-editor>
     <div class="entry">
         <div class="tab">
             <button ref="tabheader" class="tablinks active" name="default" onclick="{ showContent }">
-                <span class="fas fa-cog"></span>&nbsp;{ content.label.member.entry.tabDefault }&nbsp;
+                <span class="fas fa-cog"></span>&nbsp;{ content.label.org.entry.tabDefault }&nbsp;
             </button>
             <button ref="tabheader" class="tablinks" name="miltilang" onclick="{ showContent }">
-                <span class="fas fa-globe-americas"></span>&nbsp;{ content.label.member.entry.tabMultiLang }&nbsp;
+                <span class="fas fa-globe-americas"></span>&nbsp;{ content.label.org.entry.tabMultiLang }&nbsp;
             </button>
         </div>
         <div ref="tabcontent" name="default" class="tabcontent" style="display: block;">
-            <member-entry ref="EN" langId=""></member-entry>
+            <org-entry ref="EN" langId=""></org-entry>
         </div>
         <div ref="tabcontent" name="miltilang" class="tabcontent">
             <virtual if={ lang.languages }>
@@ -21,7 +21,7 @@
                             &nbsp;{ item.Description }&nbsp;
                         </div>
                         <div class="panel-body" langId="{ item.langId }">
-                            <member-entry ref="{ item.langId }" langId="{ item.langId }"></member-entry>
+                            <org-entry ref="{ item.langId }" langId="{ item.langId }"></org-entry>
                         </div>
                     </virtual>
                 </virtual>
@@ -40,7 +40,7 @@
             height: 100%;
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr 30px;
+            grid-template-rows: calc(100% - 75px) 30px;
             grid-template-areas: 
                 'entry'
                 'tool';
@@ -78,7 +78,7 @@
             display: none;
             padding: 3px;
             width: 100%;
-            /* height: calc(100% - 50px); */
+            height: calc(100% - 50px);
             max-width: 100%;
             /* max-height: calc(100% - 50px); */
             overflow: auto;
@@ -116,10 +116,10 @@
         //#region local variables
 
         let self = this;
-        let screenId = 'member';
-        let entryId = 'member';
+        let screenId = 'org';
+        let entryId = 'org';
 
-        let memberId = '';
+        let branchId = '';
         let ctrls = [];
 
         //#endregion
@@ -128,7 +128,7 @@
 
         let defaultContent = {
             label: {
-                member: {
+                org: {
                     entry: {
                         tabDefault: 'Default',
                         tabMultiLang: 'Languages'
@@ -212,7 +212,7 @@
         let onEntryBeginEdit = (e) => {
             if (e.detail.entry === entryId) {
                 let data = e.detail.item;
-                console.log('Device Begin Edit:', e.detail)
+                console.log('Org Begin Edit:', e.detail)
                 self.setup(data)
             }
         }
@@ -236,7 +236,7 @@
                     items.push(item)
                 }
             });
-            membermanager.member.save(items);
+            orgmanager.org.save(items);
             evt = new CustomEvent('entry:endedit')
             document.dispatchEvent(evt);
         }
@@ -328,17 +328,17 @@
 
         this.setup = (item) => {
             let isNew = false;
-            memberId = item.memberId;
-            if (memberId === undefined || memberId === null || memberId.trim() === '') {
+            orgId = item.orgId;
+            if (orgId === undefined || orgId === null || orgId.trim() === '') {
                 isNew = true;
             }
             ctrls = [];
 
-            let loader = window.membermanager.member;
+            let loader = window.orgmanager.org;
 
             lang.languages.forEach(lg => {
                 let ctrl = self.refs[lg.langId];
-                let original = (isNew) ? clone(item) : loader.find(lg.langId, memberId);
+                let original = (isNew) ? clone(item) : loader.find(lg.langId, orgId);
                 //console.log('find ori:' ,original)
                 if (ctrl) {
                     let obj = {
@@ -354,4 +354,4 @@
 
         //#endregion
     </script>
-</member-editor>
+</org-editor>

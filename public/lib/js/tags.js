@@ -476,6 +476,93 @@ riot.tag2('ninput', '<input ref="input" type="{opts.type}" name="{opts.name}" re
         }
 
 });
+riot.tag2('nselect', '<select ref="input"> <virtual if="{hasItems()}"> <virtual each="{item in items}"> <virtual if="{isvalid(item)}"> <option riot-value="{getValue(item)}">{getText(item)}</option> </virtual> </virtual> </virtual> </select> <div ref="clear" class="clear">x</div> <label>{opts.title}</label>', 'nselect,[data-is="nselect"]{ margin: 0; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: white; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } nselect select,[data-is="nselect"] select{ display: inline-block; padding: 5px 0; margin-bottom: 5px; width: calc(100% - 25px); background-color: rgba(255, 255, 255, .2); box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } nselect .clear,[data-is="nselect"] .clear{ display: inline-block; margin: 0 auto; padding: 0px 5px; font-size: 14px; font-weight: bold; width: 20px; height: 20px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } nselect .clear:hover,[data-is="nselect"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } nselect select:-webkit-autofill,[data-is="nselect"] select:-webkit-autofill,nselect select:-webkit-autofill:hover,[data-is="nselect"] select:-webkit-autofill:hover,nselect select:-webkit-autofill:focus,[data-is="nselect"] select:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } nselect label,[data-is="nselect"] label{ position: absolute; top: 15px; left: 14px; color: #999; transition: .2s; pointer-events: none; } nselect select:focus ~ label,[data-is="nselect"] select:focus ~ label,nselect select:-webkit-autofill ~ label,[data-is="nselect"] select:-webkit-autofill ~ label,nselect select:valid ~ label,[data-is="nselect"] select:valid ~ label{ top: -10px; left: 10px; color: #f7497d; font-weight: bold; } nselect select:focus,[data-is="nselect"] select:focus,nselect select:valid,[data-is="nselect"] select:valid{ border-bottom: 2px solid #f7497d; }', '', function(opts) {
+
+
+        let self = this;
+        this.items = [];
+        this.valueMember = '';
+        this.displayMember = '';
+
+        this.hasItems = () => {
+            console.log('has items')
+            return this.items && this.items.length > 0;
+        }
+        let isEmpty = (key) => {
+            return (key === undefined || key === null || key === '')
+        }
+        this.isvalid = (item) => {
+            console.log('isvalid')
+            if (!item) return false;
+            console.log(item)
+            console.log(this.valueMember)
+            console.log(this.displayMember)
+            console.log(this.valueMember in item)
+            console.log(this.displayMember in item)
+            let hasValProp = (!isEmpty(this.valueMember)) ? this.valueMember in item : false;
+            let hasDispProp = (!isEmpty(this.displayMember)) ? this.displayMember in item : false;
+
+            return hasValProp &&  hasDispProp;
+        }
+        this.getValue = (item) => {
+            console.log('getvalue:', item)
+            if (!item) return "0";
+            return item[this.valueMember]
+        }
+        this.getText = (item) => {
+            if (!item) return "";
+            console.log('gettext:', item)
+            return item[this.displayMember]
+        }
+
+        let input, clear;
+
+        let initCtrls = () => {
+            input = self.refs['input'];
+            clear = self.refs['clear'];
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => {
+            input = null;
+            clear = null;
+        }
+
+        let bindEvents = () => {
+            clear.addEventListener('click', onClear);
+        }
+        let unbindEvents = () => {
+            clear.removeEventListener('click', onClear);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            clearInputs();
+        });
+
+        let onClear = () => {
+            if (input) input.value = '';
+        }
+
+        this.setup = (items, valueMember, displayMember) => {
+            console.log(items)
+            self.items = items;
+            self.valueMember = displayMember;
+            self.displayMember = displayMember;
+            self.update();
+        }
+
+        this.clear = () => {
+
+        }
+        this.focus = () => { if (input) input.focus(); }
+
+});
 riot.tag2('osd', '<div ref="msgbox" class="msg error"> </div>', 'osd,[data-is="osd"]{ display: inline-block; position: absolute; margin: 0 auto; padding: 0; left: 50%; margin-left: -100px; right: 50px; bottom: 50px; z-index: 1000; background-color: transparent; } osd .msg,[data-is="osd"] .msg{ display: block; position: relative; margin: 0; padding: 5px; padding-bottom: 10px; height: auto; width: 200px; color: white; background-color: rgba(0, 0, 0, .7); text-align: center; border: 0; border-radius: 8px; user-select: none; visibility: hidden; } osd .msg.show,[data-is="osd"] .msg.show{ visibility: visible; } osd .msg.show.info,[data-is="osd"] .msg.show.info{ color: whitesmoke; background-color: rgba(0, 0, 0, .7); } osd .msg.show.warn,[data-is="osd"] .msg.show.warn{ color: black; background-color: rgba(255, 255, 0, .7); } osd .msg.show.error,[data-is="osd"] .msg.show.error{ color: yellow; background-color: rgba(255, 0, 0, .7); }', '', function(opts) {
 
 
@@ -826,9 +913,11 @@ riot.tag2('device-editor', '<div class="entry"> <div class="tab"> <button ref="t
         }
 
         let onEntryBeginEdit = (e) => {
-            let data = e.detail.item;
-            console.log('Begin Edit:', data)
-            self.setup(data)
+            if (e.detail.entry === entryId) {
+                let data = e.detail.item;
+                console.log('Device Begin Edit:', e.detail)
+                self.setup(data)
+            }
         }
 
         let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
@@ -955,7 +1044,7 @@ riot.tag2('device-editor', '<div class="entry"> <div class="tab"> <button ref="t
         }
 
 });
-riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="deviceName" title="{content.label.device.entry.deviceName}" type="text" name="deviceName"></ninput> <ninput ref="deciveTypeId" title="{content.label.device.entry.deviceTypeId}" type="text" name="deciveTypeId"></ninput> <ninput ref="location" title="{content.label.device.entry.location}" type="text" name="location"></ninput> <ninput ref="orgId" title="{content.label.device.entry.orgId}" type="text" name="orgId"></ninput> <ninput ref="memberId" title="{content.label.device.entry.memberId}" type="text" name="memberId"></ninput>', 'device-entry,[data-is="device-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } device-entry .padtop,[data-is="device-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="deviceName" title="{content.label.device.entry.deviceName}" type="text" name="deviceName"></ninput> <ninput ref="deviceTypeId" title="{content.label.device.entry.deviceTypeId}" type="text" name="deciveTypeId"></ninput> <ninput ref="location" title="{content.label.device.entry.location}" type="text" name="location"></ninput> <ninput ref="orgId" title="{content.label.device.entry.orgId}" type="text" name="orgId"></ninput> <ninput ref="memberId" title="{content.label.device.entry.memberId}" type="text" name="memberId"></ninput>', 'device-entry,[data-is="device-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } device-entry .padtop,[data-is="device-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
         let self = this;
         let screenId = 'device';
         let entryId = 'device';
@@ -978,6 +1067,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
         let updatecontent = () => {
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
+
                 self.update();
             }
         }
@@ -987,6 +1077,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
         let initCtrls = () => {
             deviceName = self.refs['deviceName'];
             deviceTypeId = self.refs['deviceTypeId'];
+
             location = self.refs['location'];
             orgId = self.refs['orgId'];
             memberId = self.refs['memberId'];
@@ -995,6 +1086,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
             memberId = null;
             orgId = null;
             location = null;
+
             deviceTypeId = null;
             deviceName = null;
         }
@@ -1002,6 +1094,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
             memberId.clear();
             orgId.clear();
             location.clear();
+
             deviceTypeId.clear();
             deviceName.clear();
         }
@@ -1010,8 +1103,12 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('devicetype:list:changed', onDeviceTypeListChanged);
+            document.addEventListener('org:list:changed', onOrgListChanged);
         }
         let unbindEvents = () => {
+            document.removeEventListener('org:list:changed', onOrgListChanged);
+            document.removeEventListener('devicetype:list:changed', onDeviceTypeListChanged);
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
@@ -1030,6 +1127,11 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
         let onLanguageChanged = (e) => { updatecontent(); }
         let onScreenChanged = (e) => { updatecontent(); }
 
+        let onDeviceTypeListChanged = (e) => { updatecontent(); }
+        let onOrgListChanged = (e) => {
+
+        }
+
         let origObj;
         let editObj;
 
@@ -1045,6 +1147,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
                 console.log('ctrlToObj:', editObj)
                 if (deviceName) editObj.DeviceName = deviceName.value();
                 if (location) editObj.Location = location.value();
+
                 if (deviceTypeId) editObj.deviceTypeId = deviceTypeId.value();
                 if (orgId) editObj.orgId = orgId.value();
                 if (memberId) editObj.memberId = memberId.value();
@@ -1055,6 +1158,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
                 console.log('objToCtrl:', editObj)
                 if (deviceName) deviceName.value(editObj.DeviceName);
                 if (location) location.value(editObj.Location);
+
                 if (deviceTypeId) deviceTypeId.value(editObj.deviceTypeId);
                 if (orgId) orgId.value(editObj.orgId);
                 if (memberId) memberId.value(editObj.memberId);
@@ -1064,7 +1168,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
         this.setup = (item) => {
             origObj = clone(item);
             editObj = clone(item);
-            console.log('setup:', editObj)
+            console.log('device entry setup:', editObj)
             objToCtrl();
         }
         this.getItem = () => {
@@ -1625,8 +1729,11 @@ riot.tag2('member-editor', '<div class="entry"> <div class="tab"> <button ref="t
         }
 
         let onEntryBeginEdit = (e) => {
-            let data = e.detail.item;
-            self.setup(data)
+            if (e.detail.entry === entryId) {
+                let data = e.detail.item;
+                console.log('Device Begin Edit:', e.detail)
+                self.setup(data)
+            }
         }
 
         let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
@@ -1875,6 +1982,7 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
         this.setup = (item) => {
             origObj = clone(item);
             editObj = clone(item);
+            console.log('member entry setup:', editObj)
             objToCtrl();
         }
         this.getItem = () => {
@@ -2195,8 +2303,11 @@ riot.tag2('branch-editor', '<div class="entry"> <div class="tab"> <button ref="t
         }
 
         let onEntryBeginEdit = (e) => {
-            let data = e.detail.item;
-            self.setup(data)
+            if (e.detail.entry === entryId) {
+                let data = e.detail.item;
+                console.log('Device Begin Edit:', e.detail)
+                self.setup(data)
+            }
         }
 
         let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
@@ -2410,6 +2521,7 @@ riot.tag2('branch-entry', '<div class="padtop"></div> <div class="padtop"></div>
         this.setup = (item) => {
             origObj = clone(item);
             editObj = clone(item);
+            console.log('branch entry setup:', editObj)
             objToCtrl();
         }
         this.getItem = () => {
@@ -2641,16 +2753,25 @@ riot.tag2('branch-view', '<div ref="title" class="titlearea"> <button class="add
         }
 
 });
-riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }', '', function(opts) {
+riot.tag2('org-editor', '<div class="entry"> <div class="tab"> <button ref="tabheader" class="tablinks active" name="default" onclick="{showContent}"> <span class="fas fa-cog"></span>&nbsp;{content.label.org.entry.tabDefault}&nbsp; </button> <button ref="tabheader" class="tablinks" name="miltilang" onclick="{showContent}"> <span class="fas fa-globe-americas"></span>&nbsp;{content.label.org.entry.tabMultiLang}&nbsp; </button> </div> <div ref="tabcontent" name="default" class="tabcontent" style="display: block;"> <org-entry ref="EN" langid=""></org-entry> </div> <div ref="tabcontent" name="miltilang" class="tabcontent"> <virtual if="{lang.languages}"> <virtual each="{item in lang.languages}"> <virtual if="{item.langId !== \'EN\'}"> <div class="panel-header" langid="{item.langId}"> &nbsp;&nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}"></span> &nbsp;{item.Description}&nbsp; </div> <div class="panel-body" langid="{item.langId}"> <org-entry ref="{item.langId}" langid="{item.langId}"></org-entry> </div> </virtual> </virtual> </virtual> </div> </div> <div class="tool"> <button onclick="{save}"><span class="fas fa-save"></span></button> <button onclick="{cancel}"><span class="fas fa-times"></span></button> </div>', 'org-editor,[data-is="org-editor"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: calc(100% - 75px) 30px; grid-template-areas: \'entry\' \'tool\'; overflow: hidden; background-color: white; } org-editor .entry,[data-is="org-editor"] .entry{ grid-area: entry; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: auto; } org-editor .entry .tab,[data-is="org-editor"] .entry .tab{ overflow: hidden; border: 1px solid #ccc; } org-editor .entry .tab button,[data-is="org-editor"] .entry .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-editor .entry .tab button:hover,[data-is="org-editor"] .entry .tab button:hover{ background-color: #ddd; } org-editor .entry .tab button.active,[data-is="org-editor"] .entry .tab button.active{ background-color: #ccc; } org-editor .entry .tabcontent,[data-is="org-editor"] .entry .tabcontent{ display: none; padding: 3px; width: 100%; height: calc(100% - 50px); max-width: 100%; overflow: auto; } org-editor .entry .tabcontent .panel-header,[data-is="org-editor"] .entry .tabcontent .panel-header{ margin: 0 auto; padding: 0; padding-top: 7px; width: 100%; height: 30px; color: white; background: cornflowerblue; border-radius: 5px 5px 0 0; } org-editor .entry .tabcontent .panel-body,[data-is="org-editor"] .entry .tabcontent .panel-body{ margin: 0 auto; margin-bottom: 5px; padding: 0; width: 100%; border: 1px solid cornflowerblue; } org-editor .tool,[data-is="org-editor"] .tool{ grid-area: tool; margin: 0 auto; padding: 0; padding-left: 3px; padding-top: 3px; width: 100%; height: 30px; overflow: hidden; }', '', function(opts) {
 
 
         let self = this;
         let screenId = 'org';
+        let entryId = 'org';
+
+        let branchId = '';
+        let ctrls = [];
 
         let defaultContent = {
-            title: 'Title',
-            label: {},
-            links: []
+            label: {
+                org: {
+                    entry: {
+                        tabDefault: 'Default',
+                        tabMultiLang: 'Languages'
+                    }
+                }
+            }
         }
         this.content = defaultContent;
 
@@ -2661,16 +2782,28 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
             }
         }
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let tabHeaders = [];
+        let tabContents = [];
+
+        let initCtrls = () => {
+            let headers = self.refs['tabheader'];
+            tabHeaders.push(...headers)
+            let contents = self.refs['tabcontent'];
+            tabContents.push(...contents)
+        }
+        let freeCtrls = () => {
+            tabHeaders = [];
+            tabContents = [];
+        }
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('entry:beginedit', onEntryBeginEdit)
         }
         let unbindEvents = () => {
+            document.removeEventListener('entry:beginedit', onEntryBeginEdit)
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
@@ -2697,9 +2830,245 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ margin: 0 auto; }',
             }
         }
 
+        let onEntryBeginEdit = (e) => {
+            if (e.detail.entry === entryId) {
+                let data = e.detail.item;
+                console.log('Org Begin Edit:', e.detail)
+                self.setup(data)
+            }
+        }
+
+        let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
+        let equals = (src, dst) => {
+            let o1 = JSON.stringify(src);
+            let o2 = JSON.stringify(dst);
+            return (o1 === o2);
+        }
+
+        this.save = (e) => {
+            let item;
+            let items = [];
+            ctrls.forEach(oRef => {
+                item = (oRef.entry) ? oRef.entry.getItem() : null;
+                if (item) {
+                    item.langId = oRef.langId;
+                    items.push(item)
+                }
+            });
+            orgmanager.org.save(items);
+            evt = new CustomEvent('entry:endedit')
+            document.dispatchEvent(evt);
+        }
+        this.cancel = (e) => {
+            evt = new CustomEvent('entry:endedit')
+            document.dispatchEvent(evt);
+        }
+
         let showMsg = (err) => { }
 
-        this.publicMethod = (message) => { }
+        let clearActiveTabs = () => {
+            if (tabHeaders) {
+
+                for (let i = 0; i < tabHeaders.length; i++) {
+                    tabHeaders[i].className = tabHeaders[i].className.replace(" active", "");
+                }
+            }
+        }
+        let hideContents = () => {
+            if (tabContents) {
+
+                for (let i = 0; i < tabContents.length; i++) {
+                    tabContents[i].style.display = "none";
+                }
+            }
+        }
+        let getContent = (name) => {
+            let ret;
+            if (tabContents) {
+                for (let i = 0; i < tabContents.length; i++) {
+                    let attr = tabContents[i].attributes['name'];
+                    let aName = attr.value;
+                    let vName = name;
+                    if (aName === vName) {
+                        ret = tabContents[i];
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+        let getHeader = (name) => {
+            let ret;
+            if (tabHeaders) {
+                for (let i = 0; i < tabHeaders.length; i++) {
+                    let attr = tabHeaders[i].attributes['name'];
+                    let aName = attr.value;
+                    let vName = name;
+                    if (aName === vName) {
+                        ret = tabHeaders[i];
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+
+        this.showContent = (evt) => {
+            let target = evt.target;
+            let name = target.attributes['name'].value;
+            if (name === 'branch') {
+                orgmanager.branch.load();
+            }
+            else if (name === 'org') {
+                orgmanager.org.load();
+            }
+            hideContents();
+            clearActiveTabs();
+
+            let currHeader = getHeader(name);
+            let currContent = getContent(name);
+            if (currContent) {
+                currContent.style.display = "block";
+            }
+            if (currHeader) {
+                currHeader.className += " active";
+            }
+        }
+
+        this.setup = (item) => {
+            let isNew = false;
+            orgId = item.orgId;
+            if (orgId === undefined || orgId === null || orgId.trim() === '') {
+                isNew = true;
+            }
+            ctrls = [];
+
+            let loader = window.orgmanager.org;
+
+            lang.languages.forEach(lg => {
+                let ctrl = self.refs[lg.langId];
+                let original = (isNew) ? clone(item) : loader.find(lg.langId, orgId);
+
+                if (ctrl) {
+                    let obj = {
+                        langId: lg.langId,
+                        entry: ctrl,
+                        scrObj: original
+                    }
+                    ctrl.setup(original);
+                    ctrls.push(obj)
+                }
+            });
+        }
+
+});
+riot.tag2('org-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="orgName" title="{content.label.org.entry.orgName}" type="text" name="orgName"></ninput> <ninput ref="parentId" title="{content.label.org.entry.parentId}" type="text" name="parentId"></ninput> <ninput ref="branchId" title="{content.label.org.entry.branchId}" type="text" name="branchId"></ninput>', 'org-entry,[data-is="org-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } org-entry .padtop,[data-is="org-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+        let self = this;
+        let screenId = 'org';
+        let entryId = 'org';
+
+        let defaultContent = {
+            label: {
+                org: {
+                    entry: {
+                        orgName: 'Org Name',
+                        parentId: 'Parent Org',
+                        branchId: 'Branch'
+                    }
+                }
+            }
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            if (screenservice && screenservice.screenId === screenId) {
+                self.content = (screenservice.content) ? screenservice.content : defaultContent;
+                self.update();
+            }
+        }
+
+        let orgName, parentId, branchId;
+
+        let initCtrls = () => {
+            orgName = self.refs['orgName'];
+            parentId = self.refs['parentId'];
+            branchId = self.refs['branchId'];
+        }
+        let freeCtrls = () => {
+            orgName = null;
+            parentId = null;
+            branchId = null;
+        }
+        let clearInputs = () => {
+            orgName.clear()
+        }
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => { updatecontent(); }
+
+        let origObj;
+        let editObj;
+
+        let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
+        let equals = (src, dst) => {
+            let o1 = JSON.stringify(src);
+            let o2 = JSON.stringify(dst);
+            return (o1 === o2);
+        }
+
+        let ctrlToObj = () => {
+            if (editObj) {
+                if (orgName) {
+                    editObj.OrgName = orgName.value();
+                    editObj.parentId = parentId.value();
+                    editObj.branchId = branchId.value();
+                }
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+                if (orgName) {
+                    orgName.value(editObj.OrgName);
+                    parentId.value(editObj.parentId);
+                    branchId.value(editObj.branchId);
+                }
+            }
+        }
+
+        this.setup = (item) => {
+            origObj = clone(item);
+            editObj = clone(item);
+            console.log('org entry setup:', editObj)
+            objToCtrl();
+        }
+        this.getItem = () => {
+            ctrlToObj();
+            let hasId = (editObj.orgId !== undefined && editObj.orgId != null)
+            let isDirty = !hasId || !equals(origObj, editObj);
+
+            return (isDirty) ? editObj : null;
+        }
 
 });
 riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks active" name="org" onclick="{showContent}"> <span class="fas fa-sitemap"></span>&nbsp;{content.label.org.view.title}&nbsp; </button> <button ref="tabheader" class="tablinks" name="branch" onclick="{showContent}"> <span class="fas fa-map-marked-alt"></span>&nbsp;{content.label.branch.view.title}&nbsp; </button> </div> <div ref="tabcontent" name="org" class="tabcontent" style="display: block;"> <org-manage></org-manage> </div> <div ref="tabcontent" name="branch" class="tabcontent"> <branch-manage></branch-manage> </div>', 'org-home,[data-is="org-home"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-home .tab,[data-is="org-home"] .tab{ overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; } org-home .tab button,[data-is="org-home"] .tab button{ background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; } org-home .tab button:hover,[data-is="org-home"] .tab button:hover{ background-color: #ddd; } org-home .tab button.active,[data-is="org-home"] .tab button.active{ background-color: #ccc; } org-home .tabcontent,[data-is="org-home"] .tabcontent{ display: none; padding: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; overflow: hidden; }', '', function(opts) {
@@ -2821,11 +3190,12 @@ riot.tag2('org-home', '<div class="tab"> <button ref="tabheader" class="tablinks
         }
 
 });
-riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="org-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('org-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <org-view ref="viewer" class="view"></org-view> </yield> <yield to="entry"> <org-editor ref="entry" class="entry"></org-editor> </yield> </flip-screen>', 'org-manage,[data-is="org-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } org-manage .view,[data-is="org-manage"] .view,org-manage .entry,[data-is="org-manage"] .entry{ margin: 0; padding: 0; width: 100%; height: 100%; max-height: calc(100vh - 64px); overflow: auto; }', '', function(opts) {
 
 
         let self = this;
         let screenId = 'org';
+        let entryId = 'org';
 
         let defaultContent = {
             title: 'Title',
@@ -2841,16 +3211,28 @@ riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="o
             }
         }
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let flipper, view, entry;
+
+        let initCtrls = () => {
+            flipper = self.refs['flipper'];
+            entry = self.refs['entry'];
+        }
+        let freeCtrls = () => {
+            entry = null;
+            flipper = null;
+        }
+        let clearInputs = () => { }
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('entry:beginedit', onEntryBeginEdit);
+            document.addEventListener('entry:endedit', onEntryEndEdit);
         }
         let unbindEvents = () => {
+            document.removeEventListener('entry:endedit', onEntryEndEdit);
+            document.removeEventListener('entry:beginedit', onEntryBeginEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
@@ -2869,27 +3251,33 @@ riot.tag2('org-manage', '<h3>Organization Manage.</h3>', 'org-manage,[data-is="o
         let onLanguageChanged = (e) => { updatecontent(); }
         let onScreenChanged = (e) => {
             updatecontent();
-            if (e.detail.screenId === screenId) {
+        }
+        let onEntryBeginEdit = (e) => {
 
+            if (flipper) {
+                flipper.toggle();
+                let item = e.detail.item;
+                if (entry) entry.setup(item);
             }
-            else {
 
+        }
+        let onEntryEndEdit = (e) => {
+
+            if (flipper) {
+                flipper.toggle();
             }
         }
 
-        let showMsg = (err) => { }
-
-        this.publicMethod = (message) => { }
-
 });
-riot.tag2('org-view', '<h3>Org View</h3>', 'org-view,[data-is="org-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('org-view', '<div ref="title" class="titlearea"> <button class="addnew" onclick="{addnew}"> <span class="fas fa-plus-circle">&nbsp;</span> </button> <button class="refresh" onclick="{refresh}"> <span class="fas fa-sync">&nbsp;</span> </button> </div> <div ref="container" class="scrarea"> <div ref="grid"></div> </div>', 'org-view,[data-is="org-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px 1fr; grid-template-areas: \'titlearea\' \'scrarea\'; } org-view .titlearea,[data-is="org-view"] .titlearea{ grid-area: titlearea; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; border-radius: 3px; background-color: transparent; color: whitesmoke; } org-view .titlearea .addnew,[data-is="org-view"] .titlearea .addnew{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } org-view .titlearea .refresh,[data-is="org-view"] .titlearea .refresh{ margin: 0 auto; padding: 2px; height: 100%; width: 50px; color: darkgreen; } org-view .scrarea,[data-is="org-view"] .scrarea{ grid-area: scrarea; margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; height: calc(100% - 50px); }', '', function(opts) {
 
 
         let self = this;
-        let screenId = 'screenid';
+        let screenId = 'org';
+        let entryId = 'org';
 
         let defaultContent = {
-            title: 'Title',
+            title: 'Organization Management',
             label: {},
             links: []
         }
@@ -2899,19 +3287,67 @@ riot.tag2('org-view', '<h3>Org View</h3>', 'org-view,[data-is="org-view"]{ margi
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
+                if (table) table.redraw(true);
             }
         }
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let table;
+
+        let editIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-edit'></span></button>";
+        };
+        let deleteIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-trash-alt'></span></button>";
+        };
+
+        let initGrid = (data) => {
+            let opts = {
+                height: "100%",
+                layout: "fitDataFill",
+                data: (data) ? data : []
+            }
+            setupColumns(opts);
+
+            table = new Tabulator(self.refs['grid'], opts);
+        }
+        let setupColumns = (opts) => {
+            let = columns = [
+                { formatter: editIcon, align:"center", width:44,
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: editRow
+                },
+                { formatter: deleteIcon, align:"center", width: 44,
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: deleteRow
+                }
+            ]
+            if (self.content && self.content.label &&
+                self.content.label.branch && self.content.label.org.view) {
+                let cols = self.content.label.org.view.columns;
+                columns.push(...cols)
+            }
+            opts.columns = columns;
+        }
+        let syncData = () => {
+            if (table) table = null;
+            let data = orgmanager.org.current;
+            initGrid(data)
+        }
+
+        let initCtrls = () => { initGrid(); }
+        let freeCtrls = () => { table = null; }
+        let clearInputs = () => { initGrid(); }
 
         let bindEvents = () => {
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+            document.addEventListener('entry:endedit', onEndEdit);
+            document.addEventListener('org:list:changed', onOrgListChanged);
         }
         let unbindEvents = () => {
+            document.removeEventListener('org:list:changed', onOrgListChanged);
+            document.removeEventListener('entry:endedit', onEndEdit);
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
@@ -2926,21 +3362,52 @@ riot.tag2('org-view', '<h3>Org View</h3>', 'org-view,[data-is="org-view"]{ margi
             freeCtrls();
         });
 
-        let onAppContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
+        let onAppContentChanged = (e) => {
+            updatecontent();
+        }
+        let onLanguageChanged = (e) => {
+            updatecontent();
+            syncData();
+        }
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
 
+                syncData();
             }
             else {
 
             }
         }
+        let onOrgListChanged = (e) => { syncData(); }
+
+        let editRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            evt = new CustomEvent('entry:beginedit', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
+        }
+        let deleteRow = (e, cell) => {
+            let data = cell.getRow().getData();
+            console.log('delete:', data, ', langId:', lang.langId);
+            syncData();
+
+        }
+        let onEndEdit = (e) => {
+            syncData();
+            table.redraw(true);
+        }
 
         let showMsg = (err) => { }
 
-        this.publicMethod = (message) => { }
+        this.addnew = (e) => {
+            let data = { orgId: null, OrgName: 'New Org', parentId: 'O0001', branchId: 'B0001' };
+            evt = new CustomEvent('entry:beginedit', { detail: { entry: entryId, item: data } })
+            document.dispatchEvent(evt);
+        }
+        this.refresh = (e) => {
+            orgmanager.branch.load();
+            updatecontent();
+        }
 
 });
 riot.tag2('question-manage', '<h3>Questions Manage.</h3>', 'question-manage,[data-is="question-manage"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {

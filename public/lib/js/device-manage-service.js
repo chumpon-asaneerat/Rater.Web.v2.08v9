@@ -16,6 +16,7 @@ class DeviceLoader {
         let fn = (r) => {
             let data = api.parse(r);
             self.content = data.records;
+            //console.log(self.content)
             self.current = self.getCurrent();
         }
         XHR.postJson(url, paramObj, fn);
@@ -68,12 +69,64 @@ class DeviceLoader {
     }
 }
 
+class DeviceTypeLoader {
+    constructor() {
+        this.content = null;
+        this.current = null;
+
+        let self = this;
+        let contentChanged = (e) => {
+            self.current = self.getCurrent();
+        }
+        document.addEventListener('language:changed', contentChanged)
+    }
+    load() {
+        let self = this;
+        let url = '/customer/api/devicetype/search';
+        let paramObj = {};
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            //console.log(self.content)
+            self.current = self.getCurrent();
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        //console.log('Current:', ret);
+        let evt = new CustomEvent('devicetype:list:changed')
+        document.dispatchEvent(evt);
+        return ret;
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+    find(langId, deviceTypeId) {
+        let ret = null;
+        if (this.current) {
+            //console.log('current:', this.content)
+            let items = this.content[langId];
+            //console.log('items:', items)
+            if (items) {                
+                let maps = items.map(item => item.deviceTypeId);
+                let idx = maps.indexOf(deviceTypeId);
+                ret = (idx !== -1) ? items[idx] : null;
+            }
+        }
+        return ret;
+    }
+}
+
 class DeviceManager {
     constructor() {
         this.device = new DeviceLoader();
+        this.deviceType = new DeviceTypeLoader();
     }
     load() {
         this.device.load();
+        this.deviceType.load();
     }
 }
 

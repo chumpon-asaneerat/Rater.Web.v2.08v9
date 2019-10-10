@@ -210,8 +210,11 @@
         }
 
         let onEntryBeginEdit = (e) => {
-            let data = e.detail.item;
-            self.setup(data)
+            if (e.detail.entry === entryId) {
+                let data = e.detail.item;
+                console.log('Device Begin Edit:', e.detail)
+                self.setup(data)
+            }
         }
 
         //#endregion

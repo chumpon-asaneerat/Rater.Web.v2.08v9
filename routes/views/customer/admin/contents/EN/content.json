@@ -23,9 +23,18 @@
                 "org": {
                     "view": {
                         "title": "Organization",
-                        "columns": []
+                        "columns": [
+                            { "title": "Name", "field": "OrgName", "resizable": false },
+                            { "title": "Parent", "field": "parentId", "resizable": false },
+                            { "title": "Branch Name", "field": "BranchName", "resizable": false }
+                        ]
                     },
-                    "entry": {                        
+                    "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "orgName": "Org Name",
+                        "parentId": "Parent Org",
+                        "branchId": "Branch"
                     }
                 },
                 "branch": {

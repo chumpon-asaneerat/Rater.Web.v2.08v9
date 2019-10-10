@@ -19,6 +19,28 @@ class OrgLoader {
         }
         XHR.postJson(url, paramObj, fn);
     }
+    save(items) {
+        let self = this;
+        let url = '/customer/api/org/save';
+        //console.log('save:', items)
+        let paramObj = {
+            items: items
+        };
+        let fn = (r) => {
+            let results = [];
+            for (let i = 0; i < r.result.length; i++) {
+                //let data = api.parse(r.result[i]);
+                let data = {
+                    records: r.result[i].data,
+                    out: r.result[i].out,
+                    errors: r.result[i].errors
+                }
+                results.push(data)
+            }
+            //console.log(results);
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
     getCurrent() {
         let match = this.content && this.content[this.langId];
         let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
@@ -29,6 +51,20 @@ class OrgLoader {
     }
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';
+    }
+    find(langId, orgId) {
+        let ret = null;
+        if (this.current) {
+            //console.log('current:', this.content)
+            let items = this.content[langId];
+            //console.log('items:', items)
+            if (items) {                
+                let maps = items.map(item => item.orgId);
+                let idx = maps.indexOf(orgId);
+                ret = (idx !== -1) ? items[idx] : null;
+            }
+        }
+        return ret;
     }
 }
 
@@ -72,6 +108,7 @@ class BranchLoader {
                 }
                 results.push(data)
             }
+            //console.log(results);
         }
         XHR.postJson(url, paramObj, fn);
     }

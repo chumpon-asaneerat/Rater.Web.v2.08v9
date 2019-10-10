@@ -39,7 +39,7 @@ BEGIN
 		 , DMLV.SortOrder
 		 , DMLV.Enabled 
 	  FROM DeviceMLView DMLV
-	     , DeviceTypeML DTMV
+	     , DeviceTypeMLView DTMV
 		 --, OrgMLView OMLV
 		 --, MemberInfoMLView MIMLV
 	 WHERE DMLV.[ENABLED] = COALESCE(@enabled, DMLV.[ENABLED])

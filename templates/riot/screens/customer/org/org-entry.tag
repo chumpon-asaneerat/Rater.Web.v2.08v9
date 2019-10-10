@@ -1,26 +1,43 @@
 <org-entry>
+    <div class="padtop"></div>
+    <div class="padtop"></div>
+    <ninput ref="orgName" title="{ content.label.org.entry.orgName }" type="text" name="orgName"></ninput>
+    <ninput ref="parentId" title="{ content.label.org.entry.parentId }" type="text" name="parentId"></ninput>
+    <ninput ref="branchId" title="{ content.label.org.entry.branchId }" type="text" name="branchId"></ninput>
     <style>
         :scope {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        :scope .padtop {
+            display: block;
             margin: 0 auto;
+            width: 100%;
+            min-height: 10px;
         }
     </style>
     <script>
-        //#region local variables
-
         let self = this;
         let screenId = 'org';
-
-        //#endregion
+        let entryId = 'org';
 
         //#region content variables and methods
-
+        
         let defaultContent = {
-            title: 'Title',
-            label: {},
-            links: []
+            label: {
+                org: {
+                    entry: { 
+                        orgName: 'Org Name',
+                        parentId: 'Parent Org',
+                        branchId: 'Branch'
+                    }
+                }
+            }
         }
         this.content = defaultContent;
-        
+
         let updatecontent = () => {
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
@@ -32,9 +49,21 @@
 
         //#region controls variables and methods
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
-        let clearInputs = () => {}
+        let orgName, parentId, branchId;
+
+        let initCtrls = () => {
+            orgName = self.refs['orgName'];
+            parentId = self.refs['parentId'];
+            branchId = self.refs['branchId'];
+        }
+        let freeCtrls = () => {
+            orgName = null;
+            parentId = null;
+            branchId = null;
+        }
+        let clearInputs = () => {
+            orgName.clear()
+        }
 
         //#endregion
 
@@ -70,27 +99,54 @@
 
         let onAppContentChanged = (e) => { updatecontent(); }
         let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => {
-            updatecontent();
-            if (e.detail.screenId === screenId) {
-                // screen shown.
-            }
-            else {
-                // other screen shown.
-            }
-        }
-
-        //#endregion
-
-        //#region private service wrapper methods
-
-        let showMsg = (err) => { }
+        let onScreenChanged = (e) => { updatecontent(); }
 
         //#endregion
 
         //#region public methods
 
-        this.publicMethod = (message) => { }
+        let origObj;
+        let editObj;
+
+        let clone = (src) => { return JSON.parse(JSON.stringify(src)); }
+        let equals = (src, dst) => {
+            let o1 = JSON.stringify(src);
+            let o2 = JSON.stringify(dst);
+            return (o1 === o2);
+        }
+
+        let ctrlToObj = () => {
+            if (editObj) {
+                if (orgName) {
+                    editObj.OrgName = orgName.value();
+                    editObj.parentId = parentId.value();
+                    editObj.branchId = branchId.value();
+                }
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+                if (orgName) {
+                    orgName.value(editObj.OrgName);
+                    parentId.value(editObj.parentId);
+                    branchId.value(editObj.branchId);
+                }
+            }
+        }
+
+        this.setup = (item) => {  
+            origObj = clone(item);
+            editObj = clone(item);
+            console.log('org entry setup:', editObj)
+            objToCtrl();
+        }
+        this.getItem = () => {
+            ctrlToObj();
+            let hasId = (editObj.orgId !== undefined && editObj.orgId != null)
+            let isDirty = !hasId || !equals(origObj, editObj);
+            //console.log(editObj)
+            return (isDirty) ? editObj : null;
+        }
 
         //#endregion
     </script>

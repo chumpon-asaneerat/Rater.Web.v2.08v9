@@ -173,6 +173,41 @@ const api = class {
         }
         return rets;
     }
+    static async GetDeviceTypes(db, params) {
+        return await db.GetDeviceTypes(params);
+    }
+    static async GetOrgs(db, params) {
+        return await db.GetOrgs(params);
+    }
+    static async SaveOrgs(db, params) {
+        let ret;
+        let rets = [];
+        let customerId = params.customerId;
+        if (params && params.items) {
+            let items = params.items;
+            let orgId;
+
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                item.customerId = customerId;
+                if (item.langId === 'EN') {
+                    ret = await db.SaveOrg(item);
+                    orgId = ret.out.orgId;
+                    rets.push(ret);
+                }
+            }
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                item.customerId = params.customerId;
+                item.orgId = orgId;
+                if (item.langId !== 'EN') {
+                    ret = await db.SaveOrgML(item);
+                    rets.push(ret);
+                }                
+            }
+        }
+        return rets;
+    }
 }
 
 //#endregion
@@ -392,8 +427,10 @@ const routes = class {
                 }
                 nobj.DeviceName = rec.DeviceName;
                 nobj.Location = rec.Location;
-                nobj.devceTypeId = rec.devceTypeId;
+                nobj.deviceTypeId = rec.deviceTypeId;
                 nobj.memberId = rec.memberId;
+                nobj.orgId = rec.orgId;
+                nobj.Type = rec.Type;
             })
             // set to result.
             result.data = ret;
@@ -432,6 +469,141 @@ const routes = class {
             WebServer.sendJson(req, res, results);
         })
     }
+    static GetDeviceTypes(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+        // force langId to null;
+        params.langId = null;
+        params.customerId = secure.getCustomerId(req, res);
+        params.deviceId = null;
+        params.enabled = true;
+
+        let fn = async () => {
+            return api.GetDeviceTypes(db, params);
+        }
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
+
+            let result = {
+                data : null,
+                //src: dbResult.data,
+                errors: dbResult.errors,
+                //multiple: dbResult.multiple,
+                //datasets: dbResult.datasets,
+                out: dbResult.out
+            }
+            let records = dbResult.data;
+            let ret = {};
+
+            records.forEach(rec => {
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.deviceTypeId);
+                let idx = map.indexOf(rec.deviceTypeId);
+                let nobj;
+                if (idx === -1) {
+                    // set id
+                    nobj = { deviceTypeId: rec.deviceTypeId }
+                    // init lang properties list.
+                    ret[rec.langId].push(nobj)
+                }
+                else {
+                    nobj = ret[rec.langId][idx];
+                }
+                nobj.Type = rec.Type;
+            })
+            // set to result.
+            result.data = ret;
+
+            WebServer.sendJson(req, res, result);
+        })
+    }
+    static GetOrgs(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+        // force langId to null;
+        params.langId = null;
+        params.customerId = secure.getCustomerId(req, res);
+        params.branchId = null;
+        params.orgId = null;
+        params.enabled = true;
+
+        let fn = async () => {
+            return api.GetOrgs(db, params);
+        }
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
+
+            let result = {
+                data : null,
+                //src: dbResult.data,
+                errors: dbResult.errors,
+                //multiple: dbResult.multiple,
+                //datasets: dbResult.datasets,
+                out: dbResult.out
+            }
+            let records = dbResult.data;
+            let ret = {};
+
+            records.forEach(rec => {
+                if (!ret[rec.langId]) {
+                    ret[rec.langId] = []
+                }
+                let map = ret[rec.langId].map(c => c.orgId);
+                let idx = map.indexOf(rec.orgId);
+                let nobj;
+                if (idx === -1) {
+                    // set id
+                    nobj = { orgId: rec.orgId }
+                    // init lang properties list.
+                    ret[rec.langId].push(nobj)
+                }
+                else {
+                    nobj = ret[rec.langId][idx];
+                }
+                nobj.parentId = rec.parentId;
+                nobj.branchId = rec.branchId;
+                nobj.OrgName = rec.OrgName;
+                nobj.BranchName = rec.BranchName;
+            })
+            // set to result.
+            result.data = ret;
+
+            WebServer.sendJson(req, res, result);
+        })
+    }
+    static SaveOrgs(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+
+        params.customerId = secure.getCustomerId(req, res);
+
+        let fn = async () => {
+            return api.SaveOrgs(db, params);
+        }
+        exec(db, fn).then(data => {
+            let results = [];
+            let result;
+            let dbResult;
+
+            for (let i = 0; i < data.length; i++) {
+                dbResult = validate(db, data[i]);
+
+                result = {
+                    data : dbResult.data,
+                    //src: dbResult.data,
+                    errors: dbResult.errors,
+                    //multiple: dbResult.multiple,
+                    //datasets: dbResult.datasets,
+                    out: dbResult.out
+                }
+                results.push(result);
+            }
+
+            WebServer.sendJson(req, res, results);
+        })
+    }
 }
 
 router.use(secure.checkAccess);
@@ -444,6 +616,11 @@ router.post('/member/save', routes.SaveMemberInfos);
 // device
 router.post('/device/search', routes.GetDevices);
 router.post('/device/save', routes.SaveDevices);
+// devicetypes
+router.post('/devicetype/search', routes.GetDeviceTypes);
+// org
+router.post('/org/search', routes.GetOrgs);
+router.post('/org/save', routes.SaveOrgs);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);

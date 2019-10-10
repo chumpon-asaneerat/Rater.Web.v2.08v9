@@ -57,3 +57,20 @@ content-type: application/json
         }
     ]
 }
+
+#### SaveBranchs
+POST http://localhost:3000/customer/api/device/save
+content-type: application/json
+
+{
+    "items": [
+        { 
+            "langId": "EN",
+            "customerId": "EDL-C2019100029",
+            "deviceName": "AAA",
+            "location": "Office 12",
+            "deviceTypeId": 201,
+            "deviceId": "D0001"
+        }
+    ]
+}
