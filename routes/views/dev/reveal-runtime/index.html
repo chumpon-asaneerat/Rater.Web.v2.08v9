@@ -127,6 +127,82 @@
             fill: 'silver',
             angle: 0
         }))
+        console.log(cv1.getObjects())
+
+        /*
+        let img = new Image();
+        let url = '/public/assets/images/png/cups/tea.png';
+        img.onload = (o => {
+            cv1.add(new fabric.Image(img, {
+                    left: 100,
+                    top: 500,
+                    width: 120,
+                    height: 120
+                })
+            );
+            console.log(cv1.getObjects())
+        })
+        img.src = url;
+        */
+
+        fabric.Image.fromURL('/public/assets/images/png/cups/tea.png', function(oImg) {
+            oImg.set({
+                left: 100,
+                top: 500,
+                angle: 0,
+                padding: 10,
+                cornersize: 10,
+                hasRotatingPoint: true
+            });
+            oImg.scaleToHeight(120);
+            oImg.scaleToWidth(120);
+            oImg.selectable = false;
+            oImg.hoverCursor = 'default';
+            // set custom object.
+            let obj = { hello: 'World' };
+            oImg.set('helloworld', obj);
+
+            cv1.add(oImg);
+
+            console.log(cv1.getObjects())
+        });
+
+        let comicSansText = new fabric.Text("I'm in Comic Sans", {
+            fontFamily: 'Comic Sans'
+        });
+        cv1.add(comicSansText);
+
+        console.log(cv1.getObjects())
+
+        cv1.on('mouse:up', (e) => {
+            //addrect(e.e.clientY, e.e.clientX, 100, 100, "#CCCCC");
+            if (e.target) {
+                console.log(e.target)
+                let myObj = e.target.get('helloworld');
+                console.log(myObj)                
+            }
+        });
+        cv1.renderAll();
+        
+        cv1.selection = false;
+        let items = cv1.getObjects();
+        console.log(items)
+        items.forEach(o => {
+            o.selectable = false;
+            o.hoverCursor = 'default';
+        });
+        cv1.renderAll();
+
+        let j1 = JSON.stringify(cv1);
+        console.log(j1)
+
+        /*
+        cv1.selection = false;
+        cv1.loadFromJSON(j1, cv1.renderAll.bind(cv1), function(o, object) {
+            object.set('selectable', false);
+        });
+        */
+
         let cv2 = new fabric.Canvas('cv2');
         //cv2.setDimensions({ width: cw, height: ch }, { cssOnly: true });
         cv2.add(new fabric.Rect({
@@ -136,8 +212,6 @@
             angle: 0
         }))
 
-        let j1 = JSON.stringify(cv1);
-        console.log(j1)
         let j2 = JSON.stringify(cv2);
         console.log(j2)
 

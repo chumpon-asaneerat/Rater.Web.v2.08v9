@@ -74,3 +74,24 @@ content-type: application/json
         }
     ]
 }
+
+#### UploadQuestionJson
+POST http://localhost:3000/customer/api/question/upload
+content-type: application/json
+
+{
+    "items": [
+        { 
+            "customerId": "EDL-C2019100029",
+            "question": 
+            {
+                "qsetId": "QS00001",
+                "description": {
+                    "EN": {},
+                    "TH": {}
+                },
+                "slides": []
+            }
+        }
+    ]
+}

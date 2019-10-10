@@ -74,6 +74,16 @@ const checkForError = (data) => {
 
 //#endregion
 
+const createSuccess = (data) => {
+    let ret = nlib.NResult.data(data);
+    return ret;
+}
+
+const createError = (errNum, errMsg) => {
+    let ret = nlib.NResult.error(errNum, errMsg);
+    return ret;
+}
+
 //#region api class
 
 const api = class {
@@ -474,9 +484,8 @@ const routes = class {
         let params = WebServer.parseReq(req).data;
         // force langId to null;
         params.langId = null;
-        params.customerId = secure.getCustomerId(req, res);
-        params.deviceId = null;
-        params.enabled = true;
+        params.deviceTypeId = null;
+        console.log(params)
 
         let fn = async () => {
             return api.GetDeviceTypes(db, params);
@@ -494,7 +503,11 @@ const routes = class {
             }
             let records = dbResult.data;
             let ret = {};
-
+            /*
+            if (!records) {
+                console.log('detected null record.');
+            }
+            */
             records.forEach(rec => {
                 if (!ret[rec.langId]) {
                     ret[rec.langId] = []
@@ -604,6 +617,16 @@ const routes = class {
             WebServer.sendJson(req, res, results);
         })
     }
+
+    static UploadQuestionJson(req, res) {
+        let params = WebServer.parseReq(req).data;
+        params.customerId = secure.getCustomerId(req, res);
+        console.log(params)
+
+        let result = createSuccess(null);
+
+        WebServer.sendJson(req, res, result);
+    }
 }
 
 router.use(secure.checkAccess);
@@ -621,6 +644,9 @@ router.post('/devicetype/search', routes.GetDeviceTypes);
 // org
 router.post('/org/search', routes.GetOrgs);
 router.post('/org/save', routes.SaveOrgs);
+
+router.post('/question/upload/', routes.UploadQuestionJson);
+
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);
