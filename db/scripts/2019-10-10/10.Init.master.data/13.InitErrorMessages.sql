@@ -28,7 +28,6 @@ BEGIN
     -- LANGUAGES.
     EXEC SaveErrorMsg 0101, N'Language Id cannot be null or empty string.'
     EXEC SaveErrorMsg 0102, N'Description cannot be null or empty string.'
-    EXEC SaveErrorMsg 0103, N'Language Description is duplicated.'
     -- MASTER PK.
     EXEC SaveErrorMsg 0201, N'Table Name is null or empty string.'
     EXEC SaveErrorMsg 0202, N'Seed Reset Mode should be number 1-3.'

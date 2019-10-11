@@ -145,6 +145,28 @@ DECLARE @vEndDateStr nvarchar(40);
 				   SET IsDefault = 1
 				 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)));
 			END
+
+			-- CONVERT DATE
+			SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+								  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+								  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+								  N'00:00:00');
+			--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+			SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+			SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+								CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+								CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+								N'23:59:59');
+			--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+			SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+			IF (@vBeginDate > @vEndDate)
+			BEGIN
+				-- Begin Date should less than End Date.
+				EXEC GetErrorMsg 1407, @errNum out, @errMsg out
+				RETURN
+			END
 		END
 		ELSE
 		BEGIN

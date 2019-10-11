@@ -218,6 +218,12 @@ const api = class {
         }
         return rets;
     }
+    static async GetRawVotes(db, params) {
+        return await db.GetRawVotes(params);
+    }
+    static async GetVoteSummaries(db, params) {
+        return await db.GetVoteSummaries(params);
+    }
 }
 
 //#endregion
@@ -617,7 +623,6 @@ const routes = class {
             WebServer.sendJson(req, res, results);
         })
     }
-
     static UploadQuestionJson(req, res) {
         let params = WebServer.parseReq(req).data;
         params.customerId = secure.getCustomerId(req, res);
@@ -626,6 +631,68 @@ const routes = class {
         let result = createSuccess(null);
 
         WebServer.sendJson(req, res, result);
+    }
+    static GetRawVotes(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+        if (params.langId === undefined || params.langId === null || params.langId === '') {
+            params.langId =  'EN';
+        }
+        params.customerId = secure.getCustomerId(req, res);
+        params.deviceId = null;
+
+        let fn = async () => {
+            return api.GetRawVotes(db, params);
+        }
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
+
+            let result = {
+                data : null,
+                //src: dbResult.data,
+                errors: dbResult.errors,
+                //multiple: dbResult.multiple,
+                //datasets: dbResult.datasets,
+                out: dbResult.out
+            }
+            let records = dbResult.data;
+            let ret = {};
+            // set to result.
+            result.data = records;
+
+            WebServer.sendJson(req, res, result);
+        })
+    }
+    static GetVoteSummaries(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+        if (params.langId === undefined || params.langId === null || params.langId === '') {
+            params.langId =  'EN';
+        }
+        params.customerId = secure.getCustomerId(req, res);
+        params.deviceId = null;
+
+        let fn = async () => {
+            return api.GetVoteSummaries(db, params);
+        }
+        exec(db, fn).then(data => {
+            let dbResult = validate(db, data);
+
+            let result = {
+                data : null,
+                //src: dbResult.data,
+                errors: dbResult.errors,
+                //multiple: dbResult.multiple,
+                //datasets: dbResult.datasets,
+                out: dbResult.out
+            }
+            let records = dbResult.data;
+            let ret = {};
+            // set to result.
+            result.data = records;
+
+            WebServer.sendJson(req, res, result);
+        })
     }
 }
 
@@ -647,6 +714,8 @@ router.post('/org/save', routes.SaveOrgs);
 
 router.post('/question/upload/', routes.UploadQuestionJson);
 
+router.post('/report/rawvotes/search', routes.GetRawVotes);
+router.post('/report/votesummaries/search', routes.GetVoteSummaries);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);

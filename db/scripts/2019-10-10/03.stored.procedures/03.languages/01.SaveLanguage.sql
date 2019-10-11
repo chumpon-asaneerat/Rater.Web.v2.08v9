@@ -1,4 +1,3 @@
-/****** Object:  StoredProcedure [dbo].[SaveLanguage]    Script Date: 6/12/2017 9:21:06 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -26,6 +25,9 @@ GO
 --	- Stored Procedure Changes.
 --    - Remove @descriptionNative parameter.
 --    - Rename @descriptionEN parameter to @description.
+-- <2019-10-10> :
+--	- Stored Procedure Changes.
+--    - Remove Remove check descrption duplicate.
 --
 -- [== Example ==]
 --
@@ -52,7 +54,6 @@ DECLARE @bEnabled bit = 0;
 	--   0 : Success
 	-- 101 : Language Id cannot be null or empty string.
 	-- 102 : Description cannot be null or empty string.
-	-- 103 : Language Description is duplicated.
 	-- OTHER : SQL Error Number & Error Message.
 	BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@langId) = 1)
@@ -71,21 +72,6 @@ DECLARE @bEnabled bit = 0;
 		SELECT @iLangCnt = COUNT(*)
 		  FROM [dbo].[Language]
 		 WHERE LOWER(RTRIM(LTRIM([LangId]))) = LOWER(RTRIM(LTRIM(@langId)))
-
-		IF (@iLangCnt = 0)
-		BEGIN
-			-- Detected language not exists so need to check duplicate description.
-			-- Check is description is duplicated?.
-			SELECT @iDescCnt = COUNT(*)
-				FROM [dbo].[Language]
-				WHERE UPPER(RTRIM(LTRIM([Description]))) = UPPER(RTRIM(LTRIM(@description))) COLLATE SQL_Latin1_General_CP1_CS_AS
-
-			IF (@iDescCnt <> 0)
-			BEGIN
-				EXEC GetErrorMsg 103, @errNum out, @errMsg out
-				RETURN
-			END
-		END
 
 		IF @iLangCnt = 0
 		BEGIN

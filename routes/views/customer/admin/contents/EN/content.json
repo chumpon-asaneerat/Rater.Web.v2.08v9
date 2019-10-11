@@ -151,7 +151,66 @@
             "screenid": "report",
             "title": "Summary Reports",
             "label": {
-                "screenTitle": "Summary Reports"
+                "screenTitle": "Summary Reports",
+                "home": {
+                    "buttons": {
+                        "rawvote": "Raw Vote Report",
+                        "votesummary": "Vote Summary Report",
+                        "staffperf": "Staff Performance Report"
+                    }
+                },
+                "rawvote": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                },
+                "votesummary": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date",
+                        "orgId": "Organization",
+                        "memberId": "Staff"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                },
+                "staffraw": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date",
+                        "memberId": "Staff"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                },
+                "staffperf": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date",
+                        "memberId": "Staff"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                }
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },

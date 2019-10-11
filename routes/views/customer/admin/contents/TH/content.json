@@ -152,7 +152,66 @@
             "screenid": "report",
             "title": "รายงานสรุป",
             "label": {
-                "screenTitle": "รายงานสรุป"
+                "screenTitle": "รายงานสรุป",
+                "home": {
+                    "buttons": {
+                        "rawvote": "รายงานการให้คะแนนดิบ",
+                        "votesummary": "รายงานสรุปภาพรวมหน่วยงาน",
+                        "staffperf": "รายงานผลการปฏิบัติงานของพนักงาน"
+                    }
+                },
+                "rawvote": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                },
+                "votesummary": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่",
+                        "orgId": "หน่วยงาน",
+                        "memberId": "พนักงาน"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                },
+                "staffraw": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่",
+                        "memberId": "พนักงาน"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                },
+                "staffperf": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่",
+                        "memberId": "พนักงาน"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                }
             },
             "links": [
                 { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
