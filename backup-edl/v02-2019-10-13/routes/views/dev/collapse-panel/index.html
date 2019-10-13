@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- tabulator css -->
+    <link href="/dist/css/tabulator.min.css" rel="stylesheet" type="text/css" />
+    <!-- chartjs css -->
+    <link href="/dist/css/chart.min.css" rel="stylesheet" type="text/css" />
+    <!-- reveal css -->
+    <link href="/dist/css/reveal.css" rel="stylesheet" type="text/css" />
+    <!-- nlib css -->
+    <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
+    <style>
+        .app {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid silver;
+        }
+        .app .large-screen {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+                'slide-designer';
+            background-color: lightgray;
+            border: 3px solid darkred;
+            overflow: hidden;
+        }
+        .app .small-screen {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            color: whitesmoke;
+            display: grid;
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+                'unavaliable';
+            background-color: cornflowerblue;
+            border: 3px solid darkred;
+        }
+        @media only screen and (min-width: 750px) and (max-width: 1600px) {
+            .app {
+                grid-template-areas: 
+                    'large-screen';
+            }
+            .app .small-screen {
+                display: none;
+            }
+        }
+        @media only screen and (max-width: 750px) {
+            .app {
+                grid-template-areas: 
+                    'small-screen';
+            }
+            .app .large-screen {
+                display: none;
+            }
+        }
+        .app .large-screen .slide-list {
+            grid-area: slide-list;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background-color: lightgray;
+            border: 3px solid darkred;
+            overflow: auto;
+        }
+        .app .large-screen .slide-designer {
+            grid-area: slide-designer;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: whitesmoke;
+            border: 3px solid darkgreen;
+            overflow: auto;
+        }
+        .app .small-screen .unavaliable {
+            grid-area: unavaliable;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .item {
+            margin: 0 auto;
+            padding: 0;
+            font-size: 1.2rem;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            object-fit: cover;
+        }
+        .item::before {
+            content: "";
+            display: block;
+            height: 0;
+            width: 0;
+            padding-bottom: calc(9/16 * 100%);
+        }
+        .item.c1 {  
+            background-color: antiquewhite;
+        }
+        .item.c2 { 
+            background-color: blueviolet;
+        }
+        .item.c3 { 
+            background-color: brown; 
+        }
+        .item.c4 { 
+            background-color: navajowhite; 
+        }
+        .item.c5 { 
+            background-color: grey; 
+        }
+        .item.c6 { 
+            background-color: khaki;
+        }
+        .item.c7 { 
+            background-color: palegreen;
+        }
+        .item.c8 { 
+            background-color: orchid;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="large-screen">
+            <tool-window caption="Tool window" style="left: 10px; top: 50px; width: 300px;">
+                <gallery style="height: 500px;">
+                    <div class="item c1">item 1</div>
+                    <div class="item c2">item 2</div>
+                    <div class="item c3">item 3</div>
+                    <div class="item c4">item 4</div>
+                    <div class="item c5">item 5</div>
+                    <div class="item c6">item 6</div>
+                    <div class="item c7">item 7</div>
+                    <div class="item c8">item 8</div>
+                </gallery>
+            </tool-window>
+            <div class="slide-designer">
+                <div>slide designer</div>
+            </div>
+            <tool-window caption="Tool window" style="right: 10px; top: 50px; width: 250px;">
+                <collapse-panel caption="Tool 1">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 2">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 3">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 4">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 5">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 6">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 7">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+                <collapse-panel caption="Tool 8">
+                    <label>My Items</label>
+                    <br>
+                    <label>Property 1</label>
+                    <br>
+                    <label>Property 2</label>
+                </collapse-panel>
+            </tool-window>
+        </div>
+        <div class="small-screen">
+            <div class="unavaliable">
+                <h3>Cannot use designer in small screen.</h3>
+            </div>
+        </div>        
+    </div>
+    
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- Tabulator -->
+    <script src="/dist/js/tabulator.min.js"></script>
+    <!-- Chart.js -->
+    <script src="/dist/js/chart.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-datalabels.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-piechart-outlabels.min.js"></script>
+    <!-- fabric.js -->
+    <script src="/dist/js/fabric.min.js"></script>
+    <!-- Howler.js -->
+    <script src="/dist/js/howler.min.js"></script>
+    <!-- Reveal.js -->
+    <script src="/dist/js/reveal.js"></script>
+    <!-- Riot.js -->
+    <script src="/dist/js/riot.min.js"></script>
+    <!-- custom components -->
+    <script src="/dist/js/tags.js"></script>
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <!-- services -->
+    <!--
+    <script src="/dist/js/services.js"></script>
+    -->
+    <script>
+        riot.mount('*');
+        /*
+        riot.mount('tool-window');
+        riot.mount('collapse-panel');
+        */
+    </script>
+</body>
+</html>

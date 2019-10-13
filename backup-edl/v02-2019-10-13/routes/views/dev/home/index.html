@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- tabulator css -->
+    <link href="/dist/css/tabulator.min.css" rel="stylesheet" type="text/css" />
+    <!-- chartjs css -->
+    <link href="/dist/css/chart.min.css" rel="stylesheet" type="text/css" />
+    <!-- reveal css -->
+    <link href="/dist/css/reveal.css" rel="stylesheet" type="text/css" />
+    <!-- nlib css -->
+    <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
+    <style>
+        .box {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+            
+            width: 100%;
+            height: 100%;
+            background-color: silver;
+        }
+        .box1 {
+            display: inline-block;
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+            
+            left: 50px;
+            top: 50px;
+            width: 100px;
+            height: 100px;
+            
+            color: red;
+            background-color: bisque;
+        }
+        .box2 {
+            display: inline-block;
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+
+            left: 250px;
+            top: 50px;
+            width: 100px;
+            height: 100px;
+
+            color: blue;
+            /* transform: translate(250px, 50px); */
+            background-color:darkkhaki;
+        }
+    </style>
+</head>
+<body>
+    <app id="app" navibar footer>
+        <!-- Dev Home -->
+        <!--
+        <screen data-ref="home" screenid="home">
+            <dev-home></dev-home>
+        </screen>
+        -->
+        <!-- Box Model -->
+        <!--
+        <div class="box">
+            <div id="item"  class="box1">ITEM</div>
+            <div id="item2" class="box2">ITEM 2</div>
+        </div>
+        -->
+        <screen data-ref="home" screenid="home">
+            <dev-sample></dev-sample>
+        </screen>
+        <osd></osd>
+    </app>
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- Tabulator -->
+    <script src="/dist/js/tabulator.min.js"></script>
+    <!-- Chart.js -->
+    <script src="/dist/js/chart.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-datalabels.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-piechart-outlabels.min.js"></script>
+    <!-- Howler.js -->
+    <script src="/dist/js/howler.min.js"></script>
+    <!-- Reveal.js -->
+    <script src="/dist/js/reveal.js"></script>
+    <!-- Riot.js -->
+    <script src="/dist/js/riot.min.js"></script>
+
+    <!-- custom components -->
+    <script src="/dist/js/tags.js"></script>
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <!-- services -->
+    <script src="/dist/js/utils.js"></script>
+    <script src="/dist/js/message-service.js"></script>
+    <script src="/dist/js/language-service.js"></script>
+    <script src="/dist/js/content-service.js"></script>
+    <script src="/dist/js/master-data-service.js"></script>
+    <script src="/dist/js/secure-service.js"></script>
+    <script src="/dist/js/app-screen-service.js"></script>
+    <!-- local scripts -->
+    <script src="home/js/app.js"></script>
+    <script>
+        //console.log('page loaded.');
+        /*
+        let id = document.getElementById('item')
+        
+        let css1 = id.style.cssText;
+        console.log('before:', css1)
+        id.style.color = 'black'
+        id.style.transformOrigin = 'center'
+        id.style.transform = 'rotate(20deg)'
+        let css2 = id.style.cssText;
+        console.log('after:', css2)
+
+        let id2 = document.getElementById('item2')
+        console.log('item2 style before:', id2.style.cssText)
+        id2.style.cssText = css2;
+        console.log('item2 style after:', id2.style.cssText)
+        */
+    </script>
+</body>
+</html>

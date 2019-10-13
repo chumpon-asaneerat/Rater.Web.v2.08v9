@@ -1,0 +1,51 @@
+{
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "หน้าหลัก",
+            "label": {
+                "screenTitle": "หน้าหลัก"
+            },
+            "links": [
+                { "type": "screen", "ref": "signin", "text":"เข้าใช้งาน", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"ลงทะเบียน", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "signin",
+            "title": "เข้าใช้งาน",
+            "label": {
+                "selectAccount": "กรุณาเลือกบัญชี",
+                "userName": "ชื่อบัญชี",
+                "passWord": "รหัสผ่าน",
+                "submit": "เข้าใช้งาน",
+                "cancel": "ยกเลิก",
+                "customerName": "ชื่อลูกค้า"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"ลงทะเบียน", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "register",
+            "title": "ลงทะเบียน",
+            "label": {
+                "customerName": "ชื่อลูกค้า",
+                "userName": "ชื่อบัญชี (ผู้ดูแลระบบหลัก)",
+                "passWord": "รหัสผ่าน",
+                "submit": "ลงทะเบียน"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "font" },
+                { "type": "screen", "ref": "signin", "text":"เข้าใช้งาน", "icon": "far fa-user-circle", "icontype": "font" }
+            ]
+        }
+    ],
+    "footer": {
+        "label": {
+            "status": "สถานะ",
+            "copyright": "บริษัท อีดีแอล จำกัด"
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "Exclusive Home",
+            "label": {
+                "screenTitle": "Exclusive Home"
+            },
+            "links": [
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }
+    ],
+    "footer": {
+        "label": {
+            "status": "status",
+            "copyright": "EDL Co., Ltd."
+        }
+    }
+}

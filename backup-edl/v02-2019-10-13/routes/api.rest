@@ -1,0 +1,127 @@
+#======================================
+###### Language APIs ######
+#======================================
+#### Gets all languages.
+GET http://localhost:3000/api/languages/search HTTP/1.1
+#### Gets enable languages.
+GET http://localhost:3000/api/languages/search?enabled=1
+#### Gets disable languages.
+POST http://localhost:3000/api/languages/search
+Cookie: foo=bar
+content-type: application/json
+
+{
+    "enabled": "false"
+}
+
+#### Register customer.
+POST http://localhost:3000/api/customer/register
+content-type: application/json
+
+{
+    "customerName": "House Plant Co., Ltd.",
+    "userName": "admin@houseplant.com",
+    "passWord": "1234",
+    "licenseTypeId": 0
+}
+
+#### Validate Account by login
+POST http://localhost:3000/api/customer/validate-accounts
+content-type: application/json
+
+{
+    "langId": "EN",
+    "userName": "admin@softbase.co.th",
+    "passWord": "1234"
+}
+
+#### GetBranchs
+POST http://localhost:3000/customer/api/branch/search
+content-type: application/json
+
+{
+    "customerId": "EDL-C2019080002"
+}
+
+#### SaveBranchs
+POST http://localhost:3000/customer/api/branch/save
+content-type: application/json
+
+{
+    "items": [
+        { 
+            "langId": "EN",
+            "customerId": "EDL-C2019080002",
+            "branchName": "New Branch 2",
+            "branchId": null
+        }
+    ]
+}
+
+#### SaveBranchs
+POST http://localhost:3000/customer/api/device/save
+content-type: application/json
+
+{
+    "items": [
+        { 
+            "langId": "EN",
+            "customerId": "EDL-C2019100029",
+            "deviceName": "AAA",
+            "location": "Office 12",
+            "deviceTypeId": 201,
+            "deviceId": "D0001"
+        }
+    ]
+}
+
+#### UploadQuestionJson
+POST http://localhost:3000/customer/api/question/upload
+content-type: application/json
+
+{
+    "items": [
+        { 
+            "customerId": "EDL-C2019100029",
+            "question": 
+            {
+                "qsetId": "QS00001",
+                "description": {
+                    "EN": {},
+                    "TH": {}
+                },
+                "slides": []
+            }
+        }
+    ]
+}
+
+#### GetRawVote
+
+POST http://localhost:3000/customer/api/report/rawvotes/search
+content-type: application/json
+
+{
+    "langId": "TH",
+    "customerId": "EDL-C2019100003",
+    "qsetId": "QS00001",
+    "qSeq": 1,
+    "beginDate": "2019-10-10",
+    "endDate": "2019-10-11"
+}
+
+#### GetVoteSummaries
+
+POST http://localhost:3000/customer/api/report/votesummaries/search
+content-type: application/json
+
+{
+    "langId": "TH",
+    "customerId": "EDL-C2019100003",
+    "qsetId": "QS00001",
+    "qSeq": 1,
+    "beginDate": "2019-10-10",
+    "endDate": "2019-10-11",
+    "memberId": "",
+    "orgId": "O0008"
+}

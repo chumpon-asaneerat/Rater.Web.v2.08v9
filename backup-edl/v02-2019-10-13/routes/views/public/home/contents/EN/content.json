@@ -1,0 +1,51 @@
+{
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "Home",
+            "label": {
+                "screenTitle": "Rater Web Home"
+            },
+            "links": [
+                { "type": "screen", "ref": "signin", "text":"Sign In", "icon": "far fa-user-circle", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"Register", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "signin",
+            "title": "Sign In",
+            "label": {
+                "selectAccount": "Please Select Account",
+                "userName": "User Name",
+                "passWord": "Password",
+                "submit": "Sign In",
+                "cancel": "Cancel",
+                "customerName": "Customer Name"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "register", "text":"Register", "icon": "fas fa-user-plus", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "register",
+            "title": "Register",
+            "label": {
+                "customerName": "Customer Name",
+                "userName": "User Name (admin)",
+                "passWord": "Password",
+                "submit": "Register"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "font" },
+                { "type": "screen", "ref": "signin", "text":"Sign In", "icon": "far fa-user-circle", "icontype": "font" }
+            ]
+        }
+    ],
+    "footer": {
+        "label": {
+            "status": "status",
+            "copyright": "EDL Co., Ltd."
+        }
+    }
+}
