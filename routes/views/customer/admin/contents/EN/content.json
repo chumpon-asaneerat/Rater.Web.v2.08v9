@@ -1,0 +1,231 @@
+{
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "Administrator Home",
+            "label": {
+                "screenTitle": "Administrator Home"
+            },
+            "links": [
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "org",
+            "title": "Organization Management",
+            "label": {
+                "screenTitle": "Organization Management",
+                "org": {
+                    "view": {
+                        "title": "Organization",
+                        "columns": [
+                            { "title": "Name", "field": "OrgName", "resizable": false },
+                            { "title": "Parent", "field": "parentId", "resizable": false },
+                            { "title": "Branch Name", "field": "BranchName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "orgName": "Org Name",
+                        "parentId": "Parent Org",
+                        "branchId": "Branch"
+                    }
+                },
+                "branch": {
+                    "view": {
+                        "title": "Branch",
+                        "columns": [
+                            { "title": "Branch Name", "field": "branchName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "branchName": "Branch Name"
+                    }
+                }
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "member",
+            "title": "User Account Management",
+            "label": {
+                "screenTitle": "Staff Account Management",
+                "member": {
+                    "view": {
+                        "title": "Staff",
+                        "columns": [
+                            { "title": "Prefix", "field": "Prefix", "resizable": false },
+                            { "title": "First Name", "field": "FirstName", "resizable": false },
+                            { "title": "Last Name", "field": "LastName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "prefix": "Prefix",
+                        "firstName": "First Name",
+                        "lastName": "Last Name",
+                        "userName": "User Name",
+                        "passWopd": "Password",
+                        "tagId": "Tag Id",
+                        "idCard": "ID Card",
+                        "employeeCode": "Employee Code",
+                        "memberType": "Member Type"
+                    }
+                }
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "device",
+            "title": "Device Management",
+            "label": {
+                "screenTitle": "Device Management",
+                "device": {
+                    "view": {
+                        "title": "Staff",
+                        "columns": [
+                            { "title": "Name", "field": "DeviceName", "resizable": false },
+                            { "title": "Type", "field": "Type", "resizable": false },
+                            { "title": "Location", "field": "Location", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "Default",
+                        "tabMultiLang": "Languages",
+                        "deviceName": "Device Name",
+                        "deviceTypeId": "Device Type",
+                        "location": "Location",
+                        "orgId": "Organization",
+                        "memberId": "User"
+                    }
+                }
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "question",
+            "title": "Question Management",
+            "label": {
+                "screenTitle": "Question Management"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "report",
+            "title": "Summary Reports",
+            "label": {
+                "screenTitle": "Summary Reports",
+                "home": {
+                    "buttons": {
+                        "rawvote": "Raw Vote Report",
+                        "votesummary": "Vote Summary Report",
+                        "staffperf": "Staff Performance Report"
+                    }
+                },
+                "rawvote": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                },
+                "votesummary": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date",
+                        "orgId": "Organization",
+                        "memberId": "Staff"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                },
+                "staffraw": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date",
+                        "memberId": "Staff"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                },
+                "staffperf": {
+                    "criteria": {
+                        "qsetId": "Question Set",
+                        "qSeq": "Question No.",
+                        "beginDate": "Begin Date",
+                        "endDate": "End Date",
+                        "memberId": "Staff"
+                    },
+                    "buttons": {
+                        "home": "Home",
+                        "search": "Search"                        
+                    }
+                }
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }
+    ],
+    "footer": {
+        "label": {
+            "status": "status",
+            "copyright": "EDL Co., Ltd."
+        }
+    }
+}

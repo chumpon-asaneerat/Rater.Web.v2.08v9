@@ -1,0 +1,232 @@
+{
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "หน้าหลัก - ผู้ดูแลระบบ",
+            "label": {
+                "screenTitle": "หน้าหลัก - ผู้ดูแลระบบ"
+            },
+            "links": [
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "org",
+            "title": "ผังองกรณ์",
+            "label": {
+                "screenTitle": "ผังองกรณ์",
+                "org": {
+                    "title": "องกรณ์",
+                    "view": {
+                        "columns": [
+                            { "title": "ชื่อหน่วยงาน", "field": "orgName", "resizable": false },
+                            { "title": "หน่วยงานแม่", "field": "parentId", "resizable": false },
+                            { "title": "สาขา", "field": "branchId", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "ค่าตั้งต้น",
+                        "tabMultiLang": "ภาษาอื่น",
+                        "OrgName": "ชื่อหน่วยงาน",
+                        "parentId": "หน่วยงานแม่",
+                        "branchId": "สาขา"
+                    }
+                },
+                "branch": {
+                    "view": {
+                        "title": "สาขา",
+                        "columns": [
+                            { "title": "ชื่อสาขา", "field": "branchName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "ค่าตั้งต้น",
+                        "tabMultiLang": "ภาษาอื่น",
+                        "branchName": "ชื่อสาขา"
+                    }
+                }
+            
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "member",
+            "title": "บัญชีผู้ใช้งาน",
+            "label": {
+                "screenTitle": "บัญชีผู้ใช้งาน",
+                "member": {
+                    "view": {
+                        "title": "Staff",
+                        "columns": [
+                            { "title": "คำนำหน้า", "field": "Prefix", "resizable": false },
+                            { "title": "ชื่อ", "field": "FirstName", "resizable": false },
+                            { "title": "นามสกุล", "field": "LastName", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "ค่าตั้งต้น",
+                        "tabMultiLang": "ภาษาอื่น",
+                        "prefix": "คำนำหน้า",
+                        "firstName": "ชื่อ",
+                        "lastName": "นามสกุล",
+                        "userName": "ชื่อบัญชี",
+                        "passWopd": "รหัสผ่าน",
+                        "tagId": "หมายเลขแท็ก",
+                        "idCard": "หมายเลขบัตรประชาชน",
+                        "employeeCode": "รหัสพนักงาน",
+                        "memberType": "ประเภทบัญชี"
+                    }
+                }
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        },
+        { 
+            "screenid": "device",
+            "title": "บัญชีอุปกรณ์",
+            "label": {
+                "screenTitle": "บัญชีอุปกรณ์",
+                "device": {
+                    "view": {
+                        "title": "Staff",
+                        "columns": [
+                            { "title": "Name", "field": "DeviceName", "resizable": false },
+                            { "title": "Type", "field": "Type", "resizable": false },
+                            { "title": "Location", "field": "Location", "resizable": false }
+                        ]
+                    },
+                    "entry": {
+                        "tabDefault": "ค่าตั้งต้น",
+                        "tabMultiLang": "ภาษาอื่น",
+                        "deviceName": "ชื่ออุปกรณ์",
+                        "deviceTypeId": "ประเภทอุปกรณ์",
+                        "location": "จุดติดตั้ง",
+                        "orgId": "หน่วยงาน",
+                        "memberId": "ผู้ใช้ปัจจุบัน"
+                    }
+                }
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "question",
+            "title": "จัดการชุดคำถาม",
+            "label": {
+                "screenTitle": "จัดการชุดคำถาม"
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }, 
+        { 
+            "screenid": "report",
+            "title": "รายงานสรุป",
+            "label": {
+                "screenTitle": "รายงานสรุป",
+                "home": {
+                    "buttons": {
+                        "rawvote": "รายงานการให้คะแนนดิบ",
+                        "votesummary": "รายงานสรุปภาพรวมหน่วยงาน",
+                        "staffperf": "รายงานผลการปฏิบัติงานของพนักงาน"
+                    }
+                },
+                "rawvote": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                },
+                "votesummary": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่",
+                        "orgId": "หน่วยงาน",
+                        "memberId": "พนักงาน"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                },
+                "staffraw": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่",
+                        "memberId": "พนักงาน"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                },
+                "staffperf": {
+                    "criteria": {
+                        "qsetId": "ชุดคำถาม",
+                        "qSeq": "คำถามที่",
+                        "beginDate": "ตั้งแต่วันที่",
+                        "endDate": "ถึงวันที่",
+                        "memberId": "พนักงาน"
+                    },
+                    "buttons": {
+                        "home": "หน้าจอหลัก",
+                        "search": "ค้นหา"
+                    }
+                }
+            },
+            "links": [
+                { "type": "screen", "ref": "home", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+                { "type": "screen", "ref": "org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+                { "type": "screen", "ref": "member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+                { "type": "screen", "ref": "device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+                { "type": "screen", "ref": "question", "text":"ชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
+                { "type": "cmd", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }
+    ],
+    "footer": {
+        "label": {
+            "status": "สถานะ",
+            "copyright": "บริษัท อีดีแอล จำกัด"
+        }
+    }
+}

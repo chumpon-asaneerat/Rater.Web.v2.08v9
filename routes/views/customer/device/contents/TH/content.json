@@ -1,0 +1,20 @@
+{
+    "screens": [
+        { 
+            "screenid": "home",
+            "title": "หน้าหลัก - อุปกรณ์",
+            "label": {
+                "screenTitle": "หน้าหลัก - อุปกรณ์"
+            },
+            "links": [
+                { "type": "cmd", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }
+            ]
+        }
+    ],
+    "footer": {
+        "label": {
+            "status": "สถานะ",
+            "copyright": "บริษัท อีดีแอล จำกัด"
+        }
+    }
+}
