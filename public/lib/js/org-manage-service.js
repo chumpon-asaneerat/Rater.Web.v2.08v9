@@ -4,7 +4,7 @@ class OrgLoader {
         this.current = null;
         let self = this;
         let contentChanged = (e) => {
-            self.current = self.getCurrent();            
+            self.updateCurrent();            
         }
         document.addEventListener('language:changed', contentChanged)
     }
@@ -14,8 +14,9 @@ class OrgLoader {
         let paramObj = {};
         let fn = (r) => {
             let data = api.parse(r);
+            //console.log('org load called.')
             self.content = data.records;
-            self.current = self.getCurrent();
+            self.updateCurrent();
         }
         XHR.postJson(url, paramObj, fn);
     }
@@ -38,6 +39,7 @@ class OrgLoader {
                 results.push(data)
             }
             //console.log(results);
+            self.load();
         }
         XHR.postJson(url, paramObj, fn);
     }
@@ -45,9 +47,12 @@ class OrgLoader {
         let match = this.content && this.content[this.langId];
         let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
         //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
         let evt = new CustomEvent('org:list:changed')
         document.dispatchEvent(evt);
-        return ret;
     }
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';
@@ -75,7 +80,7 @@ class BranchLoader {
 
         let self = this;
         let contentChanged = (e) => {
-            self.current = self.getCurrent();
+            self.updateCurrent();
         }
         document.addEventListener('language:changed', contentChanged)
     }
@@ -84,9 +89,9 @@ class BranchLoader {
         let url = '/customer/api/branch/search';
         let paramObj = {};
         let fn = (r) => {
-            let data = api.parse(r);
+            let data = api.parse(r);            
             self.content = data.records;
-            self.current = self.getCurrent();
+            self.updateCurrent();
         }
         XHR.postJson(url, paramObj, fn);
     }
@@ -109,16 +114,19 @@ class BranchLoader {
                 results.push(data)
             }
             //console.log(results);
+            self.load();
         }
         XHR.postJson(url, paramObj, fn);
     }
     getCurrent() {
         let match = this.content && this.content[this.langId];
         let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
-        //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
         let evt = new CustomEvent('branch:list:changed')
         document.dispatchEvent(evt);
-        return ret;
     }
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';
@@ -145,8 +153,8 @@ class OrgManager {
         this.branch = new BranchLoader();
     }
     load() {
-        this.org.load();
-        this.branch.load();
+        //this.org.load();
+        //this.branch.load();
     }
 }
 

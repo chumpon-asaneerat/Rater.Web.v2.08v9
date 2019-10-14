@@ -5,7 +5,7 @@ class MemberLoader {
 
         let self = this;
         let contentChanged = (e) => {
-            self.current = self.getCurrent();
+            self.updateCurrent();
         }
         document.addEventListener('language:changed', contentChanged)
     }
@@ -16,7 +16,7 @@ class MemberLoader {
         let fn = (r) => {
             let data = api.parse(r);
             self.content = data.records;
-            self.current = self.getCurrent();
+            self.updateCurrent();
         }
         XHR.postJson(url, paramObj, fn);
     }
@@ -38,6 +38,7 @@ class MemberLoader {
                 }
                 results.push(data)
             }
+            self.load();
         }
         XHR.postJson(url, paramObj, fn);
     }
@@ -45,9 +46,12 @@ class MemberLoader {
         let match = this.content && this.content[this.langId];
         let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
         //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
         let evt = new CustomEvent('member:list:changed')
         document.dispatchEvent(evt);
-        return ret;
     }
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';

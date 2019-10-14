@@ -212,7 +212,7 @@
         let onEntryBeginEdit = (e) => {
             if (e.detail.entry === entryId) {
                 let data = e.detail.item;
-                console.log('Device Begin Edit:', e.detail)
+                //console.log('Device Begin Edit:', e.detail)
                 self.setup(data)
             }
         }

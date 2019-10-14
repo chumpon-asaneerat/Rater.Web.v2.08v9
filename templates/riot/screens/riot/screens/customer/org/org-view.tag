@@ -183,14 +183,16 @@
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
-                // screen shown.
-                syncData();
+                //console.log('detected screen change')
+                orgmanager.org.load();
             }
             else {
                 // other screen shown.
             }
         }
-        let onOrgListChanged = (e) => { syncData(); }
+        let onOrgListChanged = (e) => { 
+            syncData();
+        }
 
         //#endregion
 

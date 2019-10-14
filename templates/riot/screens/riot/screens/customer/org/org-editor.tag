@@ -212,7 +212,7 @@
         let onEntryBeginEdit = (e) => {
             if (e.detail.entry === entryId) {
                 let data = e.detail.item;
-                console.log('Org Begin Edit:', e.detail)
+                //console.log('Org Begin Edit:', e.detail)
                 self.setup(data)
             }
         }

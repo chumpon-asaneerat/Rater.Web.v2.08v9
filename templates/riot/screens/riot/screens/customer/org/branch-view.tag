@@ -183,14 +183,16 @@
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
-                // screen shown.
-                syncData();
+                //console.log('detected screen change')
+                orgmanager.branch.load();
             }
             else {
                 // other screen shown.
             }
         }
-        let onBranchListChanged = (e) => { syncData(); }
+        let onBranchListChanged = (e) => { 
+            syncData();
+        }
 
         //#endregion
 
@@ -211,7 +213,7 @@
             */
         }
         let onEndEdit = (e) => {
-            syncData();        
+            syncData();
             table.redraw(true);
         }
 

@@ -5,7 +5,7 @@ class DeviceLoader {
 
         let self = this;
         let contentChanged = (e) => {
-            self.current = self.getCurrent();
+            self.updateCurrent();
         }
         document.addEventListener('language:changed', contentChanged)
     }
@@ -17,7 +17,7 @@ class DeviceLoader {
             let data = api.parse(r);
             self.content = data.records;
             //console.log(self.content)
-            self.current = self.getCurrent();
+            self.updateCurrent();
         }
         XHR.postJson(url, paramObj, fn);
     }
@@ -39,6 +39,7 @@ class DeviceLoader {
                 }
                 results.push(data)
             }
+            self.load();
         }
         XHR.postJson(url, paramObj, fn);
     }
@@ -46,9 +47,12 @@ class DeviceLoader {
         let match = this.content && this.content[this.langId];
         let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
         //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
         let evt = new CustomEvent('device:list:changed')
         document.dispatchEvent(evt);
-        return ret;
     }
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';

@@ -184,14 +184,16 @@
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
-                // screen shown.
-                syncData();
+                //console.log('detected screen change')
+                membermanager.member.load();
             }
             else {
                 // other screen shown.
             }
         }
-        let onMemberListChanged = (e) => { syncData(); }
+        let onMemberListChanged = (e) => { 
+            syncData();
+        }
 
         //#endregion
 

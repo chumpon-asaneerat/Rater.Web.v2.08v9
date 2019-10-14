@@ -184,14 +184,16 @@
         let onScreenChanged = (e) => {
             updatecontent();
             if (e.detail.screenId === screenId) {
-                // screen shown.
-                syncData();
+                //console.log('detected screen change')
+                devicemanager.device.load();
             }
             else {
                 // other screen shown.
             }
         }
-        let onDeviceListChanged = (e) => { syncData(); }
+        let onDeviceListChanged = (e) => { 
+            syncData();
+        }
 
         //#endregion
 

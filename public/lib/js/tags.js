@@ -2358,7 +2358,7 @@ riot.tag2('device-editor', '<div class="entry"> <div class="tab"> <button ref="t
         let onEntryBeginEdit = (e) => {
             if (e.detail.entry === entryId) {
                 let data = e.detail.item;
-                console.log('Device Begin Edit:', e.detail)
+
                 self.setup(data)
             }
         }
@@ -2807,13 +2807,15 @@ riot.tag2('device-view', '<div ref="title" class="titlearea"> <button class="add
             updatecontent();
             if (e.detail.screenId === screenId) {
 
-                syncData();
+                devicemanager.device.load();
             }
             else {
 
             }
         }
-        let onDeviceListChanged = (e) => { syncData(); }
+        let onDeviceListChanged = (e) => {
+            syncData();
+        }
 
         let editRow = (e, cell) => {
             let data = cell.getRow().getData();
@@ -3174,7 +3176,7 @@ riot.tag2('member-editor', '<div class="entry"> <div class="tab"> <button ref="t
         let onEntryBeginEdit = (e) => {
             if (e.detail.entry === entryId) {
                 let data = e.detail.item;
-                console.log('Device Begin Edit:', e.detail)
+
                 self.setup(data)
             }
         }
@@ -3620,13 +3622,15 @@ riot.tag2('member-view', '<div ref="title" class="titlearea"> <button class="add
             updatecontent();
             if (e.detail.screenId === screenId) {
 
-                syncData();
+                membermanager.member.load();
             }
             else {
 
             }
         }
-        let onMemberListChanged = (e) => { syncData(); }
+        let onMemberListChanged = (e) => {
+            syncData();
+        }
 
         let editRow = (e, cell) => {
             let data = cell.getRow().getData();
@@ -3748,7 +3752,7 @@ riot.tag2('branch-editor', '<div class="entry"> <div class="tab"> <button ref="t
         let onEntryBeginEdit = (e) => {
             if (e.detail.entry === entryId) {
                 let data = e.detail.item;
-                console.log('Device Begin Edit:', e.detail)
+
                 self.setup(data)
             }
         }
@@ -4159,13 +4163,15 @@ riot.tag2('branch-view', '<div ref="title" class="titlearea"> <button class="add
             updatecontent();
             if (e.detail.screenId === screenId) {
 
-                syncData();
+                orgmanager.branch.load();
             }
             else {
 
             }
         }
-        let onBranchListChanged = (e) => { syncData(); }
+        let onBranchListChanged = (e) => {
+            syncData();
+        }
 
         let editRow = (e, cell) => {
             let data = cell.getRow().getData();
@@ -4276,7 +4282,7 @@ riot.tag2('org-editor', '<div class="entry"> <div class="tab"> <button ref="tabh
         let onEntryBeginEdit = (e) => {
             if (e.detail.entry === entryId) {
                 let data = e.detail.item;
-                console.log('Org Begin Edit:', e.detail)
+
                 self.setup(data)
             }
         }
@@ -4816,13 +4822,15 @@ riot.tag2('org-view', '<div ref="title" class="titlearea"> <button class="addnew
             updatecontent();
             if (e.detail.screenId === screenId) {
 
-                syncData();
+                orgmanager.org.load();
             }
             else {
 
             }
         }
-        let onOrgListChanged = (e) => { syncData(); }
+        let onOrgListChanged = (e) => {
+            syncData();
+        }
 
         let editRow = (e, cell) => {
             let data = cell.getRow().getData();
