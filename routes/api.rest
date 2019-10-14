@@ -125,3 +125,13 @@ content-type: application/json
     "memberId": "",
     "orgId": "O0008"
 }
+
+
+#### SaveQuestion (json)
+POST http://localhost:3000/customer/api/question/save
+content-type: application/json
+
+{
+    "customerId": "EDL-C2019100003",
+    "data": []
+}

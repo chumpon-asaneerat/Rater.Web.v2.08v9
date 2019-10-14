@@ -1,6 +1,9 @@
 //#region common requires
 
 const path = require('path');
+const fs = require('fs');
+const mkdirp = require('mkdirp')
+
 const rootPath = process.env['ROOT_PATHS'];
 
 // for production
@@ -694,6 +697,24 @@ const routes = class {
             WebServer.sendJson(req, res, result);
         })
     }
+
+    static SaveJsonQuestion(req, res) {
+        let params = WebServer.parseReq(req).data;
+        let customerId = secure.getCustomerId(req, res);
+        if (customerId) params.customerId = customerId;
+        params.qsetid = 'QS00001' // hard code.
+        let targetPath = path.join(rootPath, 'customer', params.customerId, 'Question')
+        mkdirp.sync(targetPath);
+        let targetFile =  path.join(targetPath, params.qsetid + '.json')
+        let data = {
+            id: params.qsetid,
+            data: params.data
+        };
+        fs.writeFileSync(targetFile, JSON.stringify(data), 'utf8')
+
+        let result = nlib.NResult.data({});
+        WebServer.sendJson(req, res, result);
+    }
 }
 
 router.use(secure.checkAccess);
@@ -716,6 +737,8 @@ router.post('/question/upload/', routes.UploadQuestionJson);
 
 router.post('/report/rawvotes/search', routes.GetRawVotes);
 router.post('/report/votesummaries/search', routes.GetVoteSummaries);
+
+router.post('/question/save', routes.SaveJsonQuestion);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);
