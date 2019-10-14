@@ -191,7 +191,7 @@
         this.setup = (item) => {  
             origObj = clone(item);
             editObj = clone(item);
-            console.log('member entry setup:', editObj)
+            //console.log('member entry setup:', editObj)
             objToCtrl();
         }
         this.getItem = () => {

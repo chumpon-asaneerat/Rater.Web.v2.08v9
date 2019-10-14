@@ -2598,7 +2598,7 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
         }
         let objToCtrl = () => {
             if (editObj) {
-                console.log('objToCtrl:', editObj)
+
                 if (deviceName) deviceName.value(editObj.DeviceName);
                 if (location) location.value(editObj.Location);
 
@@ -2611,12 +2611,12 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
         this.setup = (item) => {
             origObj = clone(item);
             editObj = clone(item);
-            console.log('device entry setup:', editObj)
+
             objToCtrl();
         }
         this.getItem = () => {
             ctrlToObj();
-            console.log('getItem:', editObj)
+
             let hasId = (editObj.deviceId !== undefined && editObj.deviceId != null)
             let isDirty = !hasId || !equals(origObj, editObj);
 
@@ -3427,7 +3427,7 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
         this.setup = (item) => {
             origObj = clone(item);
             editObj = clone(item);
-            console.log('member entry setup:', editObj)
+
             objToCtrl();
         }
         this.getItem = () => {
@@ -3968,7 +3968,7 @@ riot.tag2('branch-entry', '<div class="padtop"></div> <div class="padtop"></div>
         this.setup = (item) => {
             origObj = clone(item);
             editObj = clone(item);
-            console.log('branch entry setup:', editObj)
+
             objToCtrl();
         }
         this.getItem = () => {
@@ -4508,7 +4508,7 @@ riot.tag2('org-entry', '<div class="padtop"></div> <div class="padtop"></div> <n
         this.setup = (item) => {
             origObj = clone(item);
             editObj = clone(item);
-            console.log('org entry setup:', editObj)
+
             objToCtrl();
         }
         this.getItem = () => {

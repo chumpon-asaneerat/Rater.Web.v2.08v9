@@ -125,7 +125,7 @@
         this.setup = (item) => {  
             origObj = clone(item);
             editObj = clone(item);
-            console.log('branch entry setup:', editObj)
+            //console.log('branch entry setup:', editObj)
             objToCtrl();
         }
         this.getItem = () => {
