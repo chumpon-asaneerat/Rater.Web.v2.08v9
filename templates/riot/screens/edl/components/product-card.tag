@@ -1,2 +1,0 @@
-<product-card>
-</product-card>

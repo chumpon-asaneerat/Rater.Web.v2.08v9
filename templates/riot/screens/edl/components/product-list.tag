@@ -1,2 +1,0 @@
-<product-list>
-</product-list>
