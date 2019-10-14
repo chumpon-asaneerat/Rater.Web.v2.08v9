@@ -1,7 +1,10 @@
 <report-home>    
     <div class="report-container">
         <div ref="home" class="report-screen" screen="home">
-            <label></label>
+            <label>Summary Report HOME</label>
+            <button>Raw Vote Search</button>
+            <button>Vote Summary Search</button>
+            <button>Staff Performance Search</button>
         </div>
         <div ref="rawvoteSearch" class="report-screen hide" screen="rawvote-search">
         </div>
