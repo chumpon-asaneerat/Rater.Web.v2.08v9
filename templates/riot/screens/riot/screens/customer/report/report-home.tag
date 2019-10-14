@@ -2,25 +2,33 @@
     <div class="report-container">
         <div ref="home" class="report-screen" screen="home">
             <label>Summary Report HOME</label>
-            <button>Raw Vote Search</button>
+            <button onclick="{ showRawVoterSearch }">Raw Vote Search</button>
             <button>Vote Summary Search</button>
             <button>Staff Performance Search</button>
         </div>
         <div ref="rawvoteSearch" class="report-screen hide" screen="rawvote-search">
+            <label>rawvoteSearch</label>
         </div>
         <div ref="rawvoteResult" class="report-screen hide" screen="rawvote-result">
+            <label>rawvoteResult</label>
         </div>
         <div ref="votesummarySearch" class="report-screen hide" screen="votesummary-search">
+            <label>votesummarySearch</label>
         </div>
         <div ref="votesummaryResult" class="report-screen hide" screen="votesummary-result">
+            <label>votesummaryResult</label>
         </div>
         <div ref="staffrawSearch" class="report-screen hide" screen="staffperf-search">
+            <label>staffrawSearch</label>
         </div>
         <div ref="staffrawResult" class="report-screen hide" screen="staffperf-result">
+            <label>staffrawResult</label>
         </div>
         <div ref="staffperfSearch" class="report-screen hide" screen="staffperf-search">
+            <label>staffperfSearch</label>
         </div>
         <div ref="staffperfResult" class="report-screen hide" screen="staffperf-result">
+            <label>staffperfSearch</label>
         </div>
     </div>
     <style>
@@ -123,8 +131,34 @@
 
         //#region controls variables and methods
 
-        let initCtrls = () => {}
-        let freeCtrls = () => {}
+        let home;
+        let rawvoteSearch, rawvoteResult;
+        let votesummarySearch, votesummaryResult;
+        let staffrawSearch, staffrawResult;
+        let staffperfSearch, staffperfResult;
+
+        let initCtrls = () => {
+            home = self.refs['home']
+            rawvoteSearch = self.refs['rawvoteSearch']
+            rawvoteResult = self.refs['rawvoteResult']
+            votesummarySearch = self.refs['votesummarySearch']
+            votesummaryResult = self.refs['votesummaryResult']
+            staffrawSearch = self.refs['staffrawSearch']
+            staffrawResult = self.refs['staffrawResult']
+            staffperfSearch = self.refs['staffperfSearch']
+            staffperfResult = self.refs['staffperfResult']
+        }
+        let freeCtrls = () => {
+            home = null
+            rawvoteSearch = null
+            rawvoteResult = null
+            votesummarySearch = null
+            votesummaryResult = null
+            staffrawSearch = null
+            staffrawResult = null
+            staffperfSearch = null
+            staffperfResult = null
+        }
         let clearInputs = () => {}
 
         //#endregion
@@ -176,6 +210,33 @@
         //#region private service wrapper methods
 
         let showMsg = (err) => { }
+
+        //#endregion
+
+        //#region private method
+
+        let hideElm = (el) => {
+            if (el) el.classList.add('hide');
+        }
+        let showElm = (el) => {
+            hideAll();
+            if (el) el.classList.remove('hide');
+        }
+        let hideAll = () => {
+            hideElm(home)
+            hideElm(rawvoteSearch)
+            hideElm(rawvoteResult)
+            hideElm(votesummarySearch)
+            hideElm(votesummaryResult)
+            hideElm(staffrawSearch)
+            hideElm(staffrawResult)
+            hideElm(staffperfSearch)
+            hideElm(staffperfResult)
+        }
+        this.showRawVoterSearch = () => {
+            console.log('click.')
+            showElm(rawvoteSearch)
+        }
 
         //#endregion
 

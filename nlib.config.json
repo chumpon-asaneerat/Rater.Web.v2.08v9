@@ -101,6 +101,12 @@
                 },
                 {
                     "route": "/dist",
+                    "path": "public/dist/highcharts-6.1.0",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist",
                     "path": "public/dist/chart-js-2.8.0",
                     "maxAge": "5y",
                     "enable": true
@@ -180,6 +186,18 @@
                 {
                     "route": "/dist",
                     "path": "public/dist/gifuct-js-1.0.0",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist/css",
+                    "path": "public/dist/videojs-6.7.2",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist/js",
+                    "path": "public/dist/videojs-6.7.2",
                     "maxAge": "5y",
                     "enable": true
                 },

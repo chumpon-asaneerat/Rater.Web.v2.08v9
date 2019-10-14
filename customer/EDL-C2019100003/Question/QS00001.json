@@ -1,1 +1,1942 @@
-{"id":"QS00001","data":[]}
+{
+    "languages": [
+        {
+            "LangId": "EN",
+            "DescriptionEN": "English",
+            "DescriptionNative": "English",
+            "FlagIconCss": "flag-icon-us"
+        },
+        {
+            "LangId": "TH",
+            "DescriptionEN": "Thai",
+            "DescriptionNative": "ไทย",
+            "FlagIconCss": "flag-icon-th"
+        },
+        {
+            "LangId": "ZH",
+            "DescriptionEN": "Chinese",
+            "DescriptionNative": "中文",
+            "FlagIconCss": "flag-icon-cn"
+        },
+        {
+            "LangId": "JA",
+            "DescriptionEN": "Japanese",
+            "DescriptionNative": "中文",
+            "FlagIconCss": "flag-icon-jp"
+        },
+        {
+            "LangId": "KO",
+            "DescriptionEN": "Korean",
+            "DescriptionNative": "한국어",
+            "FlagIconCss": "flag-icon-kr"
+        }
+    ],
+    "keyIDs": {
+        "CustomerId": "EDL-C2019100003",
+        "BranchId": "B0001",
+        "OrgId": "O0001",
+        "QSetId": "QS00001",
+        "UserId": null
+    },
+    "slides": [
+        {
+            "<>": "section",
+            "attr": {
+                "slide-id": " 2",
+                "data-background-image": "/public/assets/images/backgrounds/bg-33.jpg",
+                "data-background-repeat": "no-repeat",
+                "data-background-size": "100% 100%"
+            },
+            "class": "",
+            "css": {
+                "display": "block",
+                "margin": "0 auto",
+                "padding": "0",
+                "width": "100%",
+                "height": "100%"
+            },
+            "elements": [
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "EN"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-size": "5em",
+                                "font-family": "Arial",
+                                "font-weight": "bold",
+                                "top": "30%",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "Plase rate for product`s quality.."
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('EN', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "20px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-us",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;English"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('TH', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "80px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-th",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;ไทย"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "div",
+                            "class": "container",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "left": "20px",
+                                "right": "20px",
+                                "bottom": "120px"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "div",
+                                    "class": "row",
+                                    "elements": [
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 1);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "0px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji1.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },  
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Poor",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }                                                          
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "class": "btn btn-default",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 2);"
+                                                    },
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji2.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Fair",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 3);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji3.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Good",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 4);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji4.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Excellent",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "TH"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-size": "4em",
+                                "font-family": "Arial",
+                                "font-weight": "bold",
+                                "top": "30%",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "กรุณาให้คะแนน ด้านคุณภาพสินค้าที่ได้รับ"
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('EN', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "20px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-us",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;English"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('TH', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "80px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-th",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;ไทย"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "div",
+                            "class": "container",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "left": "20px",
+                                "right": "20px",
+                                "bottom": "120px"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "div",
+                                    "class": "row",
+                                    "elements": [
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 1);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "0px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji1.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },  
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "แย่",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }                                                          
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "class": "btn btn-default",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 2);"
+                                                    },
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji2.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "พอใช้",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 3);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji3.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "ดี",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(1, 4);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji4.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "ดีมาก",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "<>": "section",
+            "attr": {
+                "slide-id": " 3",
+                "data-background-image": "/public/assets/images/backgrounds/bg-33.jpg",
+                "data-background-repeat": "no-repeat",
+                "data-background-size": "100% 100%"
+            },
+            "class": "",
+            "css": {
+                "display": "block",
+                "margin": "0 auto",
+                "padding": "0",
+                "width": "100%",
+                "height": "100%"
+            },
+            "elements": [
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "EN"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-size": "4em",
+                                "font-family": "Arial",
+                                "font-weight": "bold",
+                                "top": "30%",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "Plase rate for our services."
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('EN', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "20px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-us",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;English"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('TH', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "80px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-th",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;ไทย"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "div",
+                            "class": "container",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "left": "20px",
+                                "right": "20px",
+                                "bottom": "120px"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "div",
+                                    "class": "row",
+                                    "elements": [
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 1);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji1.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Poor",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "class": "btn btn-default",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 2);"
+                                                    },
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji2.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Fair",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 3);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji3.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Good",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 4);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji4.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Excellent",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "TH"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-family": "Arial",
+                                "font-weight": "bold",
+                                "font-size": "4em",
+                                "top": "30%",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "กรุณาให้คะแนน ด้านคุณภาพการให้บริการ"
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('EN')"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "20px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-us",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;English"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('TH')"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "80px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-th",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;ไทย"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "div",
+                            "class": "container",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "left": "20px",
+                                "right": "20px",
+                                "bottom": "120px"
+                                
+                            },
+                            "elements": [
+                                {
+                                    "<>": "div",
+                                    "class": "row",
+                                    "elements": [
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 1);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji1.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "แย่",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "class": "btn btn-default",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 2);"
+                                                    },
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji2.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "พอใช้",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 3);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji3.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "ดี",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(2, 4);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji4.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "ดีมาก",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "<>": "section",
+            "attr": {
+                "slide-id": " 3",
+                "data-background-image": "/public/assets/images/backgrounds/bg-33.jpg",
+                "data-background-repeat": "no-repeat",
+                "data-background-size": "100% 100%"
+            },
+            "class": "",
+            "css": {
+                "display": "block",
+                "margin": "0 auto",
+                "padding": "0",
+                "width": "100%",
+                "height": "100%"
+            },
+            "elements": [
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "EN"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-size": "4em",
+                                "font-family": "Arial",
+                                "font-weight": "bold",
+                                "top": "30%",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "Please rate for overall company."
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('EN', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "20px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-us",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;English"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('TH', false);"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "80px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-th",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;ไทย"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "div",
+                            "class": "container",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "left": "20px",
+                                "right": "20px",
+                                "bottom": "120px"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "div",
+                                    "class": "row",
+                                    "elements": [
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 1);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji1.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Poor",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "class": "btn btn-default",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 2);"
+                                                    },
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji2.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Fair",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 3);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji3.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Good",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 4);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji4.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "Excellent",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "TH"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-family": "Arial",
+                                "font-weight": "bold",
+                                "font-size": "4em",
+                                "top": "30%",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "กรุณาให้คะแนน ภาพรวมขององค์กร"
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('EN')"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "20px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-us",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;English"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "a",
+                            "attr": {
+                                "onclick": "rr.ChangeLanguage('TH')"
+                            },
+                            "class": "btn btn-default",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "font-size": "2em",
+                                "top": "80px",
+                                "right": "20px",
+                                "width": "200px",
+                                "height": "1.5em",
+                                "text-align": "left",
+                                "background-color": "transparent"
+                            },
+                            "elements": [
+                                {
+                                    "<>": "span",
+                                    "class": "flag-icon flag-icon-th",
+                                    "css": {
+                                        "font-size": "1em"
+                                    }
+                                },
+                                {
+                                    "<>": "label",
+                                    "css": {
+                                        "cursor": "pointer"
+                                    },
+                                    "text": "&nbsp;&nbsp;ไทย"
+                                }
+                            ]
+                        },
+                        {
+                            "<>": "div",
+                            "class": "container",
+                            "css": {
+                                "position": "absolute",
+                                "margin": "0 auto",
+                                "padding": "8px",
+                                "left": "20px",
+                                "right": "20px",
+                                "bottom": "120px"
+                                
+                            },
+                            "elements": [
+                                {
+                                    "<>": "div",
+                                    "class": "row",
+                                    "elements": [
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 1);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji1.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "แย่",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "class": "btn btn-default",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 2);"
+                                                    },
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji//emoji2.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "พอใช้",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 3);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji3.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "ดี",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "<>": "div",
+                                            "class": "col-sm-3",
+                                            "elements": [
+                                                {
+                                                    "<>": "a",
+                                                    "attr": {
+                                                        "onclick": "rr.SendVote(3, 4);"
+                                                    },
+                                                    "class": "btn btn-default",
+                                                    "css": {
+                                                        "top": "35px",
+                                                        "margin": "5px auto",
+                                                        "padding": "8px",
+                                                        "width": "0 auto",
+                                                        "font-size": "3em",
+                                                        "border-radius": "6px",
+                                                        "background-color":"transparent"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "<>": "img",
+                                                            "attr":{
+                                                                "src": "/public/assets/images/gif/emoji/emoji4.gif",
+                                                                "width": "100px",
+                                                                "height": "100px"
+                                                            },
+                                                            "css":{
+                                                                "display":"block",
+                                                                "margin":"0 auto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "<>": "label",
+                                                            "text": "ดีมาก",
+                                                            "css":{
+                                                                "color": "black",
+                                                                "font-family": "Arial",
+                                                                "font-weight": "bold",
+                                                                "margin": "5px auto"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "<>": "section",
+            "attr": {
+                "slide-id": "4",
+                "data-background-image": "/public/assets/images/backgrounds/bg-34.jpg",
+                "data-background-repeat": "no-repeat",
+                "data-action": "playSound",
+                "data-url-EN": "/public/assets/audios/mp3/thankyou.EN.mp3",
+                "data-url-TH": "/public/assets/audios/mp3/thankyou.TH.mp3",
+                "data-url-JA": "/public/assets/audios/mp3/thankyou.JA.mp3"
+            },
+            "class": "",
+            "css": {
+                "display": "block",
+                "margin": "0 auto",
+                "padding": "0",
+                "width": "100%",
+                "height": "100%"
+            },
+            "conetents": [],
+            "elements": [
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "EN"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-size": "5em",
+                                "top": "220px",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "Thank you"
+                        }
+                    ]
+                },
+                {
+                    "<>": "div",
+                    "attr": {
+                        "langId": "TH"
+                    },
+                    "class": "x-slide",
+                    "elements": [
+                        {
+                            "<>": "label",
+                            "css": {
+                                "position": "absolute",
+                                "font-size": "5em",
+                                "top": "220px",
+                                "left": "20px",
+                                "right": "20px"
+                            },
+                            "text": "ขอบคุณที่ใช้บริการ"
+                        },
+                        {}
+                    ]
+                }
+            ]
+        }
+    ]
+}
