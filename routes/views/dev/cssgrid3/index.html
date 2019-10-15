@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- tabulator css -->
+    <link href="/dist/css/tabulator.min.css" rel="stylesheet" type="text/css" />
+    <!-- chartjs css -->
+    <link href="/dist/css/chart.min.css" rel="stylesheet" type="text/css" />
+    <!-- reveal css -->
+    <link href="/dist/css/reveal.css" rel="stylesheet" type="text/css" />
+    <!-- nlib css -->
+    <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
+    <style>
+        .canvas-container {
+            margin: 0 auto;
+            border: 1px solid blue;
+        }
+        /*
+        .canvas-container {
+            padding: 20px;
+            width: 100% !important;
+            height: 100% !important;
+            border: 1px solid blue;
+        }
+        .canvas-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        */
+    </style>
+</head>
+<body>
+    <div>css grid 3</div>
+
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- Tabulator -->
+    <script src="/dist/js/tabulator.min.js"></script>
+    <!-- Chart.js -->
+    <script src="/dist/js/chart.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-datalabels.min.js"></script>
+    <script src="/dist/js/chartjs-plugin-piechart-outlabels.min.js"></script>
+    <!-- fabric.js -->
+    <script src="/dist/js/fabric.min.js"></script>
+    <!-- Howler.js -->
+    <script src="/dist/js/howler.min.js"></script>
+    <!-- Reveal.js -->
+    <script src="/dist/js/reveal.js"></script>
+    <!-- Riot.js -->
+    <script src="/dist/js/riot.min.js"></script>
+    <!-- custom components -->
+    <!--
+    <script src="/dist/js/tags.js"></script>
+    -->
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <!-- services -->
+    <!--
+    <script src="/dist/js/services.js"></script>
+    -->
+    <script>
+        
+        let cw = '1280px'
+        let ch = '720px'
+        /*
+        let cw = '1920px'
+        let ch = '1080px'
+        */
+        let cv1 = new fabric.Canvas('cv1');
+        cv1.setDimensions({ width: cw, height: ch }, { cssOnly: true });
+        //fabric.Object.prototype.transparentCorners = false;
+        //fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+        fabric.Canvas.prototype.getAbsoluteCoords = function(object) {
+            return {
+                left: object.left + this._offset.left,
+                top: object.top + this._offset.top
+            };
+        }
+        console.log(cv1)
+        cv1.add(new fabric.Rect({
+            width: 120, height: 120,
+            left: 50, top: 50,
+            fill: 'red',
+            angle: 0
+        }))
+        let rect = new fabric.Rect({
+            width: 120, height: 120,
+            left: 300, top: 150,
+            fill: 'silver',            
+            angle: 0
+        })
+        cv1.add(rect)
+        //console.log(cv1.getObjects())
+        let comicSansText = new fabric.Text("I'm in Comic Sans", {
+            fontFamily: 'Comic Sans'
+        });
+        cv1.add(comicSansText);
+        let img = document.getElementById('img1')
+        function positionImg(cv, obj) {
+            let absCoords = cv.getAbsoluteCoords(obj);
+            img.style.left = (absCoords.left - img.style.width / 2) + 'px';
+            img.style.top = (absCoords.top - img.style.height / 2) + 'px';
+        }
+        rect.on('moving', () => { positionImg(cv1, rect) })
+        rect.on('scaling', () => { positionImg(cv1, rect) })
+        positionImg(cv1, rect); // first call.
+        //console.log(cv1.getObjects())
+        let resizeCanvas = (cv, size) => {
+            console.log(size);
+            /*
+            let factorX = size.width / 1280;
+            let factorY = size.height / 720;
+            */
+            let factorX = size.presentationWidth / 1280;
+            let factorY = size.presentationHeight / 720;
+            zoomCanvas(cv, factorX, factorY);
+        }
+        function zoomCanvas(cv, factorX, factorY) {
+            //cv.setLeft(cv.left * factorX)
+            cv.setWidth(cv.getWidth() * factorX);
+            cv.setHeight(cv.getHeight() * factorY);
+            if (cv.backgroundImage) {
+                // Need to scale background images as well
+                var bi = cv.backgroundImage;
+                bi.width = bi.width * factorX; bi.height = bi.height * factorY;
+            }
+            let objects = cv.getObjects();
+            let tcounter = 0;
+            for (let i in objects) {
+                tcounter++;
+                //alert(tcounter);
+                let scaleX = objects[i].scaleX;
+                let scaleY = objects[i].scaleY;
+                let left = objects[i].left;
+                let top = objects[i].top;
+                let tempScaleX = scaleX * factorX;
+                let tempScaleY = scaleY * factorY;
+                let tempLeft = left * factorX;
+                let tempTop = top * factorY;
+                objects[i].scaleX = tempScaleX;
+                objects[i].scaleY = tempScaleY;
+                objects[i].left = tempLeft;
+                objects[i].top = tempTop;
+                objects[i].setCoords();
+            }
+            cv.renderAll();
+            cv.calcOffset();
+        }
+        Reveal.addEventListener('resize', function(e) {
+            //resizeCanvas(cv1, e.size);
+        });
+        Reveal.initialize({
+            /*
+            width: 1280,
+            height: 720,
+            */
+            
+            width: '100%',
+            height: '100%',
+            
+            // Factor of the display size that should remain empty around the content
+	        margin: 0,
+            // Bounds for smallest/largest possible scale to apply to content
+            minScale: 0.2,
+	        maxScale: 1.5
+        });
+        //console.log(Reveal);
+    </script>
+</body>
+</html>
