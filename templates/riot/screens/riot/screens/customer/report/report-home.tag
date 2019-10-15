@@ -176,14 +176,28 @@
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+
+            document.addEventListener('report:show', onReportShow);
+            document.addEventListener('report:search', onReportSearch);
         }
         let unbindEvents = () => {
+            document.removeEventListener('report:show', onReportShow);
+            document.removeEventListener('report:search', onReportSearch);
+
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
         }
 
         //#endregion
+
+        let showScreen = () => {
+            let data = {
+
+            }
+            let evt = new CustomEvent('report:show:screen', { detail: data })
+            document.dispatchEvent(evt);
+        }
 
         //#region riot handlers
 
@@ -210,6 +224,15 @@
             else {
                 // other screen shown.
             }
+        }
+
+        let onReportShow = (e) => {
+            let data = e.detail;
+            console.log(data)
+        }
+        let onReportSearch = (e) => {
+            let data = e.detail;
+            console.log(data)
         }
 
         //#endregion
@@ -256,7 +279,7 @@
 
         //#region public methods
 
-        this.publicMethod = (message) => { }
+        this.refresh = () => { }
 
         //#endregion
     </script>

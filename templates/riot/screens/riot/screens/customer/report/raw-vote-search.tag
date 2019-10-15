@@ -141,7 +141,7 @@
                   ] }
             ]
             $('#org1').tree({
-                checkbox:true,
+                checkbox: true,
                 data: orgs
             })
         }

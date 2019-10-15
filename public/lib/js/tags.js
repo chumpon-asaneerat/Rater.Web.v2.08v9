@@ -5070,7 +5070,7 @@ riot.tag2('raw-vote-search', '<div class="container h-100 pt-2"> <form> <br> <di
                   ] }
             ]
             $('#org1').tree({
-                checkbox:true,
+                checkbox: true,
                 data: orgs
             })
         }
@@ -5200,11 +5200,25 @@ riot.tag2('report-home', '<div class="report-container"> <div ref="home" class="
             document.addEventListener('app:content:changed', onAppContentChanged);
             document.addEventListener('language:changed', onLanguageChanged);
             document.addEventListener('app:screen:changed', onScreenChanged);
+
+            document.addEventListener('report:show', onReportShow);
+            document.addEventListener('report:search', onReportSearch);
         }
         let unbindEvents = () => {
+            document.removeEventListener('report:show', onReportShow);
+            document.removeEventListener('report:search', onReportSearch);
+
             document.removeEventListener('app:screen:changed', onScreenChanged);
             document.removeEventListener('language:changed', onLanguageChanged);
             document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        let showScreen = () => {
+            let data = {
+
+            }
+            let evt = new CustomEvent('report:show:screen', { detail: data })
+            document.dispatchEvent(evt);
         }
 
         this.on('mount', () => {
@@ -5226,6 +5240,15 @@ riot.tag2('report-home', '<div class="report-container"> <div ref="home" class="
             else {
 
             }
+        }
+
+        let onReportShow = (e) => {
+            let data = e.detail;
+            console.log(data)
+        }
+        let onReportSearch = (e) => {
+            let data = e.detail;
+            console.log(data)
         }
 
         let showMsg = (err) => { }
@@ -5260,7 +5283,7 @@ riot.tag2('report-home', '<div class="report-container"> <div ref="home" class="
             home.refresh()
         }
 
-        this.publicMethod = (message) => { }
+        this.refresh = () => { }
 
 });
 riot.tag2('report-menu', '<div class="report-main-menu"> <button onclick="{showRawVoterSearch}">Raw Vote Search</button> <button>Vote Summary Search</button> <button>Staff Performance Search</button> <button>Vote Summary Search</button> <button>Staff Performance Search</button> <button>Vote Summary Search</button> <button>Staff Performance Search</button> </div>', 'report-menu,[data-is="report-menu"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; } report-menu .report-main-menu,[data-is="report-menu"] .report-main-menu{ margin: 0 auto; margin-top: 100px; padding: 0; width: 80%; display: grid; grid-template-columns: repeat(4, minmax(200px, 1fr)); grid-template-rows: repeat(4, 70px); grid-gap: 0.5em; justify-content: center; align-items: stretch; }', '', function(opts) {
@@ -5342,7 +5365,7 @@ riot.tag2('staff-perf-view', '', 'staff-perf-view,[data-is="staff-perf-view"]{ m
         this.publicMethod = (message) => { }
 
 });
-riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('vote-summary-search', '<h2>Vote Summary Tag</h2>', 'vote-summary-search,[data-is="vote-summary-search"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 
 
         let self = this;
@@ -5356,10 +5379,7 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
         this.content = defaultContent;
 
         let updatecontent = () => {
-            if (screenservice && screenservice.screenId === screenId) {
-                self.content = (screenservice.content) ? screenservice.content : defaultContent;
-                self.update();
-            }
+
         }
 
         let initCtrls = () => {}
@@ -5398,9 +5418,59 @@ riot.tag2('vote-summary', '', 'vote-summary,[data-is="vote-summary"]{ margin: 0 
             }
         }
 
-        let showMsg = (err) => { }
+});
+riot.tag2('vote-summary-view', '', 'vote-summary-view,[data-is="vote-summary-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
 
-        this.publicMethod = (message) => { }
+
+        let self = this;
+        let screenId = 'screenid';
+
+        let defaultContent = {
+            title: 'Title',
+            label: {},
+            links: []
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+
+        }
+
+        let initCtrls = () => {}
+        let freeCtrls = () => {}
+        let clearInputs = () => {}
+
+        let bindEvents = () => {
+            document.addEventListener('app:content:changed', onAppContentChanged);
+            document.addEventListener('language:changed', onLanguageChanged);
+            document.addEventListener('app:screen:changed', onScreenChanged);
+        }
+        let unbindEvents = () => {
+            document.removeEventListener('app:screen:changed', onScreenChanged);
+            document.removeEventListener('language:changed', onLanguageChanged);
+            document.removeEventListener('app:content:changed', onAppContentChanged);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onAppContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => {
+            updatecontent();
+            if (e.detail.screenId === screenId) {
+
+            }
+            else {
+
+            }
+        }
 
 });
 riot.tag2('dev-home', '<div id="item"> Sample Data </div>', 'dev-home,[data-is="dev-home"]{ display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } dev-home .item,[data-is="dev-home"] .item{ display: inline-block; color: dimgray; }', '', function(opts) {

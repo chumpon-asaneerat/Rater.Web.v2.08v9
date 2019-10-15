@@ -1,4 +1,5 @@
-<vote-summary>
+<vote-summary-search>
+    <h2>Vote Summary Tag</h2>
     <style>
         :scope {
             margin: 0 auto;
@@ -25,10 +26,12 @@
         this.content = defaultContent;
         
         let updatecontent = () => {
+            /*
             if (screenservice && screenservice.screenId === screenId) {
                 self.content = (screenservice.content) ? screenservice.content : defaultContent;
                 self.update();
             }
+            */
         }
 
         //#endregion
@@ -84,17 +87,5 @@
         }
 
         //#endregion
-
-        //#region private service wrapper methods
-
-        let showMsg = (err) => { }
-
-        //#endregion
-
-        //#region public methods
-
-        this.publicMethod = (message) => { }
-
-        //#endregion
     </script>
-</vote-summary>
+</vote-summary-search>
