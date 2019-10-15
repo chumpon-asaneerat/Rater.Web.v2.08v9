@@ -1,13 +1,10 @@
 <report-home>    
     <div class="report-container">
         <div ref="home" class="report-screen" screen="home">
-            <label>Summary Report HOME</label>
-            <button onclick="{ showRawVoterSearch }">Raw Vote Search</button>
-            <button>Vote Summary Search</button>
-            <button>Staff Performance Search</button>
+            <report-menu ref="report-menu"></report-menu>
         </div>
         <div ref="rawvoteSearch" class="report-screen hide" screen="rawvote-search">
-            <label>rawvoteSearch</label>
+            <raw-vote-search ref="rws"></raw-vote-search>
         </div>
         <div ref="rawvoteResult" class="report-screen hide" screen="rawvote-result">
             <label>rawvoteResult</label>
@@ -137,6 +134,8 @@
         let staffrawSearch, staffrawResult;
         let staffperfSearch, staffperfResult;
 
+        let reportMenu, rws;
+
         let initCtrls = () => {
             home = self.refs['home']
             rawvoteSearch = self.refs['rawvoteSearch']
@@ -147,6 +146,11 @@
             staffrawResult = self.refs['staffrawResult']
             staffperfSearch = self.refs['staffperfSearch']
             staffperfResult = self.refs['staffperfResult']
+
+            reportMenu = self.refs['report-menu']
+            reportMenu.setup(self)
+            rws = self.refs['rws']
+            rws.setup(self)
         }
         let freeCtrls = () => {
             home = null
@@ -158,6 +162,9 @@
             staffrawResult = null
             staffperfSearch = null
             staffperfResult = null
+
+            reportMenu = null;
+            rws = null;
         }
         let clearInputs = () => {}
 
@@ -234,8 +241,15 @@
             hideElm(staffperfResult)
         }
         this.showRawVoterSearch = () => {
-            console.log('click.')
+            //console.log('click.')
             showElm(rawvoteSearch)
+            if (rws) rws.refresh()
+        }
+
+        this.showHome = () => {
+            //console.log('click.')
+            showElm(home)
+            home.refresh()
         }
 
         //#endregion

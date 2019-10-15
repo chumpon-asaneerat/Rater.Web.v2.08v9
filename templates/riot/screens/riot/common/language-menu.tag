@@ -1,5 +1,5 @@
 <language-menu>
-    <div class="menu">
+    <div class="rater-lang-menu">
         <a ref="flags" class="flag-combo" href="javascript:;">
             <span class="flag-css flag-icon flag-icon-{ lang.current.flagId.toLowerCase() }" ref="css-icon"></span>
             <div class="flag-text">&nbsp;{ lang.langId }&nbsp;</div>
@@ -23,7 +23,7 @@
             padding: 0, 2px;
             user-select: none;
         }
-        .menu {
+        .rater-lang-menu {
             margin: 0 auto;
             padding: 0;
         }

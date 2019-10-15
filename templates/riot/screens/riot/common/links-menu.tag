@@ -1,5 +1,5 @@
 <links-menu>
-    <div class="menu">
+    <div class="rater-link-menu">
         <a ref="links" class="link-combo" href="javascript:;">
             <span ref="showlinks" class="burger fas fa-bars"></span>
         </a>
@@ -20,7 +20,7 @@
             padding: 0 3px;
             user-select: none;
         }
-        .menu {
+        .rater-link-menu {
             margin: 0 auto;
             padding: 0;
         }
