@@ -2,7 +2,7 @@
     "app": {
         "name": "My Choice Rater Web v2.08 rev 9",
         "version": "2.0.8",
-        "updated": "2019-08-15 01:00:00"
+        "updated": "2019-10-17 09:00:00"
     },
     "webserver": {
         "port": 3000,
@@ -101,12 +101,6 @@
                 },
                 {
                     "route": "/dist",
-                    "path": "public/dist/highcharts-6.1.0",
-                    "maxAge": "5y",
-                    "enable": true
-                },
-                {
-                    "route": "/dist",
                     "path": "public/dist/chart-js-2.8.0",
                     "maxAge": "5y",
                     "enable": true
@@ -169,7 +163,7 @@
                     "route": "/dist",
                     "path": "public/dist/reveal-3.8.0",
                     "maxAge": "5y",
-                    "enable": true
+                    "enable": false
                 },
                 {
                     "route": "/dist/js",
@@ -186,6 +180,30 @@
                 {
                     "route": "/dist",
                     "path": "public/dist/gifuct-js-1.0.0",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist/css",
+                    "path": "public/dist/highcharts-7.2.0/code/css",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist/js",
+                    "path": "public/dist/highcharts-7.2.0/code",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist/js",
+                    "path": "public/dist/interactjs-1.6.2",
+                    "maxAge": "5y",
+                    "enable": true
+                },
+                {
+                    "route": "/dist",
+                    "path": "public/dist/gifler-0.3.0",
                     "maxAge": "5y",
                     "enable": true
                 },
