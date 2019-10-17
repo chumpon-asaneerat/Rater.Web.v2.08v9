@@ -191,13 +191,13 @@
                 },
                 {
                     "route": "/dist/css",
-                    "path": "public/dist/videojs-6.7.2",
+                    "path": "public/dist/videojs-7.6.5",
                     "maxAge": "5y",
                     "enable": true
                 },
                 {
                     "route": "/dist/js",
-                    "path": "public/dist/videojs-6.7.2",
+                    "path": "public/dist/videojs-7.6.5",
                     "maxAge": "5y",
                     "enable": true
                 },
