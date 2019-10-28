@@ -34,7 +34,7 @@
             <div class="group-body">
                     <div class="padtop"></div>
                     <div class="padtop"></div>
-                    <user-selection ref="userList" customername="{ content.label.customerName }""></user-selection>
+                    <user-selection ref="userList" customername="{ content.label.customerName }"></user-selection>
                     <div class="padtop"></div>
                     <button ref="cancel">
                         <span class="fa fa-user-times">&nbsp;</span>
