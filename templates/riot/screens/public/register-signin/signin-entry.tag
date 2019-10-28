@@ -191,6 +191,7 @@
         let userName, passWord, submit, cancel;
 
         let initCtrls = () => {
+            console.log(self.refs)
             userSignIn = self.refs['userSignIn'];
             userSelection = self.refs['userSelection'];
             userName = self.refs['userName'];
@@ -256,6 +257,7 @@
         //#region riot handlers
 
         this.on('mount', () => {
+            console.log('mount')
             initCtrls();
             bindEvents();
         });
